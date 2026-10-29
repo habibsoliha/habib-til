@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Habib til</title>
+<!-- Telegram Mini App: Telegram ichida ochilganda mavzu va tugmalar shu skript orqali ishlaydi -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root { --bg:#fff; --fg:#1f2937; --muted:#6b7280; --card:#f3f4f6; --brand:#0f766e; --brand2:#14b8a6;
+          --ok:#16a34a; --okbg:#dcfce7; --bad:#dc2626; --badbg:#fee2e2; --line:#e5e7eb; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111827; --fg:#f9fafb; --muted:#9ca3af; --card:#1f2937;
+          --okbg:#14532d; --badbg:#7f1d1d; --line:#374151; } }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--fg); }
+  .wrap { max-width:480px; margin:0 auto; padding:16px; min-height:100vh; display:flex; flex-direction:column; }
+  .top { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .bar { flex:1; height:12px; background:var(--card); border-radius:99px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--brand2); width:0; transition:width .3s; }
+  .pill { font-weight:700; font-size:14px; white-space:nowrap; }
+  h1 { font-size:22px; margin:8px 0; } h2 { font-size:18px; margin:4px 0 16px; }
+  p { line-height:1.5; color:var(--muted); }
+  .ar { font-family:"Amiri","Scheherazade New","Traditional Arabic","Noto Naskh Arabic",serif; direction:rtl; }
+  .big { font-size:56px; text-align:center; margin:8px 0; }
+  .opts { display:grid; gap:10px; margin-top:8px; }
+  .opts.g3 { grid-template-columns:repeat(3,1fr); } .opts.g2 { grid-template-columns:1fr 1fr; }
+  button.o { padding:14px; font-size:18px; border:2px solid var(--line); border-bottom-width:4px; border-radius:14px;
+             background:var(--bg); color:var(--fg); cursor:pointer; }
+  button.o.ar { font-size:34px; padding:8px; }
+  button.o.sel { border-color:var(--brand2); background:var(--card); }
+  button.o.ok { border-color:var(--ok); background:var(--okbg); } button.o.bad { border-color:var(--bad); background:var(--badbg); }
+  button.o.done { opacity:.35; pointer-events:none; }
+  .main { margin-top:auto; width:100%; padding:16px; font-size:18px; font-weight:700; border:0; border-radius:14px;
+          background:var(--brand); color:#fff; cursor:pointer; }
+  .main:disabled { opacity:.4; }
+  .fb { margin-top:12px; padding:12px; border-radius:12px; font-weight:600; display:none; }
+  .fb.ok { display:block; background:var(--okbg); color:var(--ok); } .fb.bad { display:block; background:var(--badbg); color:var(--bad); }
+  .play { display:block; margin:8px auto 16px; width:88px; height:88px; border-radius:50%; border:0; font-size:36px;
+          background:var(--brand2); color:#fff; cursor:pointer; }
+  .video { aspect-ratio:16/9; background:var(--card); border-radius:14px; display:flex; align-items:center;
+           justify-content:center; color:var(--muted); text-align:center; padding:16px; margin-bottom:12px; }
+  .stats { display:flex; gap:10px; margin:12px 0; } .stat { flex:1; background:var(--card); border-radius:14px; padding:12px; text-align:center; }
+  .stat b { display:block; font-size:24px; }
+  textarea { width:100%; min-height:90px; font:inherit; padding:10px; border-radius:12px; border:2px solid var(--line); background:var(--bg); color:var(--fg); }
+  .note { font-size:13px; color:var(--muted); margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+// --- 1-dars kontenti ("02 Sinov — Fonetika 1-3.md" dan). Keyin JSON faylga chiqariladi. ---
+// Audio hozircha brauzer ovozi (arabcha TTS); ustoz ovozi yozilgach audio fayllar bilan almashtiriladi.
+const L1 = {
+  n: 1,
+  hw: "Ismingiz unlilarini harakat bilan va alifni 3 qatordan daftarga yozing, rasmini botga yuboring. أَ إِ أُ ni ovoz yozib yuboring.",
+  title: "1-dars. Kirish: harakatlar va alif",
+  video: "Video: Habibulloh Ahmadov, ~10 daqiqa (yozilgach shu yerga qo'yiladi)",
+  steps: [
+    { t:"choice", q:"Arab tilida nechta harf bor?", o:["26","28","29","33"], a:1 },
+    { t:"match", q:"Tillarni harflar soni bilan juftlang", pairs:[["Rus tili","33"],["Ingliz tili","26"],["O'zbek (lotin)","29"],["Arab tili","28"]] },
+    { t:"choice", q:"Arab tilidagi qisqa unlilar nima deyiladi?", o:["harakat","harf","sukun"], a:0 },
+    { t:"match", q:"Harakatni tovush bilan juftlang", pairs:[["fatha","a"],["kasra","i"],["damma","u"]] },
+    { t:"listen", q:"Eshiting va tanlang", say:"بَ", o:["بَ","بِ","بُ"], a:0 },
+    { t:"listen", q:"Eshiting va tanlang", say:"بُ", o:["بَ","بِ","بُ"], a:2 },
+    { t:"listen", q:"Eshiting va tanlang", say:"بِ", o:["بَ","بِ","بُ"], a:1 },
+    { t:"choice", q:"اَبْ so'zidagi ـْ belgisi nima?", ar:"اَبْ", o:["sukun","fatha","damma"], a:0 },
+    { t:"choice", q:"Alif harakatsiz o'qiladimi?", o:["Ha","Yo'q"], a:1 },
+    { t:"match", q:"Tushunchani ma'nosi bilan juftlang", pairs:[["Maxraj","chiqish joyi"],["Sifat","chiqish xususiyati"]] },
+    { t:"listen", q:"Eshiting va tanlang", say:"أُ", o:["أَ","إِ","أُ"], a:2 },
+    { t:"write", q:"Refleksiya: 3 ta eslab qolganingiz, 2 ta muhimi, 1 ta mashq kerak bo'lgan mavzu" },
+  ],
+  test: [
+    { q:"Arab alifbosidagi harflar soni?", o:["26","28","29","33"], a:1 },
+    { q:"Qisqa unlilar qanday yoziladi?", o:["harf bilan","belgi (harakat) bilan","yozilmaydi"], a:1 },
+    { q:"Fatha qanday o'qiladi?", o:["a","i","u"], a:0 },
+    { q:"بِ qanday o'qiladi?", o:["ba","bi","bu"], a:1 },
+    { q:"Damma qaysi?", o:["بَ","بِ","بُ"], a:2, ar:true },
+    { q:"Sukun nimani bildiradi?", o:["harf harakatsiz","cho'ziq","\"i\" tovushi"], a:0 },
+    { q:"Alif harakatsiz o'qiladimi?", o:["Ha","Yo'q"], a:1 },
+    { q:"Maxraj nima?", o:["harf chiqadigan joy","harf shakli","harakat"], a:0 },
+    { q:"Sifat nima?", o:["harfning qanday chiqishi","harflar soni","yozilishi"], a:0 },
+    { q:"Eshiting: qaysi biri?", say:"أَبْ", o:["اَبْ","بَا","بُ"], a:0, ar:true },
+  ],
+};
+
+const L2 = {
+  n: 2,
+  hw: "Har bir so'zni 3 qatordan yozing va rasmini yuboring. بَ بِ بُ تَ تِ تُ ni ovoz yozib yuboring.",
+  title: "2-dars. Ba ( ب ) va Ta ( ت ) harflari",
+  video: "Video: Habibulloh Ahmadov, ~12 daqiqa (yozilgach shu yerga qo'yiladi)",
+  steps: [
+    { t:"match", q:"Harfni tovush bilan juftlang", pairs:[["ب","b"],["ت","t"]] },
+    { t:"listen", q:"Eshiting va tanlang", say:"بَ", o:["بَ","تَ","بِ"], a:0 },
+    { t:"listen", q:"Eshiting va tanlang", say:"تُ", o:["تُ","بُ","تِ"], a:0 },
+    { t:"listen", q:"Eshiting va tanlang", say:"تِ", o:["تِ","بِ","تَ"], a:0 },
+    { t:"choice", q:"ب ning maxraji qayer?", o:["ikki lab","til uchi va milk","tomoq"], a:0 },
+    { t:"choice", q:"ت ning maxraji qayer?", o:["ikki lab","til uchi va yuqori tish milki","burun"], a:1 },
+    { t:"match", q:"Harfni sifati bilan juftlang", pairs:[["ب","jarangli"],["ت","jarangsiz"]] },
+    { t:"choice", q:"Qaysi biri ب ning sifati EMAS?", o:["portlovchi","tebranuvchi","g'unnali","ingichka"], a:2 },
+    { t:"choice", q:"Qaysi biri ت ning sifati EMAS?", o:["havo chiquvchi","tebranuvchi","jarangsiz","portlovchi"], a:1 },
+    { t:"choice", q:"ب ni \"p\" deb aytish — to'g'rimi?", o:["To'g'ri","Xato"], a:1 },
+    { t:"choice", q:"Sukunli ت ni \"d\" deb aytish — to'g'rimi?", o:["To'g'ri","Xato"], a:1 },
+    { t:"choice", q:"Ingichka harf fatha bilan qanday o'qiladi?", o:["\"a\"","\"o\""], a:0 },
+    { t:"listen", q:"So'zni eshiting va tanlang", say:"أَبَتِ", o:["أَبَتِ","أَبُتْ","تَأَبْ"], a:0 },
+    { t:"listen", q:"So'zni eshiting va tanlang", say:"بَأَتْ", o:["تَأْبُ","بَأَتْ","بَتِتْ"], a:1 },
+  ],
+  test: [
+    { q:"ب ning maxraji?", o:["ikki lab","til uchi","tomoq"], a:0 },
+    { q:"ب jaranglimi yoki jarangsiz?", o:["jarangli","jarangsiz"], a:0 },
+    { q:"ت jaranglimi yoki jarangsiz?", o:["jarangli","jarangsiz"], a:1 },
+    { q:"\"Tebranuvchi\" qaysi harfning sifati?", o:["ب","ت"], a:0, ar:true },
+    { q:"\"Havo chiquvchi\" qaysi harfning sifati?", o:["ب","ت"], a:1, ar:true },
+    { q:"ب dagi eng ko'p xato?", o:["\"p\" deb aytish","g'unna qilish"], a:0 },
+    { q:"Jarangsiz nima degani?", o:["paychalar tebranmaydi, havo ko'p chiqadi","paychalar tebranadi"], a:0 },
+    { q:"Sukunli ت da havo to'liq chiqmasa, qaysi harfga o'xshab qoladi?", o:["sin","ba","nun"], a:0 },
+    { q:"Eshiting: qaysi biri?", say:"تُ", o:["تُ","بُ","تَ"], a:0, ar:true },
+    { q:"ب va ت ingichkami yoki yo'g'on?", o:["ingichka","yo'g'on"], a:0 },
+  ],
+};
+
+const L3 = {
+  n: 3,
+  hw: "Har bir so'zni 3 qatordan yozing, Nun so'zlarini 50 marta o'qing. Bugun 5 daqiqa kitob o'qing!",
+  title: "3-dars. Nun ( ن ) harfi va harflarning zamonlari",
+  video: "Video: Habibulloh Ahmadov, ~11 daqiqa (yozilgach shu yerga qo'yiladi)",
+  steps: [
+    { t:"listen", q:"Eshiting va tanlang", say:"نَ", o:["نَ","بَ","تَ"], a:0 },
+    { t:"listen", q:"Eshiting va tanlang", say:"نُ", o:["نُ","نِ","تُ"], a:0 },
+    { t:"listen", q:"Eshiting va tanlang", say:"نِ", o:["نِ","بِ","نَ"], a:0 },
+    { t:"match", q:"Harfni tovush bilan juftlang", pairs:[["ب","ba"],["ت","ta"],["ن","na"]] },
+    { t:"choice", q:"ن ning maxraji qayer?", o:["til uchi va oldingi tish milki","ikki lab","tomoq"], a:0 },
+    { t:"choice", q:"Qaysi biri ن ning sifati EMAS?", o:["oraliq","g'unnali","portlovchi","jarangli"], a:2 },
+    { t:"choice", q:"G'unna qayerdan chiqadi?", o:["burundan","labdan","tomoqdan"], a:0 },
+    { t:"match", q:"Harf turini zamoni bilan juftlang", pairs:[["portlovchi","0"],["oraliq","5"],["sirg'aluvchi","10"]] },
+    { t:"match", q:"Harfni turi bilan juftlang", pairs:[["ب","portlovchi"],["ن","oraliq"]] },
+    { t:"choice", q:"Sukunli ن ni tebratib aytish — to'g'rimi?", o:["To'g'ri","Xato"], a:1 },
+    { t:"listen", q:"So'zni eshiting va tanlang", say:"أَنْتَ", o:["أَنْتَ","نَبَتَ","بِنْتُ"], a:0 },
+    { t:"listen", q:"So'zni eshiting va tanlang", say:"بِنْتُ", o:["أَنْبَتَ","بِنْتُ","تُنْبِتُ"], a:1 },
+    { t:"choice", q:"Kitobxonlik nima?", o:["o'qiganini tushunadi, tahlil qiladi, amal qiladi","faqat o'qiy oladi"], a:0 },
+    { t:"write", q:"Bugun qaysi kitobdan 5 daqiqa o'qidingiz? Nomini yozing" },
+  ],
+  test: [
+    { q:"ن ning maxraji?", o:["til uchi va oldingi tish milki","ikki lab","tomoq"], a:0 },
+    { q:"ن dagi g'unna qayerdan chiqadi?", o:["burun","lab","tomoq"], a:0 },
+    { q:"ن qaysi guruhda?", o:["portlovchi","oraliq","sirg'aluvchi"], a:1 },
+    { q:"Portlovchi harfning zamoni?", o:["0","5","10"], a:0 },
+    { q:"Oraliq harfning zamoni?", o:["0","5","10"], a:1 },
+    { q:"ب ham portlovchimi?", o:["Ha","Yo'q"], a:0 },
+    { q:"ن dagi xato qaysi?", o:["g'unnani ortiqcha qilish","til uchini milkka tekkizish"], a:0 },
+    { q:"ن jaranglimi?", o:["Ha","Yo'q"], a:0 },
+    { q:"Eshiting: qaysi biri?", say:"نُ", o:["نُ","تُ","بُ"], a:0, ar:true },
+    { q:"Kitob o'qishni qanday boshlash kerak?", o:["kuniga 5 daqiqadan","kuniga 2 soatdan"], a:0 },
+  ],
+};
+
+const LESSONS = [L1, L2, L3];
+let LESSON = L1;
+
+// --- holat (streak/XP) — prototipda brauzerda saqlanadi, keyin serverga ---
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem("alif_" + k)) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("alif_" + k, JSON.stringify(v)); } catch {} },
+};
+const tg = window.Telegram && Telegram.WebApp;
+if (tg) { tg.ready(); tg.expand(); }
+
+const $ = document.getElementById("app");
+let i = 0, xp = 0, mode = "home", testScore = 0;
+
+function speak(text) {
+  if (!("speechSynthesis" in window)) return;
+  const u = new SpeechSynthesisUtterance(text); u.lang = "ar-SA"; u.rate = 0.7;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+const shuffle = a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+const isAr = s => /[؀-ۿ]/.test(s);
+
+function header(done, total) {
+  return `<div class="top"><div class="bar"><i style="width:${Math.round(done / total * 100)}%"></i></div>
+          <span class="pill">⭐ ${xp}</span></div>`;
+}
+
+// Bosh ekran: darslar ro'yxati. Keyingi dars oldingisi tugagach ochiladi.
+function home() {
+  const streak = store.get("streak", 0), total = store.get("xp", 0);
+  $.innerHTML = `
+    <div class="top"><b style="font-size:20px">Habib til</b><span style="flex:1"></span>
+      <span class="pill">⭐ ${total}</span><span class="pill">🔥 ${streak} kun</span></div>
+    <h2>Fonetika</h2>
+    <div class="opts">${LESSONS.map((l, k) => {
+      const res = store.get("lesson" + l.n, null);
+      const open = k === 0 || store.get("lesson" + LESSONS[k - 1].n, null);
+      const mark = res ? `✅ ${res.score}/10` : open ? "▶️" : "🔒";
+      return `<button class="o ${open ? "" : "done"}" data-k="${k}" style="text-align:left;font-size:16px">
+        ${mark} &nbsp;${l.title}</button>`;
+    }).join("")}</div>`;
+  $.querySelectorAll("button.o").forEach(b => b.onclick = () => {
+    LESSON = LESSONS[+b.dataset.k]; mode = "intro"; xp = 0; render();
+  });
+}
+
+function intro() {
+  const streak = store.get("streak", 0);
+  $.innerHTML = `
+    <div class="top"><button class="o" id="back" style="padding:6px 12px;font-size:16px">←</button>
+      <b style="font-size:20px">Habib til</b><span style="flex:1"></span><span class="pill">🔥 ${streak} kun</span></div>
+    <h1>${LESSON.title}</h1>
+    <div class="video">▶️<br>${LESSON.video}</div>
+    <p>Videoni ko'ring, keyin ${LESSON.steps.length} ta mashq va 10 savollik test.</p>
+    <button class="main" id="go">Mashqlarni boshlash</button>`;
+  document.getElementById("go").onclick = () => { mode = "steps"; i = 0; render(); };
+  document.getElementById("back").onclick = () => { mode = "home"; render(); };
+}
+
+function feedback(ok, extra) {
+  const fb = document.getElementById("fb");
+  fb.className = "fb " + (ok ? "ok" : "bad");
+  fb.textContent = ok ? "To'g'ri! +10 XP" : "Noto'g'ri. " + (extra || "");
+  if (ok) xp += 10;
+  if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred(ok ? "success" : "error");
+  const btn = document.getElementById("next");
+  btn.disabled = false; btn.textContent = "Davom etish";
+  btn.onclick = next;
+}
+
+function choiceStep(s, total, isTest) {
+  const ar = s.ar === true || s.o.some(isAr);
+  $.innerHTML = header(i, total) + `
+    <h2>${s.q}</h2>
+    ${s.say ? `<button class="play" id="pl">🔊</button>` : ""}
+    ${typeof s.ar === "string" ? `<div class="big ar">${s.ar}</div>` : ""}
+    <div class="opts ${ar ? "g3" : ""}">${s.o.map((o, n) =>
+      `<button class="o ${isAr(o) ? "ar" : ""}" data-n="${n}">${o}</button>`).join("")}</div>
+    <div class="fb" id="fb"></div>
+    <button class="main" id="next" disabled>Tekshirish</button>`;
+  if (s.say) { document.getElementById("pl").onclick = () => speak(s.say); setTimeout(() => speak(s.say), 300); }
+  let pick = null;
+  $.querySelectorAll("button.o").forEach(b => b.onclick = () => {
+    $.querySelectorAll("button.o").forEach(x => x.classList.remove("sel"));
+    b.classList.add("sel"); pick = +b.dataset.n;
+    const nx = document.getElementById("next"); nx.disabled = false;
+    nx.onclick = () => {
+      $.querySelectorAll("button.o").forEach(x => x.onclick = null);
+      const ok = pick === s.a;
+      b.classList.add(ok ? "ok" : "bad");
+      if (!ok) $.querySelector(`button.o[data-n="${s.a}"]`).classList.add("ok");
+      if (isTest && ok) testScore++;
+      feedback(ok, "To'g'ri javob: " + s.o[s.a]);
+    };
+  });
+}
+
+function matchStep(s, total) {
+  const left = shuffle(s.pairs.map((p, n) => ({ n, v: p[0] })));
+  const right = shuffle(s.pairs.map((p, n) => ({ n, v: p[1] })));
+  $.innerHTML = header(i, total) + `<h2>${s.q}</h2>
+    <div class="opts g2">
+      <div class="opts">${left.map(x => `<button class="o" data-side="l" data-n="${x.n}">${x.v}</button>`).join("")}</div>
+      <div class="opts">${right.map(x => `<button class="o" data-side="r" data-n="${x.n}">${x.v}</button>`).join("")}</div>
+    </div>
+    <div class="fb" id="fb"></div>
+    <button class="main" id="next" disabled>Juftlang</button>`;
+  let sel = null, left2 = s.pairs.length, mistakes = 0;
+  $.querySelectorAll("button.o").forEach(b => b.onclick = () => {
+    if (!sel || sel.dataset.side === b.dataset.side) {
+      $.querySelectorAll(`button.o[data-side="${b.dataset.side}"]`).forEach(x => x.classList.remove("sel"));
+      b.classList.add("sel"); sel = b; return;
+    }
+    if (sel.dataset.n === b.dataset.n) {
+      [sel, b].forEach(x => { x.classList.remove("sel"); x.classList.add("done"); });
+      if (--left2 === 0) feedback(mistakes === 0, "Xatolar bilan juftlandi — keyingi safar diqqat!");
+    } else {
+      mistakes++; b.classList.add("bad"); const s0 = sel;
+      setTimeout(() => { b.classList.remove("bad"); s0.classList.remove("sel"); }, 500);
+    }
+    sel = null;
+  });
+}
+
+function writeStep(s, total) {
+  $.innerHTML = header(i, total) + `<h2>${s.q}</h2>
+    <textarea id="tx" placeholder="Shu yerga yozing..."></textarea>
+    <p class="note">Javobingiz ustozga yuboriladi.</p>
+    <div class="fb" id="fb"></div>
+    <button class="main" id="next" disabled>Yuborish</button>`;
+  const tx = document.getElementById("tx"), nx = document.getElementById("next");
+  tx.oninput = () => { nx.disabled = tx.value.trim().length < 5; };
+  nx.onclick = () => { store.set("reflect" + LESSON.n, tx.value); feedback(true); };
+}
+
+function next() {
+  i++;
+  if (mode === "steps" && i >= LESSON.steps.length) { mode = "testIntro"; }
+  else if (mode === "test" && i >= LESSON.test.length) { mode = "finish"; }
+  render();
+}
+
+function testIntro() {
+  $.innerHTML = `<h1>Ajoyib! Mashqlar tugadi ⭐ ${xp}</h1>
+    <p>Endi 10 savollik test. Har bir to'g'ri javob — 1 ball.</p>
+    <button class="main" id="go">Testni boshlash</button>`;
+  document.getElementById("go").onclick = () => { mode = "test"; i = 0; testScore = 0; render(); };
+}
+
+function finish() {
+  const today = new Date().toDateString(), last = store.get("lastDay", null);
+  let streak = store.get("streak", 0);
+  if (last !== today) {
+    const y = new Date(Date.now() - 864e5).toDateString();
+    streak = last === y ? streak + 1 : 1;
+    store.set("streak", streak); store.set("lastDay", today);
+  }
+  store.set("xp", store.get("xp", 0) + xp);
+  store.set("lesson" + LESSON.n, { score: testScore, xp, at: Date.now() });
+  const nextL = LESSONS[LESSONS.indexOf(LESSON) + 1];
+  $.innerHTML = `<h1>${LESSON.n}-dars tugadi! 🎉</h1>
+    <div class="stats">
+      <div class="stat"><b>${testScore}/10</b>test</div>
+      <div class="stat"><b>⭐ ${xp}</b>XP</div>
+      <div class="stat"><b>🔥 ${streak}</b>kun</div>
+    </div>
+    <p><b>Uyga vazifa:</b> ${LESSON.hw}</p>
+    ${nextL ? `<p>Ertaga: <b>${nextL.title}</b></p>` : ""}
+    <button class="main" id="go">Darslarga qaytish</button>`;
+  document.getElementById("go").onclick = () => { mode = "home"; render(); };
+}
+
+function render() {
+  if (mode === "home") return home();
+  if (mode === "intro") return intro();
+  if (mode === "testIntro") return testIntro();
+  if (mode === "finish") return finish();
+  if (mode === "test") return choiceStep(LESSON.test[i], LESSON.test.length, true);
+  const s = LESSON.steps[i], total = LESSON.steps.length;
+  if (s.t === "match") return matchStep(s, total);
+  if (s.t === "write") return writeStep(s, total);
+  return choiceStep(s, total, false);
+}
+render();
+</script>
+</body>
+</html>
