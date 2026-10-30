@@ -159,12 +159,33 @@ const L3 = {
 const LESSONS = [L1, L2, L3];
 let LESSON = L1;
 
-// --- holat (streak/XP) — prototipda brauzerda saqlanadi, keyin serverga ---
-const store = {
-  get(k, d) { try { return JSON.parse(localStorage.getItem("alif_" + k)) ?? d; } catch { return d; } },
-  set(k, v) { try { localStorage.setItem("alif_" + k, JSON.stringify(v)); } catch {} },
-};
+// --- holat (streak/XP): Telegram CloudStorage'da (Telegram ichida yo'qolmaydi), zaxira — localStorage ---
 const tg = window.Telegram && Telegram.WebApp;
+const cloud = tg && tg.CloudStorage && tg.isVersionAtLeast && tg.isVersionAtLeast("6.9") ? tg.CloudStorage : null;
+const mem = {};
+const store = {
+  get(k, d) {
+    if (k in mem) return mem[k];
+    try { return JSON.parse(localStorage.getItem("alif_" + k)) ?? d; } catch { return d; }
+  },
+  set(k, v) {
+    mem[k] = v;
+    try { localStorage.setItem("alif_" + k, JSON.stringify(v)); } catch {}
+    try { cloud && cloud.setItem("alif_" + k, JSON.stringify(v)); } catch {}
+  },
+};
+function loadCloud(done) {
+  if (!cloud) return done();
+  const keys = ["streak", "lastDay", "xp", "lesson1", "lesson2", "lesson3"].map(k => "alif_" + k);
+  const t = setTimeout(done, 2500);
+  try {
+    cloud.getItems(keys, (err, vals) => {
+      clearTimeout(t);
+      if (!err && vals) for (const k in vals) if (vals[k]) { try { mem[k.slice(5)] = JSON.parse(vals[k]); } catch {} }
+      done();
+    });
+  } catch { clearTimeout(t); done(); }
+}
 if (tg) { tg.ready(); tg.expand(); }
 
 // --- natijani Google Sheet'ga yuborish (Apps Script havolasi) ---
@@ -176,7 +197,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v4";
+const VERSION = "v5";
 
 const $ = document.getElementById("app");
 let i = 0, xp = 0, mode = "home", testScore = 0;
@@ -354,7 +375,7 @@ function render() {
   if (s.t === "write") return writeStep(s, total);
   return choiceStep(s, total, false);
 }
-render();
+loadCloud(render);
 </script>
 </body>
 </html>
