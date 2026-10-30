@@ -55,7 +55,7 @@ const L1 = {
   hw: "Ismingiz unlilarini harakat bilan va alifni 3 qatordan daftarga yozing, rasmini botga yuboring. أَ إِ أُ ni ovoz yozib yuboring.",
   title: "1-dars. Kirish: harakatlar va alif",
   video: "Video: Habibulloh Ahmadov, ~10 daqiqa (yozilgach shu yerga qo'yiladi)",
-  yt: "ecZbLXDkJiA",
+  yt: ["6XKg2im9swM", "ecZbLXDkJiA"],
   steps: [
     { t:"choice", q:"Arab tilida nechta harf bor?", o:["26","28","29","33"], a:1 },
     { t:"match", q:"Tillarni harflar soni bilan juftlang", pairs:[["Rus tili","33"],["Ingliz tili","26"],["O'zbek (lotin)","29"],["Arab tili","28"]] },
@@ -89,6 +89,7 @@ const L2 = {
   hw: "Har bir so'zni 3 qatordan yozing va rasmini yuboring. بَ بِ بُ تَ تِ تُ ni ovoz yozib yuboring.",
   title: "2-dars. Ba ( ب ) va Ta ( ت ) harflari",
   video: "Video: Habibulloh Ahmadov, ~12 daqiqa (yozilgach shu yerga qo'yiladi)",
+  yt: ["QO2WaoXw7l4"],
   steps: [
     { t:"match", q:"Harfni tovush bilan juftlang", pairs:[["ب","b"],["ت","t"]] },
     { t:"listen", q:"Eshiting va tanlang", say:"بَ", o:["بَ","تَ","بِ"], a:0 },
@@ -124,6 +125,7 @@ const L3 = {
   hw: "Har bir so'zni 3 qatordan yozing, Nun so'zlarini 50 marta o'qing. Bugun 5 daqiqa kitob o'qing!",
   title: "3-dars. Nun ( ن ) harfi va harflarning zamonlari",
   video: "Video: Habibulloh Ahmadov, ~11 daqiqa (yozilgach shu yerga qo'yiladi)",
+  yt: ["GWLuy64I5gM"],
   steps: [
     { t:"listen", q:"Eshiting va tanlang", say:"نَ", o:["نَ","بَ","تَ"], a:0 },
     { t:"listen", q:"Eshiting va tanlang", say:"نُ", o:["نُ","نِ","تُ"], a:0 },
@@ -171,12 +173,10 @@ function sendResult(r) {
   if (!SHEET_URL) return;
   const u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {};
   const body = JSON.stringify({ ...r, id: u.id || "", name: [u.first_name, u.last_name].filter(Boolean).join(" "), username: u.username || "" });
-  let ok = false;
-  try { ok = navigator.sendBeacon && navigator.sendBeacon(SHEET_URL, body); } catch {}
-  if (!ok) { try { fetch(SHEET_URL, { method: "POST", mode: "no-cors", body, keepalive: true }); ok = true; } catch {} }
-  return ok;
+  // GET (rasm orqali) — Telegram ichida eng ishonchli usul
+  try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v3";
+const VERSION = "v4";
 
 const $ = document.getElementById("app");
 let i = 0, xp = 0, mode = "home", testScore = 0;
@@ -220,7 +220,7 @@ function intro() {
       <b style="font-size:20px">Habib til</b><span style="flex:1"></span><span class="pill">🔥 ${streak} kun</span></div>
     <h1>${LESSON.title}</h1>
     ${LESSON.yt
-      ? `<div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${LESSON.yt}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`
+      ? LESSON.yt.map((id, k) => `${LESSON.yt.length > 1 ? `<p><b>${k + 1}-qism</b></p>` : ""}<div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${id}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`).join("")
       : `<div class="video">▶️<br>${LESSON.video}</div>`}
     <p>Videoni ko'ring, keyin ${LESSON.steps.length} ta mashq va 10 savollik test.</p>
     <button class="main" id="go">Mashqlarni boshlash</button>`;
