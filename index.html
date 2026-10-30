@@ -55,6 +55,7 @@ const L1 = {
   hw: "Ismingiz unlilarini harakat bilan va alifni 3 qatordan daftarga yozing, rasmini botga yuboring. أَ إِ أُ ni ovoz yozib yuboring.",
   title: "1-dars. Kirish: harakatlar va alif",
   video: "Video: Habibulloh Ahmadov, ~10 daqiqa (yozilgach shu yerga qo'yiladi)",
+  yt: "ecZbLXDkJiA",
   steps: [
     { t:"choice", q:"Arab tilida nechta harf bor?", o:["26","28","29","33"], a:1 },
     { t:"match", q:"Tillarni harflar soni bilan juftlang", pairs:[["Rus tili","33"],["Ingliz tili","26"],["O'zbek (lotin)","29"],["Arab tili","28"]] },
@@ -170,8 +171,12 @@ function sendResult(r) {
   if (!SHEET_URL) return;
   const u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {};
   const body = JSON.stringify({ ...r, id: u.id || "", name: [u.first_name, u.last_name].filter(Boolean).join(" "), username: u.username || "" });
-  try { fetch(SHEET_URL, { method: "POST", mode: "no-cors", body }); } catch {}
+  let ok = false;
+  try { ok = navigator.sendBeacon && navigator.sendBeacon(SHEET_URL, body); } catch {}
+  if (!ok) { try { fetch(SHEET_URL, { method: "POST", mode: "no-cors", body, keepalive: true }); ok = true; } catch {} }
+  return ok;
 }
+const VERSION = "v3";
 
 const $ = document.getElementById("app");
 let i = 0, xp = 0, mode = "home", testScore = 0;
@@ -214,7 +219,9 @@ function intro() {
     <div class="top"><button class="o" id="back" style="padding:6px 12px;font-size:16px">←</button>
       <b style="font-size:20px">Habib til</b><span style="flex:1"></span><span class="pill">🔥 ${streak} kun</span></div>
     <h1>${LESSON.title}</h1>
-    <div class="video">▶️<br>${LESSON.video}</div>
+    ${LESSON.yt
+      ? `<div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${LESSON.yt}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`
+      : `<div class="video">▶️<br>${LESSON.video}</div>`}
     <p>Videoni ko'ring, keyin ${LESSON.steps.length} ta mashq va 10 savollik test.</p>
     <button class="main" id="go">Mashqlarni boshlash</button>`;
   document.getElementById("go").onclick = () => { mode = "steps"; i = 0; render(); };
@@ -321,7 +328,7 @@ function finish() {
   }
   store.set("xp", store.get("xp", 0) + xp);
   store.set("lesson" + LESSON.n, { score: testScore, xp, at: Date.now() });
-  sendResult({ lesson: LESSON.n, score: testScore, xp, totalXp: store.get("xp", 0), streak });
+  const sent = sendResult({ lesson: LESSON.n, score: testScore, xp, totalXp: store.get("xp", 0), streak });
   const nextL = LESSONS[LESSONS.indexOf(LESSON) + 1];
   $.innerHTML = `<h1>${LESSON.n}-dars tugadi! 🎉</h1>
     <div class="stats">
@@ -331,7 +338,8 @@ function finish() {
     </div>
     <p><b>Uyga vazifa:</b> ${LESSON.hw}</p>
     ${nextL ? `<p>Ertaga: <b>${nextL.title}</b></p>` : ""}
-    <button class="main" id="go">Darslarga qaytish</button>`;
+    <button class="main" id="go">Darslarga qaytish</button>
+    <p style="opacity:.5;font-size:12px">${VERSION} · ${sent ? "natija yuborildi ✓" : "natija yuborilmadi ✗"}</p>`;
   document.getElementById("go").onclick = () => { mode = "home"; render(); };
 }
 
