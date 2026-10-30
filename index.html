@@ -71,9 +71,9 @@ const L1 = {
     { t:"write", q:"Refleksiya: 3 ta eslab qolganingiz, 2 ta muhimi, 1 ta mashq kerak bo'lgan mavzu" },
   ],
   test: [
-    { q:"Arab alifbosidagi harflar soni?", o:["26","28","29","33"], a:1 },
-    { q:"Qisqa unlilar qanday yoziladi?", o:["harf bilan","belgi (harakat) bilan","yozilmaydi"], a:1 },
     { q:"Fatha qanday o'qiladi?", o:["a","i","u"], a:0 },
+    { q:"Kasra qaysi?", o:["بَ","بِ","بُ"], a:1, ar:true },
+    { q:"Arab tilida o'qish qaysi tomondan boshlanadi?", o:["o'ngdan chapga","chapdan o'ngga"], a:0 },
     { q:"بِ qanday o'qiladi?", o:["ba","bi","bu"], a:1 },
     { q:"Damma qaysi?", o:["بَ","بِ","بُ"], a:2, ar:true },
     { q:"Sukun nimani bildiradi?", o:["harf harakatsiz","cho'ziq","\"i\" tovushi"], a:0 },
@@ -174,7 +174,9 @@ const store = {
     try { cloud && cloud.setItem("alif_" + k, JSON.stringify(v)); } catch {}
   },
 };
-function loadCloud(done) {
+function loadCloud(cb) {
+  let called = false;
+  const done = () => { if (!called) { called = true; cb(); } };  // faqat bir marta
   if (!cloud) return done();
   const keys = ["streak", "lastDay", "xp", "lesson1", "lesson2", "lesson3", "pos"].map(k => "alif_" + k);
   const t = setTimeout(done, 2500);
@@ -202,7 +204,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v6";
+const VERSION = "v9";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -237,7 +239,7 @@ function home() {
       return `<button class="o ${open ? "" : "done"}" data-k="${k}" style="text-align:left;font-size:16px">
         ${mark} &nbsp;${l.title}</button>`;
     }).join("")}</div>`;
-  $.querySelectorAll("button.o").forEach(b => b.onclick = () => {
+  $.querySelectorAll("button.o:not(.done)").forEach(b => b.onclick = () => {
     LESSON = LESSONS[+b.dataset.k]; mode = "intro"; xp = 0; render();
   });
 }
@@ -336,14 +338,19 @@ function writeStep(s, total) {
 function next() {
   i++;
   if (mode === "steps" && i >= LESSON.steps.length) { mode = "testIntro"; }
-  else if (mode === "test" && i >= LESSON.test.length) { mode = "finish"; }
+  else if (mode === "test" && i >= LESSON.test.length) {
+    sendResult({ lesson: LESSON.n + " (test tugadi " + VERSION + ")", score: testScore, xp });
+    mode = "finish";
+  }
   render();
 }
 
 function testIntro() {
   $.innerHTML = `<h1>Ajoyib! Mashqlar tugadi ⭐ ${xp}</h1>
     <p>Endi 10 savollik test. Har bir to'g'ri javob — 1 ball.</p>
-    <button class="main" id="go">Testni boshlash</button>`;
+    <button class="main" id="go">Testni boshlash</button>
+    <p style="opacity:.5;font-size:12px">${VERSION}</p>`;
+  sendResult({ lesson: LESSON.n + " (test oldi ekrani " + VERSION + ")", score: "-", xp });
   document.getElementById("go").onclick = () => {
     sendResult({ lesson: LESSON.n + " (test boshlandi " + VERSION + ")", score: "-", xp });
     mode = "test"; i = 0; testScore = 0; render();
