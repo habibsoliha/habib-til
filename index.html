@@ -176,7 +176,7 @@ const store = {
 };
 function loadCloud(done) {
   if (!cloud) return done();
-  const keys = ["streak", "lastDay", "xp", "lesson1", "lesson2", "lesson3"].map(k => "alif_" + k);
+  const keys = ["streak", "lastDay", "xp", "lesson1", "lesson2", "lesson3", "pos"].map(k => "alif_" + k);
   const t = setTimeout(done, 2500);
   try {
     cloud.getItems(keys, (err, vals) => {
@@ -186,7 +186,12 @@ function loadCloud(done) {
     });
   } catch { clearTimeout(t); done(); }
 }
-if (tg) { tg.ready(); tg.expand(); }
+if (tg) {
+  tg.ready(); tg.expand();
+  // pastga tortganda ilova yopilib qolmasin
+  try { tg.disableVerticalSwipes && tg.disableVerticalSwipes(); } catch {}
+  try { tg.enableClosingConfirmation && tg.enableClosingConfirmation(); } catch {}
+}
 
 // --- natijani Google Sheet'ga yuborish (Apps Script havolasi) ---
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbzjOdACD7sCLEe_VTANZb9KVzs54udz-tbJ92plmIM9-9zwPWHjmBZEZfUc_JTAYwFBiA/exec";
@@ -197,7 +202,10 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v5";
+const VERSION = "v6";
+// Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
+window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
+window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
 
 const $ = document.getElementById("app");
 let i = 0, xp = 0, mode = "home", testScore = 0;
@@ -336,7 +344,10 @@ function testIntro() {
   $.innerHTML = `<h1>Ajoyib! Mashqlar tugadi ⭐ ${xp}</h1>
     <p>Endi 10 savollik test. Har bir to'g'ri javob — 1 ball.</p>
     <button class="main" id="go">Testni boshlash</button>`;
-  document.getElementById("go").onclick = () => { mode = "test"; i = 0; testScore = 0; render(); };
+  document.getElementById("go").onclick = () => {
+    sendResult({ lesson: LESSON.n + " (test boshlandi " + VERSION + ")", score: "-", xp });
+    mode = "test"; i = 0; testScore = 0; render();
+  };
 }
 
 function finish() {
@@ -364,7 +375,18 @@ function finish() {
   document.getElementById("go").onclick = () => { mode = "home"; render(); };
 }
 
+// Dars o'rtasida ilova yopilsa ham shu joydan davom etsin
+function savePos() {
+  store.set("pos", mode === "home" || mode === "finish" ? null
+    : { k: LESSONS.indexOf(LESSON), mode, i, xp, testScore });
+}
+function restorePos() {
+  const p = store.get("pos", null);
+  if (p && LESSONS[p.k]) { LESSON = LESSONS[p.k]; ({ mode, i, xp, testScore } = p); }
+}
+
 function render() {
+  savePos();
   if (mode === "home") return home();
   if (mode === "intro") return intro();
   if (mode === "testIntro") return testIntro();
@@ -375,7 +397,7 @@ function render() {
   if (s.t === "write") return writeStep(s, total);
   return choiceStep(s, total, false);
 }
-loadCloud(render);
+loadCloud(() => { restorePos(); render(); });
 </script>
 </body>
 </html>
