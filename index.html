@@ -164,6 +164,15 @@ const store = {
 const tg = window.Telegram && Telegram.WebApp;
 if (tg) { tg.ready(); tg.expand(); }
 
+// --- natijani Google Sheet'ga yuborish (Apps Script havolasi) ---
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzjOdACD7sCLEe_VTANZb9KVzs54udz-tbJ92plmIM9-9zwPWHjmBZEZfUc_JTAYwFBiA/exec";
+function sendResult(r) {
+  if (!SHEET_URL) return;
+  const u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {};
+  const body = JSON.stringify({ ...r, id: u.id || "", name: [u.first_name, u.last_name].filter(Boolean).join(" "), username: u.username || "" });
+  try { fetch(SHEET_URL, { method: "POST", mode: "no-cors", body }); } catch {}
+}
+
 const $ = document.getElementById("app");
 let i = 0, xp = 0, mode = "home", testScore = 0;
 
@@ -312,6 +321,7 @@ function finish() {
   }
   store.set("xp", store.get("xp", 0) + xp);
   store.set("lesson" + LESSON.n, { score: testScore, xp, at: Date.now() });
+  sendResult({ lesson: LESSON.n, score: testScore, xp, totalXp: store.get("xp", 0), streak });
   const nextL = LESSONS[LESSONS.indexOf(LESSON) + 1];
   $.innerHTML = `<h1>${LESSON.n}-dars tugadi! 🎉</h1>
     <div class="stats">
