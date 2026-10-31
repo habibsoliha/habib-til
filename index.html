@@ -68,6 +68,9 @@
   .h-prog { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:12px 14px; backdrop-filter:blur(6px); }
   .h-prog > div:first-child { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
   .h-prog b { font-size:22px; color:#f3dc8f; } .h-prog small { opacity:.7; }
+  .lvprog { margin-top:10px; display:grid; gap:7px; }
+  .lvprog > div { display:grid; grid-template-columns:52px 1fr 54px; align-items:center; gap:8px; font-size:13px; }
+  .lvprog > div > span:first-child { color:#f3dc8f; font-weight:700; } .lvprog small { opacity:.7; text-align:right; } .lvprog .pbar { margin:0; }
   .pbar { display:block; height:8px; border-radius:99px; background:rgba(255,255,255,.15); overflow:hidden; }
   .pbar i { display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#c9a227,#f3dc8f); }
   .pbar.thin { height:6px; background:var(--card); margin:8px 0 6px; }
@@ -142,7 +145,7 @@
 // Audio hozircha brauzer ovozi (arabcha TTS); ustoz ovozi yozilgach audio fayllar bilan almashtiriladi.
 const L1 = {
   n: 1,
-  hw: "Ismingiz unlilarini harakat bilan va alifni 3 qatordan daftarga yozing, rasmini botga yuboring. أَ إِ أُ ni ovoz yozib yuboring.",
+  hw: "Kitobdagi so'zlarni 20 marta o'qing: أَبْ",
   title: "1-dars. Kirish: Alif (ا) va Ba (ب) harflari",
   video: "Video: Habibulloh Ahmadov, ~10 daqiqa (yozilgach shu yerga qo'yiladi)",
   yt: ["6XKg2im9swM", "ecZbLXDkJiA"],
@@ -162,10 +165,10 @@ const L1 = {
   ],
   test: [
     { q:"Fatha qanday o'qiladi?", o:["a","i","u"], a:0 },
-    { q:"Kasra qaysi?", o:["بَ","بِ","بُ"], a:1, ar:true },
+    { q:"Ba harfining domma bilan kelgan holatini belgilang", o:["بَ","بِ","بُ"], a:2, ar:true },
     { q:"Arab tilida o'qish qaysi tomondan boshlanadi?", o:["o'ngdan chapga","chapdan o'ngga"], a:0 },
     { q:"بِ qanday o'qiladi?", o:["ba","bi","bu"], a:1 },
-    { q:"Damma qaysi?", o:["بَ","بِ","بُ"], a:2, ar:true },
+    { q:"Ba harfining kasra bilan kelgan holatini belgilang", o:["بَ","بِ","بُ"], a:1, ar:true },
     { q:"Sukun nimani bildiradi?", o:["harf harakatsiz","cho'ziq","\"i\" tovushi"], a:0 },
     { q:"Alif harakatsiz o'qiladimi?", o:["Ha","Yo'q"], a:1 },
     { q:"Maxraj nima?", o:["harf chiqadigan joy","harf shakli","harakat"], a:0 },
@@ -176,7 +179,7 @@ const L1 = {
 
 const L2 = {
   n: 2,
-  hw: "Har bir so'zni 3 qatordan yozing va rasmini yuboring. بَ بِ بُ تَ تِ تُ ni ovoz yozib yuboring.",
+  hw: "Kitobdagi so'zlarni 20 marta o'qing: أَبَتِ، بَأَتْ",
   title: "2-dars. Ta (ت) harfi",
   video: "Video: Habibulloh Ahmadov, ~12 daqiqa (yozilgach shu yerga qo'yiladi)",
   yt: ["QO2WaoXw7l4"],
@@ -212,7 +215,7 @@ const L2 = {
 
 const L3 = {
   n: 3,
-  hw: "Har bir so'zni 3 qatordan yozing, Nun so'zlarini 50 marta o'qing. Bugun 5 daqiqa kitob o'qing!",
+  hw: "Kitobdagi so'zlarni 20 marta o'qing: أَنْتَ، بِنْتُ",
   title: "3-dars. Nun (ن) harfi va harflarning zamonlari",
   video: "Video: Habibulloh Ahmadov, ~11 daqiqa (yozilgach shu yerga qo'yiladi)",
   yt: ["GWLuy64I5gM"],
@@ -249,29 +252,29 @@ const L3 = {
 // --- 4–45-darslar: "programma asosida mavzularni o'tish" jadvali tartibida ---
 // Harf: [nomi, lotincha, maxraj, so'z1, so'z2, YouTube ID, yo'g'onmi]
 const HARF = {
-  "ي":["Ya","y","til o'rtasi va tanglay","بَيْتُ","تِيْنُ","v5kZlEhbo7c"],
-  "م":["Mim","m","ikki lab","أَمْنُ","مِنْ","JZSpRza5J7c"],
-  "ل":["Lam","l","til cheti va old tish milki","لَيْلَ","أَلَمْ","Ub_lrxq1wfE"],
-  "ج":["Jim","j","til o'rtasi va tanglay","جَبَلُ","جَمَلُ","cV5MTLGLEQQ"],
+  "ي":["Ya","y","til o'rtasi va tanglay","بَيْتُ","أَيْنَ","v5kZlEhbo7c"],
+  "م":["Mim","m","ikki lab","أَمِنَ","مِنْ","JZSpRza5J7c"],
+  "ل":["Lam","l","til cheti va old tish milki","لَيْلُ","نَمْلُ","Ub_lrxq1wfE"],
+  "ج":["Jim","j","til o'rtasi va tanglay","جَبَلْ","جَمَلْ","cV5MTLGLEQQ"],
   "خ":["Xoo","x","tomoqning yuqori qismi","خَتَمَ","نَخْلُ","evIsUJc1XqA",true],
-  "س":["Sin","s","til uchi va pastki old tishlar","جَلَسَ","سَبْتُ","iiZl3QGLiBw"],
-  "ش":["Shin","sh","til o'rtasi va tanglay","شَمْسُ","جَيْشُ","Pxm-V9oaF6w"],
-  "ف":["Fa","f","pastki lab va yuqori tishlar uchi","فِيْلُ","نَفْسُ","YEyzda8tb1Y"],
-  "ث":["Saa","s","til uchi va yuqori tishlar uchi","ثَلْجُ","ثَمَنُ","YZ136I_MSfI"],
-  "ز":["Za","z","til uchi va pastki old tishlar","زَيْتُ","خُبْزُ","CiCqWp7ce_o"],
-  "د":["Dal","d","til uchi va yuqori tish milki","يَدُ","دِيْنُ","WRzB5qYHVuk"],
-  "ذ":["Zal","z","til uchi va yuqori tishlar uchi","ذَيْلُ","أَخَذَ","rU9ugRvnI8I"],
-  "ظ":["Zo","z","til uchi va yuqori tishlar uchi","ظَلَمَ","لَفْظُ","374E0fwMU14",true],
-  "و":["Vav","v","ikki lab","وَلَدُ","يَوْمُ","YuudlhfsutA"],
-  "ر":["Ro","r","til uchi va tanglay old qismi","رَجُلُ","نُوْرُ","KrgPqmyVo3Q",true],
-  "غ":["G'oyn","g'","tomoqning yuqori qismi","غَيْمُ","فَرَغَ","yln0fpxhA6o",true],
-  "ك":["Kaf","k","til orqasi va yumshoq tanglay","كَتَبَ","مَلِكُ","pfzUJrcjpTg"],
-  "ق":["Qof","q","til orqasi va yumshoq tanglay","قَلَمُ","قَمَرُ","uUDsdwOFeyw",true],
-  "ه":["Yumshoq ha","h","tomoqning eng chuqur qismi","هُوَ","وَجْهُ","0oQSKWDTurU"],
-  "ح":["O'rta xa","h","tomoqning o'rta qismi","حَجَرُ","بَحْرُ","ihAJRd9FBv0"],
-  "ص":["Sod","s","til uchi va pastki old tishlar","صَبْرُ","قَصْرُ","tZTghbG1M_M",true],
-  "ع":["Ayn","'","tomoqning o'rta qismi","عِلْمُ","عَيْنُ","5nm5N33vi20"],
-  "ط":["To","t","til uchi va yuqori tish milki","طَيْرُ","بَطْنُ","NWnzjlIIgj8",true],
+  "س":["Sin","s","til uchi va pastki old tishlar","سَلِمَ","نَسَبْ","iiZl3QGLiBw"],
+  "ش":["Shin","sh","til o'rtasi va tanglay","شَمْسُ","شَجَبْ","Pxm-V9oaF6w"],
+  "ف":["Fa","f","pastki lab va yuqori tishlar uchi","نَفْسُ","فَمْ","YEyzda8tb1Y"],
+  "ث":["Saa","s","til uchi va yuqori tishlar uchi","ثَمَنْ","ثَلْجُ","YZ136I_MSfI"],
+  "ز":["Za","z","til uchi va pastki old tishlar","زَيْتُ","نَزَلَتْ","CiCqWp7ce_o"],
+  "د":["Dal","d","til uchi va yuqori tish milki","بَدَلْ","جَدَلْ","WRzB5qYHVuk"],
+  "ذ":["Zal","z","til uchi va yuqori tishlar uchi","أُذُنْ","ذَيْلُ","rU9ugRvnI8I"],
+  "ظ":["Zo","z","til uchi va yuqori tishlar uchi","ظَلَمَ","لَفْظْ","374E0fwMU14",true],
+  "و":["Vav","v","ikki lab","يَوْمُ","وَلَدْ","YuudlhfsutA"],
+  "ر":["Ro","r","til uchi va tanglay old qismi","نَفَرْ","شِرْبُ","KrgPqmyVo3Q",true],
+  "غ":["G'oyn","g'","tomoqning yuqori qismi","غَفَلْ","شُغْلُ","yln0fpxhA6o",true],
+  "ك":["Kaf","k","til orqasi va yumshoq tanglay","كَذَبَ","شُكْرُ","pfzUJrcjpTg"],
+  "ق":["Qof","q","til orqasi va yumshoq tanglay","بَقَرْ","نَقْلُ","uUDsdwOFeyw",true],
+  "ه":["Yumshoq ha","h","tomoqning eng chuqur qismi","هَدَمَ","ذَهَبْ","0oQSKWDTurU"],
+  "ح":["O'rta xa","h","tomoqning o'rta qismi","حَجَرْ","بَحْرُ","ihAJRd9FBv0"],
+  "ص":["Sod","s","til uchi va pastki old tishlar","نَصْرُ","فَصْلُ","tZTghbG1M_M",true],
+  "ع":["Ayn","'","tomoqning o'rta qismi","بَعْدَ","عَدَدْ","5nm5N33vi20"],
+  "ط":["To","t","til uchi va yuqori tish milki","طَبَقْ","مَطَرَ","NWnzjlIIgj8",true],
   "ض":["Dod","d","til cheti va oziq tishlar","ضَرَبَ","أَرْضُ","rtSokg2EqSc",true],
 };
 // [dars, harflar, qo'shimcha mavzu]
@@ -326,7 +329,7 @@ const HARF_DARSLARI = PROGRAMMA.map(([n, cs, mavzu]) => {
   return {
     n, yt: h.map(x => x.yt), steps, test,
     title: `${n}-dars. ` + h.map(x => `${x.name} (${x.c})`).join(" va ") + (h.length > 1 ? " harflari" : " harfi") + (mavzu ? ` · ${mavzu}` : ""),
-    hw: `${h.map(x => x.c).join(" va ")} harfini 3 qatordan yozing, ${h.map(x => x.w1 + " " + x.w2).join(" ")} so'zlarini 20 marta o'qing va ovoz yozib yuboring.`,
+    hw: `Kitobdagi so'zlarni 20 marta o'qing: ${h.map(x => x.w1 + "، " + x.w2).join("، ")}`,
   };
 });
 
@@ -466,7 +469,7 @@ const DIKT = (w, k, ex) => ({ t: "dikt", q: `Diktant ${k + 1}: eshiting va so'zn
 const HARF27 = "ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي".split(" ");
 const tasHarf = () => HARF27[Math.floor(Math.random() * HARF27.length)];
 // Diktant so'zlari — vaqtincha; ustoz o'z ro'yxatini va ovoz yozuvlarini (audio/diktN-K.mp3) qo'yadi
-const DIKT1 = ["أَبٌ", "بَيْتٌ", "قَلَمٌ", "كِتَابٌ", "شَمْسٌ", "قَمَرٌ", "بَحْرٌ", "وَلَدٌ", "جَبَلٌ", "ظِلٌّ"];
+const DIKT1 = ["تَضَعُ", "طَبَقْ", "بَعْدَ", "نَصْرُ", "ذَهَبْ", "بَحْرُ", "بَقَرْ", "كَذَبَ", "شُغْلُ", "نَفَرْ", "يَوْمُ", "ظَلَمَ", "ذَيْلُ", "زَيْتُ", "بَدَلْ", "ثَلْجُ", "نَفْسُ", "شَمْسُ", "سَلِمَ", "نَخْلُ"];  // 20 harfga kitobdan bittadan so'z, oxirgi harfdan (ض) boshlab, tanvinsiz
 const DIKT2 = ["الشَّمْسُ", "الْقَمَرُ", "سَمَاءٌ", "جَاءَ", "مِنْ رَبِّهِمْ", "مَنْ يَعْمَلُ", "أَنْفُسَهُمْ", "يَقُولُونَ"];
 const h1 = tasHarf(); let h2 = tasHarf(); while (h2 === h1) h2 = tasHarf();  // har kirganda har kimga boshqa harf
 // Sifatlar jadvali (tajvid: jahr/hams, shidda/tavassut/raxova, isti'lo, qalqala, safir, g'unna) — ustoz tekshirsin
@@ -498,6 +501,11 @@ function maxrajSavol(c) {
 IMTIHON1.unshift(maxrajSavol(h1),
   { t: "sifat", c: h2, q: `<span class="ar">${h2}</span> harfining barcha sifatlarini belgilang.`, togri: sifatlari(h2) });
 IMTIHON1.push(...DIKT1.map((w, k) => DIKT(w, k, 1)));
+// har harf darsi testi oxirida: sifatlar, maxraj (3 qism) va kitobdagi so'zdan diktant (ustoz taklifi)
+HARF_DARSLARI.forEach(d => [...new Set(d.title.match(/\((.)\)/g).map(x => x[1]))].forEach(c => {
+  d.test.push({ t: "sifat", c, q: `<span class="ar">${c}</span> harfining barcha sifatlarini belgilang.`, togri: sifatlari(c) }, maxrajSavol(c),
+    { t: "dikt", q: "Diktant: eshiting va so'zni yig'ing", w: HARF[c][3], audio: `h${d.n}-1` });
+}));
 IMTIHON2.push(
   OCHIQ(`<span class="ar">صُمٌّۢ بُكْمٌ عُمْىٌ فَهُمْ لَا يَرْجِعُونَ</span> — ushbu qatorda sukunli nunga oid nechta qoida bor va ular qaysilar?`),
   OCHIQ(`<span class="ar">كَلَّآ إِنَّهُۥ تَذْكِرَةٌ</span> — ushbu qatorda nechta cho'zish qatnashgan va uning qaysi turlari bor?`),
@@ -702,11 +710,56 @@ const SAYOHAT_LV = {
   ]],
 };
 const LV_IDS = ["A2", "B1", "B2", "C1", "C2"];
-const LV_DARSLAR = LV_IDS.flatMap((id, li) => SAYOHAT_LV[id][1].map((p, k) => ({
-  n: 400 + li * 100 + k + 1, lv: id, title: `${k + 1}-dars`, video: "Mavzu va video tez orada qo'shiladi",
-  hw: "Tez orada.", steps: [{ t:"choice", q:"Dars videosini ko'rdingizmi?", o:["Ha, ko'rdim"], a:0 }],
-  test: [{ q:"Darsni yakunlaysizmi?", o:["Ha, yakunlayman"], a:0 }],
-})));
+// Miftah A2 darslari (metodist, rahbar tasdiqlagan): [kitob va betlar, dars, insho]. 2/2 = muhadasa, 2/1 = qiroa
+const A2_MAVZU = [
+  ["2/2 10–14","كم فصلاً في بلدك؟","Davlat fasllari"],["2/2 15–18","النشرة الجوية","5 shahar ob-havosi"],["2/1 9–18","شعوب حول العالم","Tog'liklar hayoti"],
+  ["2/2 19–23","عمرة إلى مكة","Sayohat rejasi"],["2/2 24–28","فصول وهوايات","Men va do'stim: fasllar"],["2/1 19–28","المناخ","Shahrim iqlimi, ertangi ob-havo"],
+  ["2/2 30–34","منطقتي","Xarita bo'yicha dialog"],["2/2 35–38","سائح في المدينة","Uyimga yo'l (xarita)"],["2/2 39–42","مدن وأماكن","Men bilgan shahar"],
+  ["2/2 43–46","الوطن العربي","Bir davlat tavsifi"],["2/1 29–40","حضارات من الشرق","Tarixiy obida"],["2/1 41–50","أماكن وهوايات","Sevimli mashg'ulotim"],
+  ["2/2 48–52","في سوق الأطعمة","Bozorda dialog"],["2/2 53–57","في سوق التخفيضات","Chegirmalar hisoboti"],["2/1 51–60","أسواق العيد","Bozordagi oila (jadval bo'yicha)"],
+  ["2/1 61–70","البائع المتجول أيام زمان","Seyyor sotuvchi"],["2/2 58–62","مشكلات في التسوق","Narsani qaytarish dialogi"],["2/2 63–66","البضاعة المستعملة","Eski yoki yangi?"],
+  ["2/2 68–72","في المكتب العقاري","Ijara dialogi"],["2/1 71–80","البحث عن مكان للإقامة","Sayohat e'loni"],["2/1 81–90","بين الريف والمدينة","Hududim: ijobiy va salbiy"],
+  ["2/2 73–76","إصلاحات منزلية","Usta bilan dialog"],["2/2 77–81","بيت الطلاب","Uy qoidalari"],["2/2 82–86","جيران ولكن مزعجون","Qo'shni va xonadosh"],
+  ["2/2 88–92","مشكلات صحية","Shifokor va bemor dialogi"],["2/2 93–96","زيارة مريض","Bemorni ko'rish"],["2/2 97–100","الصحة في الرياضة","Mashhur sportchi"],
+  ["2/2 101–104","صحتك بين يديك","Sog'lom ovqatlanish jadvali"],["2/1 91–100","النظافة والأناقة","Ozodaligim"],["2/1 101–110","وقت الفراغ","Bo'sh vaqtim"],
+  ["2/2 106–111","غداء في المطعم","Restoranda dialog"],["2/2 112–116","شكوى على الطعام","Ovqatdan shikoyat"],["2/2 117–121","ماذا في الثلاجة؟","Haftalik xarid ro'yxati"],
+  ["2/2 122–126","طبخة اليوم","Xalqlar taomi"],["2/1 111–120","أطعمة ومناسبات","Bayram taomi"],["2/1 121–130","هل تعلم؟","Kunlik ovqatim"],
+  ["2/2 128–131","المواصلات في القاهرة","Transport tanlash"],["2/2 132–135","السفر جوًّا","Aviakassada dialog"],["2/1 131–140","رحلة برية","Do'stlar bilan sayohat"],
+  ["2/2 136–139","حجز في الفندق","Mehmonxona yoki kvartira"],["2/2 140–142","قضاء العطلة","Ta'til rejasi"],["2/1 141–150","السفر واستعداداته","Sayohat tajribam"],
+];
+const LV_MAVZU = { A2: A2_MAVZU };
+// A2 31–42-darslar uchun qo'shimcha joylar (PLACES oxiriga qo'shiladi: 236–247, boshqa darajalar rasmlari siljimasin)
+const LV_QOSH = { A2: [
+  ["🕌","Damashq · Salohiddin maqbarasi","Umaviylar masjidi yonidagi kichik bog'da Salohiddin Ayyubiy dafn etilgan. Maqbara qizil gumbazli va sodda."],
+  ["🕌","Damashq · Sulaymoniya takyasi","16-asrda me'mor Sinon loyihasi bilan qurilgan majmua. Ikki ingichka minorasi va hovlisidagi hovuzi bilan mashhur."],
+  ["⛰️","Qosiyun tog'i","Damashq ustida turgan tog'. Kechqurun undan butun shahar chiroqlari ko'rinadi."],
+  ["🕌","Hums · Xolid ibn Valid masjidi","Mashhur sahoba Xolid ibn Valid qabri joylashgan masjid. To'qqiz kumush gumbazi va ikki baland minorasi bor."],
+  ["🛣️","Damashq · To'g'ri ko'cha","Eski Damashqni sharqdan g'arbga kesib o'tgan Rim davri ko'chasi. Uzunligi 1,5 km ga yaqin."],
+  ["💧","Ayn al-Fija bulog'i","Damashqni ichimlik suvi bilan ta'minlaydigan tog' bulog'i. Uning suvi Barada daryosiga quyiladi."],
+  ["🏰","Tripoli qal'asi","Livanning shimolidagi tepalikda turgan ulkan qal'a. U salibchilar davrida qurilib, keyin Mamluklar tomonidan kengaytirilgan."],
+  ["🌅","Bayrut sohili","Dengiz bo'yidagi uzun sayrgoh. Kechqurun odamlar bu yerda sayr qilib, quyosh botishini tomosha qiladi."],
+  ["🍇","Zahla","Beqaa vodiysidagi shahar, «she'r va uzum shahri» deb ataladi. Bardavni daryosi bo'yida ko'plab restoranlar bor."],
+  ["🏘️","Dayr al-Qamar","Livan tog'laridagi qadimiy tosh qishloq. Uning maydonida 15-asrdan qolgan masjid va favvora bor."],
+  ["🏞️","Qaraun ko'li","Beqaa vodiysidagi eng katta sun'iy ko'l. Litoni daryosi to'g'oni bilan hosil qilingan."],
+  ["🌊","Afqa sharsharasi","Ulkan g'ordan otilib chiqadigan sharshara. Bu yerda Ibrohim daryosi boshlanadi."],
+] };
+// har daraja: mavzular soni (bo'lmasa sayohat joylari soni); joyi yo'q darslarda "!" chiqmaydi
+const PLACE_OF = [];
+const LV_DARSLAR = LV_IDS.flatMap((id, li) => {
+  const M = LV_MAVZU[id], P = SAYOHAT_LV[id][1], base = 86 + LV_IDS.slice(0, li).reduce((s, x) => s + SAYOHAT_LV[x][1].length, 0);
+  return Array.from({ length: M ? M.length : P.length }, (_, k) => {
+    const Q = LV_QOSH[id] || [], qBase = 86 + LV_IDS.reduce((s, x) => s + SAYOHAT_LV[x][1].length, 0) + LV_IDS.slice(0, li).reduce((s, x) => s + (LV_QOSH[x] || []).length, 0);
+    PLACE_OF.push(k < P.length ? base + k : k - P.length < Q.length ? qBase + k - P.length : null);
+    const m = M && M[k];
+    return {
+      n: 400 + li * 100 + k + 1, lv: id, title: m ? `${k + 1}-dars. ${m[1]}` : `${k + 1}-dars`,
+      video: m ? `Miftah ${m[0]}-betlar. Video tez orada qo'shiladi` : "Mavzu va video tez orada qo'shiladi",
+      hw: m ? `Insho: ${m[2]}. Keyingi dars so'zlari va matni/dialogini tarjima qiling.` : "Tez orada.",
+      steps: [{ t:"choice", q:"Dars videosini ko'rdingizmi?", o:["Ha, ko'rdim"], a:0 }],
+      test: [{ q:"Darsni yakunlaysizmi?", o:["Ha, yakunlayman"], a:0 }],
+    };
+  });
+});
 const LESSONS = [L1, L2, L3, ...MORE, ...A1_DARSLAR, ...LV_DARSLAR];
 let LESSON = L1;
 
@@ -755,7 +808,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v109";
+const VERSION = "v118";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -769,9 +822,11 @@ const AUDIO = {
   "تُ": "tu", "تِ": "ti", "أَبَتِ": "abati", "بَأَتْ": "baat",
   "نَ": "na", "نِ": "ni", "نُ": "nu", "أَنْتَ": "anta", "بِنْتُ": "bintu",
 };
+// harf darslari so'zlari: ustoz ovozi audio/h<dars>-<1|2>.m4a
+PROGRAMMA.forEach(([n, c]) => { AUDIO[HARF[c][3]] = `h${n}-1`; AUDIO[HARF[c][4]] = `h${n}-2`; });
 function speak(text) {
   if (AUDIO[text]) {
-    const a = new Audio("audio/" + AUDIO[text] + ".mp3");
+    const a = new Audio("audio/" + AUDIO[text] + (AUDIO[text][0] === "h" ? ".m4a" : ".mp3"));
     a.onerror = () => tts(text);
     a.play().catch(() => tts(text));
     return;
@@ -807,10 +862,10 @@ function header(done, total) {
 
 // Bosh ekran: darslar ro'yxati. Keyingi dars oldingisi tugagach ochiladi.
 const BOSQICHLAR = [{ name: "Harflar maxraji", from: 0, to: 28 }, { name: "Fonetika va boshlang'ich qoidalar", from: 28, to: 51 }, { name: "Miftah A1", from: 51, to: 86 }];
-["A2","B1","B2","C1","C2"].forEach((id, li) => BOSQICHLAR.push({ name: id, from: 86 + li * 30, to: 116 + li * 30 }));
+LV_IDS.reduce((from, id) => { const to = from + LV_DARSLAR.filter(l => l.lv === id).length; BOSQICHLAR.push({ name: id, from, to }); return to; }, 86);
 // dars indeksi -> joy indeksi (Misr: 0–22 va 46–50, Yaman: 23–45)
 const MAP_COLOR = true;  // xaritada rangli haqiqiy surat (false — qalam chizmasi)
-const placeOf = k => k >= PRE_N ? k : k < 23 ? k : k < 28 ? 46 + (k - 23) : k - 5;
+const placeOf = k => k >= 86 ? PLACE_OF[k - 86] : k >= PRE_N ? k : k < 23 ? k : k < 28 ? 46 + (k - 23) : k - 5;
 // sinov rejimi: havola oxiriga &test=1 (yoki ?test=1) qo'shilsa, barcha darslar ochiq
 let TEST = /[?&]test=1/.test(location.search) || (() => { try { return localStorage.getItem("alif_test") === "1"; } catch { return false; } })();
 try { if (/[?&]test=1/.test(location.search)) localStorage.setItem("alif_test", "1"); if (/[?&]test=0/.test(location.search)) { localStorage.removeItem("alif_test"); TEST = false; } } catch {}
@@ -921,6 +976,7 @@ const PLACES = [
   ["🕌","Qirol Husayn masjidi","Ammandagi eng katta masjidlardan biri, 2005-yilda qurilgan. Uning oq toshli devorlari va oltin rangli gumbazlari uzoqdan ko'rinib turadi. Masjid shaharning eng baland nuqtalaridan birida joylashgan."],
 ];
 LV_IDS.forEach(id => PLACES.push(...SAYOHAT_LV[id][1]));
+LV_IDS.forEach(id => PLACES.push(...(LV_QOSH[id] || [])));
 // Joylarning qo'lda chizilgan (siyoh) eskizlari — viewBox 0 0 80 64
 const SK = {
   pyramid: `<path d="M6 56h68M14 56L34 18l20 38M34 18l6 38M44 56l14-26 14 26"/><path d="M20 48h8M24 40h7M27 32h5M38 44l4-2M52 46h8" stroke-width="1"/>`,
@@ -1073,11 +1129,62 @@ AI[193]="ai2/193.jpg";
 AI[194]="ai2/194.jpg";
 AI[195]="ai2/195.jpg";
 AI[196]="ai2/196.jpg";
+AI[197]="ai2/197.jpg";
+AI[198]="ai2/198.jpg";
+AI[199]="ai2/199.jpg";
 AI[20]="ai0/20.jpg";
+AI[200]="ai2/200.jpg";
+AI[201]="ai2/201.jpg";
+AI[202]="ai2/202.jpg";
+AI[203]="ai2/203.jpg";
+AI[204]="ai2/204.jpg";
+AI[205]="ai2/205.jpg";
+AI[206]="ai2/206.jpg";
+AI[207]="ai2/207.jpg";
+AI[208]="ai2/208.jpg";
+AI[209]="ai2/209.jpg";
 AI[21]="ai0/21.jpg";
+AI[210]="ai2/210.jpg";
+AI[211]="ai2/211.jpg";
+AI[212]="ai2/212.jpg";
+AI[213]="ai2/213.jpg";
+AI[214]="ai2/214.jpg";
+AI[215]="ai2/215.jpg";
+AI[216]="ai2/216.jpg";
+AI[217]="ai2/217.jpg";
+AI[218]="ai2/218.jpg";
+AI[219]="ai2/219.jpg";
 AI[22]="ai0/22.jpg";
+AI[220]="ai2/220.jpg";
+AI[221]="ai2/221.jpg";
+AI[222]="ai2/222.jpg";
+AI[223]="ai2/223.jpg";
+AI[224]="ai2/224.jpg";
+AI[225]="ai2/225.jpg";
+AI[226]="ai2/226.jpg";
+AI[227]="ai2/227.jpg";
+AI[228]="ai2/228.jpg";
+AI[229]="ai2/229.jpg";
 AI[23]="ai0/23.jpg";
+AI[230]="ai2/230.jpg";
+AI[231]="ai2/231.jpg";
+AI[232]="ai2/232.jpg";
+AI[233]="ai2/233.jpg";
+AI[234]="ai2/234.jpg";
+AI[235]="ai2/235.jpg";
+AI[236]="ai2/236.jpg";
+AI[237]="ai2/237.jpg";
+AI[238]="ai2/238.jpg";
+AI[239]="ai2/239.jpg";
 AI[24]="ai0/24.jpg";
+AI[240]="ai2/240.jpg";
+AI[241]="ai2/241.jpg";
+AI[242]="ai2/242.jpg";
+AI[243]="ai2/243.jpg";
+AI[244]="ai2/244.jpg";
+AI[245]="ai2/245.jpg";
+AI[246]="ai2/246.jpg";
+AI[247]="ai2/247.jpg";
 AI[25]="ai0/25.jpg";
 AI[26]="ai0/26.jpg";
 AI[27]="ai0/27.jpg";
@@ -1808,8 +1915,17 @@ function levelsScreen(streak, total) {
   $.innerHTML = `<div class="hero2">
       <div class="hero-top"><img class="slogo" src="img/logo.png" alt="Habib Academy"><b>HABIB TIL</b><span style="flex:1"></span></div>${profileBox(streak, total)}
       <div class="arch callig-cluster"><span class="arabiy">عَرَبِيّ</span></div>
-      <div class="h-title">Arab tili —<br><span>darajama-daraja.</span></div>
-      <div class="h-uz">Boshlang'ichdan C2 gacha — CEFR xalqaro shkalasi asosida</div></div>
+      ${(() => {  // umumiy dastur bo'yicha o'zlashtirilgan darslar: jami va har daraja
+        // har daraja: darslar + barcha bo'limlar mavzulari (nahv, insho, lug'at, tarkib, muhodasa)
+        const R = DARAJALAR.map((L, k) => { const ls = k === 0 ? PRE : LESSONS.slice(BOSQICHLAR[k + 1].from, BOSQICHLAR[k + 1].to);
+          let a = ls.filter(l => store.get("lesson" + l.n, null)).length, n = ls.length;
+          if (k >= 1) BOLIMLAR.forEach((_, b) => { const T = b && bolimMavzu(b, k) || []; n += T.length; a += T.filter((_, j) => store.get(`bolim${b}-${k}-${j}`, null)).length; });
+          return [L.code, a, n]; });
+        const dn = R.reduce((s, r) => s + r[1], 0), all = R.reduce((s, r) => s + r[2], 0), pa = Math.round(dn * 100 / all);
+        return `<div class="h-prog"><div><b>${pa}%</b><small>umumiy dastur: ${dn}/${all} mavzu</small></div>
+          <div class="pbar"><i style="width:${Math.max(pa, 2)}%"></i></div></div>
+          <div class="lvprog">${R.map(([c, a, n]) => `<div><span>${c}</span><span class="pbar thin"><i style="width:${Math.max(Math.round(a * 100 / n), 2)}%"></i></span><small>${a}/${n}</small></div>`).join("")}</div>`;
+      })()}</div>
     <div class="levels">${DARAJALAR.map((L, k) => `
       <button class="lv ${L.cls}" data-l="${k}">
         <span class="lv-code">${L.code}</span>
@@ -1828,12 +1944,28 @@ let bolim = null;
 const NAHV_LV = { 1: [["المذكر والمؤنث","Muzakkar va muannas"],["ياء النسبة","Nisba yosi"],["الضمائر المنفصلة","Alohida olmoshlar"],["الضمائر المتصلة","Qo'shimcha olmoshlar"],["أسماء الإشارة","Ko'rsatish olmoshlari"],["تصريف الأفعال","5 ta fe'lning tuslanishi"],["الجمع","Ko'plik"],["جمع المؤنث السالم","Muannas to'g'ri ko'plik"],["جمع المذكر السالم","Muzakkar to'g'ri ko'plik"],["المثنى","Ikkilik"],["النكرة والمعرفة","Noaniq va aniq ot"],["الإضافة","Izofa"],["أنواع الإضافة","Izofa turlari"],["أنواع الجملة","Gap turlari"],["المبتدأ والخبر","Mubtado va xabar"],["ليس في الجملة","Gapda ليس"],["الفعل والفاعل","Fe'l va foil"],["الفاعل","Foil"],["الأعداد الترتيبية","Tartib sonlar"],["حروف الجر","Jor harflari"],["حروف العطف (و، فـ، ثم)","Bog'lovchilar"],["الفعل اللازم والمتعدي","O'timsiz va o'timli fe'l"],["الصفة والموصوف","Sifat va sifatlanmish"],["فعل الأمر من المضارع","Muzoredan buyruq fe'li"],["لا الناهية","Taqiq لا si"],["المضارع والمستقبل","Hozirgi va kelasi zamon"],["قاعدة «يجب أن»","«يجب أن» qoidasi"],["ظروف التكرار","Takror ravishlari"],["ظروف الزمان والمكان","Payt va o'rin ravishlari"],["عندما","«عندما» bilan gap"],["الغائب في الفعل المضارع","Muzoreda III shaxs"],["حروف المضارعة","Muzore boshidagi harflar"],["الألوان","Ranglar (muzakkar va muannas)"],["الصفة المشبهة","Sifatu mushabbaha"],["إسناد الاسم إلى الضمائر",""],["ألفاظ العقود",""],["اسما الاستفهام (ما، من)",""],["الجملة الاسمية",""],["إسناد المضارع إلى الضمائر",""],["إسناد الأمر إلى الضمائر",""],["نفي المضارع بـ«لا»",""],["ظرفا الزمان (قبل، بعد)",""],["ليس ... وليس",""]], 2: [["التاء المربوطة والمبسوطة",""],["الأداة «لأنّ»",""],["الوصف",""],["إسناد المضارع للضمائر",""],["اسم التفضيل",""],["الماضي المستمر (كان + مضارع)",""],["صيغة التفضيل (مِن + أفعل)",""],["حروف الجر مع «ال»",""],["الجموع",""],["الاسم الموصول",""],["أداة الربط «لِـ»",""],["إسناد الفعل الماضي",""],["النفي بـ«ما» و«لا»",""],["الأعداد الترتيبية",""],["الصفة والموصوف",""],["الظرف «مُنذُ»",""],["النفي بـ«لن»",""],["أسلوب التفضيل «أفعل مِن»",""],["فعل الأمر",""],["«يجب عليك أن»",""],["النفي بـ«لم»",""],["تركيب «مليء بـ»",""],["«قبل، بعد» مع «أن»",""],["تركيب «تختلف باختلاف»",""],["النفي بـ«ليس»",""],["الفعل «أصبح»",""],["الظرف «عندما»",""],["أداة الشرط «إذا»",""],["ليس ... ولكن",""],["الظرفان «منذ، قبل»",""],["«أُفضِّل ... على»",""],["ظروف المكان (فوق، تحت، أمام ...)",""],["«ليس» مع الضمائر",""],["«أ ... أم ...؟»",""],["«مصنوع من»",""],["«مزوّد بـ»",""],["«أليس كذلك؟»",""],["«أمّا ... فـ»",""],["لا الناهية",""],["«مسؤول عن»",""],["«هل هذه أوّل مرّة؟»",""],["«عليك أن / لا تنسَ أن»",""],["«يُفضَّل أن»",""],["«ليس له ... ولا»",""],["«من الآن»",""],["«دعنا» + المضارع",""],["«لكنْ»",""],["«في آنٍ واحد»",""]], 3: [["أنواع الفعل الصحيح",""],["مفهوم الجذر، أوزان الفعل الثلاثي",""],["الهمزة المتطرفة",""],["الفعل المعتل",""],["اسم الفاعل واسم المفعول من الثلاثي",""],["حروف تُلفظ ولا تُكتب",""],["حالات الخبر في الجملة الاسمية",""],["الوزنان فعّل وفاعل",""],["توسيع الجمل",""],["الهمزة المتوسطة",""],["الأحرف المشبهة بالفعل",""],["الوزنان أفعل وتفعّل",""],["روابط التعليل",""],["حالات استثنائية في الهمزة المتوسطة",""],["الأفعال الناقصة (كان وأخواتها)",""],["الوزنان انفعل وتفاعل",""],["أدوات المقارنة",""],["الألف اللينة المتطرفة في الأفعال",""],["الأفعال الخمسة",""],["الوزنان افتعل واستفعل",""],["الألف اللينة المتطرفة في الأسماء",""],["نصب الفعل المضارع",""],["المصدر المؤوّل",""],["الوزن فعلل",""],["روابط التوكيد",""],["الفرق بين النون والتنوين",""],["جزم الفعل المضارع",""],["الوزنان افعلّ ويفعلّ",""],["اسما الزمان والمكان",""],["حذف الألف من أسماء الاستفهام",""],["الفعل الثلاثي المبني للمجهول",""],["أوزان الثلاثي الصحيح والمزيد",""],["همزتا الوصل والقطع",""],["الفعل المعتل الثلاثي المبني للمجهول",""],["اسم الآلة",""],["الهمزة الممدودة في أول الكلمة ووسطها",""]] };
 const INSHO_ALL = [["A1 · Shaxsiy ma'lumotlar anketasi",""],["A1 · Mashhur shaxs haqida",""],["A1 · Bir kishining kasbi haqida",""],["A1 · O'quv rejasini tuzish",""],["A1 · O'qishim haqida",""],["A1 · Uchrashuvlar jadvali",""],["A1 · Yurtingizdagi transport haqida",""],["A1 · Oilam haqida",""],["A1 · Do'stimni tasvirlash",""],["A1 · Uyim haqida",""],["A1 · Bir joyni tasvirlash",""],["A1 · Bir kishining yomon odatlari haqida",""],["A1 · Savol-javob yozish",""],["A1 · Kundalik daftar",""],["A1 · Kundalik ishlarim haqida",""],["A1 · Kiyimlarni tasvirlash",""],["A1 · Bir kishini tasvirlash",""],["A2 · Odamlarning turmush tarzi",""],["A2 · Ertangi ob-havo haqida",""],["A2 · Shahrim (joylashuvi va ob-havosi)",""],["A2 · Yurtimdagi tarixiy joylar",""],["A2 · Sevimli mashg'ulotlarim",""],["A2 · Bozorni tasvirlash",""],["A2 · Seyyor sotuvchilar va do'konlar",""],["A2 · Yashash joyimni tasvirlash",""],["A2 · Qishloq va shahar: solishtirish",""],["A2 · Bo'sh vaqtim",""],["A2 · Ovqatlanish tartibim",""]];
 const INSHO_LV = { 1: INSHO_ALL.filter(x => x[0].startsWith('A1')), 2: INSHO_ALL.filter(x => x[0].startsWith('A2')), 3: [["B1 · Tarjimai hol: muvaffaqiyatga erishgan shaxs haqida",""],["B1 · Kundalik: bir haftalik ish hayotim",""],["B1 · Jumlalarni kengaytirish: muqobil tibbiyot",""],["B1 · Sabab va oqibat: urf-odatlar nega saqlanadi",""],["B1 · Solishtirish: shahar kecha va bugun",""],["B1 · Matnni qisqartirish: hayotimizni o'zgartirgan ixtirolar",""],["B1 · Dalilli insho: zamonaviy oilada munosabatlar",""],["B1 · Qayta ifodalash: o'qishdan keyin nima qilish kerak",""],["B1 · Mehmondorchilik odobi haqida",""],["B1 · Xotiralar: o'tmishdagi bir kunim",""]] };
-const BOLIMLAR = [["📖", "Darslar", "Mavzular va sayohat xaritasi"], ["ن", "Nahv va sarf", "Grammatika qoidalari"], ["✍️", "Insho", "Yozish mashqlari"]];
+const BOLIMLAR = [["📖", "Darslar", "Mavzular va sayohat xaritasi"], ["ن", "Nahv va sarf", "Grammatika qoidalari"], ["✍️", "Insho", "Yozish mashqlari"],
+  ["📚", "Lug'atlar", "Mavzular bo'yicha so'zlar"], ["🧩", "Tarkiblar", "Iboralar va so'z birikmalari"], ["💬", "Muhodasa", "Suhbat va dialoglar"]];
+const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV })[b] || {})[lv];  // bo'lim mavzulari (lug'at, tarkib, muhodasa — tez orada)
+// darajalarning bosh qismi (darslar, nahv, insho — hammasida bir xil): logo, profil, hikmat, progress
+function heroBox(streak, total, d, n, birlik) {
+  const h = HIKMAT[new Date().getDate() % HIKMAT.length], p = n ? Math.round(d * 100 / n) : 0;
+  return `<div class="topband"></div><div class="hero2">
+    <div class="hero-top"><img class="slogo" src="img/logo.png" alt="Habib Academy"><b>HABIB TIL</b><span style="flex:1"></span></div>${profileBox(streak, total)}
+    <div class="arch callig-cluster"><span class="arabiy">عَرَبِيّ</span></div>
+    <div class="h-title">Arab tili —<br><span>harfma-harf.</span></div>
+    <div class="h-uz">${h[1]}</div>
+    <div class="h-prog"><div><b>${p}%</b><small>${d}/${n} ${birlik}</small></div>
+      <div class="pbar"><i style="width:${Math.max(p, 2)}%"></i></div></div>
+  </div>`;
+}
 function bolimScreen() {
-  const D = DARAJALAR[level];
+  const D = DARAJALAR[level], streak = store.get("streak", 0), total = store.get("xp", 0);
+  const lvH = sub => `<h2 class="a1h lvword"><span class="lvc">${D.code}</span><span class="ar lva">${D.ar}</span><span class="lvn">${sub}</span></h2>`;
   if (bolim === null) {
-    $.innerHTML = `<button class="back lvback"><span>‹</span> Darajalar</button>
-      <h2 class="a1h lvword"><span class="lvc">${D.code}</span><span class="ar lva">${D.ar}</span><span class="lvn">${D.name}</span></h2>
+    const LV = LESSONS.slice(BOSQICHLAR[level + 1].from, BOSQICHLAR[level + 1].to), d = LV.filter(l => store.get("lesson" + l.n, null)).length;
+    $.innerHTML = heroBox(streak, total, d, LV.length, "dars") + `<button class="back lvback"><span>‹</span> Darajalar</button>
+      ${lvH(D.name)}
       <div class="opts">${BOLIMLAR.map(([ic, n, s], i) => `<button class="o st" data-b="${i}">
         <span class="badge ${ic.length === 1 ? "ar" : ""}">${ic}</span>
         <span class="st-body"><small>${i + 1}-BO'LIM</small><b>${n}</b><small>${s}</small></span>
@@ -1844,10 +1976,12 @@ function bolimScreen() {
     });
     return;
   }
-  $.innerHTML = `<button class="back"><span>‹</span> ${D.code} bo'limlari</button>
-    <h2 class="a1h">${BOLIMLAR[bolim][1]}</h2>` + ((bolim === 1 ? NAHV_LV : INSHO_LV)[level]
+  const T = bolimMavzu(bolim, level) || [], key0 = `bolim${bolim}-${level}-`;
+  $.innerHTML = heroBox(streak, total, T.filter((_, j) => store.get(key0 + j, null)).length, T.length, "mavzu")
+    + `<button class="back"><span>‹</span> ${D.code} bo'limlari</button>
+    ${lvH(BOLIMLAR[bolim][1])}` + (bolimMavzu(bolim, level)
     // darslar xaritasi kabi: tugunlar egri yo'l bilan ulanadi; ochiq = birinchisi + o'tilganining keyingisi
-    ? `<div class="map"><svg class="trail"></svg>${(bolim === 1 ? NAHV_LV : INSHO_LV)[level].map(([ar, uz], j, L) => {
+    ? `<div class="map"><svg class="trail"></svg>${bolimMavzu(bolim, level).map(([ar, uz], j, L) => {
         const key = `bolim${bolim}-${level}-`, won = store.get(key + j, null), open = TEST || j === 0 || won || store.get(key + (j - 1), null);
         const x = 50 + 28 * Math.sin(j * 0.95), name = bolim === 1 ? (uz || ar) : ar.replace(/^(A1|A2|B1) · /, "");
         return `<div class="node-row" style="--x:${x}%">
@@ -1870,7 +2004,7 @@ function bolimScreen() {
     document.body.classList.add("lvFoto");
     document.body.style.setProperty("--lvfoto", `url(img/${UZ_SHAHAR[level][2]}.jpg)`);
     $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">O'zbekiston sayohati: ${UZ_SHAHAR[level][1]} — <b>!</b> belgisini bosing</p>`);
-  }
+  } else if (T.length) $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">Insho: ${T.length} ta mavzu — tartib bilan yozib boring</p>`);
   $.querySelectorAll(".map button.node:not([disabled])").forEach(b => b.onclick = () => {
     const f = document.createElement("div"); f.className = "fb ok"; f.textContent = "Bu mavzu darsi tez orada qo'shiladi";
     f.style.cssText = "position:fixed;left:16px;right:16px;bottom:24px;z-index:9;text-align:center";
@@ -1879,19 +2013,10 @@ function bolimScreen() {
 }
 function home() {  const streak = store.get("streak", 0), total = store.get("xp", 0);
   if (level === null && stage === null) return levelsScreen(streak, total);
-  if (level >= 1 && level <= 3 && stage === null) return bolimScreen();
+  if (level >= 1 && stage === null) return bolimScreen();  // A1–C2: Darslar / Nahv va sarf / Insho
   $.innerHTML = `
-    ${(() => { const LV = level >= 1 ? LESSONS.slice(BOSQICHLAR[level + 1].from, BOSQICHLAR[level + 1].to) : LESSONS.slice(0, PRE_N), d = LV.filter(l => store.get("lesson" + l.n, null)).length, p = Math.round(d * 100 / LV.length);
-      const h = HIKMAT[new Date().getDate() % HIKMAT.length];
-      const big = h[0].split(" ")[new Date().getDay() % 4];
-      return `<div class="topband"></div><div class="hero2">
-        <div class="hero-top"><img class="slogo" src="img/logo.png" alt="Habib Academy"><b>HABIB TIL</b><span style="flex:1"></span></div>${profileBox(streak, total)}
-        <div class="arch callig-cluster"><span class="arabiy">عَرَبِيّ</span></div>
-        <div class="h-title">Arab tili —<br><span>harfma-harf.</span></div>
-        <div class="h-uz">${h[1]}</div>
-        <div class="h-prog"><div><b>${p}%</b><small>${d}/${LV.length} dars</small></div>
-          <div class="pbar"><i style="width:${Math.max(p, 2)}%"></i></div></div>
-      </div>`; })()}
+    ${(() => { const LV = level >= 1 ? LESSONS.slice(BOSQICHLAR[level + 1].from, BOSQICHLAR[level + 1].to) : LESSONS.slice(0, PRE_N), d = LV.filter(l => store.get("lesson" + l.n, null)).length;
+      return heroBox(streak, total, d, LV.length, "dars"); })()}
     ${stage === null ? `<button class="back lvback"><span>‹</span> Darajalar</button><div class="opts">${BOSQICHLAR.slice(0, 2).map((b, s) => {
       const ls = LESSONS.slice(b.from, b.to), done = ls.filter(l => store.get("lesson" + l.n, null)).length;
       const open = TEST || s === 0 || store.get("lesson" + LESSONS[b.from - 1].n, null);
@@ -1917,12 +2042,12 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
           ${res ? `<span class="stars">${"★".repeat(starsOf(res.score, l.test.length))}<i>${"★".repeat(3 - starsOf(res.score, l.test.length))}</i></span>` : open ? "" : `<span class="lk">🔒</span>`}
         </button>
         <div class="nlabel">${name}</div>
-        ${`<button class="place ${res || TEST ? "" : "plock"}" data-p="${placeOf(k)}" ${res || TEST ? "" : "disabled"} style="left:${Math.min(82, Math.max(18, x >= 50 ? x - 42 : x + 42))}%;animation-delay:${(j % 5) * .4}s">
+        ${placeOf(k) == null ? "" : `<button class="place ${res || TEST ? "" : "plock"}" data-p="${placeOf(k)}" ${res || TEST ? "" : "disabled"} style="left:${Math.min(82, Math.max(18, x >= 50 ? x - 42 : x + 42))}%;animation-delay:${(j % 5) * .4}s">
           <span class="pe">${AI[placeOf(k)] ? `<img class="pcol" src="${AI[placeOf(k)]}" alt="">` : MAP_COLOR && (FOTO[placeOf(k)] || []).length ? `<img class="pcol" src="${FOTO[placeOf(k)][0]}" alt="" loading="lazy">` : sketch(placeOf(k))}</span><b>!</b></button>`}</div>`;
     }).join("")}</div>`}`;
   drawTrail();
   $.querySelectorAll("button.st:not(.done)").forEach(b => b.onclick = () => { stage = +b.dataset.s; render(); });
-  $.querySelectorAll("button.back").forEach(b => b.onclick = () => { if (b.classList.contains("lvback") && !(level >= 1 && level <= 3)) level = null; stage = null; bolim = null; render(); });
+  $.querySelectorAll("button.back").forEach(b => b.onclick = () => { if (b.classList.contains("lvback") && !(level >= 1)) level = null; stage = null; bolim = null; render(); });
   $.querySelectorAll("button.node:not([disabled])").forEach(b => b.onclick = () => {
     b.classList.add("tap"); setTimeout(() => { LESSON = LESSONS[+b.dataset.k]; xp = 0; testScore = 0; i = 0; mode = "motiv"; render(); }, 260);
   });
@@ -2089,7 +2214,10 @@ function maxrajStep(s, total) {
 const bolak = w => w.replace(/\s+/g, "").match(/.[ً-ٰٟۖ-ۭ]*/gu) || [];
 function diktStep(s, total) {
   const parts = bolak(s.w);
-  const tiles = shuffle([...parts.map((v, n) => ({ v, n })), ...shuffle(HARF27).slice(0, 2).map(v => ({ v: v + "َ", n: -1 }))]);
+  // jami 20 ta bo'lak: so'zning bo'laklari + qolgani tasodifiy harakatli harflar (chalg'ituvchi)
+  const HAR = ["َ", "ِ", "ُ", "ْ"], extra = [];
+  while (parts.length + extra.length < 20) extra.push({ v: HARF27[Math.floor(Math.random() * HARF27.length)] + HAR[Math.floor(Math.random() * 4)], n: -1 });
+  const tiles = shuffle([...parts.map((v, n) => ({ v, n })), ...extra]);
   $.innerHTML = header(i, total) + `<h2>${s.q}</h2>
     <button class="play" id="pl">🔊</button>
     <div class="big ar" id="yig" style="min-height:64px;border-bottom:2px dashed var(--gold,#c9a227)"></div>
@@ -2097,7 +2225,8 @@ function diktStep(s, total) {
     <button class="o" id="del" style="margin-top:6px">⌫ Oxirgisini o'chirish</button>
     <div class="fb" id="fb"></div>
     <button class="main" id="next" disabled>Tekshirish</button>`;
-  const play = () => { const a = new Audio("audio/" + s.audio + ".mp3"); a.onerror = () => tts(s.w); a.play().catch(() => tts(s.w)); };
+  const play = () => { const a = new Audio("audio/" + s.audio + ".m4a");  // ustoz ovozi (Telegram ovozli xabari -> m4a, iPhone ham o'qiydi)
+    a.onerror = () => tts(s.w); a.play().catch(() => tts(s.w)); };
   document.getElementById("pl").onclick = play; setTimeout(play, 300);
   const yig = document.getElementById("yig"), nx = document.getElementById("next"), picked = [];
   const draw = () => { yig.textContent = picked.map(k => tiles[k].v).join(""); nx.disabled = !picked.length; };
@@ -2225,8 +2354,9 @@ function motiv() {
   const lvNow = mode === "home" ? (level >= 1 ? DARAJALAR[level].id : null) : (LESSON && LESSON.a1 ? "A1" : LESSON && LESSON.lv) || null;
   // daraja ichidagi fon: davlatning eng tanish joyi (Petra, Umaviylar masjidi, Malviya, Burj Xalifa)
   const LVFOTO = { A1: 55, A2: 86, B1: 119, B2: 147, C1: 182, C2: 206 }, fk = LVFOTO[lvNow];
-  document.body.classList.toggle("lvFoto", !!(fk && AI[fk]));
-  if (fk && AI[fk]) document.body.style.setProperty("--lvfoto", `url(${AI[fk]})`);
+  const fsrc = lvNow === "C2" ? "img/fon-c2.jpg" : fk && AI[fk];  // C2: arab dunyosi bo'ylab chizilgan vertikal fon
+  document.body.classList.toggle("lvFoto", !!fsrc);
+  if (fsrc) document.body.style.setProperty("--lvfoto", `url(${fsrc})`);
   document.body.classList.toggle("lvA1", !!lvNow);
   ["A1","A2","B1","B2","C1","C2"].forEach(id => document.body.classList.toggle("lv-" + id, lvNow === id));
   document.body.classList.toggle("lv-PRE", mode === "home" ? level === 0 : !!(LESSON && LESSONS.indexOf(LESSON) < PRE_N));
