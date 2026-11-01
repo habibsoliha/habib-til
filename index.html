@@ -871,7 +871,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v138";
+const VERSION = "v139";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -10850,7 +10850,7 @@ function bolimScreen() {
 // Lug'at darsi: 1) kartochkalar (rasm, so'z, ko'pligi, tarjima, ovoz) 2) mashq: ma'noni tanlash / arabchani tanlash / eshitib tanlash
 function lugatDars(lv, j) {
   const T = LUGAT[lv][j], W = T.w.map((w, i) => ({ ar: w[0], pl: w[1], uz: w[2], img: `lugat/${lv}-${j}-${i}.jpg` }));
-  const say = s => tts(s.split(/ — | # | \/ /)[0]);
+  const say = s => tts(s.replace(/ — | # | \/ /g, "، "));  // savol-javob, zid so'zlar va variantlarning hammasi o'qiladi
   const yopish = () => { mode = "home"; render(); };
   const top = (n, N) => `<div class="top"><button class="o" id="lx" style="padding:6px 12px;font-size:16px">←</button>
     <div class="pbar" style="flex:1;margin:0 10px"><i style="width:${Math.max(n * 100 / N, 2)}%"></i></div><span class="pill">${n}/${N}</span></div>`;
