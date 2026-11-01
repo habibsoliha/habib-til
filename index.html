@@ -145,7 +145,7 @@
 // Audio hozircha brauzer ovozi (arabcha TTS); ustoz ovozi yozilgach audio fayllar bilan almashtiriladi.
 const L1 = {
   n: 1,
-  hw: "Kitobdagi so'zlarni 20 marta o'qing: أَبْ",
+  hw: "Kitobdagi so'zlarni 20 marta o'qing va har birini 3 qatordan yozing: أَبْ",
   title: "1-dars. Kirish: Alif (ا) va Ba (ب) harflari",
   video: "Video: Habibulloh Ahmadov, ~10 daqiqa (yozilgach shu yerga qo'yiladi)",
   yt: ["6XKg2im9swM", "ecZbLXDkJiA"],
@@ -179,7 +179,7 @@ const L1 = {
 
 const L2 = {
   n: 2,
-  hw: "Kitobdagi so'zlarni 20 marta o'qing: أَبَتِ، بَأَتْ",
+  hw: "Kitobdagi so'zlarni 20 marta o'qing va har birini 3 qatordan yozing: أَبَتِ، بَأَتْ",
   title: "2-dars. Ta (ت) harfi",
   video: "Video: Habibulloh Ahmadov, ~12 daqiqa (yozilgach shu yerga qo'yiladi)",
   yt: ["QO2WaoXw7l4"],
@@ -215,7 +215,7 @@ const L2 = {
 
 const L3 = {
   n: 3,
-  hw: "Kitobdagi so'zlarni 20 marta o'qing: أَنْتَ، بِنْتُ",
+  hw: "Kitobdagi so'zlarni 20 marta o'qing va har birini 3 qatordan yozing: أَنْتَ، بِنْتُ",
   title: "3-dars. Nun (ن) harfi va harflarning zamonlari",
   video: "Video: Habibulloh Ahmadov, ~11 daqiqa (yozilgach shu yerga qo'yiladi)",
   yt: ["GWLuy64I5gM"],
@@ -329,7 +329,7 @@ const HARF_DARSLARI = PROGRAMMA.map(([n, cs, mavzu]) => {
   return {
     n, yt: h.map(x => x.yt), steps, test,
     title: `${n}-dars. ` + h.map(x => `${x.name} (${x.c})`).join(" va ") + (h.length > 1 ? " harflari" : " harfi") + (mavzu ? ` · ${mavzu}` : ""),
-    hw: `Kitobdagi so'zlarni 20 marta o'qing: ${h.map(x => x.w1 + "، " + x.w2).join("، ")}`,
+    hw: `Kitobdagi so'zlarni 20 marta o'qing va har birini 3 qatordan yozing: ${h.map(x => x.w1 + "، " + x.w2).join("، ")}`,
   };
 });
 
@@ -727,7 +727,70 @@ const A2_MAVZU = [
   ["2/2 128–131","المواصلات في القاهرة","Transport tanlash"],["2/2 132–135","السفر جوًّا","Aviakassada dialog"],["2/1 131–140","رحلة برية","Do'stlar bilan sayohat"],
   ["2/2 136–139","حجز في الفندق","Mehmonxona yoki kvartira"],["2/2 140–142","قضاء العطلة","Ta'til rejasi"],["2/1 141–150","السفر واستعداداته","Sayohat tajribam"],
 ];
-const LV_MAVZU = { A2: A2_MAVZU };
+// Miftah B1 darslari: har fasl 3/2 (3 qism), keyin 3/1 (3 qism) — rahbar ko'rsatmasi
+const B1_MAVZU = [
+  ["3/2 9–20","ابن بطوطة: lug'at va matn","Matn tarjimasi"],
+  ["3/2 9–20","ابن بطوطة: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 9–20","ابن بطوطة: mashqlar","Ibn Battuta mavzusida suhbat"],
+  ["3/1 9–24","الراجحي، ملياردير انطلق من الصفر: lug'at va matn","Matn tarjimasi"],
+  ["3/1 9–24","الراجحي، ملياردير انطلق من الصفر: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 9–24","الراجحي، ملياردير انطلق من الصفر: mashqlar","Rojihiy — noldan boshlagan milliarder mavzusida insho"],
+  ["3/2 21–32","مقابلة العمل: lug'at va matn","Matn tarjimasi"],
+  ["3/2 21–32","مقابلة العمل: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 21–32","مقابلة العمل: mashqlar","Ish suhbati mavzusida suhbat"],
+  ["3/1 25–40","نساء في مهن رجالية: lug'at va matn","Matn tarjimasi"],
+  ["3/1 25–40","نساء في مهن رجالية: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 25–40","نساء في مهن رجالية: mashqlar","Erkaklar kasbidagi ayollar mavzusida insho"],
+  ["3/2 33–46","الوجبات السريعة: lug'at va matn","Matn tarjimasi"],
+  ["3/2 33–46","الوجبات السريعة: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 33–46","الوجبات السريعة: mashqlar","Tez tayyor taomlar; birinchi yordam mavzusida suhbat"],
+  ["3/1 41–56","الطب البديل: lug'at va matn","Matn tarjimasi"],
+  ["3/1 41–56","الطب البديل: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 41–56","الطب البديل: mashqlar","Muqobil tibbiyot mavzusida insho"],
+  ["3/2 47–58","عادات الزواج حول العالم: lug'at va matn","Matn tarjimasi"],
+  ["3/2 47–58","عادات الزواج حول العالم: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 47–58","عادات الزواج حول العالم: mashqlar","Dunyo bo'ylab to'y odatlari mavzusida suhbat"],
+  ["3/1 57–72","عادات وتقاليد من المجتمع التركي: lug'at va matn","Matn tarjimasi"],
+  ["3/1 57–72","عادات وتقاليد من المجتمع التركي: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 57–72","عادات وتقاليد من المجتمع التركي: mashqlar","Turk jamiyatining urf-odatlari mavzusida insho"],
+  ["3/2 59–70","معلم وحكاية: lug'at va matn","Matn tarjimasi"],
+  ["3/2 59–70","معلم وحكاية: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 59–70","معلم وحكاية: mashqlar","Obida va hikoya mavzusida suhbat"],
+  ["3/1 73–88","أمم نهضت… سنغافورة: lug'at va matn","Matn tarjimasi"],
+  ["3/1 73–88","أمم نهضت… سنغافورة: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 73–88","أمم نهضت… سنغافورة: mashqlar","Yuksalgan xalqlar… Singapur mavzusida insho"],
+  ["3/2 71–82","بين الكتاب الورقي والرقمي: lug'at va matn","Matn tarjimasi"],
+  ["3/2 71–82","بين الكتاب الورقي والرقمي: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 71–82","بين الكتاب الورقي والرقمي: mashqlar","Qog'oz va raqamli kitob orasida mavzusida suhbat"],
+  ["3/1 89–104","اختراعات غيرت التاريخ: lug'at va matn","Matn tarjimasi"],
+  ["3/1 89–104","اختراعات غيرت التاريخ: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 89–104","اختراعات غيرت التاريخ: mashqlar","Tarixni o'zgartirgan ixtirolar mavzusida insho"],
+  ["3/2 83–94","صراع الأجيال: lug'at va matn","Matn tarjimasi"],
+  ["3/2 83–94","صراع الأجيال: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 83–94","صراع الأجيال: mashqlar","Avlodlar to'qnashuvi mavzusida suhbat"],
+  ["3/1 105–120","الأسرة في عصر التكنولوجيا: lug'at va matn","Matn tarjimasi"],
+  ["3/1 105–120","الأسرة في عصر التكنولوجيا: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 105–120","الأسرة في عصر التكنولوجيا: mashqlar","Texnologiyalar davrida oila mavzusida insho"],
+  ["3/2 95–106","قسوة الحياة أجبرتني على ترك دراستي: lug'at va matn","Matn tarjimasi"],
+  ["3/2 95–106","قسوة الحياة أجبرتني على ترك دراستي: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 95–106","قسوة الحياة أجبرتني على ترك دراستي: mashqlar","Hayot qiyinchiligi o'qishni tashlashga majbur qildi mavzusida suhbat"],
+  ["3/1 121–136","ماذا بعد التخرج؟: lug'at va matn","Matn tarjimasi"],
+  ["3/1 121–136","ماذا بعد التخرج؟: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 121–136","ماذا بعد التخرج؟: mashqlar","Bitirgandan keyin nima? mavzusida insho"],
+  ["3/2 107–118","صعوبات الزواج عند الشباب: lug'at va matn","Matn tarjimasi"],
+  ["3/2 107–118","صعوبات الزواج عند الشباب: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 107–118","صعوبات الزواج عند الشباب: mashqlar","Yoshlarning nikohdagi qiyinchiliklari mavzusida suhbat"],
+  ["3/1 137–152","آداب الزيارة وأصول الضيافة: lug'at va matn","Matn tarjimasi"],
+  ["3/1 137–152","آداب الزيارة وأصول الضيافة: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 137–152","آداب الزيارة وأصول الضيافة: mashqlar","Mehmondorchilik odobi mavzusida insho"],
+  ["3/2 119–129","حياتنا في الماضي: lug'at va matn","Matn tarjimasi"],
+  ["3/2 119–129","حياتنا في الماضي: istimo'","Tinglangan matn xulosasi"],
+  ["3/2 119–129","حياتنا في الماضي: mashqlar","O'tmishdagi hayotimiz mavzusida suhbat"],
+  ["3/1 153–168","ذكريات من الزمن الجميل: lug'at va matn","Matn tarjimasi"],
+  ["3/1 153–168","ذكريات من الزمن الجميل: qoidalar va tahlil","Qoida bo'yicha 5 gap"],
+  ["3/1 153–168","ذكريات من الزمن الجميل: mashqlar","Go'zal zamon xotiralari mavzusida insho"],
+];
+const LV_MAVZU = { A2: A2_MAVZU, B1: B1_MAVZU };
 // A2 31–42-darslar uchun qo'shimcha joylar (PLACES oxiriga qo'shiladi: 236–247, boshqa darajalar rasmlari siljimasin)
 const LV_QOSH = { A2: [
   ["🕌","Damashq · Salohiddin maqbarasi","Umaviylar masjidi yonidagi kichik bog'da Salohiddin Ayyubiy dafn etilgan. Maqbara qizil gumbazli va sodda."],
@@ -808,7 +871,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v118";
+const VERSION = "v138";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -833,10 +896,17 @@ function speak(text) {
   }
   tts(text);
 }
+// Android (Samsung, Redmi) Telegram oynasida speechSynthesis yo'q yoki arabcha ovozi yo'q — u holda onlayn ovoz (Google) ishlatiladi
+const arOvoz = () => "speechSynthesis" in window && speechSynthesis.getVoices().some(v => /^ar/i.test(v.lang));
+if ("speechSynthesis" in window) speechSynthesis.getVoices();  // ovozlar ro'yxatini oldindan yuklash
 function tts(text) {
-  if (!("speechSynthesis" in window)) return;
-  const u = new SpeechSynthesisUtterance(text); u.lang = "ar-SA"; u.rate = 0.7;
-  speechSynthesis.cancel(); speechSynthesis.speak(u);
+  if (arOvoz()) {
+    const u = new SpeechSynthesisUtterance(text); u.lang = "ar-SA"; u.rate = 0.7;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    return;
+  }
+  const a = new Audio("https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ar&ttsspeed=0.6&q=" + encodeURIComponent(text));
+  a.play().catch(() => {});
 }
 const shuffle = a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
 const isAr = s => /[؀-ۿ]/.test(s);
@@ -1931,11 +2001,15 @@ function levelsScreen(streak, total) {
         <span class="lv-code">${L.code}</span>
         <span class="lv-body"><span class="lv-ar ar">${L.ar}</span><b>${L.name}</b><small>${L.sub}</small>
           ${k > 1 ? (() => { const LL = LESSONS.slice(BOSQICHLAR[k + 1].from, BOSQICHLAR[k + 1].to), dd = LL.filter(l => store.get("lesson" + l.n, null)).length, pp = Math.round(dd * 100 / LL.length); return `<span class="pbar thin"><i style="width:${Math.max(pp, 2)}%"></i></span><small>${dd}/${LL.length} dars · ${pp}%</small>`; })() : k ? `<span class="pbar thin"><i style="width:${Math.max(p1, 2)}%"></i></span><small>${d1}/${A1L.length} dars · ${p1}%</small>` : `<span class="pbar thin"><i style="width:${Math.max(p, 2)}%"></i></span><small>${d}/${PRE.length} dars · ${p}%</small>`}</span>
-        <span class="arrow">›</span></button>`).join("")}</div>`;
+        <span class="arrow">${k >= 4 && !TEST ? "🔒" : "›"}</span></button>`).join("")}</div>`;
   $.querySelectorAll("button.lv").forEach(b => b.onclick = () => {
+    if (+b.dataset.l >= 4 && !TEST) {  // B2, C1, C2 hozircha yopiq — faqat sinov rejimida ochiladi
+      const f = document.createElement("div"); f.className = "fb ok"; f.textContent = "Bu daraja tez orada ochiladi";
+      f.style.cssText = "position:fixed;left:16px;right:16px;bottom:24px;z-index:9;text-align:center";
+      document.body.appendChild(f); setTimeout(() => f.remove(), 1800); return;
+    }
     if (+b.dataset.l === 0) { level = 0; stage = null; render(); }
-    else if (+b.dataset.l <= 3) { level = +b.dataset.l; stage = null; bolim = null; render(); }  // A1, A2, B1 — 3 bo'lim
-    else { level = +b.dataset.l; stage = level + 1; render(); }
+    else { level = +b.dataset.l; stage = null; bolim = null; render(); }  // A1–C2: 6 ta bo'lim
   });
 }
 // A1, A2, B1: 1) darslar (sayohat xaritasi), 2) Nahv va sarf, 3) Insho — 2- va 3-bo'lim mavzulari metodistdan keladi
@@ -1946,7 +2020,8768 @@ const INSHO_ALL = [["A1 · Shaxsiy ma'lumotlar anketasi",""],["A1 · Mashhur sha
 const INSHO_LV = { 1: INSHO_ALL.filter(x => x[0].startsWith('A1')), 2: INSHO_ALL.filter(x => x[0].startsWith('A2')), 3: [["B1 · Tarjimai hol: muvaffaqiyatga erishgan shaxs haqida",""],["B1 · Kundalik: bir haftalik ish hayotim",""],["B1 · Jumlalarni kengaytirish: muqobil tibbiyot",""],["B1 · Sabab va oqibat: urf-odatlar nega saqlanadi",""],["B1 · Solishtirish: shahar kecha va bugun",""],["B1 · Matnni qisqartirish: hayotimizni o'zgartirgan ixtirolar",""],["B1 · Dalilli insho: zamonaviy oilada munosabatlar",""],["B1 · Qayta ifodalash: o'qishdan keyin nima qilish kerak",""],["B1 · Mehmondorchilik odobi haqida",""],["B1 · Xotiralar: o'tmishdagi bir kunim",""]] };
 const BOLIMLAR = [["📖", "Darslar", "Mavzular va sayohat xaritasi"], ["ن", "Nahv va sarf", "Grammatika qoidalari"], ["✍️", "Insho", "Yozish mashqlari"],
   ["📚", "Lug'atlar", "Mavzular bo'yicha so'zlar"], ["🧩", "Tarkiblar", "Iboralar va so'z birikmalari"], ["💬", "Muhodasa", "Suhbat va dialoglar"]];
-const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV })[b] || {})[lv];  // bo'lim mavzulari (lug'at, tarkib, muhodasa — tez orada)
+// Lug'atlar: Miftah kitoblaridan (Sheet "Lug'at (Habib til)" → app\lugat\a1.json, build qo'shadi); daraja → mavzular
+const LUGAT = { 1: [
+ {
+  "k": "1/2 · 1",
+  "ar": "فرصة سعيدة",
+  "uz": "Tanishganimdan xursandman",
+  "w": [
+   [
+    "اسْمٌ",
+    "أَسْمَاءٌ",
+    "ism"
+   ],
+   [
+    "دَوْلَةٌ",
+    "دُوَلٌ",
+    "davlat"
+   ],
+   [
+    "مَدِينَةٌ",
+    "مُدُنٌ",
+    "shahar"
+   ],
+   [
+    "السَّلَامُ عَلَيْكُمْ — وَعَلَيْكُمُ السَّلَامُ",
+    "",
+    "Assalomu alaykum — Va alaykum assalom"
+   ],
+   [
+    "كَيْفَ حَالُكَ؟ — بِخَيْرٍ، الحَمْدُ لِلَّهِ",
+    "",
+    "Ahvoling qanday? — Yaxshi, Allohga hamd"
+   ],
+   [
+    "مِنْ أَيْنَ أَنْتَ؟",
+    "",
+    "Qayerliksan?"
+   ],
+   [
+    "فُرْصَةٌ سَعِيدَةٌ — وَأَنَا أَيْضًا",
+    "",
+    "Tanishganimdan xursandman — Men ham"
+   ],
+   [
+    "يَسْكُنُ",
+    "",
+    "yashaydi, istiqomat qiladi"
+   ],
+   [
+    "صَبَاحُ الخَيْرِ — صَبَاحُ النُّورِ",
+    "",
+    "Xayrli tong — (javob)"
+   ],
+   [
+    "مَسَاءُ الخَيْرِ — مَسَاءُ النُّورِ",
+    "",
+    "Xayrli kech — (javob)"
+   ],
+   [
+    "مَرْحَبًا — أَهْلًا وَسَهْلًا",
+    "",
+    "Salom — Xush kelibsiz"
+   ],
+   [
+    "إِلَى اللِّقَاءِ — مَعَ السَّلَامَةِ",
+    "",
+    "Ko'rishguncha — Xayr"
+   ],
+   [
+    "لَيْلَةٌ سَعِيدَةٌ",
+    "",
+    "Xayrli tun"
+   ],
+   [
+    "شُكْرًا",
+    "",
+    "rahmat"
+   ],
+   [
+    "أَرَاكَ لَاحِقًا",
+    "",
+    "Keyinroq ko'rishamiz"
+   ],
+   [
+    "إِنْ شَاءَ اللهُ",
+    "",
+    "Xudo xohlasa"
+   ],
+   [
+    "سَيِّدٌ",
+    "سَادَةٌ",
+    "janob"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 2",
+  "ar": "بلدان وجنسيات",
+  "uz": "Mamlakatlar va millatlar",
+  "w": [
+   [
+    "لُغَةٌ",
+    "لُغَاتٌ",
+    "til"
+   ],
+   [
+    "طَالِبٌ / طَالِبَةٌ",
+    "طُلَّابٌ",
+    "talaba (o'g'il / qiz)"
+   ],
+   [
+    "جِنْسِيَّةٌ",
+    "",
+    "millat, fuqarolik"
+   ],
+   [
+    "شَارِعٌ",
+    "شَوَارِعُ",
+    "ko'cha"
+   ],
+   [
+    "صَدِيقٌ",
+    "أَصْدِقَاءُ",
+    "do'st"
+   ],
+   [
+    "عَاصِمَةٌ",
+    "عَوَاصِمُ",
+    "poytaxt"
+   ],
+   [
+    "جَدِيدٌ",
+    "",
+    "yangi"
+   ],
+   [
+    "صَفٌّ",
+    "صُفُوفٌ",
+    "sinf"
+   ],
+   [
+    "آنِسَةٌ",
+    "",
+    "qiz (murojaat), xonim"
+   ],
+   [
+    "قَدِيمٌ",
+    "",
+    "eski, qadimiy"
+   ],
+   [
+    "حَقًّا",
+    "",
+    "rostdan, haqiqatan"
+   ],
+   [
+    "شَرِكَةٌ",
+    "شَرِكَاتٌ",
+    "kompaniya"
+   ],
+   [
+    "مُدِيرٌ",
+    "مُدَرَاءُ",
+    "direktor, rahbar"
+   ],
+   [
+    "يَعْمَلُ",
+    "",
+    "ishlaydi"
+   ],
+   [
+    "مَنْ هَذَا؟ / مَنْ هَذِهِ؟",
+    "",
+    "Bu kim? (o'g'il / qiz)"
+   ],
+   [
+    "نَعَمْ / لَا",
+    "",
+    "ha / yo'q"
+   ],
+   [
+    "سُورِيَّةُ",
+    "",
+    "Suriya"
+   ],
+   [
+    "فِلَسْطِينُ",
+    "",
+    "Falastin"
+   ],
+   [
+    "لُبْنَانُ",
+    "",
+    "Livan"
+   ],
+   [
+    "الأُرْدُنُ",
+    "",
+    "Iordaniya"
+   ],
+   [
+    "مِصْرُ",
+    "",
+    "Misr"
+   ],
+   [
+    "السُّعُودِيَّةُ",
+    "",
+    "Saudiya Arabistoni"
+   ],
+   [
+    "العِرَاقُ",
+    "",
+    "Iroq"
+   ],
+   [
+    "اليَمَنُ",
+    "",
+    "Yaman"
+   ],
+   [
+    "تُونِسُ",
+    "",
+    "Tunis"
+   ],
+   [
+    "المَغْرِبُ",
+    "",
+    "Marokash"
+   ],
+   [
+    "الجَزَائِرُ",
+    "",
+    "Jazoir"
+   ],
+   [
+    "تُرْكِيَا",
+    "",
+    "Turkiya"
+   ],
+   [
+    "فَرَنْسَا",
+    "",
+    "Fransiya"
+   ],
+   [
+    "رُوسْيَا",
+    "",
+    "Rossiya"
+   ],
+   [
+    "أَلْمَانِيَا",
+    "",
+    "Germaniya"
+   ],
+   [
+    "بَرِيطَانِيَا",
+    "",
+    "Britaniya"
+   ],
+   [
+    "أُوكْرَانِيَا",
+    "",
+    "Ukraina"
+   ],
+   [
+    "الصِّينُ",
+    "",
+    "Xitoy"
+   ],
+   [
+    "اليَابَانُ",
+    "",
+    "Yaponiya"
+   ],
+   [
+    "أَمْرِيكَا",
+    "",
+    "Amerika"
+   ],
+   [
+    "مَكَّةُ المُكَرَّمَةُ",
+    "",
+    "Makkai mukarrama"
+   ],
+   [
+    "العَرَبِيَّةُ، التُّرْكِيَّةُ، الفَرَنْسِيَّةُ، الإِنْجِلِيزِيَّةُ، الأَلْمَانِيَّةُ، الرُّوسِيَّةُ",
+    "",
+    "arab, turk, fransuz, ingliz, nemis, rus tillari"
+   ],
+   [
+    "مُنْشِدٌ",
+    "",
+    "xonanda (nashida)"
+   ],
+   [
+    "شَخْصِيَّةٌ مَشْهُورَةٌ",
+    "شَخْصِيَّاتٌ",
+    "mashhur shaxs"
+   ],
+   [
+    "صُورَةٌ",
+    "صُوَرٌ",
+    "rasm, surat"
+   ],
+   [
+    "طَائِرَةٌ",
+    "طَائِرَاتٌ",
+    "samolyot"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 1",
+  "ar": "طلاب حول العالم",
+  "uz": "Dunyo bo'ylab talabalar",
+  "w": [
+   [
+    "لَقَبٌ",
+    "أَلْقَابٌ",
+    "familiya, laqab"
+   ],
+   [
+    "هِوَايَةٌ",
+    "هِوَايَاتٌ",
+    "qiziqish, sevimli mashg'ulot"
+   ],
+   [
+    "عُمْرٌ",
+    "أَعْمَارٌ",
+    "yosh"
+   ],
+   [
+    "أُسْتَاذٌ / مُعَلِّمٌ / مُدَرِّسٌ",
+    "أَسَاتِذَةٌ / مُعَلِّمُونَ / مُدَرِّسُونَ",
+    "o'qituvchi, ustoz"
+   ],
+   [
+    "كُلِّيَّةُ التِّجَارَةِ",
+    "كُلِّيَّاتُ التِّجَارَةِ",
+    "savdo fakulteti"
+   ],
+   [
+    "رَسْمٌ",
+    "",
+    "rasm chizish"
+   ],
+   [
+    "صَيْدٌ",
+    "",
+    "ov, baliq ovi"
+   ],
+   [
+    "أَتَكَلَّمُ",
+    "يَتَكَلَّمُ",
+    "gapiraman"
+   ],
+   [
+    "تَصْوِيرٌ",
+    "",
+    "suratga olish"
+   ],
+   [
+    "الخَطُّ العَرَبِيُّ",
+    "",
+    "arab xattotligi"
+   ],
+   [
+    "مُهَنْدِسٌ",
+    "مُهَنْدِسُونَ",
+    "usta, prorab, arxitektor"
+   ],
+   [
+    "مُوسِيقَى",
+    "",
+    "musiqa"
+   ],
+   [
+    "رِيَاضَةٌ",
+    "",
+    "sport"
+   ],
+   [
+    "كُرَةُ القَدَمِ",
+    "",
+    "futbol"
+   ],
+   [
+    "قَلِيلًا",
+    "",
+    "biroz, ozroq"
+   ],
+   [
+    "أُعَلِّمُ",
+    "يُعَلِّمُ",
+    "o'rgataman"
+   ],
+   [
+    "قِرَاءَةُ الكُتُبِ",
+    "",
+    "kitob o'qish"
+   ],
+   [
+    "سَفَرٌ",
+    "أَسْفَارٌ",
+    "safar"
+   ],
+   [
+    "سِبَاحَةٌ",
+    "",
+    "suzish"
+   ],
+   [
+    "سَنَةٌ",
+    "سَنَوَاتٌ",
+    "yil"
+   ],
+   [
+    "كِتَابٌ",
+    "كُتُبٌ",
+    "kitob"
+   ],
+   [
+    "شَهْرٌ",
+    "أَشْهُرٌ",
+    "oy"
+   ],
+   [
+    "يَوْمٌ",
+    "أَيَّامٌ",
+    "kun"
+   ],
+   [
+    "وَالِدٌ",
+    "",
+    "ota"
+   ],
+   [
+    "رُكُوبُ الخَيْلِ",
+    "",
+    "ot minish"
+   ],
+   [
+    "طِبٌّ",
+    "",
+    "tibbiyot"
+   ],
+   [
+    "شِطْرَنْجٌ",
+    "",
+    "shaxmat"
+   ],
+   [
+    "أَعِيشُ",
+    "يَعِيشُ",
+    "yashayman"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 2",
+  "ar": "مهن من حياتنا",
+  "uz": "Hayotimizdagi kasblar",
+  "w": [
+   [
+    "طَبِيبٌ",
+    "أَطِبَّاءُ",
+    "shifokor"
+   ],
+   [
+    "صَيْدَلِيٌّ",
+    "صَيَادِلَةٌ",
+    "dorixonachi"
+   ],
+   [
+    "سَائِقٌ",
+    "سَائِقُونَ",
+    "haydovchi"
+   ],
+   [
+    "طَبَّاخٌ",
+    "طَبَّاخُونَ",
+    "oshpaz"
+   ],
+   [
+    "خَبَّازٌ",
+    "خَبَّازُونَ",
+    "novvoy"
+   ],
+   [
+    "شُرْطِيُّ مُرُورٍ",
+    "",
+    "yo'l politsiyachisi"
+   ],
+   [
+    "حَلَّاقٌ",
+    "حَلَّاقُونَ",
+    "sartarosh"
+   ],
+   [
+    "مُسْتَشْفًى",
+    "مُسْتَشْفَيَاتٌ",
+    "kasalxona"
+   ],
+   [
+    "صَيْدَلِيَّةٌ",
+    "صَيْدَلِيَّاتٌ",
+    "dorixona"
+   ],
+   [
+    "مَطْعَمٌ",
+    "مَطَاعِمُ",
+    "oshxona, restoran"
+   ],
+   [
+    "فُنْدُقٌ",
+    "فَنَادِقُ",
+    "mehmonxona"
+   ],
+   [
+    "جَامِعَةٌ",
+    "جَامِعَاتٌ",
+    "universitet"
+   ],
+   [
+    "مَدْرَسَةٌ",
+    "مَدَارِسُ",
+    "maktab"
+   ],
+   [
+    "مَخْبَزٌ",
+    "مَخَابِزُ",
+    "novvoyxona"
+   ],
+   [
+    "دُكَّانٌ",
+    "دَكَاكِينُ",
+    "do'kon"
+   ],
+   [
+    "مُمْتِعٌ # مُتْعِبٌ",
+    "",
+    "qiziqarli # charchatadigan"
+   ],
+   [
+    "مُرِيحٌ",
+    "",
+    "qulay, yengil"
+   ],
+   [
+    "قَلِيلٌ # كَثِيرٌ",
+    "",
+    "oz # ko'p"
+   ],
+   [
+    "يُحِبُّ # يَكْرَهُ",
+    "",
+    "yaxshi ko'radi # yomon ko'radi"
+   ],
+   [
+    "يَذْهَبُ # يَرْجِعُ",
+    "",
+    "boradi # qaytadi"
+   ],
+   [
+    "يَبْدَأُ # يَنْتَهِي",
+    "",
+    "boshlanadi # tugaydi"
+   ],
+   [
+    "مِهْنَةٌ",
+    "مِهَنٌ",
+    "kasb"
+   ],
+   [
+    "مُتَقَاعِدٌ",
+    "مُتَقَاعِدُونَ",
+    "nafaqaxo'r"
+   ],
+   [
+    "مُنَاوَبَةٌ",
+    "",
+    "navbatchilik"
+   ],
+   [
+    "أُجْرَةٌ",
+    "أُجُورٌ",
+    "ish haqi"
+   ],
+   [
+    "عُطْلَةٌ",
+    "عُطَلٌ",
+    "dam olish kuni, ta'til"
+   ],
+   [
+    "مَرْكَزُ المَدِينَةِ",
+    "",
+    "shahar markazi"
+   ],
+   [
+    "يَبِيعُ",
+    "",
+    "sotadi"
+   ],
+   [
+    "دَوَاءٌ",
+    "أَدْوِيَةٌ",
+    "dori"
+   ],
+   [
+    "مَرِيضٌ",
+    "مَرْضَى",
+    "bemor"
+   ],
+   [
+    "صَبَاحًا # مَسَاءً",
+    "",
+    "ertalab # kechqurun"
+   ],
+   [
+    "أُسْبُوعِيٌّ",
+    "",
+    "haftalik"
+   ],
+   [
+    "جَارٌ",
+    "جِيرَانٌ",
+    "qo'shni"
+   ],
+   [
+    "حَارَةٌ",
+    "",
+    "tor ko'cha"
+   ],
+   [
+    "طَوِيلٌ # قَصِيرٌ",
+    "",
+    "uzun # qisqa"
+   ],
+   [
+    "جِدًّا",
+    "",
+    "juda"
+   ],
+   [
+    "سَاعَةٌ",
+    "سَاعَاتٌ",
+    "soat"
+   ],
+   [
+    "رَجُلٌ",
+    "رِجَالٌ",
+    "erkak, kishi"
+   ],
+   [
+    "مُزْدَحِمٌ",
+    "",
+    "gavjum, tirband"
+   ],
+   [
+    "سَيَّارَةٌ",
+    "سَيَّارَاتٌ",
+    "mashina"
+   ],
+   [
+    "قَرْيَةٌ",
+    "قُرًى",
+    "qishloq"
+   ],
+   [
+    "يَتَقَاعَدُ",
+    "",
+    "nafaqaga chiqadi"
+   ],
+   [
+    "مُحَامٍ",
+    "مُحَامُونَ",
+    "advokat"
+   ],
+   [
+    "نَادِلٌ",
+    "",
+    "ofitsiant"
+   ],
+   [
+    "مُصَوِّرٌ",
+    "",
+    "fotograf"
+   ],
+   [
+    "رَسَّامٌ",
+    "",
+    "rassom"
+   ],
+   [
+    "فَلَّاحٌ",
+    "فَلَّاحُونَ",
+    "dehqon"
+   ],
+   [
+    "خَيَّاطٌ",
+    "",
+    "tikuvchi"
+   ],
+   [
+    "مَعْمَلٌ",
+    "",
+    "fabrika, sex"
+   ],
+   [
+    "لِبَاسٌ",
+    "أَلْبِسَةٌ",
+    "kiyim"
+   ],
+   [
+    "رَاتِبٌ",
+    "رَوَاتِبُ",
+    "maosh"
+   ],
+   [
+    "مِقَصٌّ",
+    "",
+    "qaychi"
+   ],
+   [
+    "يَقُصُّ",
+    "",
+    "qirqadi"
+   ],
+   [
+    "شَعْرٌ",
+    "",
+    "soch"
+   ],
+   [
+    "كِتَابَةٌ",
+    "",
+    "yozuv"
+   ],
+   [
+    "بَائِعٌ",
+    "بَاعَةٌ",
+    "sotuvchi"
+   ],
+   [
+    "مُمَرِّضٌ / مُمَرِّضَةٌ",
+    "",
+    "hamshira"
+   ],
+   [
+    "صَحَفِيٌّ",
+    "",
+    "jurnalist"
+   ],
+   [
+    "مُضِيفَةُ الطَّيَرَانِ",
+    "",
+    "styuardessa"
+   ],
+   [
+    "نَجَّارٌ",
+    "",
+    "duradgor"
+   ],
+   [
+    "يَصْنَعُ",
+    "",
+    "yasaydi"
+   ],
+   [
+    "بَابٌ",
+    "أَبْوَابٌ",
+    "eshik"
+   ],
+   [
+    "نَافِذَةٌ",
+    "نَوَافِذُ",
+    "deraza"
+   ],
+   [
+    "مَقَالَةٌ",
+    "مَقَالَاتٌ",
+    "maqola"
+   ],
+   [
+    "يَطْبُخُ",
+    "",
+    "ovqat pishiradi"
+   ],
+   [
+    "يَخْدُمُ",
+    "",
+    "xizmat qiladi"
+   ],
+   [
+    "مُسَافِرٌ",
+    "مُسَافِرُونَ",
+    "yo'lovchi"
+   ],
+   [
+    "جَرِيدَةٌ",
+    "جَرَائِدُ",
+    "gazeta"
+   ],
+   [
+    "مَحَلٌّ",
+    "مَحَلَّاتٌ",
+    "do'kon"
+   ],
+   [
+    "وَرْشَةٌ",
+    "",
+    "ustaxona"
+   ],
+   [
+    "قِسْمُ شُرْطَةٍ",
+    "",
+    "politsiya bo'limi"
+   ],
+   [
+    "مَكْتَبَةٌ",
+    "",
+    "kutubxona; kitob do'koni"
+   ],
+   [
+    "حِمَارٌ",
+    "",
+    "eshak"
+   ],
+   [
+    "جَامِعٌ",
+    "جَوَامِعُ",
+    "jome masjid"
+   ],
+   [
+    "قِطَّةٌ",
+    "",
+    "mushuk"
+   ],
+   [
+    "بَقَرَةٌ",
+    "",
+    "sigir"
+   ],
+   [
+    "أُمٌّ",
+    "أُمَّهَاتٌ",
+    "ona"
+   ],
+   [
+    "مَطَارٌ",
+    "",
+    "aeroport"
+   ],
+   [
+    "مَحْكَمَةٌ",
+    "",
+    "sud"
+   ],
+   [
+    "مَنْجَرَةٌ",
+    "",
+    "duradgorlik sexi"
+   ],
+   [
+    "بُسْتَانٌ / حَدِيقَةٌ",
+    "بَسَاتِينُ / حَدَائِقُ",
+    "bog'"
+   ],
+   [
+    "تِلْفَازٌ",
+    "",
+    "televizor"
+   ],
+   [
+    "خُبْزٌ",
+    "",
+    "non"
+   ],
+   [
+    "يَقُودُ",
+    "",
+    "boshqaradi (mashina)"
+   ],
+   [
+    "وَظِيفَةٌ شَاغِرَةٌ",
+    "وَظَائِفُ",
+    "bo'sh ish o'rni"
+   ],
+   [
+    "مُحَاسِبٌ",
+    "",
+    "hisobchi"
+   ],
+   [
+    "دَوَامٌ كَامِلٌ",
+    "",
+    "to'liq stavka"
+   ],
+   [
+    "خِبْرَةٌ",
+    "",
+    "tajriba"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 3",
+  "ar": "في الصف",
+  "uz": "Sinfda",
+  "w": [
+   [
+    "مِبْرَاةٌ",
+    "",
+    "qalamtarosh"
+   ],
+   [
+    "سَبُّورَةٌ",
+    "",
+    "doska"
+   ],
+   [
+    "طَاوِلَةٌ",
+    "طَاوِلَاتٌ",
+    "stol"
+   ],
+   [
+    "كُرْسِيٌّ",
+    "كَرَاسِيُّ",
+    "stul"
+   ],
+   [
+    "مَقْعَدٌ",
+    "",
+    "parta, o'rindiq, skameyka"
+   ],
+   [
+    "حَقِيبَةٌ",
+    "",
+    "sumka"
+   ],
+   [
+    "دَفْتَرٌ",
+    "دَفَاتِرُ",
+    "daftar"
+   ],
+   [
+    "وَرَقَةٌ",
+    "أَوْرَاقٌ",
+    "qog'oz, varaq"
+   ],
+   [
+    "قَلَمٌ",
+    "أَقْلَامٌ",
+    "ruchka"
+   ],
+   [
+    "حَاسُوبٌ",
+    "",
+    "kompyuter"
+   ],
+   [
+    "مِمْحَاةٌ",
+    "",
+    "o'chirg'ich"
+   ],
+   [
+    "مِسْطَرَةٌ",
+    "",
+    "chizg'ich"
+   ],
+   [
+    "قَلَمُ رَصَاصٍ",
+    "",
+    "qalam"
+   ],
+   [
+    "مِفْتَاحٌ",
+    "",
+    "kalit"
+   ],
+   [
+    "جَوَّالٌ",
+    "",
+    "telefon"
+   ],
+   [
+    "نَظَّارَةٌ",
+    "",
+    "ko'zoynak"
+   ],
+   [
+    "يَعْرِفُ",
+    "",
+    "biladi"
+   ],
+   [
+    "أَحْسَنْتَ",
+    "",
+    "Barakalla!"
+   ],
+   [
+    "مَعَ / لِـ",
+    "",
+    "bilan (yonida) / …niki"
+   ],
+   [
+    "لِمَنْ؟",
+    "",
+    "kimniki?"
+   ],
+   [
+    "يُرِيدُ",
+    "",
+    "xohlaydi"
+   ],
+   [
+    "يَسْأَلُ",
+    "",
+    "so'raydi"
+   ],
+   [
+    "تَفَضَّلْ",
+    "",
+    "Marhamat"
+   ],
+   [
+    "جَيِّدٌ",
+    "",
+    "yaxshi"
+   ],
+   [
+    "عَفْوًا",
+    "",
+    "kechirasiz"
+   ],
+   [
+    "شَيْءٌ",
+    "أَشْيَاءُ",
+    "narsa"
+   ],
+   [
+    "انْظُرْ",
+    "",
+    "qara"
+   ],
+   [
+    "لَيْسَ",
+    "",
+    "emas"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 4",
+  "ar": "ماذا تدرس",
+  "uz": "Nima o'qiysan?",
+  "w": [
+   [
+    "افْتَحْ # أَغْلِقْ",
+    "",
+    "och # yop"
+   ],
+   [
+    "قِفْ # اجْلِسْ",
+    "",
+    "tur # o'tir"
+   ],
+   [
+    "اسْتَمِعْ",
+    "",
+    "tingla"
+   ],
+   [
+    "اقْرَأْ",
+    "",
+    "o'qi"
+   ],
+   [
+    "اكْتُبْ",
+    "",
+    "yoz"
+   ],
+   [
+    "تَحَدَّثْ",
+    "",
+    "gapir"
+   ],
+   [
+    "كَرِّرْ",
+    "",
+    "takrorla"
+   ],
+   [
+    "زَمِيلٌ",
+    "زُمَلَاءُ",
+    "sherik, kursdosh"
+   ],
+   [
+    "كُلِّيَّةُ الهَنْدَسَةِ",
+    "",
+    "muhandislik fakulteti"
+   ],
+   [
+    "كُلِّيَّةُ الحُقُوقِ",
+    "",
+    "huquq fakulteti"
+   ],
+   [
+    "الأَوَّلُ … السَّادِسُ",
+    "",
+    "birinchi … oltinchi"
+   ],
+   [
+    "يَدْرُسُ",
+    "",
+    "o'qiydi"
+   ],
+   [
+    "مَعْهَدُ اللُّغَاتِ",
+    "",
+    "tillar instituti"
+   ],
+   [
+    "يَفْهَمُ",
+    "",
+    "tushunadi"
+   ],
+   [
+    "التَّارِيخُ",
+    "",
+    "tarix"
+   ],
+   [
+    "يَتَعَلَّمُ",
+    "",
+    "o'rganadi"
+   ],
+   [
+    "الرَّقْمُ الجَامِعِيُّ",
+    "",
+    "talaba raqami"
+   ],
+   [
+    "السَّنَةُ الدِّرَاسِيَّةُ",
+    "",
+    "o'quv yili"
+   ],
+   [
+    "هَلْ يُمْكِنُ أَنْ …؟",
+    "",
+    "…sam bo'ladimi?"
+   ],
+   [
+    "مَا فَهِمْتُ",
+    "",
+    "tushunmadim"
+   ],
+   [
+    "عِنْدِي سُؤَالٌ لَوْ سَمَحْتَ",
+    "",
+    "Savolim bor, mumkinmi"
+   ],
+   [
+    "حَاضِرٌ # غَائِبٌ",
+    "",
+    "bor (davomatda) # yo'q"
+   ],
+   [
+    "صَفْحَةٌ",
+    "",
+    "sahifa"
+   ],
+   [
+    "انْتَبِهْ",
+    "",
+    "diqqat qil"
+   ],
+   [
+    "بِالتَّأْكِيدِ / طَبْعًا",
+    "",
+    "albatta"
+   ],
+   [
+    "مَعْنًى",
+    "",
+    "ma'no"
+   ],
+   [
+    "أُخْتٌ",
+    "أَخَوَاتٌ",
+    "opa-singil"
+   ],
+   [
+    "صُنْدُوقٌ",
+    "",
+    "quti"
+   ],
+   [
+    "سَمَكَةٌ",
+    "",
+    "baliq"
+   ],
+   [
+    "صَقْرٌ",
+    "",
+    "lochin"
+   ],
+   [
+    "قَمَرٌ",
+    "",
+    "oy (osmondagi)"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 3",
+  "ar": "الدراسة",
+  "uz": "O'qish",
+  "w": [
+   [
+    "اسْتِرَاحَةٌ",
+    "",
+    "tanaffus"
+   ],
+   [
+    "بَرْنَامَجٌ دِرَاسِيٌّ",
+    "",
+    "dars jadvali"
+   ],
+   [
+    "مَادَّةٌ",
+    "مَوَادُّ",
+    "fan, predmet"
+   ],
+   [
+    "مُجْتَهِدٌ # كَسُولٌ",
+    "",
+    "tirishqoq # dangasa"
+   ],
+   [
+    "مَرْحَلَةٌ",
+    "مَرَاحِلُ",
+    "bosqich"
+   ],
+   [
+    "الرَّوْضَةُ",
+    "",
+    "bog'cha"
+   ],
+   [
+    "المَرْحَلَةُ الابْتِدَائِيَّةُ",
+    "",
+    "boshlang'ich maktab"
+   ],
+   [
+    "المُتَوَسِّطَةُ",
+    "",
+    "o'rta maktab"
+   ],
+   [
+    "الثَّانَوِيَّةُ",
+    "",
+    "litsey (yuqori sinflar)"
+   ],
+   [
+    "الدِّرَاسَاتُ العُلْيَا",
+    "",
+    "magistratura va undan yuqori"
+   ],
+   [
+    "أَوَّلُ # آخِرُ",
+    "",
+    "birinchi # oxirgi"
+   ],
+   [
+    "يَتَفَقَّدُ",
+    "",
+    "yo'qlama qiladi"
+   ],
+   [
+    "حُضُورٌ # غِيَابٌ",
+    "",
+    "davomat # yo'qlik"
+   ],
+   [
+    "مِنْطَقَةٌ",
+    "مَنَاطِقُ",
+    "hudud, tuman"
+   ],
+   [
+    "جُغْرَافِيَا",
+    "",
+    "geografiya"
+   ],
+   [
+    "فَلْسَفَةٌ",
+    "",
+    "falsafa"
+   ],
+   [
+    "عِلْمُ النَّفْسِ",
+    "",
+    "psixologiya"
+   ],
+   [
+    "تَرْبِيَةٌ",
+    "",
+    "pedagogika"
+   ],
+   [
+    "مُدَّةٌ",
+    "",
+    "davomiylik"
+   ],
+   [
+    "دَقِيقَةٌ",
+    "دَقَائِقُ",
+    "daqiqa"
+   ],
+   [
+    "وَقْتُ الطَّعَامِ",
+    "",
+    "ovqat vaqti"
+   ],
+   [
+    "بِدَايَةٌ # انْتِهَاءٌ",
+    "",
+    "boshlanish # tugash"
+   ],
+   [
+    "السَّاعَةُ الثَّامِنَةُ وَالنِّصْفُ / وَالرُّبْعُ / إِلَّا رُبْعًا / وَالثُّلُثُ",
+    "",
+    "soat 8:30 / 8:15 / 7:45 / 8:20"
+   ],
+   [
+    "أَمْسِ / اليَوْمَ / غَدًا",
+    "",
+    "kecha / bugun / ertaga"
+   ],
+   [
+    "أَوَّلُ أَمْسِ / بَعْدَ غَدٍ",
+    "",
+    "o'tgan kuni / indinga"
+   ],
+   [
+    "بِطَاقَةُ طَالِبٍ",
+    "",
+    "talaba guvohnomasi"
+   ],
+   [
+    "هَاتِفٌ",
+    "",
+    "telefon"
+   ],
+   [
+    "البَرِيدُ الإِلِكْتُرُونِيُّ",
+    "",
+    "elektron pochta"
+   ],
+   [
+    "حُزَيْرَانُ",
+    "",
+    "iyun"
+   ],
+   [
+    "مُحَاضَرَةٌ",
+    "مُحَاضَرَاتٌ",
+    "ma'ruza"
+   ],
+   [
+    "تَقْرِيبًا",
+    "",
+    "taxminan"
+   ],
+   [
+    "سُكَّرٌ",
+    "",
+    "shakar"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 4",
+  "ar": "مواصلات في المدينة",
+  "uz": "Shahardagi transport",
+  "w": [
+   [
+    "وَسَائِلُ المُوَاصَلَاتِ",
+    "",
+    "transport vositalari"
+   ],
+   [
+    "حَافِلَةٌ",
+    "حَافِلَاتٌ",
+    "avtobus"
+   ],
+   [
+    "قِطَارٌ",
+    "قِطَارَاتٌ",
+    "poyezd"
+   ],
+   [
+    "سَفِينَةٌ",
+    "سُفُنٌ",
+    "kema"
+   ],
+   [
+    "سَيَّارَةُ أُجْرَةٍ",
+    "",
+    "taksi"
+   ],
+   [
+    "مَحَطَّةٌ",
+    "مَحَطَّاتٌ",
+    "bekat, vokzal"
+   ],
+   [
+    "سَرِيعٌ # بَطِيءٌ",
+    "",
+    "tez # sekin"
+   ],
+   [
+    "غَالٍ # رَخِيصٌ",
+    "",
+    "qimmat # arzon"
+   ],
+   [
+    "آمِنٌ # خَطِيرٌ",
+    "",
+    "xavfsiz # xavfli"
+   ],
+   [
+    "بَعِيدٌ عَنْ # قَرِيبٌ مِنْ",
+    "",
+    "…dan uzoq # …ga yaqin"
+   ],
+   [
+    "يَرْكَبُ # يَنْزِلُ",
+    "",
+    "minadi # tushadi"
+   ],
+   [
+    "يَخْرُجُ مِنْ # يَدْخُلُ إِلَى",
+    "",
+    "chiqadi # kiradi"
+   ],
+   [
+    "يَنْطَلِقُ / يَصِلُ",
+    "",
+    "jo'naydi / yetib keladi"
+   ],
+   [
+    "العُلُومُ السِّيَاسِيَّةُ",
+    "",
+    "siyosatshunoslik"
+   ],
+   [
+    "أُسْرَةٌ",
+    "أُسَرٌ",
+    "oila"
+   ],
+   [
+    "يَنْتَظِرُ",
+    "",
+    "kutadi"
+   ],
+   [
+    "مَوْقِفٌ",
+    "مَوَاقِفُ",
+    "bekat (avtobus)"
+   ],
+   [
+    "المِتْرُو",
+    "",
+    "metro"
+   ],
+   [
+    "صَغِيرٌ # كَبِيرٌ",
+    "",
+    "kichik # katta"
+   ],
+   [
+    "جَمِيلٌ",
+    "",
+    "chiroyli"
+   ],
+   [
+    "وَسِيلَةٌ",
+    "وَسَائِلُ",
+    "vosita"
+   ],
+   [
+    "جَمَلٌ",
+    "",
+    "tuya"
+   ],
+   [
+    "يَسِيرُ",
+    "",
+    "yuradi, harakatlanadi"
+   ],
+   [
+    "سِكَّةٌ حَدِيدِيَّةٌ",
+    "",
+    "temir yo'l"
+   ],
+   [
+    "بَحْرٌ",
+    "بِحَارٌ",
+    "dengiz"
+   ],
+   [
+    "مُحِيطٌ",
+    "مُحِيطَاتٌ",
+    "okean"
+   ],
+   [
+    "عَادَةً",
+    "",
+    "odatda"
+   ],
+   [
+    "مُتَأَخِّرٌ",
+    "",
+    "kechikkan"
+   ],
+   [
+    "الفُنُونُ الجَمِيلَةُ",
+    "",
+    "tasviriy san'at"
+   ],
+   [
+    "يَأْتِي",
+    "",
+    "keladi"
+   ],
+   [
+    "مَيْدَانٌ",
+    "",
+    "maydon"
+   ],
+   [
+    "أَحْيَانًا",
+    "",
+    "ba'zan"
+   ],
+   [
+    "أُسْبُوعٌ",
+    "أَسَابِيعُ",
+    "hafta"
+   ],
+   [
+    "يَرْجِعُ",
+    "",
+    "qaytadi"
+   ],
+   [
+    "مُفَضَّلٌ",
+    "",
+    "sevimli"
+   ],
+   [
+    "لَدَيْكَ",
+    "",
+    "sizda (bor)"
+   ],
+   [
+    "نَشِيطٌ",
+    "",
+    "faol"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 5",
+  "ar": "أسرتي الصغيرة",
+  "uz": "Kichik oilam",
+  "w": [
+   [
+    "أَبٌ / وَالِدٌ",
+    "آبَاءٌ",
+    "ota"
+   ],
+   [
+    "أُمٌّ / وَالِدَةٌ",
+    "أُمَّهَاتٌ",
+    "ona"
+   ],
+   [
+    "أَخٌ",
+    "إِخْوَةٌ",
+    "aka-uka"
+   ],
+   [
+    "ابْنٌ",
+    "أَبْنَاءٌ",
+    "o'g'il"
+   ],
+   [
+    "بِنْتٌ / ابْنَةٌ",
+    "بَنَاتٌ",
+    "qiz"
+   ],
+   [
+    "زَوْجٌ / زَوْجَةٌ",
+    "",
+    "er / xotin"
+   ],
+   [
+    "أَعْزَبُ / عَزْبَاءُ",
+    "",
+    "bo'ydoq / turmushga chiqmagan qiz"
+   ],
+   [
+    "خَاطِبٌ / مَخْطُوبَةٌ",
+    "",
+    "unashtirilgan"
+   ],
+   [
+    "مُتَزَوِّجٌ / مُتَزَوِّجَةٌ",
+    "",
+    "uylangan / turmushga chiqqan"
+   ],
+   [
+    "مُطَلَّقٌ / مُطَلَّقَةٌ",
+    "",
+    "ajrashgan"
+   ],
+   [
+    "رَبَّةُ مَنْزِلٍ",
+    "",
+    "uy bekasi"
+   ],
+   [
+    "شَخْصٌ",
+    "أَشْخَاصٌ",
+    "shaxs, kishi"
+   ],
+   [
+    "الأَكْبَرُ، الأَوْسَطُ، الأَصْغَرُ / الكُبْرَى، الوُسْطَى، الصُّغْرَى",
+    "",
+    "eng katta, o'rtancha, eng kichik"
+   ],
+   [
+    "كَمْ؟",
+    "",
+    "nechta?"
+   ],
+   [
+    "عِنْدَ",
+    "",
+    "…da (bor)"
+   ],
+   [
+    "حَدِّثْنِي عَنْ …",
+    "",
+    "…haqida gapirib ber"
+   ],
+   [
+    "تَشَرَّفْتُ بِمَعْرِفَتِكَ",
+    "",
+    "Tanishganimdan sharafliman"
+   ],
+   [
+    "الحَالَةُ الاجْتِمَاعِيَّةُ",
+    "",
+    "oilaviy holat"
+   ],
+   [
+    "لَكِنْ",
+    "",
+    "lekin"
+   ],
+   [
+    "عَائِلَةٌ",
+    "",
+    "oila"
+   ],
+   [
+    "الاسْمُ الكَامِلُ",
+    "",
+    "to'liq ism"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 6",
+  "ar": "أقاربي",
+  "uz": "Qarindoshlarim",
+  "w": [
+   [
+    "جَدٌّ / جَدَّةٌ",
+    "",
+    "bobo / buvi"
+   ],
+   [
+    "حَفِيدٌ / حَفِيدَةٌ",
+    "أَحْفَادٌ",
+    "nevara"
+   ],
+   [
+    "عَمٌّ / عَمَّةٌ",
+    "أَعْمَامٌ / عَمَّاتٌ",
+    "amaki / amma"
+   ],
+   [
+    "خَالٌ / خَالَةٌ",
+    "أَخْوَالٌ / خَالَاتٌ",
+    "tog'a / xola"
+   ],
+   [
+    "أَرْمَلٌ / أَرْمَلَةٌ",
+    "",
+    "beva"
+   ],
+   [
+    "تَوْأَمٌ",
+    "",
+    "egizak"
+   ],
+   [
+    "رَائِعٌ",
+    "",
+    "ajoyib"
+   ],
+   [
+    "رَجُلُ إِطْفَاءٍ",
+    "",
+    "o't o'chiruvchi"
+   ],
+   [
+    "صَعْبٌ",
+    "",
+    "qiyin"
+   ],
+   [
+    "لَطِيفٌ",
+    "",
+    "yoqimli, muloyim"
+   ],
+   [
+    "دَائِمًا",
+    "",
+    "doim"
+   ],
+   [
+    "مَعَكَ حَقٌّ",
+    "",
+    "Haqsan"
+   ],
+   [
+    "ذِكْرَيَاتٌ",
+    "",
+    "xotiralar"
+   ],
+   [
+    "طِفْلَةٌ",
+    "",
+    "qizaloq"
+   ],
+   [
+    "مُنْذُ",
+    "",
+    "…dan beri"
+   ],
+   [
+    "تَأْمِينٌ",
+    "",
+    "sug'urta"
+   ],
+   [
+    "مَكْتَبٌ",
+    "",
+    "idora"
+   ],
+   [
+    "مَرِيضَةٌ / طَبِيبَةٌ",
+    "",
+    "bemor (ayol) / shifokor (ayol)"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 5",
+  "ar": "العائلة العربية",
+  "uz": "Arab oilasi",
+  "w": [
+   [
+    "قَوِيٌّ # ضَعِيفٌ",
+    "",
+    "kuchli # zaif"
+   ],
+   [
+    "حُبٌّ # كُرْهٌ",
+    "",
+    "muhabbat # nafrat"
+   ],
+   [
+    "احْتِيَاجَاتٌ",
+    "",
+    "ehtiyojlar"
+   ],
+   [
+    "مُسْتَقِلٌّ",
+    "",
+    "alohida, mustaqil"
+   ],
+   [
+    "تَتَكَوَّنُ مِنْ / تَتَأَلَّفُ مِنْ",
+    "",
+    "…dan iborat"
+   ],
+   [
+    "مَسْؤُولٌ عَنْ",
+    "",
+    "…uchun mas'ul"
+   ],
+   [
+    "تُرَبِّي",
+    "",
+    "tarbiyalaydi"
+   ],
+   [
+    "تُنَظِّفُ",
+    "",
+    "tozalaydi"
+   ],
+   [
+    "تُرَتِّبُ",
+    "",
+    "yig'ishtiradi"
+   ],
+   [
+    "تُحَضِّرُ",
+    "",
+    "tayyorlaydi"
+   ],
+   [
+    "تَغْسِلُ",
+    "",
+    "yuvadi"
+   ],
+   [
+    "تَكْوِي",
+    "",
+    "dazmollaydi"
+   ],
+   [
+    "رَأْسُ العَائِلَةِ",
+    "",
+    "oila boshlig'i"
+   ],
+   [
+    "مَحَبَّةٌ، تَعَاوُنٌ، احْتِرَامٌ",
+    "",
+    "mehr, hamkorlik, hurmat"
+   ],
+   [
+    "طَعَامٌ، شَرَابٌ، لِبَاسٌ، عِلَاجٌ، تَعْلِيمٌ",
+    "",
+    "ovqat, ichimlik, kiyim, davolash, ta'lim"
+   ],
+   [
+    "مَلَابِسُ",
+    "",
+    "kiyimlar"
+   ],
+   [
+    "خَاصَّةً",
+    "",
+    "ayniqsa"
+   ],
+   [
+    "الرِّيفُ",
+    "",
+    "qishloq joy"
+   ],
+   [
+    "زَوَاجٌ",
+    "",
+    "nikoh, to'y"
+   ],
+   [
+    "قَبْلَ # بَعْدَ",
+    "",
+    "oldin # keyin"
+   ],
+   [
+    "يَبْلُغُ مِنَ العُمْرِ",
+    "",
+    "yoshga yetadi"
+   ],
+   [
+    "أَهْلٌ",
+    "",
+    "ahl, aholi"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 6",
+  "ar": "أصدقاء من حولنا",
+  "uz": "Atrofimizdagi do'stlar",
+  "w": [
+   [
+    "هَادِئٌ # مُشَاغِبٌ",
+    "",
+    "sokin # sho'x"
+   ],
+   [
+    "مَحْبُوبٌ # مَكْرُوهٌ",
+    "",
+    "sevimli # yoqimsiz"
+   ],
+   [
+    "نَشِيطٌ # كَسُولٌ",
+    "",
+    "g'ayratli # dangasa"
+   ],
+   [
+    "مَزُوحٌ # جِدِّيٌّ",
+    "",
+    "hazilkash # jiddiy"
+   ],
+   [
+    "حَسَّاسٌ",
+    "",
+    "ta'sirchan"
+   ],
+   [
+    "أُحِبُّ # أَكْرَهُ",
+    "",
+    "yaxshi ko'raman # yomon ko'raman"
+   ],
+   [
+    "أُمَارِسُ",
+    "",
+    "shug'ullanaman"
+   ],
+   [
+    "أَتَجَوَّلُ",
+    "",
+    "sayr qilaman"
+   ],
+   [
+    "أَجْتَمِعُ",
+    "",
+    "yig'ilaman"
+   ],
+   [
+    "السِّيَاحَةُ وَالسَّفَرُ",
+    "",
+    "turizm va safar"
+   ],
+   [
+    "أَيَّامُ الطُّفُولَةِ",
+    "",
+    "bolalik kunlari"
+   ],
+   [
+    "صَدِيقِي العَزِيزُ",
+    "",
+    "aziz do'stim"
+   ],
+   [
+    "مَجَالٌ",
+    "",
+    "soha"
+   ],
+   [
+    "تَسَلُّقُ الجِبَالِ",
+    "",
+    "tog'ga chiqish"
+   ],
+   [
+    "يَتَعَرَّفُ إِلَى",
+    "",
+    "tanishadi"
+   ],
+   [
+    "عَزِيزٌ",
+    "",
+    "aziz"
+   ],
+   [
+    "مُرَتَّبٌ / مُنَظَّمٌ",
+    "",
+    "tartibli"
+   ],
+   [
+    "نَظَافَةٌ / نَظِيفٌ",
+    "",
+    "tozalik / toza"
+   ],
+   [
+    "يُسَاعِدُ",
+    "",
+    "yordam beradi"
+   ],
+   [
+    "مُنَاسَبَاتٌ اجْتِمَاعِيَّةٌ",
+    "",
+    "ijtimoiy tadbirlar"
+   ],
+   [
+    "الاسْتِيقَاظُ",
+    "",
+    "uyg'onish"
+   ],
+   [
+    "شَايٌ",
+    "",
+    "choy"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 7",
+  "ar": "أقسام البيت",
+  "uz": "Uy qismlari",
+  "w": [
+   [
+    "بِنَاءٌ",
+    "",
+    "bino"
+   ],
+   [
+    "شَقَّةٌ",
+    "شُقَقٌ",
+    "kvartira"
+   ],
+   [
+    "طَابِقٌ",
+    "طَوَابِقُ",
+    "qavat"
+   ],
+   [
+    "غُرْفَةُ جُلُوسٍ / ضُيُوفٍ / نَوْمٍ",
+    "غُرَفٌ",
+    "mehmonxona / mehmonlar xonasi / yotoqxona"
+   ],
+   [
+    "حَمَّامٌ",
+    "",
+    "hammom"
+   ],
+   [
+    "مَطْبَخٌ",
+    "مَطَابِخُ",
+    "oshxona"
+   ],
+   [
+    "شُرْفَةٌ",
+    "",
+    "balkon"
+   ],
+   [
+    "أَثَاثٌ",
+    "",
+    "mebel"
+   ],
+   [
+    "خِزَانَةُ مَلَابِسَ",
+    "",
+    "kiyim shkafi"
+   ],
+   [
+    "سَجَّادَةٌ",
+    "",
+    "gilam"
+   ],
+   [
+    "سَرِيرٌ",
+    "",
+    "karavot"
+   ],
+   [
+    "مِصْبَاحٌ",
+    "",
+    "chiroq"
+   ],
+   [
+    "مِرْآةٌ",
+    "",
+    "oyna (ko'zgu)"
+   ],
+   [
+    "مَوْقِدٌ",
+    "",
+    "plita"
+   ],
+   [
+    "بَرَّادٌ / ثَلَّاجَةٌ",
+    "",
+    "muzlatgich"
+   ],
+   [
+    "أَرِيكَةٌ",
+    "",
+    "divan"
+   ],
+   [
+    "غَسَّالَةُ مَلَابِسَ / أَطْبَاقٍ",
+    "",
+    "kir / idish yuvish mashinasi"
+   ],
+   [
+    "مُكَيِّفٌ",
+    "",
+    "konditsioner"
+   ],
+   [
+    "وَاسِعٌ # ضَيِّقٌ",
+    "",
+    "keng # tor"
+   ],
+   [
+    "مَفْرُوشٌ # فَارِغٌ",
+    "",
+    "mebelli # bo'sh"
+   ],
+   [
+    "مُبَارَكٌ",
+    "",
+    "muborak"
+   ],
+   [
+    "مُنَاسِبٌ",
+    "",
+    "mos"
+   ],
+   [
+    "يُوجَدُ",
+    "",
+    "bor (mavjud)"
+   ],
+   [
+    "هُنَاكَ",
+    "",
+    "u yerda; bor"
+   ],
+   [
+    "وَحْدِي",
+    "",
+    "yolg'iz o'zim"
+   ],
+   [
+    "مُهَنْدِسَةٌ مِعْمَارِيَّةٌ",
+    "",
+    "arxitektor (ayol)"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 8",
+  "ar": "أثاث البيت",
+  "uz": "Uy jihozlari",
+  "w": [
+   [
+    "يَنَامُ",
+    "",
+    "uxlaydi"
+   ],
+   [
+    "يَجْلِسُ",
+    "",
+    "o'tiradi"
+   ],
+   [
+    "يَضَعُ",
+    "",
+    "qo'yadi"
+   ],
+   [
+    "يَأْكُلُ",
+    "",
+    "yeydi"
+   ],
+   [
+    "يُشَاهِدُ",
+    "",
+    "tomosha qiladi"
+   ],
+   [
+    "يَقْرَأُ",
+    "",
+    "o'qiydi"
+   ],
+   [
+    "يَسْتَحِمُّ",
+    "",
+    "cho'miladi"
+   ],
+   [
+    "تَحْتَ # فَوْقَ",
+    "",
+    "ostida # ustida"
+   ],
+   [
+    "أَمَامَ # خَلْفَ",
+    "",
+    "oldida # orqasida"
+   ],
+   [
+    "جَانِبَ",
+    "",
+    "yonida"
+   ],
+   [
+    "بَيْنَ",
+    "",
+    "orasida"
+   ],
+   [
+    "حَوْلَ",
+    "",
+    "atrofida"
+   ],
+   [
+    "فِي الزَّاوِيَةِ",
+    "",
+    "burchakda"
+   ],
+   [
+    "يَمِينٌ # يَسَارٌ",
+    "",
+    "o'ng # chap"
+   ],
+   [
+    "وَسْطٌ",
+    "",
+    "o'rta"
+   ],
+   [
+    "مُبَعْثَرٌ",
+    "",
+    "sochilgan"
+   ],
+   [
+    "ثَقِيلٌ # خَفِيفٌ",
+    "",
+    "og'ir # yengil"
+   ],
+   [
+    "مِزْهَرِيَّةٌ",
+    "",
+    "guldon"
+   ],
+   [
+    "حَائِطٌ",
+    "",
+    "devor"
+   ],
+   [
+    "وِسَادَةٌ",
+    "",
+    "yostiq"
+   ],
+   [
+    "رُبَّمَا",
+    "",
+    "balki"
+   ],
+   [
+    "عَقْلٌ",
+    "",
+    "aql"
+   ],
+   [
+    "رَأْسٌ",
+    "",
+    "bosh"
+   ],
+   [
+    "يَظُنُّ",
+    "",
+    "o'ylaydi, gumon qiladi"
+   ],
+   [
+    "عَلَى عَيْنِي وَرَأْسِي",
+    "",
+    "jonim bilan"
+   ],
+   [
+    "سَلِمَتْ يَدَاكَ",
+    "",
+    "qo'llaringiz dard ko'rmasin"
+   ],
+   [
+    "مُقَابِلَ",
+    "",
+    "qarshisida"
+   ],
+   [
+    "مِصْعَدٌ",
+    "",
+    "lift"
+   ],
+   [
+    "مَنْظَرٌ",
+    "",
+    "manzara"
+   ],
+   [
+    "سَتَائِرُ",
+    "",
+    "pardalar"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 7",
+  "ar": "بيوت تراثية",
+  "uz": "An'anaviy uylar",
+  "w": [
+   [
+    "مِرْحَاضٌ",
+    "مَرَاحِيضُ",
+    "hojatxona"
+   ],
+   [
+    "سَاحَةٌ",
+    "سَاحَاتٌ",
+    "hovli"
+   ],
+   [
+    "نَافُورَةٌ",
+    "نَوَافِيرُ",
+    "favvora"
+   ],
+   [
+    "قِسْمٌ",
+    "أَقْسَامٌ",
+    "qism, bo'lim"
+   ],
+   [
+    "مَنْزِلٌ",
+    "مَنَازِلُ",
+    "uy"
+   ],
+   [
+    "مَدْخَلُ البَيْتِ",
+    "",
+    "uy kirish joyi"
+   ],
+   [
+    "مُخَصَّصٌ لِـ",
+    "",
+    "…ga mo'ljallangan"
+   ],
+   [
+    "صِحِّيٌّ",
+    "",
+    "sog'lom"
+   ],
+   [
+    "هَوَاءٌ",
+    "",
+    "havo"
+   ],
+   [
+    "اليَاسَمِينُ",
+    "",
+    "yasmin"
+   ],
+   [
+    "النَّارِنْجُ",
+    "",
+    "nordon apelsin"
+   ],
+   [
+    "البُرْتُقَالُ",
+    "",
+    "apelsin"
+   ],
+   [
+    "اللَّيْمُونُ",
+    "",
+    "limon"
+   ],
+   [
+    "الوَرْدُ الجُورِيُّ",
+    "",
+    "atirgul"
+   ],
+   [
+    "رَئِيسِيٌّ",
+    "",
+    "asosiy"
+   ],
+   [
+    "لَعِبٌ",
+    "",
+    "o'yin"
+   ],
+   [
+    "غَرِيبٌ",
+    "",
+    "begona"
+   ],
+   [
+    "أَبَدًا",
+    "",
+    "hech qachon"
+   ],
+   [
+    "اسْتِقْبَالٌ",
+    "",
+    "qabul qilish (mehmon)"
+   ],
+   [
+    "خَدَمٌ",
+    "",
+    "xizmatkorlar"
+   ],
+   [
+    "إِبْرِيقٌ",
+    "",
+    "choynak"
+   ],
+   [
+    "سِكِّينٌ",
+    "",
+    "pichoq"
+   ],
+   [
+    "شَوْكَةٌ",
+    "",
+    "vilka"
+   ],
+   [
+    "مِلْعَقَةٌ",
+    "",
+    "qoshiq"
+   ],
+   [
+    "طَنْجَرَةٌ",
+    "",
+    "qozon"
+   ],
+   [
+    "بَطَّانِيَّةٌ",
+    "",
+    "adyol"
+   ],
+   [
+    "مِغْسَلَةٌ",
+    "",
+    "rakovina"
+   ],
+   [
+    "طَاوِلَةُ طَعَامٍ",
+    "",
+    "ovqat stoli"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 8",
+  "ar": "رسالة من صديق",
+  "uz": "Do'stdan maktub",
+  "w": [
+   [
+    "أَثَرٌ",
+    "آثَارٌ",
+    "yodgorlik"
+   ],
+   [
+    "سُوقٌ",
+    "أَسْوَاقٌ",
+    "bozor"
+   ],
+   [
+    "ضَرِيحٌ",
+    "أَضْرِحَةٌ",
+    "maqbara"
+   ],
+   [
+    "قَلْعَةٌ",
+    "قِلَاعٌ",
+    "qal'a"
+   ],
+   [
+    "مَعْبَدٌ",
+    "مَعَابِدُ",
+    "ibodatxona"
+   ],
+   [
+    "مَقْهًى",
+    "مَقَاهٍ",
+    "choyxona, kafe"
+   ],
+   [
+    "يُسَافِرُ",
+    "",
+    "safar qiladi"
+   ],
+   [
+    "يَحْتَوِي عَلَى",
+    "",
+    "o'z ichiga oladi"
+   ],
+   [
+    "يَزُورُ",
+    "",
+    "ziyorat qiladi"
+   ],
+   [
+    "يَمْشِي",
+    "",
+    "yuradi"
+   ],
+   [
+    "البُهَارَاتُ",
+    "",
+    "ziravorlar"
+   ],
+   [
+    "الفَوَاكِهُ المُجَفَّفَةُ",
+    "",
+    "quritilgan mevalar"
+   ],
+   [
+    "نِهَايَةٌ",
+    "",
+    "oxiri"
+   ],
+   [
+    "القِرْطَاسِيَّةُ",
+    "",
+    "o'quv qurollari (kanstovar)"
+   ],
+   [
+    "الأَغْرَاضُ المَنْزِلِيَّةُ",
+    "",
+    "uy-ro'zg'or buyumlari"
+   ],
+   [
+    "بَوَّابَةٌ",
+    "",
+    "darvoza"
+   ],
+   [
+    "تُرَاثِيٌّ",
+    "",
+    "an'anaviy"
+   ],
+   [
+    "قَلْبُ المَدِينَةِ",
+    "",
+    "shahar markazi"
+   ],
+   [
+    "قَصْرٌ",
+    "قُصُورٌ",
+    "saroy"
+   ],
+   [
+    "سَائِحٌ",
+    "سَائِحُونَ",
+    "sayyoh"
+   ],
+   [
+    "مَتْحَفٌ",
+    "مَتَاحِفُ",
+    "muzey"
+   ],
+   [
+    "حَمَّامَاتٌ شَعْبِيَّةٌ",
+    "",
+    "xalq hammomlari"
+   ],
+   [
+    "اتَّجِهْ",
+    "",
+    "yo'nal"
+   ],
+   [
+    "حَدِيقَةُ الحَيَوَانَاتِ",
+    "",
+    "hayvonot bog'i"
+   ],
+   [
+    "الصَّبَاحُ البَاكِرُ",
+    "",
+    "erta tong"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 9",
+  "ar": "لو سمحت، كم الساعة؟",
+  "uz": "Soat necha?",
+  "w": [
+   [
+    "السَّاعَةُ الوَاحِدَةُ … الثَّانِيَةَ عَشْرَةَ",
+    "",
+    "soat 1 … 12"
+   ],
+   [
+    "تَمَامًا",
+    "",
+    "roppa-rosa"
+   ],
+   [
+    "ظُهْرًا / لَيْلًا",
+    "",
+    "tushda / kechasi"
+   ],
+   [
+    "مُبَكِّرٌ",
+    "",
+    "erta"
+   ],
+   [
+    "ثَانِيَةٌ",
+    "ثَوَانٍ",
+    "soniya"
+   ],
+   [
+    "يَسْتَيْقِظُ",
+    "",
+    "uyg'onadi"
+   ],
+   [
+    "امْتِحَانٌ",
+    "امْتِحَانَاتٌ",
+    "imtihon"
+   ],
+   [
+    "يَجِبُ أَنْ",
+    "",
+    "…ish kerak"
+   ],
+   [
+    "بِالتَّوْفِيقِ",
+    "",
+    "omad"
+   ],
+   [
+    "مَاذَا عَنْكَ؟",
+    "",
+    "sen-chi?"
+   ],
+   [
+    "مِنْ … إِلَى",
+    "",
+    "…dan …gacha"
+   ],
+   [
+    "غَالِبًا",
+    "",
+    "ko'pincha"
+   ],
+   [
+    "نَادِرًا",
+    "",
+    "kamdan-kam"
+   ],
+   [
+    "عِيَادَةٌ",
+    "",
+    "klinika"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 10",
+  "ar": "أنشطة يومية",
+  "uz": "Kundalik ishlar",
+  "w": [
+   [
+    "أَغْسِلُ وَجْهِي",
+    "",
+    "yuzimni yuvaman"
+   ],
+   [
+    "أَتَوَضَّأُ",
+    "",
+    "tahorat olaman"
+   ],
+   [
+    "أَتَنَاوَلُ",
+    "",
+    "tanovul qilaman, yeyman"
+   ],
+   [
+    "الفَطُورُ",
+    "",
+    "nonushta"
+   ],
+   [
+    "الغَدَاءُ",
+    "",
+    "tushlik"
+   ],
+   [
+    "العَشَاءُ",
+    "",
+    "kechki ovqat"
+   ],
+   [
+    "أُنَظِّفُ أَسْنَانِي",
+    "",
+    "tishimni tozalayman"
+   ],
+   [
+    "أَلْبَسُ مَلَابِسِي",
+    "",
+    "kiyinaman"
+   ],
+   [
+    "أَنْتَهِي مِنَ العَمَلِ",
+    "",
+    "ishni tugataman"
+   ],
+   [
+    "أَذْهَبُ إِلَى النَّوْمِ",
+    "",
+    "uxlashga yotaman"
+   ],
+   [
+    "حَاجِيَاتٌ",
+    "",
+    "kerakli narsalar"
+   ],
+   [
+    "البَقْلَاوَةُ",
+    "",
+    "paxlava"
+   ],
+   [
+    "ثُمَّ / بَعْدَ ذَلِكَ",
+    "",
+    "so'ng / undan keyin"
+   ],
+   [
+    "يُغَادِرُ",
+    "",
+    "jo'nab ketadi"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 9",
+  "ar": "عادات سيئة عند شباب اليوم",
+  "uz": "Yoshlarning yomon odatlari",
+  "w": [
+   [
+    "عَادَةٌ",
+    "عَادَاتٌ",
+    "odat"
+   ],
+   [
+    "وَجْبَةٌ صِحِّيَّةٌ # وَجْبَةٌ سَرِيعَةٌ",
+    "وَجَبَاتٌ",
+    "sog'lom taom # fast-fud"
+   ],
+   [
+    "يَسْهَرُ",
+    "",
+    "kech yotadi"
+   ],
+   [
+    "يَقْضِي",
+    "",
+    "(vaqt) o'tkazadi"
+   ],
+   [
+    "يُدَخِّنُ",
+    "",
+    "chekadi"
+   ],
+   [
+    "سَيِّئٌ",
+    "",
+    "yomon"
+   ],
+   [
+    "الشُّوكُولَا",
+    "",
+    "shokolad"
+   ],
+   [
+    "المَشْرُوبَاتُ الغَازِيَّةُ",
+    "",
+    "gazli ichimliklar"
+   ],
+   [
+    "وَسَائِلُ التَّوَاصُلِ الاجْتِمَاعِيِّ",
+    "",
+    "ijtimoiy tarmoqlar"
+   ],
+   [
+    "غَاضِبٌ",
+    "",
+    "jahldor"
+   ],
+   [
+    "مُسَاعَدَةٌ",
+    "",
+    "yordam"
+   ],
+   [
+    "حَلٌّ",
+    "",
+    "yechim"
+   ],
+   [
+    "مُشْكِلَةٌ",
+    "مُشْكِلَاتٌ",
+    "muammo"
+   ],
+   [
+    "جَزِيلُ الشُّكْرِ",
+    "",
+    "katta rahmat"
+   ],
+   [
+    "ضَارٌّ",
+    "",
+    "zararli"
+   ],
+   [
+    "البَطَاطَا المَقْلِيَّةُ",
+    "",
+    "qovurilgan kartoshka"
+   ],
+   [
+    "الهَمْبُرْغَرُ",
+    "",
+    "gamburger"
+   ],
+   [
+    "التَّأَخُّرُ عَنِ البَيْتِ",
+    "",
+    "uyga kech qaytish"
+   ],
+   [
+    "وَاجِبَاتٌ",
+    "",
+    "uy vazifalari"
+   ],
+   [
+    "القَهْوَةُ",
+    "",
+    "qahva"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 10",
+  "ar": "عادات يومية صحية",
+  "uz": "Foydali kundalik odatlar",
+  "w": [
+   [
+    "يُقَلِّمُ",
+    "",
+    "(tirnoq) oladi"
+   ],
+   [
+    "مُفِيدٌ # مُضِرٌّ",
+    "",
+    "foydali # zararli"
+   ],
+   [
+    "بَارِدٌ # سَاخِنٌ",
+    "",
+    "sovuq # issiq"
+   ],
+   [
+    "جَالِسٌ # وَاقِفٌ",
+    "",
+    "o'tirgan # tik turgan"
+   ],
+   [
+    "التَّغْذِيَةُ الصِّحِّيَّةُ",
+    "",
+    "sog'lom ovqatlanish"
+   ],
+   [
+    "يُنَشِّطُ",
+    "",
+    "faollashtiradi"
+   ],
+   [
+    "يُحَافِظُ عَلَى",
+    "",
+    "asraydi"
+   ],
+   [
+    "الصِّحَّةُ الجَسَدِيَّةُ وَالنَّفْسِيَّةُ",
+    "",
+    "jismoniy va ruhiy salomatlik"
+   ],
+   [
+    "العَضَلَاتُ",
+    "",
+    "mushaklar"
+   ],
+   [
+    "القَلْبُ",
+    "",
+    "yurak"
+   ],
+   [
+    "مُنَبِّهَاتٌ",
+    "",
+    "qo'zg'atuvchi ichimliklar"
+   ],
+   [
+    "كَأْسٌ",
+    "",
+    "stakan"
+   ],
+   [
+    "دُفْعَةً وَاحِدَةً",
+    "",
+    "bir yo'la"
+   ],
+   [
+    "مُبَاشَرَةً",
+    "",
+    "darhol"
+   ],
+   [
+    "أَظَافِرُ",
+    "ظُفُرٌ",
+    "tirnoqlar"
+   ],
+   [
+    "مَوْعِدٌ",
+    "مَوَاعِيدُ",
+    "uchrashuv vaqti"
+   ],
+   [
+    "سِنٌّ",
+    "أَسْنَانٌ",
+    "tish"
+   ],
+   [
+    "بَرْنَامَجٌ",
+    "بَرَامِجُ",
+    "dastur"
+   ],
+   [
+    "أَشْرَبُ",
+    "",
+    "ichaman"
+   ],
+   [
+    "أَسْتَمِعُ",
+    "",
+    "tinglayman"
+   ],
+   [
+    "أَتَحَدَّثُ",
+    "",
+    "gapiraman"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 11",
+  "ar": "أطعمة حول العالم",
+  "uz": "Dunyo taomlari",
+  "w": [
+   [
+    "مَوْزٌ",
+    "",
+    "banan"
+   ],
+   [
+    "تُفَّاحٌ",
+    "",
+    "olma"
+   ],
+   [
+    "بَاذِنْجَانٌ",
+    "",
+    "baqlajon"
+   ],
+   [
+    "فِلْفِلٌ",
+    "",
+    "qalampir"
+   ],
+   [
+    "كُوسَا",
+    "",
+    "qovoqcha"
+   ],
+   [
+    "بَصَلٌ",
+    "",
+    "piyoz"
+   ],
+   [
+    "فَرَاوْلَةٌ",
+    "",
+    "qulupnay"
+   ],
+   [
+    "ثُومٌ",
+    "",
+    "sarimsoq"
+   ],
+   [
+    "بَطَاطَا",
+    "",
+    "kartoshka"
+   ],
+   [
+    "بِطِّيخٌ",
+    "",
+    "tarvuz"
+   ],
+   [
+    "طَمَاطِمُ",
+    "",
+    "pomidor"
+   ],
+   [
+    "عِنَبٌ",
+    "",
+    "uzum"
+   ],
+   [
+    "سَبَانِخُ",
+    "",
+    "ismaloq"
+   ],
+   [
+    "لَحْمُ دَجَاجٍ",
+    "",
+    "tovuq go'shti"
+   ],
+   [
+    "لَحْمٌ أَحْمَرُ",
+    "",
+    "qizil go'sht"
+   ],
+   [
+    "عَوَّامَةٌ",
+    "",
+    "avvoma (shirinlik)"
+   ],
+   [
+    "كُنَافَةٌ",
+    "",
+    "kunafa (shirinlik)"
+   ],
+   [
+    "عَصِيرٌ طَبِيعِيٌّ",
+    "",
+    "tabiiy sharbat"
+   ],
+   [
+    "كُبَّةٌ",
+    "كُبَبٌ",
+    "kubba"
+   ],
+   [
+    "حُمُّصٌ",
+    "",
+    "no'xat"
+   ],
+   [
+    "فَلَافِلُ",
+    "",
+    "kotlet"
+   ],
+   [
+    "لَذِيذٌ",
+    "",
+    "mazali"
+   ],
+   [
+    "خُضْرَوَاتٌ",
+    "",
+    "sabzavotlar"
+   ],
+   [
+    "فَوَاكِهُ",
+    "فَاكِهَةٌ",
+    "mevalar"
+   ],
+   [
+    "لُحُومٌ",
+    "لَحْمٌ",
+    "go'shtlar"
+   ],
+   [
+    "حَلْوَيَاتٌ",
+    "حَلْوَى",
+    "shirinliklar"
+   ],
+   [
+    "مَطْبَخٌ عَالَمِيٌّ",
+    "",
+    "jahon oshxonasi"
+   ],
+   [
+    "مَا رَأْيُكَ أَنْ …؟",
+    "",
+    "…sak qanday bo'ladi?"
+   ],
+   [
+    "فِكْرَةٌ رَائِعَةٌ",
+    "",
+    "zo'r fikr"
+   ],
+   [
+    "لَا بَأْسَ",
+    "",
+    "mayli"
+   ],
+   [
+    "آسِفٌ، لَا أَسْتَطِيعُ",
+    "",
+    "kechirasiz, qila olmayman"
+   ],
+   [
+    "مُتْعَبٌ",
+    "",
+    "charchagan"
+   ],
+   [
+    "حَارٌّ",
+    "",
+    "achchiq"
+   ],
+   [
+    "جُبْنٌ / جُبْنَةٌ",
+    "",
+    "pishloq"
+   ],
+   [
+    "يُجَرِّبُ",
+    "",
+    "sinab ko'radi"
+   ],
+   [
+    "يُفَضِّلُ",
+    "",
+    "afzal ko'radi"
+   ],
+   [
+    "طَبَقٌ",
+    "أَطْبَاقٌ",
+    "taom; likopcha"
+   ],
+   [
+    "الكَبْسَةُ",
+    "",
+    "kabsa (guruchli taom)"
+   ],
+   [
+    "إِذَنْ",
+    "",
+    "unda"
+   ],
+   [
+    "دَعْنَا",
+    "",
+    "qani, …aylik"
+   ],
+   [
+    "مُكَوِّنَاتٌ",
+    "",
+    "tarkibi"
+   ],
+   [
+    "نَبَاتِيٌّ",
+    "",
+    "vegetarian"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 12",
+  "ar": "وجبات الطعام",
+  "uz": "Ovqatlanish",
+  "w": [
+   [
+    "بَيْضٌ",
+    "",
+    "tuxum"
+   ],
+   [
+    "لَبَنٌ / حَلِيبٌ",
+    "أَلْبَانٌ",
+    "sut"
+   ],
+   [
+    "زَيْتُونٌ",
+    "",
+    "zaytun"
+   ],
+   [
+    "مُرَبًّى",
+    "",
+    "murabbo"
+   ],
+   [
+    "عَسَلٌ",
+    "",
+    "asal"
+   ],
+   [
+    "سَلَطَةُ خُضْرَوَاتٍ",
+    "",
+    "sabzavot salati"
+   ],
+   [
+    "أَرُزٌّ",
+    "",
+    "guruch"
+   ],
+   [
+    "حَسَاءٌ / شُورْبَةٌ",
+    "",
+    "sho'rva"
+   ],
+   [
+    "مَشْوِيٌّ",
+    "",
+    "kabob qilingan"
+   ],
+   [
+    "مَسْلُوقٌ",
+    "",
+    "qaynatilgan"
+   ],
+   [
+    "مَقْلِيٌّ",
+    "",
+    "qovurilgan"
+   ],
+   [
+    "يَقْلِي",
+    "",
+    "qovuradi"
+   ],
+   [
+    "يَشْوِي",
+    "",
+    "kabob qiladi"
+   ],
+   [
+    "يَسْلُقُ",
+    "",
+    "qaynatadi"
+   ],
+   [
+    "جَائِعٌ # شَبْعَانُ",
+    "",
+    "och # to'q"
+   ],
+   [
+    "دَسِمٌ",
+    "",
+    "yog'li"
+   ],
+   [
+    "مَالِحٌ",
+    "",
+    "sho'r"
+   ],
+   [
+    "حُلْوٌ",
+    "",
+    "shirin"
+   ],
+   [
+    "حَامِضٌ",
+    "",
+    "nordon"
+   ],
+   [
+    "كَعْكَةٌ",
+    "",
+    "kek"
+   ],
+   [
+    "بَسْكَوِيتٌ",
+    "",
+    "pechenye"
+   ],
+   [
+    "الكُرْوَاسَان",
+    "",
+    "kruassan"
+   ],
+   [
+    "مَرَّةٌ، مَرَّتَيْنِ، مَرَّاتٌ",
+    "",
+    "bir marta, ikki marta, marta(lar)"
+   ],
+   [
+    "صِحَّةً وَعَافِيَةً",
+    "",
+    "osh bo'lsin"
+   ],
+   [
+    "سُفْرَةٌ دَائِمَةٌ",
+    "",
+    "dasturxoningiz to'kin bo'lsin"
+   ],
+   [
+    "فِنْجَانٌ",
+    "",
+    "finjon"
+   ],
+   [
+    "النَّادِي",
+    "",
+    "klub"
+   ],
+   [
+    "بَقْدُونِسٌ",
+    "",
+    "petrushka"
+   ],
+   [
+    "شَاوَرْمَا",
+    "",
+    "shaurma"
+   ],
+   [
+    "وَرَقُ العِنَبِ",
+    "",
+    "tok bargi do'lmasi"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 11",
+  "ar": "المائدة الرمضانية",
+  "uz": "Ramazon dasturxoni",
+  "w": [
+   [
+    "صِنْفٌ",
+    "أَصْنَافٌ",
+    "tur, xil"
+   ],
+   [
+    "مَائِدَةٌ",
+    "مَوَائِدُ",
+    "dasturxon"
+   ],
+   [
+    "مَحَاشِي",
+    "",
+    "do'lma"
+   ],
+   [
+    "الفَتُّوشُ",
+    "",
+    "fattush (salat)"
+   ],
+   [
+    "التَّبُّولَةُ",
+    "",
+    "tabbula (salat)"
+   ],
+   [
+    "التَّمْرُ الهِنْدِيُّ",
+    "",
+    "tamarind (sharbat)"
+   ],
+   [
+    "عِرْقُ السُّوسِ",
+    "",
+    "qizilmiya (sharbat)"
+   ],
+   [
+    "قَمَرُ الدِّينِ",
+    "",
+    "o'rik sharbati"
+   ],
+   [
+    "يَرْتَاحُ",
+    "",
+    "dam oladi"
+   ],
+   [
+    "القَطَايِفُ",
+    "",
+    "qatoyif (shirinlik)"
+   ],
+   [
+    "الجَوْزُ",
+    "",
+    "yong'oq"
+   ],
+   [
+    "القِشْطَةُ",
+    "",
+    "qaymoq"
+   ],
+   [
+    "مُهِمٌّ",
+    "",
+    "muhim"
+   ],
+   [
+    "ضَرُورِيٌّ",
+    "",
+    "zarur"
+   ],
+   [
+    "شَهِيٌّ",
+    "",
+    "ishtahali, mazali"
+   ],
+   [
+    "يُجَهِّزُ",
+    "",
+    "tayyorlaydi"
+   ],
+   [
+    "أَنْوَاعٌ",
+    "نَوْعٌ",
+    "turlar"
+   ],
+   [
+    "كَرَزٌ",
+    "",
+    "gilos"
+   ],
+   [
+    "خِيَارٌ",
+    "",
+    "bodring"
+   ],
+   [
+    "مُخَلَّلٌ",
+    "",
+    "tuzlama"
+   ],
+   [
+    "مَقْلُوبَةٌ",
+    "",
+    "maqluba (taom)"
+   ],
+   [
+    "مُقَبِّلَاتٌ",
+    "",
+    "gazaklar"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 12",
+  "ar": "عادات غذائية عند شعوب العالم",
+  "uz": "Xalqlarning ovqatlanish odatlari",
+  "w": [
+   [
+    "غِذَاءٌ",
+    "أَغْذِيَةٌ",
+    "oziq-ovqat"
+   ],
+   [
+    "غَنِيٌّ بِـ # فَقِيرٌ",
+    "",
+    "…ga boy # kambag'al"
+   ],
+   [
+    "دُهُونٌ",
+    "",
+    "yog'lar"
+   ],
+   [
+    "سُعْرَاتٌ حَرَارِيَّةٌ",
+    "",
+    "kaloriya"
+   ],
+   [
+    "مُعَجَّنَاتٌ",
+    "",
+    "xamir taomlar"
+   ],
+   [
+    "فَطِيرَةٌ",
+    "فَطَائِرُ",
+    "pirog"
+   ],
+   [
+    "الكُولِسْتِرُولُ",
+    "",
+    "xolesterin"
+   ],
+   [
+    "النَّشَوِيَّاتُ",
+    "",
+    "kraxmalli taomlar"
+   ],
+   [
+    "السَّمْنُ",
+    "",
+    "sariyog'"
+   ],
+   [
+    "مُتَنَوِّعٌ",
+    "",
+    "xilma-xil"
+   ],
+   [
+    "الأَرْضُ",
+    "",
+    "yer"
+   ],
+   [
+    "المَأْكُولَاتُ البَحْرِيَّةُ",
+    "",
+    "dengiz mahsulotlari"
+   ],
+   [
+    "طَازَجٌ # بَائِتٌ",
+    "",
+    "yangi # eskirgan"
+   ],
+   [
+    "العِيدَانُ",
+    "",
+    "cho'pchalar"
+   ],
+   [
+    "كَمِّيَّةٌ",
+    "",
+    "miqdor"
+   ],
+   [
+    "الحُبُوبُ",
+    "",
+    "donlar"
+   ],
+   [
+    "البُقُولِيَّاتُ",
+    "",
+    "dukkaklilar"
+   ],
+   [
+    "اليَدُ",
+    "",
+    "qo'l"
+   ],
+   [
+    "المَعْكَرُونَةُ",
+    "",
+    "makaron"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 13",
+  "ar": "وصف الأشخاص",
+  "uz": "Odamlarni tasvirlash",
+  "w": [
+   [
+    "وَجْهٌ",
+    "وُجُوهٌ",
+    "yuz"
+   ],
+   [
+    "عَيْنٌ",
+    "عُيُونٌ",
+    "ko'z"
+   ],
+   [
+    "أَنْفٌ",
+    "",
+    "burun"
+   ],
+   [
+    "أُذُنٌ",
+    "",
+    "quloq"
+   ],
+   [
+    "فَمٌ",
+    "",
+    "og'iz"
+   ],
+   [
+    "رِجْلٌ",
+    "أَرْجُلٌ",
+    "oyoq"
+   ],
+   [
+    "قَدَمٌ",
+    "",
+    "oyoq kafti"
+   ],
+   [
+    "إِصْبَعٌ",
+    "",
+    "barmoq"
+   ],
+   [
+    "لِسَانٌ",
+    "",
+    "til (a'zo)"
+   ],
+   [
+    "صَدْرٌ",
+    "",
+    "ko'krak"
+   ],
+   [
+    "مُتَوَسِّطُ الطُّولِ",
+    "",
+    "o'rta bo'yli"
+   ],
+   [
+    "أَمْلَسُ # مُجَعَّدٌ",
+    "",
+    "silliq (soch) # jingalak"
+   ],
+   [
+    "أَصْلَعُ",
+    "",
+    "kal"
+   ],
+   [
+    "شَارِبٌ",
+    "",
+    "mo'ylov"
+   ],
+   [
+    "لِحْيَةٌ",
+    "",
+    "soqol"
+   ],
+   [
+    "شَيْخٌ / عَجُوزٌ",
+    "",
+    "keksa"
+   ],
+   [
+    "مُتَوَسِّطُ السِّنِّ",
+    "",
+    "o'rta yoshli"
+   ],
+   [
+    "شَابٌّ",
+    "",
+    "yosh yigit"
+   ],
+   [
+    "وَسِيمٌ # قَبِيحٌ",
+    "",
+    "kelishgan # xunuk"
+   ],
+   [
+    "سَمِينٌ # نَحِيفٌ",
+    "",
+    "semiz # ozg'in"
+   ],
+   [
+    "رَشِيقٌ",
+    "",
+    "qaddi-qomatli"
+   ],
+   [
+    "وَزْنٌ",
+    "",
+    "vazn"
+   ],
+   [
+    "طُولٌ",
+    "",
+    "bo'y"
+   ],
+   [
+    "يُخَفِّفُ # يَزِيدُ",
+    "",
+    "kamaytiradi # oshiradi"
+   ],
+   [
+    "أَزْرَقُ / زَرْقَاءُ",
+    "",
+    "ko'k"
+   ],
+   [
+    "أَحْمَرُ / حَمْرَاءُ",
+    "",
+    "qizil"
+   ],
+   [
+    "أَصْفَرُ / صَفْرَاءُ",
+    "",
+    "sariq"
+   ],
+   [
+    "أَخْضَرُ / خَضْرَاءُ",
+    "",
+    "yashil"
+   ],
+   [
+    "أَسْوَدُ / سَوْدَاءُ",
+    "",
+    "qora"
+   ],
+   [
+    "أَبْيَضُ / بَيْضَاءُ",
+    "",
+    "oq"
+   ],
+   [
+    "أَشْقَرُ / شَقْرَاءُ",
+    "",
+    "sarg'ish (soch)"
+   ],
+   [
+    "أَسْمَرُ / سَمْرَاءُ",
+    "",
+    "bug'doyrang"
+   ],
+   [
+    "بُنِّيٌّ / بُنِّيَّةٌ",
+    "",
+    "jigarrang"
+   ],
+   [
+    "نُزْهَةٌ",
+    "",
+    "sayr"
+   ],
+   [
+    "يَقْصِدُ",
+    "",
+    "nazarda tutadi"
+   ],
+   [
+    "يَحْمِلُ",
+    "",
+    "ko'taradi, ushlaydi"
+   ],
+   [
+    "يُشْبِهُ",
+    "",
+    "o'xshaydi"
+   ],
+   [
+    "القَادِمُ # المَاضِي",
+    "",
+    "kelasi # o'tgan"
+   ],
+   [
+    "كَيْفَ شَكْلُهُ؟",
+    "",
+    "u qanday ko'rinishda?"
+   ],
+   [
+    "أَلَيْسَ كَذَلِكَ؟",
+    "",
+    "shunday emasmi?"
+   ],
+   [
+    "بَشَرَةٌ",
+    "",
+    "teri rangi"
+   ],
+   [
+    "كِيلُو / سَنْتِيمِتْرٌ / مِتْرٌ",
+    "",
+    "kilogramm / santimetr / metr"
+   ],
+   [
+    "عَطْشَانُ",
+    "",
+    "chanqagan"
+   ],
+   [
+    "مُمِلٌّ",
+    "",
+    "zerikarli"
+   ],
+   [
+    "يَشْعُرُ بِـ",
+    "",
+    "…ni his qiladi"
+   ],
+   [
+    "عِنْدَمَا",
+    "",
+    "…ganda"
+   ],
+   [
+    "لِأَنَّ",
+    "",
+    "chunki"
+   ]
+  ]
+ },
+ {
+  "k": "1/2 · 14",
+  "ar": "الملابس",
+  "uz": "Kiyimlar",
+  "w": [
+   [
+    "بِنْطَالٌ",
+    "",
+    "shim"
+   ],
+   [
+    "بِنْطَالُ جِينْزٍ",
+    "",
+    "jinsi shim"
+   ],
+   [
+    "كَنْزَةٌ",
+    "",
+    "sviter"
+   ],
+   [
+    "قَمِيصٌ",
+    "قُمُصٌ",
+    "ko'ylak"
+   ],
+   [
+    "تَنُّورَةٌ",
+    "",
+    "yubka"
+   ],
+   [
+    "فُسْتَانٌ",
+    "",
+    "ko'ylak (ayollar)"
+   ],
+   [
+    "رَبْطَةُ عُنُقٍ",
+    "",
+    "galstuk"
+   ],
+   [
+    "بَدْلَةٌ رَسْمِيَّةٌ",
+    "",
+    "kostyum"
+   ],
+   [
+    "وِشَاحٌ",
+    "",
+    "sharf"
+   ],
+   [
+    "حِجَابٌ",
+    "",
+    "hijob"
+   ],
+   [
+    "قُبَّعَةٌ",
+    "",
+    "shlyapa, do'ppi"
+   ],
+   [
+    "حِذَاءٌ",
+    "أَحْذِيَةٌ",
+    "oyoq kiyim"
+   ],
+   [
+    "سُتْرَةٌ",
+    "",
+    "kurtka"
+   ],
+   [
+    "عَبَاءَةٌ",
+    "",
+    "abaya"
+   ],
+   [
+    "مِعْطَفٌ",
+    "",
+    "palto"
+   ],
+   [
+    "جَوْرَبٌ",
+    "جَوَارِبُ",
+    "paypoq"
+   ],
+   [
+    "مَلَابِسُ رِيَاضِيَّةٌ / رَسْمِيَّةٌ",
+    "",
+    "sport / rasmiy kiyim"
+   ],
+   [
+    "مَقَاسٌ",
+    "",
+    "o'lcham"
+   ],
+   [
+    "مُحَجَّبَةٌ # سَافِرَةٌ",
+    "",
+    "hijobli # ochiq"
+   ],
+   [
+    "حَفْلَةٌ",
+    "",
+    "bazm"
+   ],
+   [
+    "قَاعَةٌ",
+    "",
+    "zal"
+   ],
+   [
+    "ذَلِكَ / تِلْكَ",
+    "",
+    "ana u (uzoq)"
+   ],
+   [
+    "بَلَى",
+    "",
+    "ha (inkor savolga)"
+   ],
+   [
+    "مَحَلُّ الأَلْبِسَةِ",
+    "",
+    "kiyim do'koni"
+   ],
+   [
+    "المَلَابِسُ الشَّعْبِيَّةُ",
+    "",
+    "milliy kiyimlar"
+   ],
+   [
+    "دَعْوَةٌ",
+    "",
+    "taklif (mehmonga)"
+   ],
+   [
+    "جِلْدٌ",
+    "",
+    "charm, teri"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 13",
+  "ar": "شخصيات وملابس",
+  "uz": "Shaxslar va kiyimlar",
+  "w": [
+   [
+    "ثَوْبٌ",
+    "ثِيَابٌ",
+    "uzun ko'ylak"
+   ],
+   [
+    "عِمَامَةٌ",
+    "عَمَائِمُ",
+    "salla"
+   ],
+   [
+    "لَاعِبٌ",
+    "لَاعِبُونَ",
+    "o'yinchi"
+   ],
+   [
+    "قُفَّازٌ",
+    "",
+    "qo'lqop"
+   ],
+   [
+    "حِزَامٌ",
+    "أَحْزِمَةٌ",
+    "kamar"
+   ],
+   [
+    "شِمَاغٌ",
+    "",
+    "arab ro'moli"
+   ],
+   [
+    "عِقَالٌ",
+    "",
+    "ro'mol halqasi"
+   ],
+   [
+    "سِرْوَالٌ",
+    "سَرَاوِيلُ",
+    "shalvar"
+   ],
+   [
+    "طَرْبُوشٌ",
+    "طَرَابِيشُ",
+    "tarbush (feska)"
+   ],
+   [
+    "عَرِيضٌ",
+    "",
+    "keng"
+   ],
+   [
+    "يَلْبَسُ # يَخْلَعُ",
+    "",
+    "kiyadi # yechadi"
+   ],
+   [
+    "يَحْكِي",
+    "",
+    "hikoya qiladi"
+   ],
+   [
+    "مُوَظَّفٌ",
+    "",
+    "xodim"
+   ],
+   [
+    "مُبَارَاةٌ",
+    "",
+    "o'yin, musobaqa"
+   ],
+   [
+    "أَكْمَامٌ",
+    "كُمٌّ",
+    "yenglar"
+   ],
+   [
+    "الرُّكْبَةُ",
+    "",
+    "tizza"
+   ],
+   [
+    "مَصْنُوعٌ مِنْ",
+    "",
+    "…dan qilingan"
+   ],
+   [
+    "الحَكَوَاتِيُّ",
+    "",
+    "qissaxon"
+   ]
+  ]
+ },
+ {
+  "k": "1/1 · 14",
+  "ar": "طبيب الفقراء",
+  "uz": "Kambag'allar shifokori",
+  "w": [
+   [
+    "مَاهِرٌ",
+    "",
+    "mohir"
+   ],
+   [
+    "نَحِيلٌ",
+    "",
+    "ozg'in"
+   ],
+   [
+    "قَنُوعٌ # طَمَّاعٌ",
+    "",
+    "qanoatli # ochko'z"
+   ],
+   [
+    "بَشُوشُ الوَجْهِ # عَبُوسٌ",
+    "",
+    "ochiq yuzli # qovog'i soliq"
+   ],
+   [
+    "وَصْفَةُ دَوَاءٍ",
+    "",
+    "retsept"
+   ],
+   [
+    "يَفْحَصُ",
+    "",
+    "tekshiradi"
+   ],
+   [
+    "يُعَالِجُ",
+    "",
+    "davolaydi"
+   ],
+   [
+    "حَيٌّ",
+    "أَحْيَاءٌ",
+    "mahalla"
+   ],
+   [
+    "مُتَوَاضِعٌ # مُتَكَبِّرٌ",
+    "",
+    "kamtar # mag'rur"
+   ],
+   [
+    "يَسْتَقْبِلُ",
+    "",
+    "qabul qiladi"
+   ],
+   [
+    "بِلُطْفٍ",
+    "",
+    "muloyimlik bilan"
+   ],
+   [
+    "مُعَايَنَةٌ",
+    "",
+    "ko'rik"
+   ],
+   [
+    "صَبُورٌ # عَجُولٌ",
+    "",
+    "sabrli # shoshqaloq"
+   ],
+   [
+    "قَلِيلُ الكَلَامِ",
+    "",
+    "kam gapiradigan"
+   ],
+   [
+    "مَجَّانِيٌّ",
+    "",
+    "bepul"
+   ],
+   [
+    "جِسْمٌ",
+    "أَجْسَامٌ",
+    "tana"
+   ]
+  ]
+ }
+], 2: [
+ {
+  "k": "2/2 · 1",
+  "ar": "كم فصلاً في بلدك؟",
+  "uz": "Davlatingizda nechta fasl?",
+  "w": [
+   [
+    "فَصْلٌ",
+    "فُصُولٌ",
+    "fasl"
+   ],
+   [
+    "الصَّيْفُ، الرَّبِيعُ، الشِّتَاءُ، الخَرِيفُ",
+    "",
+    "yoz, bahor, qish, kuz"
+   ],
+   [
+    "كَانُونُ الثَّانِي، شُبَاطُ، آذَارُ، نَيْسَانُ، أَيَّارُ، تَمُّوزُ، آبُ، أَيْلُولُ، تِشْرِينُ الأَوَّلُ، تِشْرِينُ الثَّانِي، كَانُونُ الأَوَّلُ",
+    "",
+    "yanvar … dekabr (oy nomlari)"
+   ],
+   [
+    "بَرْدٌ # حَرَارَةٌ",
+    "",
+    "sovuq # issiqlik"
+   ],
+   [
+    "مُعْتَدِلٌ",
+    "",
+    "mo'tadil"
+   ],
+   [
+    "مُشْمِسٌ",
+    "",
+    "quyoshli"
+   ],
+   [
+    "مُعَدَّلُ الحَرَارَةِ",
+    "",
+    "o'rtacha harorat"
+   ],
+   [
+    "مُنْتَصَفُ",
+    "",
+    "o'rtasi"
+   ],
+   [
+    "اسْتَمَرَّ، يَسْتَمِرُّ، اسْتِمْرَارٌ",
+    "",
+    "davom etadi"
+   ],
+   [
+    "ارْتَفَعَ، يَرْتَفِعُ، ارْتِفَاعٌ # انْخَفَضَ، يَنْخَفِضُ، انْخِفَاضٌ",
+    "",
+    "ko'tariladi # pasayadi"
+   ],
+   [
+    "تَسَاقَطَ، يَتَسَاقَطُ، تَسَاقُطٌ",
+    "",
+    "to'kiladi, yog'adi"
+   ],
+   [
+    "دَرَجَةٌ مِئَوِيَّةٌ",
+    "دَرَجَاتٌ",
+    "daraja (°C)"
+   ],
+   [
+    "أَوْرَاقُ الأَشْجَارِ",
+    "",
+    "daraxt barglari"
+   ],
+   [
+    "عَاصِفٌ",
+    "",
+    "bo'ronli"
+   ],
+   [
+    "تَحْتَ الصِّفْرِ",
+    "",
+    "noldan past"
+   ],
+   [
+    "النَّهَارُ # اللَّيْلُ",
+    "",
+    "kunduz # tun"
+   ],
+   [
+    "ثَلْجٌ",
+    "ثُلُوجٌ",
+    "qor"
+   ],
+   [
+    "مُرْتَفِعٌ # مُنْخَفِضٌ",
+    "",
+    "baland # past"
+   ],
+   [
+    "يَوْمُ مِيلَادِي / تَارِيخُ مِيلَادِي",
+    "",
+    "tug'ilgan kunim / sanam"
+   ],
+   [
+    "تَجَمَّدْتُ مِنَ البَرْدِ",
+    "",
+    "sovuqdan qotib qoldim"
+   ],
+   [
+    "آبُ اللَّهَّابُ",
+    "",
+    "jazirama avgust"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 2",
+  "ar": "النشرة الجوية",
+  "uz": "Ob-havo ma'lumoti",
+  "w": [
+   [
+    "النَّشْرَةُ الجَوِّيَّةُ",
+    "",
+    "ob-havo ma'lumoti"
+   ],
+   [
+    "الطَّقْسُ / الجَوُّ",
+    "",
+    "ob-havo"
+   ],
+   [
+    "ضَبَابٌ / ضَبَابِيٌّ",
+    "",
+    "tuman / tumanli"
+   ],
+   [
+    "عَاصِفَةٌ",
+    "عَوَاصِفُ",
+    "bo'ron"
+   ],
+   [
+    "رُطُوبَةٌ / رَطِبٌ",
+    "",
+    "namlik / nam"
+   ],
+   [
+    "الحَرَارَةُ العُظْمَى # الحَرَارَةُ الصُّغْرَى",
+    "",
+    "eng yuqori # eng past harorat"
+   ],
+   [
+    "انْتَقَلَ، يَنْتَقِلُ، انْتِقَالٌ",
+    "",
+    "ko'chadi, o'tadi"
+   ],
+   [
+    "بَقِيَ، يَبْقَى، بَقَاءٌ",
+    "",
+    "qoladi"
+   ],
+   [
+    "مُثْلِجٌ",
+    "",
+    "qorli"
+   ],
+   [
+    "غَائِمٌ",
+    "",
+    "bulutli"
+   ],
+   [
+    "مَاطِرٌ",
+    "",
+    "yomg'irli"
+   ],
+   [
+    "مَطَرٌ",
+    "أَمْطَارٌ",
+    "yomg'ir"
+   ],
+   [
+    "غَيْمَةٌ",
+    "غُيُومٌ",
+    "bulut"
+   ],
+   [
+    "رِيحٌ",
+    "رِيَاحٌ",
+    "shamol"
+   ],
+   [
+    "جُزْئِيًّا",
+    "",
+    "qisman"
+   ],
+   [
+    "غَزِيرٌ / كَثِيفٌ / شَدِيدٌ",
+    "",
+    "kuchli / quyuq / qattiq"
+   ],
+   [
+    "هَطَلَ، يَهْطُلُ، هُطُولٌ",
+    "",
+    "yog'adi (yomg'ir)"
+   ],
+   [
+    "زَخَّاتٌ",
+    "",
+    "jala"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 3",
+  "ar": "شعوب حول العالم",
+  "uz": "Dunyo xalqlari",
+  "w": [
+   [
+    "شَعْبٌ",
+    "شُعُوبٌ",
+    "xalq"
+   ],
+   [
+    "جَمَاعَةٌ",
+    "جَمَاعَاتٌ",
+    "guruh, jamoa"
+   ],
+   [
+    "صَيَّادٌ",
+    "صَيَّادُونَ",
+    "ovchi"
+   ],
+   [
+    "كُوخٌ",
+    "أَكْوَاخٌ",
+    "kulba"
+   ],
+   [
+    "خَيْمَةٌ",
+    "خِيَامٌ",
+    "chodir"
+   ],
+   [
+    "زَلَّاجَةٌ",
+    "زَلَّاجَاتٌ",
+    "chana"
+   ],
+   [
+    "بَرِّيٌّ / مَائِيٌّ / طَائِرٌ",
+    "",
+    "quruqlik / suv / uchar (hayvon)"
+   ],
+   [
+    "تَدْفِئَةٌ",
+    "",
+    "isitish"
+   ],
+   [
+    "نِيءٌ # مَطْبُوخٌ",
+    "",
+    "xom # pishgan"
+   ],
+   [
+    "جَفَّفَ، يُجَفِّفُ، تَجْفِيفٌ",
+    "",
+    "quritadi"
+   ],
+   [
+    "أَشْعَلَ، يُشْعِلُ، إِشْعَالٌ",
+    "",
+    "yoqadi (olov)"
+   ],
+   [
+    "ذَابَ، يَذُوبُ، ذَوَبَانٌ",
+    "",
+    "eriydi"
+   ],
+   [
+    "اسْتَعْمَلَ، يَسْتَعْمِلُ، اسْتِعْمَالٌ",
+    "",
+    "ishlatadi"
+   ],
+   [
+    "طَهَا، يَطْهُو، طَهْوٌ",
+    "",
+    "pishiradi"
+   ],
+   [
+    "بَاهِظُ الثَّمَنِ",
+    "",
+    "juda qimmat"
+   ],
+   [
+    "القُطْبُ المُتَجَمِّدُ الشَّمَالِيُّ",
+    "",
+    "Shimoliy qutb"
+   ],
+   [
+    "لَحْمٌ مُقَدَّدٌ",
+    "",
+    "quritilgan go'sht"
+   ],
+   [
+    "حُوتٌ",
+    "",
+    "kit"
+   ],
+   [
+    "فُقْمَةٌ",
+    "",
+    "tyulen"
+   ],
+   [
+    "دُبٌّ",
+    "",
+    "ayiq"
+   ],
+   [
+    "وَعِلٌ",
+    "",
+    "tog' echkisi"
+   ],
+   [
+    "فَرْوٌ",
+    "",
+    "mo'yna"
+   ],
+   [
+    "زَيْتٌ",
+    "",
+    "yog'"
+   ],
+   [
+    "قَاحِلٌ",
+    "",
+    "qurg'oq (yer)"
+   ],
+   [
+    "البَدْوُ / البَادِيَةُ",
+    "",
+    "ko'chmanchilar / sahro"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 4",
+  "ar": "عمرة إلى مكة",
+  "uz": "Makkaga umra",
+  "w": [
+   [
+    "مُحَرَّمٌ، صَفَرٌ، رَبِيعٌ الأَوَّلُ، رَبِيعٌ الآخِرُ، جُمَادَى الأُولَى، جُمَادَى الآخِرَةُ، رَجَبٌ، شَعْبَانُ، رَمَضَانُ، شَوَّالٌ، ذُو القَعْدَةِ، ذُو الحِجَّةِ",
+    "",
+    "hijriy oylar"
+   ],
+   [
+    "ازْدَحَمَ، يَزْدَحِمُ، ازْدِحَامٌ",
+    "",
+    "tiqilinch bo'ladi / tirbandlik"
+   ],
+   [
+    "نَسِيَ، يَنْسَى، نِسْيَانٌ # تَذَكَّرَ، يَتَذَكَّرُ، تَذَكُّرٌ",
+    "",
+    "unutadi # eslaydi"
+   ],
+   [
+    "اسْتَغْرَقَ، يَسْتَغْرِقُ، اسْتِغْرَاقٌ",
+    "",
+    "(vaqt) oladi, davom etadi"
+   ],
+   [
+    "مَلَابِسُ شِتْوِيَّةٌ",
+    "",
+    "qishki kiyimlar"
+   ],
+   [
+    "بَرًّا",
+    "",
+    "quruqlikdan"
+   ],
+   [
+    "قُمَاشٌ",
+    "",
+    "mato"
+   ],
+   [
+    "ظَهْرٌ",
+    "",
+    "orqa (bel)"
+   ],
+   [
+    "أَدَوَاتُ النَّظَافَةِ",
+    "",
+    "gigiyena vositalari"
+   ],
+   [
+    "قَصَّاصَةُ الأَظَافِرِ",
+    "",
+    "tirnoq olgich"
+   ],
+   [
+    "فُرْشَاةُ الأَسْنَانِ",
+    "",
+    "tish cho'tkasi"
+   ],
+   [
+    "النَّظَّارَةُ الشَّمْسِيَّةُ",
+    "",
+    "quyosh ko'zoynagi"
+   ],
+   [
+    "احْتَاجَ، يَحْتَاجُ، احْتِيَاجٌ (إِلَى)",
+    "",
+    "…ga muhtoj"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 5",
+  "ar": "فصول وهوايات",
+  "uz": "Fasllar va qiziqishlar",
+  "w": [
+   [
+    "نَشَاطٌ # كَسَلٌ",
+    "",
+    "g'ayrat # dangasalik"
+   ],
+   [
+    "سَعَادَةٌ # حُزْنٌ",
+    "",
+    "baxt # qayg'u"
+   ],
+   [
+    "صَيْدُ السَّمَكِ",
+    "",
+    "baliq ovi"
+   ],
+   [
+    "التَّزَلُّجُ عَلَى الجَلِيدِ",
+    "",
+    "muzda uchish"
+   ],
+   [
+    "المَشْيُ # الرَّكْضُ",
+    "",
+    "yurish # yugurish"
+   ],
+   [
+    "تَزَلَّجَ، يَتَزَلَّجُ، تَزَلُّجٌ",
+    "",
+    "sirpanadi, uchadi"
+   ],
+   [
+    "تَسَلَّقَ، يَتَسَلَّقُ، تَسَلُّقٌ",
+    "",
+    "(tog'ga) chiqadi"
+   ],
+   [
+    "مُخْتَلِفٌ # مُتَشَابِهٌ",
+    "",
+    "har xil # o'xshash"
+   ],
+   [
+    "أَوْقَاتُ الفَرَاغِ",
+    "",
+    "bo'sh vaqt"
+   ],
+   [
+    "أُفَضِّلُ … عَلَى …",
+    "",
+    "…ni …dan afzal ko'raman"
+   ],
+   [
+    "فَنٌّ",
+    "فُنُونٌ",
+    "san'at"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 6",
+  "ar": "المناخ",
+  "uz": "Iqlim",
+  "w": [
+   [
+    "مُنَاخٌ",
+    "",
+    "iqlim"
+   ],
+   [
+    "سَاحِلٌ / شَاطِئُ البَحْرِ",
+    "سَوَاحِلُ",
+    "sohil, dengiz qirg'og'i"
+   ],
+   [
+    "دَافِئٌ",
+    "",
+    "iliq"
+   ],
+   [
+    "جَافٌّ",
+    "",
+    "quruq"
+   ],
+   [
+    "مُمْطِرٌ",
+    "",
+    "yomg'irli"
+   ],
+   [
+    "مُتَغَيِّرٌ",
+    "",
+    "o'zgaruvchan"
+   ],
+   [
+    "سَيْلٌ",
+    "سُيُولٌ",
+    "sel"
+   ],
+   [
+    "رَعْدٌ",
+    "",
+    "momaqaldiroq"
+   ],
+   [
+    "بَرْقٌ",
+    "",
+    "chaqmoq"
+   ],
+   [
+    "أَطَلَّ، يُطِلُّ، إِطْلَالٌ (عَلَى)",
+    "",
+    "…ga qaragan (joylashgan)"
+   ],
+   [
+    "حَدَّ، يَحُدُّ، حَدٌّ",
+    "",
+    "chegaralaydi"
+   ],
+   [
+    "اتَّصَفَ، يَتَّصِفُ، اتِّصَافٌ (بِـ)",
+    "",
+    "…bilan ajralib turadi"
+   ],
+   [
+    "بَلَغَ، يَبْلُغُ، بُلُوغٌ",
+    "",
+    "yetadi"
+   ],
+   [
+    "تَرَاوَحَ، يَتَرَاوَحُ، تَرَاوُحٌ (بَيْنَ … وَ …)",
+    "",
+    "…dan …gacha bo'ladi"
+   ],
+   [
+    "عَاصِفَةٌ رَعْدِيَّةٌ",
+    "",
+    "momaqaldiroqli bo'ron"
+   ],
+   [
+    "مُنَاخٌ قَارِّيٌّ",
+    "",
+    "kontinental iqlim"
+   ],
+   [
+    "شِبْهُ جَزِيرَةٍ",
+    "",
+    "yarim orol"
+   ],
+   [
+    "مُثَلَّثٌ",
+    "",
+    "uchburchak"
+   ],
+   [
+    "خَلِيجٌ",
+    "",
+    "ko'rfaz"
+   ],
+   [
+    "قَارَّةٌ",
+    "قَارَّاتٌ",
+    "qit'a"
+   ],
+   [
+    "المَشْرِقُ",
+    "",
+    "sharq"
+   ],
+   [
+    "الثَّرَوَاتُ الطَّبِيعِيَّةُ",
+    "",
+    "tabiiy boyliklar"
+   ],
+   [
+    "صَافٍ",
+    "",
+    "musaffo, ochiq (osmon)"
+   ],
+   [
+    "صَحْرَاوِيٌّ",
+    "",
+    "sahroviy"
+   ],
+   [
+    "جَفَافٌ",
+    "",
+    "qurg'oqchilik"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 7",
+  "ar": "منطقتي",
+  "uz": "Mening hududim",
+  "w": [
+   [
+    "مَحَطَّةُ حَافِلَاتٍ",
+    "",
+    "avtobus bekati"
+   ],
+   [
+    "سُوقُ خُضْرَوَاتٍ",
+    "",
+    "sabzavot bozori"
+   ],
+   [
+    "مَرْكَزُ شُرْطَةٍ",
+    "",
+    "politsiya markazi"
+   ],
+   [
+    "مَكْتَبٌ عَقَارِيٌّ",
+    "",
+    "ko'chmas mulk idorasi"
+   ],
+   [
+    "مَوْقِفُ حَافِلَاتٍ",
+    "",
+    "avtobus to'xtash joyi"
+   ],
+   [
+    "مَرْكَزُ تَسَوُّقٍ",
+    "",
+    "savdo markazi"
+   ],
+   [
+    "خِدْمَاتٌ",
+    "",
+    "xizmatlar"
+   ],
+   [
+    "مُمْتَازٌ",
+    "",
+    "a'lo"
+   ],
+   [
+    "مُرْتَاحٌ",
+    "",
+    "xotirjam"
+   ],
+   [
+    "أَلْعَابُ الأَطْفَالِ",
+    "",
+    "bolalar o'yingohi"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 8",
+  "ar": "سائح في المدينة",
+  "uz": "Shahardagi sayyoh",
+  "w": [
+   [
+    "زُقَاقٌ",
+    "أَزِقَّةٌ",
+    "tor ko'cha"
+   ],
+   [
+    "ضَيْفٌ",
+    "ضُيُوفٌ",
+    "mehmon"
+   ],
+   [
+    "صَرَّافٌ",
+    "",
+    "valyuta ayirboshlovchi"
+   ],
+   [
+    "مَكْتَبُ البَرِيدِ",
+    "",
+    "pochta"
+   ],
+   [
+    "مَصْرِفٌ",
+    "مَصَارِفُ",
+    "bank"
+   ],
+   [
+    "زَاوِيَةٌ",
+    "زَوَايَا",
+    "burchak"
+   ],
+   [
+    "سُوقٌ أَثَرِيٌّ",
+    "",
+    "qadimiy bozor"
+   ],
+   [
+    "المَتْحَفُ الوَطَنِيُّ",
+    "",
+    "milliy muzey"
+   ],
+   [
+    "قَطَعَ، يَقْطَعُ، قَطْعٌ",
+    "",
+    "kesib o'tmoq"
+   ],
+   [
+    "صَعِدَ، يَصْعَدُ، صُعُودٌ",
+    "",
+    "yuqoriga chiqmoq"
+   ],
+   [
+    "شَمَالٌ # جَنُوبٌ",
+    "",
+    "shimol # janub"
+   ],
+   [
+    "نُقْطَةُ الوُصُولِ",
+    "",
+    "yetib boriladigan joy"
+   ],
+   [
+    "السَّفَارَاتُ",
+    "",
+    "elchixonalar"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 9",
+  "ar": "مدن وأماكن",
+  "uz": "Shaharlar va joylar",
+  "w": [
+   [
+    "أَمَاكِنُ تَارِيخِيَّةٌ",
+    "",
+    "tarixiy joylar"
+   ],
+   [
+    "بُرْجٌ",
+    "أَبْرَاجٌ",
+    "minora"
+   ],
+   [
+    "تَلَّةٌ",
+    "تِلَالٌ",
+    "tepalik"
+   ],
+   [
+    "غَابَةٌ",
+    "غَابَاتٌ",
+    "o'rmon"
+   ],
+   [
+    "الأَهْرَامَاتُ",
+    "",
+    "ehromlar"
+   ],
+   [
+    "تِمْثَالٌ",
+    "تَمَاثِيلُ",
+    "haykal"
+   ],
+   [
+    "وَقَعَ، يَقَعُ، وُقُوعٌ",
+    "",
+    "joylashmoq"
+   ],
+   [
+    "مَرَّ، يَمُرُّ، مُرُورٌ",
+    "",
+    "o'tmoq"
+   ],
+   [
+    "سَاحِلِيٌّ",
+    "",
+    "sohildagi"
+   ],
+   [
+    "مِئْذَنَةٌ",
+    "مَآذِنُ",
+    "minora (masjid)"
+   ],
+   [
+    "آثَارٌ فِرْعَوْنِيَّةٌ",
+    "",
+    "fir'avnlar yodgorliklari"
+   ],
+   [
+    "نَهْرٌ",
+    "أَنْهَارٌ",
+    "daryo"
+   ],
+   [
+    "السُّوقُ المُغَطَّى",
+    "",
+    "yopiq bozor"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 10",
+  "ar": "الوطن العربي",
+  "uz": "Arab dunyosi",
+  "w": [
+   [
+    "بِحَارٌ",
+    "بَحْرٌ",
+    "dengizlar"
+   ],
+   [
+    "مُحِيطَاتٌ",
+    "مُحِيطٌ",
+    "okeanlar"
+   ],
+   [
+    "صَحْرَاءُ",
+    "صَحَارَى",
+    "sahro"
+   ],
+   [
+    "حَضَارَةٌ",
+    "حَضَارَاتٌ",
+    "sivilizatsiya"
+   ],
+   [
+    "مِسَاحَةٌ",
+    "مِسَاحَاتٌ",
+    "maydon (km²)"
+   ],
+   [
+    "مَصَادِرُ طَبِيعِيَّةٌ",
+    "",
+    "tabiiy resurslar"
+   ],
+   [
+    "لُغَةٌ رَسْمِيَّةٌ",
+    "",
+    "rasmiy til"
+   ],
+   [
+    "اشْتَهَرَ، يَشْتَهِرُ، اشْتِهَارٌ (بِـ)",
+    "",
+    "mashhur bo'lmoq"
+   ],
+   [
+    "لَهَجَاتٌ",
+    "لَهْجَةٌ",
+    "shevalar"
+   ],
+   [
+    "عَدَدُ السُّكَّانِ",
+    "",
+    "aholi soni"
+   ],
+   [
+    "زِرَاعَةٌ",
+    "",
+    "dehqonchilik"
+   ],
+   [
+    "النِّفْطُ / الغَازُ / الفَحْمُ / الحَدِيدُ",
+    "",
+    "neft / gaz / ko'mir / temir"
+   ],
+   [
+    "القَمْحُ / الذُّرَةُ",
+    "",
+    "bug'doy / makkajo'xori"
+   ],
+   [
+    "المَنْسُوجَاتُ",
+    "",
+    "to'qimachilik"
+   ],
+   [
+    "المَوَادُّ الكِيمْيَائِيَّةُ",
+    "",
+    "kimyoviy moddalar"
+   ],
+   [
+    "كِيلُو مِتْرٌ مُرَبَّعٌ",
+    "",
+    "kvadrat kilometr"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 11",
+  "ar": "حضارات من الشرق",
+  "uz": "Sharq sivilizatsiyalari",
+  "w": [
+   [
+    "عَمُودٌ",
+    "أَعْمِدَةٌ",
+    "ustun"
+   ],
+   [
+    "مَسْرَحٌ",
+    "مَسَارِحُ",
+    "teatr"
+   ],
+   [
+    "عَهْدٌ",
+    "",
+    "davr, zamon"
+   ],
+   [
+    "مَنْحُوتَةٌ فِي",
+    "",
+    "…da o'yilgan"
+   ],
+   [
+    "مَعْلَمٌ",
+    "مَعَالِمُ",
+    "diqqatga sazovor joy"
+   ],
+   [
+    "مَمْلَكَةٌ",
+    "مَمَالِكُ",
+    "qirollik"
+   ],
+   [
+    "مَقْبَرَةٌ",
+    "مَقَابِرُ",
+    "qabriston"
+   ],
+   [
+    "مُدَرَّجٌ",
+    "",
+    "amfiteatr"
+   ],
+   [
+    "انْتَشَرَ، يَنْتَشِرُ، انْتِشَارٌ",
+    "",
+    "tarqalmoq"
+   ],
+   [
+    "أَحَاطَ، يُحِيطُ، إِحَاطَةٌ (بِـ)",
+    "",
+    "o'rab olmoq"
+   ],
+   [
+    "تَطَوَّرَ، يَتَطَوَّرُ، تَطَوُّرٌ",
+    "",
+    "rivojlanmoq"
+   ],
+   [
+    "بَعُدَ، يَبْعُدُ، بُعْدٌ (عَنْ)",
+    "",
+    "uzoqda bo'lmoq"
+   ],
+   [
+    "احْتَوَى، يَحْتَوِي، احْتِوَاءٌ (عَلَى)",
+    "",
+    "o'z ichiga olmoq"
+   ],
+   [
+    "عَجَائِبُ الدُّنْيَا السَّبْعُ",
+    "",
+    "dunyoning yetti mo'jizasi"
+   ],
+   [
+    "طَرِيقُ الحَرِيرِ",
+    "",
+    "Ipak yo'li"
+   ],
+   [
+    "عَرُوسُ الصَّحْرَاءِ",
+    "",
+    "sahro kelinchagi (Palmira)"
+   ],
+   [
+    "المَدِينَةُ الوَرْدِيَّةُ",
+    "",
+    "pushti shahar (Petra)"
+   ],
+   [
+    "الصَّخْرُ",
+    "",
+    "qoya, tosh"
+   ],
+   [
+    "تِجَارِيٌّ",
+    "",
+    "savdo (sifat)"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 12",
+  "ar": "أماكن وهوايات",
+  "uz": "Joylar va qiziqishlar",
+  "w": [
+   [
+    "مُتْعَةٌ",
+    "",
+    "zavq"
+   ],
+   [
+    "رَاحَةٌ",
+    "",
+    "dam, orom"
+   ],
+   [
+    "تَخْفِيفٌ",
+    "",
+    "yengillatish"
+   ],
+   [
+    "ضَغْطٌ",
+    "ضُغُوطٌ",
+    "bosim, stress"
+   ],
+   [
+    "التَّمْثِيلُ",
+    "",
+    "aktyorlik"
+   ],
+   [
+    "الغِنَاءُ",
+    "",
+    "qo'shiq aytish"
+   ],
+   [
+    "التَّطْرِيزُ",
+    "",
+    "kashtachilik"
+   ],
+   [
+    "البَسْتَنَةُ",
+    "",
+    "bog'dorchilik"
+   ],
+   [
+    "الخِيَاطَةُ",
+    "",
+    "tikuvchilik"
+   ],
+   [
+    "رِيَاضَةُ الغُولْفِ",
+    "",
+    "golf"
+   ],
+   [
+    "الغَطْسُ",
+    "",
+    "sho'ng'ish"
+   ],
+   [
+    "سِبَاقُ السَّيَّارَاتِ",
+    "",
+    "avtopoyga"
+   ],
+   [
+    "تَصْمِيمُ المَوَاقِعِ",
+    "",
+    "sayt dizayni"
+   ],
+   [
+    "تَرْبِيَةُ الحَيَوَانَاتِ",
+    "",
+    "hayvon boqish"
+   ],
+   [
+    "مَهَارَةٌ",
+    "مَهَارَاتٌ",
+    "mahorat"
+   ],
+   [
+    "فِكْرِيٌّ # جِسْمِيٌّ",
+    "",
+    "aqliy # jismoniy"
+   ],
+   [
+    "كُرَةُ السَّلَّةِ",
+    "",
+    "basketbol"
+   ],
+   [
+    "كُرَةُ الطَّاوِلَةِ",
+    "",
+    "stol tennisi"
+   ],
+   [
+    "الدَّرَّاجَةُ",
+    "",
+    "velosiped"
+   ],
+   [
+    "إِصْلَاحُ الهَوَاتِفِ",
+    "",
+    "telefon ta'mirlash"
+   ],
+   [
+    "الرِّحْلَاتُ",
+    "",
+    "sayohatlar"
+   ],
+   [
+    "مَسْرَحِيٌّ",
+    "",
+    "sahna (sifat)"
+   ],
+   [
+    "مَنْزِلِيٌّ",
+    "",
+    "uy (sifat)"
+   ],
+   [
+    "تِقْنِيٌّ",
+    "",
+    "texnik"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 13",
+  "ar": "في سوق الأطعمة",
+  "uz": "Oziq-ovqat bozorida",
+  "w": [
+   [
+    "مُشْتَرٍ",
+    "",
+    "xaridor"
+   ],
+   [
+    "نَوْعٌ أَوَّلُ / نَوْعٌ ثَانٍ",
+    "",
+    "birinchi nav / ikkinchi nav"
+   ],
+   [
+    "ثَمَنٌ",
+    "أَثْمَانٌ",
+    "narx"
+   ],
+   [
+    "مَفْرُومٌ",
+    "",
+    "qiyma qilingan"
+   ],
+   [
+    "مُقَطَّعٌ",
+    "",
+    "to'g'ralgan"
+   ],
+   [
+    "لَوْ سَمَحْتَ",
+    "",
+    "iltimos"
+   ],
+   [
+    "أَتْعَبْتُكَ مَعِي",
+    "",
+    "sizni ham charchatdim"
+   ],
+   [
+    "جَزَاكَ اللهُ خَيْرًا",
+    "",
+    "Alloh yaxshilik bersin (rahmat)"
+   ],
+   [
+    "زُبُونٌ",
+    "زَبَائِنُ",
+    "mijoz"
+   ],
+   [
+    "لَحْمُ غَنَمٍ",
+    "",
+    "qo'y go'shti"
+   ],
+   [
+    "الحِسَابُ",
+    "",
+    "hisob"
+   ],
+   [
+    "حَالًا",
+    "",
+    "darhol"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 14",
+  "ar": "في سوق التخفيضات",
+  "uz": "Chegirmalar bozorida",
+  "w": [
+   [
+    "مَرْكَزٌ تِجَارِيٌّ",
+    "",
+    "savdo markazi"
+   ],
+   [
+    "قِسْمُ الأَدَوَاتِ المَنْزِلِيَّةِ",
+    "",
+    "uy jihozlari bo'limi"
+   ],
+   [
+    "الأَلْبِسَةُ",
+    "",
+    "kiyim-kechak"
+   ],
+   [
+    "الأَحْذِيَةُ",
+    "",
+    "poyabzal"
+   ],
+   [
+    "التَّجْمِيلُ",
+    "",
+    "kosmetika"
+   ],
+   [
+    "الإِلِكْتْرُونِيَّاتُ",
+    "",
+    "elektronika"
+   ],
+   [
+    "تَخْفِيضَاتٌ",
+    "",
+    "chegirmalar"
+   ],
+   [
+    "جِلْدٌ طَبِيعِيٌّ",
+    "",
+    "tabiiy charm"
+   ],
+   [
+    "نَقْدًا # تَقْسِيطٌ",
+    "",
+    "naqd # bo'lib to'lash"
+   ],
+   [
+    "عَرْضٌ مُغْرٍ",
+    "",
+    "jozibali taklif"
+   ],
+   [
+    "فُرْصَةٌ لَا تُعَوَّضُ",
+    "",
+    "qaytarilmas imkoniyat"
+   ],
+   [
+    "شَيْءٌ رَائِعٌ",
+    "",
+    "ajoyib narsa"
+   ],
+   [
+    "تَجَوَّلَ، يَتَجَوَّلُ، تَجَوُّلٌ (فِي)",
+    "",
+    "aylanib yurmoq"
+   ],
+   [
+    "مُنَظِّفَاتٌ",
+    "",
+    "tozalash vositalari"
+   ],
+   [
+    "أَجْهِزَةٌ إِلِكْتْرُونِيَّةٌ",
+    "",
+    "elektron qurilmalar"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 15",
+  "ar": "أسواق العيد",
+  "uz": "Hayit bozorlari",
+  "w": [
+   [
+    "عِيدٌ",
+    "أَعْيَادٌ",
+    "bayram, hayit"
+   ],
+   [
+    "بِضَاعَةٌ",
+    "بَضَائِعُ",
+    "tovar"
+   ],
+   [
+    "مُتَسَوِّقٌ",
+    "مُتَسَوِّقُونَ",
+    "xaridor"
+   ],
+   [
+    "جَوْدَةٌ",
+    "",
+    "sifat"
+   ],
+   [
+    "لَوَازِمُ العِيدِ",
+    "",
+    "bayram anjomlari"
+   ],
+   [
+    "مُزْدَحِمٌ بِـ",
+    "",
+    "…bilan gavjum"
+   ],
+   [
+    "تَخْفِيضَاتٌ وَهْمِيَّةٌ",
+    "",
+    "soxta chegirmalar"
+   ],
+   [
+    "عُرُوضٌ مُغْرِيَةٌ",
+    "",
+    "jozibali takliflar"
+   ],
+   [
+    "تَسَوَّقَ، يَتَسَوَّقُ، تَسَوُّقٌ",
+    "",
+    "xarid qilmoq"
+   ],
+   [
+    "رَافَقَ، يُرَافِقُ، مُرَافَقَةٌ",
+    "",
+    "hamroh bo'lmoq"
+   ],
+   [
+    "اخْتَارَ، يَخْتَارُ، اخْتِيَارٌ",
+    "",
+    "tanlamoq"
+   ],
+   [
+    "صَاحَ، يَصِيحُ، صِيَاحٌ",
+    "",
+    "baqirmoq"
+   ],
+   [
+    "حَلْوَى العِيدِ",
+    "",
+    "bayram shirinligi"
+   ],
+   [
+    "سُوقٌ مَرْكَزِيٌّ",
+    "",
+    "markaziy bozor"
+   ],
+   [
+    "العِيدِيَّةُ",
+    "",
+    "hayitlik (pul)"
+   ],
+   [
+    "مَلَابِسُ العِيدِ",
+    "",
+    "bayram kiyimlari"
+   ],
+   [
+    "وَاجِهَةُ مَحَلٍّ",
+    "",
+    "do'kon vitrinasi"
+   ],
+   [
+    "رَبُّ الأُسْرَةِ",
+    "",
+    "oila boshlig'i"
+   ],
+   [
+    "الأَرْصِفَةُ",
+    "",
+    "yo'laklar"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 16",
+  "ar": "البائع المتجول أيام زمان",
+  "uz": "O'tmishdagi seyyor sotuvchi",
+  "w": [
+   [
+    "فَتْرَةٌ",
+    "فَتَرَاتٌ",
+    "davr"
+   ],
+   [
+    "نَادَى، يُنَادِي، مُنَادَاةٌ",
+    "",
+    "chaqirmoq, ovoz bermoq"
+   ],
+   [
+    "دَفَعَ، يَدْفَعُ، دَفْعٌ",
+    "",
+    "to'lamoq; itarmoq"
+   ],
+   [
+    "أَحْضَرَ، يُحْضِرُ، إِحْضَارٌ",
+    "",
+    "olib kelmoq"
+   ],
+   [
+    "اشْتَرَى، يَشْتَرِي، شِرَاءٌ",
+    "",
+    "sotib olmoq"
+   ],
+   [
+    "اجْتَمَعَ، يَجْتَمِعُ، اجْتِمَاعٌ",
+    "",
+    "yig'ilmoq"
+   ],
+   [
+    "البَائِعُ الجَوَّالُ",
+    "",
+    "seyyor sotuvchi"
+   ],
+   [
+    "ضَرِيبَةُ دَخْلٍ",
+    "",
+    "daromad solig'i"
+   ],
+   [
+    "صَوْتٌ عَالٍ",
+    "",
+    "baland ovoz"
+   ],
+   [
+    "فَاتُورَةٌ",
+    "فَوَاتِيرُ",
+    "hisob-faktura"
+   ],
+   [
+    "فَرِحٌ",
+    "",
+    "xursand"
+   ],
+   [
+    "ظَهَرَ، يَظْهَرُ، ظُهُورٌ",
+    "",
+    "paydo bo'lmoq"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 17",
+  "ar": "مشكلات في التسوق",
+  "uz": "Xariddagi muammolar",
+  "w": [
+   [
+    "أَرْجَعَ، يُرْجِعُ، إِرْجَاعٌ",
+    "",
+    "qaytarmoq"
+   ],
+   [
+    "مُسْتَحِيلٌ",
+    "",
+    "imkonsiz"
+   ],
+   [
+    "مَمْنُوعٌ",
+    "",
+    "taqiqlangan"
+   ],
+   [
+    "تَارِيخُ الصَّلَاحِيَّةِ",
+    "",
+    "yaroqlilik muddati"
+   ],
+   [
+    "فَرْقُ السِّعْرِ",
+    "",
+    "narx farqi"
+   ],
+   [
+    "بَدَّلَ، يُبَدِّلُ، تَبْدِيلٌ",
+    "",
+    "almashtirmoq"
+   ],
+   [
+    "اتَّسَعَ، يَتَّسِعُ، اتِّسَاعٌ",
+    "",
+    "sig'moq"
+   ],
+   [
+    "خَفَّضَ، يُخَفِّضُ، تَخْفِيضٌ",
+    "",
+    "kamaytirmoq (narx)"
+   ],
+   [
+    "اعْتَذَرَ، يَعْتَذِرُ، اعْتِذَارٌ (عَنْ)",
+    "",
+    "uzr so'ramoq"
+   ],
+   [
+    "عُلْبَةٌ",
+    "عُلَبٌ",
+    "quti, banka"
+   ],
+   [
+    "خِزَانَةٌ",
+    "",
+    "shkaf"
+   ],
+   [
+    "عُطْلٌ",
+    "أَعْطَالٌ",
+    "nosozlik"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 18",
+  "ar": "البضاعة المستعملة",
+  "uz": "Ishlatilgan tovar",
+  "w": [
+   [
+    "مُسْتَعْمَلٌ",
+    "",
+    "ishlatilgan"
+   ],
+   [
+    "مَضْمُونٌ",
+    "",
+    "kafolatli"
+   ],
+   [
+    "رَخِيصُ الثَّمَنِ",
+    "",
+    "arzon"
+   ],
+   [
+    "جَوْدَةٌ عَالِيَةٌ",
+    "",
+    "yuqori sifat"
+   ],
+   [
+    "مَارْكَةٌ أَجْنَبِيَّةٌ",
+    "مَارْكَاتٌ",
+    "xorijiy marka"
+   ],
+   [
+    "مُشْكِلَةٌ تِقْنِيَّةٌ",
+    "",
+    "texnik muammo"
+   ],
+   [
+    "تَنَوَّعَ، يَتَنَوَّعُ، تَنَوُّعٌ",
+    "",
+    "xilma-xil bo'lmoq"
+   ],
+   [
+    "تَعَطَّلَ، يَتَعَطَّلُ، تَعَطُّلٌ",
+    "",
+    "buzilmoq"
+   ],
+   [
+    "نَقَلَ، يَنْقُلُ، نَقْلٌ",
+    "",
+    "tashimoq; yuqtirmoq"
+   ],
+   [
+    "غَرَضٌ",
+    "أَغْرَاضٌ",
+    "buyum, narsa"
+   ],
+   [
+    "مَعْرِضٌ",
+    "مَعَارِضُ",
+    "ko'rgazma"
+   ],
+   [
+    "كَهْرَبَائِيٌّ",
+    "",
+    "elektr (sifat)"
+   ],
+   [
+    "أَمْرَاضٌ",
+    "مَرَضٌ",
+    "kasalliklar"
+   ],
+   [
+    "نُقُودٌ",
+    "",
+    "pul"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 19",
+  "ar": "في المكتب العقاري",
+  "uz": "Ko'chmas mulk idorasida",
+  "w": [
+   [
+    "إِيجَارٌ",
+    "",
+    "ijara"
+   ],
+   [
+    "مُزَوَّدٌ بِـ",
+    "",
+    "…bilan jihozlangan"
+   ],
+   [
+    "شُقَّاطٌ",
+    "",
+    "deraza tutqichi"
+   ],
+   [
+    "عُمُولَةٌ",
+    "",
+    "komissiya haqi"
+   ],
+   [
+    "عَقْدٌ",
+    "عُقُودٌ",
+    "shartnoma"
+   ],
+   [
+    "سِعْرٌ نِهَائِيٌّ",
+    "",
+    "oxirgi narx"
+   ],
+   [
+    "تَدْفِئَةٌ مَرْكَزِيَّةٌ",
+    "",
+    "markaziy isitish"
+   ],
+   [
+    "عَلَى بُعْدِ خُطْوَةٍ",
+    "",
+    "bir qadam narida"
+   ],
+   [
+    "عَلَى الأَكْثَرِ",
+    "",
+    "ko'pi bilan"
+   ],
+   [
+    "اسْتَأْجَرَ، يَسْتَأْجِرُ، اسْتِئْجَارٌ",
+    "",
+    "ijaraga olmoq"
+   ],
+   [
+    "تَكَوَّنَ، يَتَكَوَّنُ، تَكَوُّنٌ (مِنْ)",
+    "",
+    "…dan iborat bo'lmoq"
+   ],
+   [
+    "وَقَّعَ، يُوَقِّعُ، تَوْقِيعٌ",
+    "",
+    "imzolamoq"
+   ],
+   [
+    "اتَّفَقَ، يَتَّفِقُ، اتِّفَاقٌ",
+    "",
+    "kelishmoq"
+   ],
+   [
+    "صَالَةٌ",
+    "",
+    "zal, mehmonxona"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 20",
+  "ar": "البحث عن مكان للإقامة",
+  "uz": "Yashash joyi qidirish",
+  "w": [
+   [
+    "خِدْمَةٌ",
+    "خِدْمَاتٌ",
+    "xizmat"
+   ],
+   [
+    "مَجَّانًا",
+    "",
+    "tekin"
+   ],
+   [
+    "مَرَافِقُ",
+    "مِرْفَقٌ",
+    "qulayliklar"
+   ],
+   [
+    "مَسْبَحٌ",
+    "مَسَابِحُ",
+    "basseyn"
+   ],
+   [
+    "مُثَبَّتٌ",
+    "",
+    "o'rnatilgan"
+   ],
+   [
+    "مَزَايَا",
+    "مِيزَةٌ",
+    "afzalliklar"
+   ],
+   [
+    "مُسْتَلْزَمَاتٌ",
+    "",
+    "kerakli buyumlar"
+   ],
+   [
+    "سَيْرًا عَلَى الأَقْدَامِ",
+    "",
+    "piyoda"
+   ],
+   [
+    "عَلَى مَدَارِ السَّاعَةِ",
+    "",
+    "kecha-kunduz"
+   ],
+   [
+    "خِدْمَةُ الغُرَفِ",
+    "",
+    "xona xizmati"
+   ],
+   [
+    "ضَمَّ، يَضُمُّ، ضَمٌّ",
+    "",
+    "o'z ichiga olmoq"
+   ],
+   [
+    "وَفَّرَ، يُوَفِّرُ، تَوْفِيرٌ",
+    "",
+    "ta'minlamoq"
+   ],
+   [
+    "شَمِلَ، يَشْمَلُ، شُمُولٌ",
+    "",
+    "qamrab olmoq"
+   ],
+   [
+    "فُنْدُقٌ مُصَنَّفٌ",
+    "",
+    "yulduzli mehmonxona"
+   ],
+   [
+    "العِمَارَةُ",
+    "",
+    "me'morchilik"
+   ],
+   [
+    "عَصْرِيٌّ",
+    "",
+    "zamonaviy"
+   ],
+   [
+    "لِيَاقَةٌ بَدَنِيَّةٌ",
+    "",
+    "jismoniy tayyorgarlik"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 21",
+  "ar": "بين الريف والمدينة",
+  "uz": "Qishloq va shahar orasida",
+  "w": [
+   [
+    "مُتَعَدِّدٌ",
+    "",
+    "ko'p turli"
+   ],
+   [
+    "أَغْلَبُ",
+    "",
+    "ko'pchilik"
+   ],
+   [
+    "سَلْبِيَّاتٌ # إِيجَابِيَّاتٌ",
+    "",
+    "salbiy # ijobiy tomonlar"
+   ],
+   [
+    "مُلَوَّثٌ",
+    "",
+    "ifloslangan"
+   ],
+   [
+    "مُزْعِجٌ",
+    "",
+    "bezovta qiluvchi"
+   ],
+   [
+    "دَائِرَةٌ حُكُومِيَّةٌ",
+    "",
+    "davlat idorasi"
+   ],
+   [
+    "ضَجِيجُ السَّيَّارَاتِ",
+    "",
+    "mashinalar shovqini"
+   ],
+   [
+    "اعْتَمَدَ، يَعْتَمِدُ، اعْتِمَادٌ (عَلَى)",
+    "",
+    "tayanmoq"
+   ],
+   [
+    "الاقْتِصَادُ",
+    "",
+    "iqtisod"
+   ],
+   [
+    "مَصْنَعٌ",
+    "مَصَانِعُ",
+    "zavod"
+   ],
+   [
+    "أَبْنِيَةٌ",
+    "بِنَاءٌ",
+    "binolar"
+   ],
+   [
+    "حُكُومِيٌّ # خَاصٌّ",
+    "",
+    "davlat # xususiy"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 22",
+  "ar": "إصلاحات منزلية",
+  "uz": "Uy ta'miri",
+  "w": [
+   [
+    "طِلَاءٌ",
+    "",
+    "bo'yoq"
+   ],
+   [
+    "دَهَّانٌ",
+    "",
+    "bo'yoqchi"
+   ],
+   [
+    "سَبَّاكٌ",
+    "",
+    "santexnik"
+   ],
+   [
+    "بَلَّاطٌ",
+    "",
+    "kafelchi"
+   ],
+   [
+    "قَرْضٌ",
+    "قُرُوضٌ",
+    "qarz, kredit"
+   ],
+   [
+    "تَكْلِفَةٌ",
+    "",
+    "xarajat"
+   ],
+   [
+    "أَسْلَاكٌ كَهْرَبَائِيَّةٌ",
+    "",
+    "elektr simlari"
+   ],
+   [
+    "مَنَافِعُ البَيْتِ",
+    "",
+    "uy qulayliklari"
+   ],
+   [
+    "تَمْدِيدَاتٌ صِحِّيَّةٌ",
+    "",
+    "suv quvurlari"
+   ],
+   [
+    "رَمَّمَ، يُرَمِّمُ، تَرْمِيمٌ",
+    "",
+    "ta'mirlamoq"
+   ],
+   [
+    "أَصْلَحَ، يُصْلِحُ، إِصْلَاحٌ",
+    "",
+    "tuzatmoq"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 23",
+  "ar": "بيت الطلاب",
+  "uz": "Talabalar uyi",
+  "w": [
+   [
+    "نِظَامٌ",
+    "أَنْظِمَةٌ",
+    "tartib, qoida"
+   ],
+   [
+    "جَمَاعِيٌّ # فَرْدِيٌّ",
+    "",
+    "jamoaviy # yakka"
+   ],
+   [
+    "قُبَيْلَ",
+    "",
+    "…dan biroz oldin"
+   ],
+   [
+    "مَطْعَمٌ مَرْكَزِيٌّ",
+    "",
+    "markaziy oshxona"
+   ],
+   [
+    "النِّظَامُ اليَوْمِيُّ",
+    "",
+    "kun tartibi"
+   ],
+   [
+    "وَجْبَتَانِ",
+    "",
+    "ikki mahal ovqat"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 24",
+  "ar": "جيران ولكن مزعجون",
+  "uz": "Bezovta qo'shnilar",
+  "w": [
+   [
+    "صَوْتٌ",
+    "أَصْوَاتٌ",
+    "ovoz"
+   ],
+   [
+    "أَسْفَلَ",
+    "",
+    "pastida"
+   ],
+   [
+    "مُرَاهِقٌ",
+    "",
+    "o'smir"
+   ],
+   [
+    "صَوْتٌ مُرْتَفِعٌ",
+    "",
+    "baland ovoz"
+   ],
+   [
+    "طَوَالَ اللَّيْلِ",
+    "",
+    "tun bo'yi"
+   ],
+   [
+    "بَكَى، يَبْكِي، بُكَاءٌ",
+    "",
+    "yig'lamoq"
+   ],
+   [
+    "رَفَعَ، يَرْفَعُ، رَفْعٌ",
+    "",
+    "ko'tarmoq"
+   ],
+   [
+    "تَشَاجَرَ، يَتَشَاجَرُ، تَشَاجُرٌ",
+    "",
+    "janjallashmoq"
+   ],
+   [
+    "صَرَخَ، يَصْرُخُ، صُرَاخٌ",
+    "",
+    "qichqirmoq"
+   ],
+   [
+    "قَهْقَهَ، يُقَهْقِهُ، قَهْقَهَةٌ",
+    "",
+    "qah-qah urib kulmoq"
+   ],
+   [
+    "الجَارُ قَبْلَ الدَّارِ",
+    "",
+    "avval qo'shni, keyin hovli"
+   ],
+   [
+    "عَيْبٌ عَلَيْكَ",
+    "",
+    "uyat senga"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 25",
+  "ar": "مشكلات صحية",
+  "uz": "Sog'liq muammolari",
+  "w": [
+   [
+    "حَلْقٌ",
+    "",
+    "tomoq"
+   ],
+   [
+    "فُحُوصَاتٌ طِبِّيَّةٌ",
+    "",
+    "tibbiy tekshiruvlar"
+   ],
+   [
+    "مُضَادٌّ حَيَوِيٌّ",
+    "",
+    "antibiotik"
+   ],
+   [
+    "وَصْفَةٌ طِبِّيَّةٌ",
+    "",
+    "retsept"
+   ],
+   [
+    "لَا تَنْسَ أَنْ …",
+    "",
+    "…ni unutma"
+   ],
+   [
+    "لَا أَسْتَطِيعُ أَنْ …",
+    "",
+    "…a olmayman"
+   ],
+   [
+    "الأَلَمُ",
+    "آلَامٌ",
+    "og'riq"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 26",
+  "ar": "زيارة مريض",
+  "uz": "Bemorni ko'rish",
+  "w": [
+   [
+    "زِيَارَةٌ",
+    "",
+    "ziyorat, ko'rish"
+   ],
+   [
+    "تَسَمُّمٌ غِذَائِيٌّ",
+    "",
+    "ovqatdan zaharlanish"
+   ],
+   [
+    "آدَابُ الزِّيَارَةِ",
+    "",
+    "ziyorat odobi"
+   ],
+   [
+    "بَاقَةُ زُهُورٍ",
+    "",
+    "guldasta"
+   ],
+   [
+    "أَسْعَفَ، يُسْعِفُ، إِسْعَافٌ",
+    "",
+    "tez yordam ko'rsatmoq"
+   ],
+   [
+    "اسْتَرَاحَ، يَسْتَرِيحُ، اسْتِرَاحَةٌ",
+    "",
+    "dam olmoq"
+   ],
+   [
+    "اتَّصَلَ، يَتَّصِلُ، اتِّصَالٌ",
+    "",
+    "qo'ng'iroq qilmoq"
+   ],
+   [
+    "طَلَبَ، يَطْلُبُ، طَلَبٌ",
+    "",
+    "so'ramoq"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 27",
+  "ar": "الصحة في الرياضة",
+  "uz": "Sportdagi sog'liq",
+  "w": [
+   [
+    "بَدَنِيٌّ",
+    "",
+    "jismoniy"
+   ],
+   [
+    "فَائِدَةٌ",
+    "فَوَائِدُ",
+    "foyda"
+   ],
+   [
+    "مُلَاكَمَةٌ",
+    "",
+    "boks"
+   ],
+   [
+    "مُصَارَعَةٌ",
+    "",
+    "kurash"
+   ],
+   [
+    "مُبَارَزَةٌ",
+    "",
+    "qilichbozlik"
+   ],
+   [
+    "رَفْعُ الأَثْقَالِ",
+    "",
+    "og'ir atletika"
+   ],
+   [
+    "بِنَاءُ الأَجْسَامِ",
+    "",
+    "bodibilding"
+   ],
+   [
+    "جِهَازُ المَنَاعَةِ",
+    "",
+    "immunitet tizimi"
+   ],
+   [
+    "ضَغْطٌ نَفْسِيٌّ",
+    "",
+    "ruhiy bosim"
+   ],
+   [
+    "فَازَ، يَفُوزُ، فَوْزٌ",
+    "",
+    "g'alaba qilmoq"
+   ],
+   [
+    "خَسِرَ، يَخْسَرُ، خَسَارَةٌ",
+    "",
+    "yutqazmoq"
+   ],
+   [
+    "قَوَّى، يُقَوِّي، تَقْوِيَةٌ",
+    "",
+    "kuchaytirmoq"
+   ],
+   [
+    "الوَثْبُ",
+    "",
+    "sakrash"
+   ],
+   [
+    "الرَّمْيُ",
+    "",
+    "uloqtirish"
+   ],
+   [
+    "العَقْلُ وَالذَّاكِرَةُ",
+    "",
+    "aql va xotira"
+   ],
+   [
+    "الكَلِمَاتُ المُتَقَاطِعَةُ",
+    "",
+    "krossvord"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 28",
+  "ar": "صحتك بين يديك",
+  "uz": "Sog'ligingiz o'z qo'lingizda",
+  "w": [
+   [
+    "تَغْذِيَةٌ",
+    "",
+    "ovqatlanish"
+   ],
+   [
+    "نَفْسِيٌّ",
+    "",
+    "ruhiy"
+   ],
+   [
+    "نِظَامٌ صِحِّيٌّ",
+    "",
+    "sog'lom tartib"
+   ],
+   [
+    "مَصْدَرُ طَاقَةٍ",
+    "",
+    "quvvat manbai"
+   ],
+   [
+    "القَمْحُ الكَامِلُ",
+    "",
+    "butun bug'doy"
+   ],
+   [
+    "سَائِلٌ",
+    "سَوَائِلُ",
+    "suyuqlik"
+   ],
+   [
+    "اعْتِدَالٌ",
+    "",
+    "mo'tadillik"
+   ],
+   [
+    "ابْتَعَدَ، يَبْتَعِدُ، ابْتِعَادٌ (عَنْ)",
+    "",
+    "uzoqlashmoq"
+   ],
+   [
+    "نَصَحَ، يَنْصَحُ، نَصِيحَةٌ",
+    "",
+    "maslahat bermoq"
+   ],
+   [
+    "العَقْلُ السَّلِيمُ فِي الجِسْمِ السَّلِيمِ",
+    "",
+    "sog' tanda sog' aql"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 29",
+  "ar": "النظافة والأناقة",
+  "uz": "Ozodalik va chiroyli kiyinish",
+  "w": [
+   [
+    "أَنَاقَةٌ",
+    "",
+    "nafislik, did"
+   ],
+   [
+    "أُسْلُوبٌ",
+    "أَسَالِيبُ",
+    "uslub"
+   ],
+   [
+    "مَظْهَرٌ",
+    "",
+    "tashqi ko'rinish"
+   ],
+   [
+    "عِنَايَةٌ",
+    "",
+    "parvarish"
+   ],
+   [
+    "تَعَرُّقٌ",
+    "",
+    "terlash"
+   ],
+   [
+    "أَوْسَاخٌ",
+    "",
+    "kir"
+   ],
+   [
+    "أَخْلَاقٌ رَفِيعَةٌ",
+    "",
+    "yuksak axloq"
+   ],
+   [
+    "وَاثِقٌ مِنْ نَفْسِهِ",
+    "",
+    "o'ziga ishongan"
+   ],
+   [
+    "يَتَحَمَّلُ مَسْؤُولِيَّاتِهِ",
+    "",
+    "mas'uliyatni o'z zimmasiga oladi"
+   ],
+   [
+    "اهْتَمَّ، يَهْتَمُّ، اهْتِمَامٌ (بِـ)",
+    "",
+    "e'tibor bermoq"
+   ],
+   [
+    "ارْتَدَى، يَرْتَدِي، ارْتِدَاءٌ",
+    "",
+    "kiymoq"
+   ],
+   [
+    "اسْتَخْدَمَ، يَسْتَخْدِمُ، اسْتِخْدَامٌ",
+    "",
+    "foydalanmoq"
+   ],
+   [
+    "تَسْرِيحَةُ الشَّعْرِ",
+    "",
+    "soch turmagi"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 30",
+  "ar": "وقت الفراغ",
+  "uz": "Bo'sh vaqt",
+  "w": [
+   [
+    "مَلِيءٌ",
+    "",
+    "to'la"
+   ],
+   [
+    "أَعْمَالٌ تَطَوُّعِيَّةٌ",
+    "",
+    "ko'ngillilik ishlari"
+   ],
+   [
+    "بَحَثَ، يَبْحَثُ، بَحْثٌ",
+    "",
+    "qidirmoq"
+   ],
+   [
+    "هَدَفٌ",
+    "أَهْدَافٌ",
+    "maqsad"
+   ],
+   [
+    "نَافِعٌ",
+    "",
+    "foydali"
+   ],
+   [
+    "الرُّوحُ",
+    "",
+    "ruh"
+   ],
+   [
+    "العَلَاقَاتُ الاجْتِمَاعِيَّةُ",
+    "",
+    "ijtimoiy aloqalar"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 31",
+  "ar": "غداء في المطعم",
+  "uz": "Restoranda tushlik",
+  "w": [
+   [
+    "إِطْلَالَةٌ",
+    "",
+    "manzara (oynadan)"
+   ],
+   [
+    "مَحْجُوزٌ",
+    "",
+    "band qilingan"
+   ],
+   [
+    "إِكْرَامِيَّةٌ",
+    "",
+    "choychaqa"
+   ],
+   [
+    "بَاقٍ",
+    "",
+    "qolgan (qaytim)"
+   ],
+   [
+    "وَجْبَةٌ رَئِيسَةٌ",
+    "",
+    "asosiy taom"
+   ],
+   [
+    "جَاعَ، يَجُوعُ، جُوعٌ",
+    "",
+    "och qolmoq"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 32",
+  "ar": "شكوى على الطعام",
+  "uz": "Ovqatdan shikoyat",
+  "w": [
+   [
+    "شَكْوَى",
+    "",
+    "shikoyat"
+   ],
+   [
+    "طَعْمٌ",
+    "",
+    "ta'm"
+   ],
+   [
+    "رَائِحَةٌ",
+    "",
+    "hid"
+   ],
+   [
+    "أَعْجَبَ، يُعْجِبُ، إِعْجَابٌ",
+    "",
+    "yoqmoq"
+   ],
+   [
+    "سَمَحَ، يَسْمَحُ، سَمَاحٌ",
+    "",
+    "ruxsat bermoq"
+   ],
+   [
+    "نَقَصَ، يَنْقُصُ، نَقْصٌ",
+    "",
+    "kamaymoq"
+   ],
+   [
+    "وَسِخٌ",
+    "",
+    "kir, iflos"
+   ],
+   [
+    "تَأَخَّرَ، يَتَأَخَّرُ، تَأَخُّرٌ",
+    "",
+    "kechikmoq"
+   ],
+   [
+    "الحِسَابُ عَلَيْنَا",
+    "",
+    "hisob bizdan"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 33",
+  "ar": "ماذا في الثلاجة؟",
+  "uz": "Muzlatgichda nima bor?",
+  "w": [
+   [
+    "زُبْدَةٌ",
+    "",
+    "sariyog'"
+   ],
+   [
+    "لَوَازِمُ",
+    "",
+    "kerakli narsalar"
+   ],
+   [
+    "دَعَا، يَدْعُو، دَعْوَةٌ (إِلَى)",
+    "",
+    "taklif qilmoq"
+   ],
+   [
+    "كَفَى، يَكْفِي، كِفَايَةٌ",
+    "",
+    "yetmoq"
+   ],
+   [
+    "أَخَذَ، يَأْخُذُ، أَخْذٌ",
+    "",
+    "olmoq"
+   ],
+   [
+    "انْتَبَهَ، يَنْتَبِهُ، انْتِبَاهٌ (إِلَى)",
+    "",
+    "diqqat qilmoq"
+   ],
+   [
+    "لَا أَعْرِفُ بِالضَّبْطِ",
+    "",
+    "aniq bilmayman"
+   ],
+   [
+    "مِنَ الآنَ",
+    "",
+    "hozirdan"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 34",
+  "ar": "طبخة اليوم",
+  "uz": "Bugungi taom",
+  "w": [
+   [
+    "مِقْدَارٌ",
+    "مَقَادِيرُ",
+    "miqdor"
+   ],
+   [
+    "وَرَقُ غَارٍ",
+    "",
+    "dafna bargi"
+   ],
+   [
+    "قِدْرٌ",
+    "قُدُورٌ",
+    "qozon"
+   ],
+   [
+    "مُكَسَّرَاتٌ",
+    "",
+    "yong'oqlar"
+   ],
+   [
+    "قَطَّعَ، يُقَطِّعُ، تَقْطِيعٌ",
+    "",
+    "to'g'ramoq"
+   ],
+   [
+    "حَرَّكَ، يُحَرِّكُ، تَحْرِيكٌ",
+    "",
+    "aralashtirmoq"
+   ],
+   [
+    "سَكَبَ، يَسْكُبُ، سَكْبٌ",
+    "",
+    "quymoq"
+   ],
+   [
+    "غَطَّى، يُغَطِّي، تَغْطِيَةٌ",
+    "",
+    "yopmoq"
+   ],
+   [
+    "تَرَكَ، يَتْرُكُ، تَرْكٌ",
+    "",
+    "qoldirmoq"
+   ],
+   [
+    "رَشَّ، يَرُشُّ، رَشٌّ",
+    "",
+    "sepmoq"
+   ],
+   [
+    "أَضَافَ، يُضِيفُ، إِضَافَةٌ",
+    "",
+    "qo'shmoq"
+   ],
+   [
+    "غَلَى، يَغْلِي، غَلْيٌ",
+    "",
+    "qaynamoq"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 35",
+  "ar": "أطعمة ومناسبات",
+  "uz": "Taomlar va tadbirlar",
+  "w": [
+   [
+    "مَشْهُورٌ",
+    "",
+    "mashhur"
+   ],
+   [
+    "مُجَفَّفٌ",
+    "",
+    "quritilgan"
+   ],
+   [
+    "مُنْتَشِرٌ",
+    "",
+    "keng tarqalgan"
+   ],
+   [
+    "طَبَقٌ رَسْمِيٌّ",
+    "",
+    "rasmiy taom"
+   ],
+   [
+    "مُنَاسَبَةٌ اجْتِمَاعِيَّةٌ",
+    "",
+    "ijtimoiy tadbir"
+   ],
+   [
+    "رَغِيفُ خُبْزٍ",
+    "",
+    "non bo'lagi"
+   ],
+   [
+    "خَلَطَ، يَخْلِطُ، خَلْطٌ",
+    "",
+    "aralashtirmoq"
+   ],
+   [
+    "قَدَّمَ، يُقَدِّمُ، تَقْدِيمٌ",
+    "",
+    "taqdim qilmoq, tortmoq"
+   ],
+   [
+    "أَقْبَلَ، يُقْبِلُ، إِقْبَالٌ",
+    "",
+    "qiziqmoq"
+   ],
+   [
+    "وَزَّعَ، يُوَزِّعُ، تَوْزِيعٌ",
+    "",
+    "tarqatmoq"
+   ],
+   [
+    "المَنْسَفُ",
+    "",
+    "mansaf (taom)"
+   ],
+   [
+    "إِكْرَامُ الضَّيْفِ",
+    "",
+    "mehmon izzati"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 36",
+  "ar": "هل تعلم؟",
+  "uz": "Bilasizmi?",
+  "w": [
+   [
+    "عِظَامٌ",
+    "",
+    "suyaklar"
+   ],
+   [
+    "تَشَقُّقٌ",
+    "",
+    "yorilish"
+   ],
+   [
+    "طَاقَةٌ",
+    "",
+    "energiya"
+   ],
+   [
+    "فَائِدَةٌ طِبِّيَّةٌ",
+    "",
+    "tibbiy foyda"
+   ],
+   [
+    "كَنْزٌ دَوَائِيٌّ",
+    "",
+    "dorivor xazina"
+   ],
+   [
+    "دَوَاءٌ صِنَاعِيٌّ",
+    "",
+    "sun'iy dori"
+   ],
+   [
+    "عَنَاصِرُ غِذَائِيَّةٌ",
+    "",
+    "ozuqa moddalari"
+   ],
+   [
+    "جِهَازُ الهَضْمِ",
+    "",
+    "hazm tizimi"
+   ],
+   [
+    "أَصَابَ، يُصِيبُ، إِصَابَةٌ",
+    "",
+    "duchor qilmoq"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 37",
+  "ar": "المواصلات في القاهرة",
+  "uz": "Qohiradagi transport",
+  "w": [
+   [
+    "أَبْوَاقٌ",
+    "بُوقٌ",
+    "signallar"
+   ],
+   [
+    "فَرْعِيٌّ",
+    "",
+    "ichki (ko'cha)"
+   ],
+   [
+    "عَجَلَةٌ",
+    "",
+    "shoshilish"
+   ],
+   [
+    "مُقْبِلٌ",
+    "",
+    "kelayotgan"
+   ],
+   [
+    "سَاعَةُ الذُّرْوَةِ",
+    "",
+    "tig'iz soat"
+   ],
+   [
+    "قِطَارُ الأَنْفَاقِ",
+    "",
+    "metro"
+   ],
+   [
+    "وَسِيلَةُ نَقْلٍ",
+    "",
+    "transport vositasi"
+   ],
+   [
+    "أَكْمَلَ، يُكْمِلُ، إِكْمَالٌ",
+    "",
+    "davom ettirmoq"
+   ],
+   [
+    "اخْتَصَرَ، يَخْتَصِرُ، اخْتِصَارٌ",
+    "",
+    "qisqartirmoq"
+   ],
+   [
+    "مُشْتَاقٌ",
+    "",
+    "sog'ingan"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 38",
+  "ar": "السفر جوًّا",
+  "uz": "Havo yo'li bilan safar",
+  "w": [
+   [
+    "رِحْلَةٌ",
+    "رِحْلَاتٌ",
+    "reys, safar"
+   ],
+   [
+    "أَمْتِعَةٌ",
+    "",
+    "yuklar"
+   ],
+   [
+    "ذَهَابًا وَإِيَابًا",
+    "",
+    "borib-kelish"
+   ],
+   [
+    "جَوَازُ سَفَرٍ",
+    "",
+    "pasport"
+   ],
+   [
+    "تَذْكِرَةُ طَيَرَانٍ",
+    "",
+    "aviabilet"
+   ],
+   [
+    "النِّدَاءُ الأَخِيرُ",
+    "",
+    "oxirgi chaqiruv"
+   ],
+   [
+    "اسْتَفْسَرَ، يَسْتَفْسِرُ، اسْتِفْسَارٌ (عَنْ)",
+    "",
+    "so'rab bilmoq"
+   ],
+   [
+    "أَكَّدَ، يُؤَكِّدُ، تَأْكِيدٌ",
+    "",
+    "tasdiqlamoq"
+   ],
+   [
+    "أَقْلَعَ، يُقْلِعُ، إِقْلَاعٌ",
+    "",
+    "uchib ketmoq"
+   ],
+   [
+    "هَبَطَ، يَهْبِطُ، هُبُوطٌ",
+    "",
+    "qo'nmoq"
+   ],
+   [
+    "سَفَرًا مُوَفَّقًا",
+    "",
+    "oq yo'l"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 39",
+  "ar": "رحلة ربيعية",
+  "uz": "Bahorgi sayohat",
+  "w": [
+   [
+    "مَزْرَعَةٌ",
+    "مَزَارِعُ",
+    "ferma"
+   ],
+   [
+    "بِسَاطٌ",
+    "",
+    "gilamcha, poyandoz"
+   ],
+   [
+    "ضَخْمٌ",
+    "",
+    "ulkan"
+   ],
+   [
+    "بُحَيْرَةٌ",
+    "",
+    "ko'l"
+   ],
+   [
+    "وَافَقَ، يُوَافِقُ، مُوَافَقَةٌ (عَلَى)",
+    "",
+    "rozi bo'lmoq"
+   ],
+   [
+    "قَرَّرَ، يُقَرِّرُ، تَقْرِيرٌ",
+    "",
+    "qaror qilmoq"
+   ],
+   [
+    "أَشْعَلَ النَّارَ",
+    "",
+    "olov yoqdi"
+   ],
+   [
+    "اقْتِرَاحٌ",
+    "",
+    "taklif"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 40",
+  "ar": "حجز في الفندق",
+  "uz": "Mehmonxonada bron",
+  "w": [
+   [
+    "مُزْدَوَجٌ",
+    "",
+    "ikki kishilik"
+   ],
+   [
+    "اسْتِمَارَةٌ",
+    "",
+    "anketa"
+   ],
+   [
+    "صَالَةُ الرِّيَاضَةِ",
+    "",
+    "sport zali"
+   ],
+   [
+    "مُوَظَّفُ اسْتِقْبَالٍ",
+    "",
+    "qabulxona xodimi"
+   ],
+   [
+    "حَجَزَ، يَحْجِزُ، حَجْزٌ",
+    "",
+    "band qilmoq"
+   ],
+   [
+    "أَقَامَ، يُقِيمُ، إِقَامَةٌ",
+    "",
+    "istiqomat qilmoq"
+   ],
+   [
+    "إِقَامَةٌ طَيِّبَةٌ",
+    "",
+    "yoqimli dam"
+   ]
+  ]
+ },
+ {
+  "k": "2/2 · 41",
+  "ar": "قضاء العطلة",
+  "uz": "Ta'tilni o'tkazish",
+  "w": [
+   [
+    "مَنَاطِقُ جَبَلِيَّةٌ",
+    "",
+    "tog'li hududlar"
+   ],
+   [
+    "فِي آنٍ وَاحِدٍ",
+    "",
+    "bir vaqtning o'zida"
+   ],
+   [
+    "اسْتَمْتَعَ، يَسْتَمْتِعُ، اسْتِمْتَاعٌ (بِـ)",
+    "",
+    "zavqlanmoq"
+   ],
+   [
+    "رَافَقَتْكُمُ السَّلَامَةُ",
+    "",
+    "yo'lingiz bexatar bo'lsin"
+   ],
+   [
+    "رِحْلَةٌ مُمْتِعَةٌ",
+    "",
+    "maroqli sayohat"
+   ]
+  ]
+ },
+ {
+  "k": "2/1 · 42",
+  "ar": "السفر واستعداداته",
+  "uz": "Safar va unga tayyorgarlik",
+  "w": [
+   [
+    "تَسْلِيَةٌ",
+    "",
+    "ko'ngilochar"
+   ],
+   [
+    "نَصِيحَةٌ",
+    "نَصَائِحُ",
+    "maslahat"
+   ],
+   [
+    "سِفَارَةٌ",
+    "",
+    "elchixona"
+   ],
+   [
+    "تَكَالِيفُ السَّفَرِ",
+    "",
+    "safar xarajatlari"
+   ],
+   [
+    "تَأْشِيرَةُ دُخُولٍ",
+    "",
+    "kirish vizasi"
+   ],
+   [
+    "اسْتَعَدَّ، يَسْتَعِدُّ، اسْتِعْدَادٌ (لِـ)",
+    "",
+    "tayyorlanmoq"
+   ],
+   [
+    "فَتَّشَ، يُفَتِّشُ، تَفْتِيشٌ",
+    "",
+    "tekshirmoq (yuk)"
+   ],
+   [
+    "بَرِّيٌّ / بَحْرِيٌّ / جَوِّيٌّ",
+    "",
+    "quruqlik / dengiz / havo (yo'li)"
+   ],
+   [
+    "الحَلَّاقَةُ",
+    "",
+    "soqol olgich"
+   ],
+   [
+    "المُشْطُ",
+    "",
+    "taroq"
+   ]
+  ]
+ }
+], 3: [
+ {
+  "k": "3/2 · 1",
+  "ar": "ابن بطوطة",
+  "uz": "Ibn Battuta",
+  "w": [
+   [
+    "نَشَأَ، يَنْشَأُ، نُشُوءٌ",
+    "",
+    "o'sib ulg'aymoq"
+   ],
+   [
+    "تَرَبَّى، يَتَرَبَّى، تَرْبِيَةٌ",
+    "",
+    "tarbiya topmoq"
+   ],
+   [
+    "تُوُفِّيَ، يُتَوَفَّى، تَوَفٍّ",
+    "",
+    "vafot etmoq"
+   ],
+   [
+    "بَرَزَ، يَبْرُزُ، بُرُوزٌ",
+    "",
+    "ko'zga tashlanmoq"
+   ],
+   [
+    "سَمَّى، يُسَمِّي، تَسْمِيَةٌ",
+    "",
+    "nom bermoq"
+   ],
+   [
+    "حَكَى، يَحْكِي، حِكَايَةٌ",
+    "",
+    "hikoya qilmoq"
+   ],
+   [
+    "طَوَّرَ، يُطَوِّرُ، تَطْوِيرٌ",
+    "",
+    "rivojlantirmoq"
+   ],
+   [
+    "رَحَّالَةٌ",
+    "",
+    "sayyoh"
+   ],
+   [
+    "سِيرَةٌ",
+    "",
+    "tarjimai hol"
+   ],
+   [
+    "أَصْلٌ",
+    "أُصُولٌ",
+    "kelib chiqish"
+   ],
+   [
+    "قَطَعَ مَسَافَةً",
+    "",
+    "masofa bosmoq"
+   ],
+   [
+    "مَسْقَطُ رَأْسٍ",
+    "",
+    "tug'ilgan joy"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 1",
+  "ar": "الراجحي، ملياردير انطلق من الصفر",
+  "uz": "Rojihiy — noldan boshlagan milliarder",
+  "w": [
+   [
+    "الْتَحَقَ، يَلْتَحِقُ، الْتِحَاقٌ",
+    "",
+    "qo'shilmoq, o'qishga kirmoq"
+   ],
+   [
+    "أَكْسَبَ، يُكْسِبُ، إِكْسَابٌ",
+    "",
+    "orttirmoq, kasb ettirmoq"
+   ],
+   [
+    "قَامَ، يَقُومُ، قِيَامٌ (بِـ)",
+    "",
+    "amalga oshirmoq"
+   ],
+   [
+    "اضْطُرَّ، يُضْطَرُّ، اضْطِرَارٌ",
+    "",
+    "majbur bo'lmoq"
+   ],
+   [
+    "افْتَتَحَ، يَفْتَتِحُ، افْتِتَاحٌ",
+    "",
+    "ochmoq (muassasa)"
+   ],
+   [
+    "سَدَّدَ، يُسَدِّدُ، تَسْدِيدٌ",
+    "",
+    "to'lamoq (qarz)"
+   ],
+   [
+    "أَنْشَأَ، يُنْشِئُ، إِنْشَاءٌ",
+    "",
+    "barpo etmoq"
+   ],
+   [
+    "أَسَّسَ، يُؤَسِّسُ، تَأْسِيسٌ",
+    "",
+    "asos solmoq"
+   ],
+   [
+    "امْتَلَكَ، يَمْتَلِكُ، امْتِلَاكٌ",
+    "",
+    "egalik qilmoq"
+   ],
+   [
+    "انْحَصَرَ، يَنْحَصِرُ، انْحِصَارٌ",
+    "",
+    "cheklanmoq"
+   ],
+   [
+    "نَفَّذَ، يُنَفِّذُ، تَنْفِيذٌ",
+    "",
+    "bajarmoq"
+   ],
+   [
+    "مُنْتَجٌ",
+    "مُنْتَجَاتٌ",
+    "mahsulot"
+   ],
+   [
+    "مِلْيَارْدِيرٌ",
+    "",
+    "milliarder"
+   ],
+   [
+    "مُؤَسَّسَةٌ خَيْرِيَّةٌ",
+    "",
+    "xayriya muassasasi"
+   ],
+   [
+    "مُحْتَاجٌ",
+    "مُحْتَاجُونَ",
+    "muhtoj"
+   ],
+   [
+    "ظُرُوفٌ",
+    "ظَرْفٌ",
+    "sharoitlar"
+   ],
+   [
+    "أَشِقَّاءُ",
+    "شَقِيقٌ",
+    "tug'ishgan aka-ukalar"
+   ],
+   [
+    "تَجْرِبَةٌ",
+    "تَجَارِبُ",
+    "tajriba"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 2",
+  "ar": "مقابلة العمل",
+  "uz": "Ish suhbati",
+  "w": [
+   [
+    "أَجْرَى، يُجْرِي، إِجْرَاءٌ",
+    "",
+    "o'tkazmoq"
+   ],
+   [
+    "قَابَلَ، يُقَابِلُ، مُقَابَلَةٌ",
+    "",
+    "uchrashmoq, suhbat qilmoq"
+   ],
+   [
+    "تَحَمَّلَ، يَتَحَمَّلُ، تَحَمُّلٌ",
+    "",
+    "chidamoq"
+   ],
+   [
+    "بَاشَرَ، يُبَاشِرُ، مُبَاشَرَةٌ",
+    "",
+    "boshlamoq (ishni)"
+   ],
+   [
+    "كَسَبَ، يَكْسِبُ، كَسْبٌ",
+    "",
+    "topmoq, orttirmoq"
+   ],
+   [
+    "ضَغْطُ العَمَلِ",
+    "",
+    "ish bosimi"
+   ],
+   [
+    "سِيرَةٌ ذَاتِيَّةٌ",
+    "",
+    "rezyume"
+   ],
+   [
+    "عَقْدُ عَمَلٍ",
+    "",
+    "mehnat shartnomasi"
+   ],
+   [
+    "بَيْنَ الحِينِ وَالآخَرِ",
+    "",
+    "vaqti-vaqti bilan"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 2",
+  "ar": "نساء في مهن رجالية",
+  "uz": "Erkaklar kasbidagi ayollar",
+  "w": [
+   [
+    "أَجْبَرَ، يُجْبِرُ، إِجْبَارٌ",
+    "",
+    "majburlamoq"
+   ],
+   [
+    "أَقْعَدَ، يُقْعِدُ، إِقْعَادٌ",
+    "",
+    "to'shakka mixlamoq (kasallik)"
+   ],
+   [
+    "أَعَالَ، يُعِيلُ، إِعَالَةٌ",
+    "",
+    "boqmoq (oilani)"
+   ],
+   [
+    "مَدَّ، يَمُدُّ، مَدٌّ",
+    "",
+    "cho'zmoq, uzatmoq"
+   ],
+   [
+    "تَدَرَّبَ، يَتَدَرَّبُ، تَدَرُّبٌ",
+    "",
+    "mashq qilmoq, o'rganmoq"
+   ],
+   [
+    "خَشِيَ، يَخْشَى، خَشْيَةٌ",
+    "",
+    "qo'rqmoq"
+   ],
+   [
+    "لَاصَقَ، يُلَاصِقُ، مُلَاصَقَةٌ",
+    "",
+    "yonma-yon bo'lmoq"
+   ],
+   [
+    "اسْتَعَانَ، يَسْتَعِينُ، اسْتِعَانَةٌ",
+    "",
+    "yordam so'ramoq"
+   ],
+   [
+    "فَاصَلَ، يُفَاصِلُ، مُفَاصَلَةٌ",
+    "",
+    "savdolashmoq"
+   ],
+   [
+    "رَكَّبَ، يُرَكِّبُ، تَرْكِيبٌ",
+    "",
+    "o'rnatmoq"
+   ],
+   [
+    "اعْتَادَ، يَعْتَادُ، اعْتِيَادٌ",
+    "",
+    "odatlanmoq"
+   ],
+   [
+    "حِكْرٌ عَلَى",
+    "",
+    "…ning yakka huquqi"
+   ],
+   [
+    "عُمَّالٌ",
+    "عَامِلٌ",
+    "ishchilar"
+   ],
+   [
+    "تُجَّارٌ",
+    "تَاجِرٌ",
+    "savdogarlar"
+   ],
+   [
+    "مُنْقَطِعٌ",
+    "",
+    "uzilgan"
+   ],
+   [
+    "المَادَّةُ الخَامُ",
+    "",
+    "xomashyo"
+   ],
+   [
+    "بِالجُمْلَةِ",
+    "",
+    "ulgurji"
+   ],
+   [
+    "جَدَارَةٌ",
+    "",
+    "layoqat"
+   ],
+   [
+    "مَعَ مُرُورِ الوَقْتِ",
+    "",
+    "vaqt o'tishi bilan"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 3",
+  "ar": "الوجبات السريعة",
+  "uz": "Tez tayyor taomlar; birinchi yordam",
+  "w": [
+   [
+    "جُرْحٌ",
+    "جُرُوحٌ",
+    "yara"
+   ],
+   [
+    "حَرْقٌ",
+    "",
+    "kuyish"
+   ],
+   [
+    "دُوَارٌ",
+    "",
+    "bosh aylanishi"
+   ],
+   [
+    "رَذَاذُ المَاءِ",
+    "",
+    "suv purkagich"
+   ],
+   [
+    "رُعَافٌ",
+    "",
+    "burundan qon ketishi"
+   ],
+   [
+    "صَعْقَةٌ كَهْرَبَائِيَّةٌ",
+    "",
+    "elektr toki urishi"
+   ],
+   [
+    "مُلْصَقٌ",
+    "",
+    "plastir"
+   ],
+   [
+    "مَوَادُّ سَامَّةٌ",
+    "",
+    "zaharli moddalar"
+   ],
+   [
+    "أَيَّدَ، يُؤَيِّدُ، تَأْيِيدٌ",
+    "",
+    "qo'llab-quvvatlamoq"
+   ],
+   [
+    "عَارَضَ، يُعَارِضُ، مُعَارَضَةٌ",
+    "",
+    "qarshi chiqmoq"
+   ],
+   [
+    "أَفْقَدَ، يُفْقِدُ، إِفْقَادٌ",
+    "",
+    "yo'qotishga olib kelmoq"
+   ],
+   [
+    "أَضْعَفَ، يُضْعِفُ، إِضْعَافٌ",
+    "",
+    "zaiflashtirmoq"
+   ],
+   [
+    "قَلَّلَ، يُقَلِّلُ، تَقْلِيلٌ (مِنْ)",
+    "",
+    "kamaytirmoq"
+   ],
+   [
+    "تَدَرَّجَ، يَتَدَرَّجُ، تَدَرُّجٌ",
+    "",
+    "bosqichma-bosqich o'tmoq"
+   ],
+   [
+    "تَعَوَّدَ، يَتَعَوَّدُ، تَعَوُّدٌ (عَلَى)",
+    "",
+    "odatlanmoq"
+   ],
+   [
+    "نَزِيفٌ",
+    "",
+    "qon ketish"
+   ],
+   [
+    "مُصَابٌ",
+    "",
+    "jarohatlangan"
+   ],
+   [
+    "إِرْهَاقٌ",
+    "",
+    "holsizlik"
+   ],
+   [
+    "فَاتِرٌ",
+    "",
+    "iliq"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 3",
+  "ar": "الطب البديل",
+  "uz": "Muqobil tibbiyot",
+  "w": [
+   [
+    "أَثْبَتَ، يُثْبِتُ، إِثْبَاتٌ",
+    "",
+    "isbotlamoq"
+   ],
+   [
+    "عَانَى، يُعَانِي، مُعَانَاةٌ (مِنْ)",
+    "",
+    "azob chekmoq"
+   ],
+   [
+    "عَالَجَ، يُعَالِجُ، مُعَالَجَةٌ",
+    "",
+    "davolamoq"
+   ],
+   [
+    "تَدَاوَى، يَتَدَاوَى، تَدَاوٍ",
+    "",
+    "davolanmoq"
+   ],
+   [
+    "حَثَّ، يَحُثُّ، حَثٌّ (عَلَى)",
+    "",
+    "undamoq"
+   ],
+   [
+    "تَخَلَّصَ، يَتَخَلَّصُ، تَخَلُّصٌ (مِنْ)",
+    "",
+    "qutulmoq"
+   ],
+   [
+    "شَفَى، يَشْفِي، شِفَاءٌ",
+    "",
+    "shifo bermoq"
+   ],
+   [
+    "اسْتَرْخَى، يَسْتَرْخِي، اسْتِرْخَاءٌ",
+    "",
+    "bo'shashmoq"
+   ],
+   [
+    "الْتَهَبَ، يَلْتَهِبُ، الْتِهَابٌ",
+    "",
+    "yallig'lanmoq"
+   ],
+   [
+    "اكْتَأَبَ، يَكْتَئِبُ، اكْتِئَابٌ",
+    "",
+    "tushkunlikka tushmoq"
+   ],
+   [
+    "تَفَشَّى، يَتَفَشَّى، تَفَشٍّ",
+    "",
+    "tarqalmoq (kasallik)"
+   ],
+   [
+    "سَكَّنَ، يُسَكِّنُ، تَسْكِينٌ",
+    "",
+    "tinchlantirmoq (og'riq)"
+   ],
+   [
+    "وَبَاءٌ",
+    "أَوْبِئَةٌ",
+    "epidemiya"
+   ],
+   [
+    "أَعْشَابٌ",
+    "عُشْبٌ",
+    "o'tlar"
+   ],
+   [
+    "الطِّبُّ البَدِيلُ",
+    "",
+    "muqobil tibbiyot"
+   ],
+   [
+    "وَخْزُ الإِبَرِ",
+    "",
+    "igna bilan davolash"
+   ],
+   [
+    "الحِجَامَةُ",
+    "",
+    "hijoma"
+   ],
+   [
+    "بِيمَارِسْتَانُ",
+    "",
+    "shifoxona (tarixiy)"
+   ],
+   [
+    "مُعْدٍ",
+    "",
+    "yuqumli"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 4",
+  "ar": "عادات الزواج حول العالم",
+  "uz": "Dunyo bo'ylab to'y odatlari",
+  "w": [
+   [
+    "أَلِفَ، يَأْلَفُ، أُلْفَةٌ",
+    "",
+    "ko'nikmoq"
+   ],
+   [
+    "أَطْلَقَ، يُطْلِقُ، إِطْلَاقٌ",
+    "",
+    "qo'yib yubormoq; nom bermoq"
+   ],
+   [
+    "دَلَّ، يَدُلُّ، دَلَالَةٌ (عَلَى)",
+    "",
+    "ko'rsatmoq, dalolat qilmoq"
+   ],
+   [
+    "وَدَّ، يَوَدُّ، وُدٌّ",
+    "",
+    "istamoq"
+   ],
+   [
+    "احْتَفَلَ، يَحْتَفِلُ، احْتِفَالٌ",
+    "",
+    "bayram qilmoq"
+   ],
+   [
+    "ارْتَبَطَ، يَرْتَبِطُ، ارْتِبَاطٌ",
+    "",
+    "bog'lanmoq"
+   ],
+   [
+    "جَهِلَ، يَجْهَلُ، جَهْلٌ",
+    "",
+    "bilmaslik"
+   ],
+   [
+    "أَشَارَ، يُشِيرُ، إِشَارَةٌ",
+    "",
+    "ishora qilmoq"
+   ],
+   [
+    "ذَبَحَ، يَذْبَحُ، ذَبْحٌ",
+    "",
+    "so'ymoq"
+   ],
+   [
+    "اخْتَطَفَ، يَخْتَطِفُ، اخْتِطَافٌ",
+    "",
+    "o'g'irlab ketmoq"
+   ],
+   [
+    "أَسْقَطَ، يُسْقِطُ، إِسْقَاطٌ",
+    "",
+    "tushirib yubormoq"
+   ],
+   [
+    "غَرَابَةٌ",
+    "",
+    "g'aroyiblik"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 4",
+  "ar": "عادات وتقاليد من المجتمع التركي",
+  "uz": "Turk jamiyatining urf-odatlari",
+  "w": [
+   [
+    "تَمَيَّزَ، يَتَمَيَّزُ، تَمَيُّزٌ (عَنْ)",
+    "",
+    "ajralib turmoq"
+   ],
+   [
+    "احْتَسَى، يَحْتَسِي، احْتِسَاءٌ",
+    "",
+    "ho'plab ichmoq"
+   ],
+   [
+    "احْتَمَرَ، يَحْتَمِرُ، احْتِمَارٌ",
+    "",
+    "qizarmoq, damlanmoq"
+   ],
+   [
+    "اكْتَفَى، يَكْتَفِي، اكْتِفَاءٌ",
+    "",
+    "qanoat qilmoq"
+   ],
+   [
+    "أَسْرَعَ، يُسْرِعُ، إِسْرَاعٌ",
+    "",
+    "shoshilmoq"
+   ],
+   [
+    "أَحْرَجَ، يُحْرِجُ، إِحْرَاجٌ",
+    "",
+    "noqulay ahvolga solmoq"
+   ],
+   [
+    "أَبْدَى، يُبْدِي، إِبْدَاءٌ",
+    "",
+    "namoyon qilmoq"
+   ],
+   [
+    "امْتَنَعَ، يَمْتَنِعُ، امْتِنَاعٌ (عَنْ)",
+    "",
+    "tiyilmoq"
+   ],
+   [
+    "اعْتَقَدَ، يَعْتَقِدُ، اعْتِقَادٌ",
+    "",
+    "ishonmoq, hisoblamoq"
+   ],
+   [
+    "جَلَبَ، يَجْلِبُ، جَلْبٌ",
+    "",
+    "olib kelmoq"
+   ],
+   [
+    "انْزَعَجَ، يَنْزَعِجُ، انْزِعَاجٌ",
+    "",
+    "bezovta bo'lmoq"
+   ],
+   [
+    "نَعْلٌ",
+    "",
+    "shippak, kavush"
+   ],
+   [
+    "ثَقَافَةٌ",
+    "",
+    "madaniyat"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 5",
+  "ar": "معلم وحكاية",
+  "uz": "Obida va hikoya",
+  "w": [
+   [
+    "تَبَضَّعَ، يَتَبَضَّعُ، تَبَضُّعٌ",
+    "",
+    "xarid qilmoq"
+   ],
+   [
+    "جَذَبَ، يَجْذِبُ، جَذْبٌ",
+    "",
+    "jalb qilmoq"
+   ],
+   [
+    "غَلَّفَ، يُغَلِّفُ، تَغْلِيفٌ",
+    "",
+    "o'ramoq, qoplamoq"
+   ],
+   [
+    "قَصَدَ، يَقْصِدُ، قَصْدٌ",
+    "",
+    "borishni niyat qilmoq"
+   ],
+   [
+    "تَجَاوَزَ، يَتَجَاوَزُ، تَجَاوُزٌ",
+    "",
+    "oshib ketmoq"
+   ],
+   [
+    "أَرْضَى، يُرْضِي، إِرْضَاءٌ",
+    "",
+    "rozi qilmoq"
+   ],
+   [
+    "اشْتَهَى، يَشْتَهِي، اشْتِهَاءٌ",
+    "",
+    "xohlamoq"
+   ],
+   [
+    "حَقَّقَ، يُحَقِّقُ، تَحْقِيقٌ",
+    "",
+    "amalga oshirmoq"
+   ],
+   [
+    "فَارَقَ، يُفَارِقُ، مُفَارَقَةٌ",
+    "",
+    "ajralmoq"
+   ],
+   [
+    "اشْتَرَطَ، يَشْتَرِطُ، اشْتِرَاطٌ",
+    "",
+    "shart qo'ymoq"
+   ],
+   [
+    "تَزَاوَجَ، يَتَزَاوَجُ، تَزَاوُجٌ",
+    "",
+    "qo'shilmoq (uslublar)"
+   ],
+   [
+    "بِمَثَابَةِ",
+    "",
+    "…kabi, o'rnida"
+   ],
+   [
+    "عَائِدَاتٌ",
+    "",
+    "daromadlar"
+   ],
+   [
+    "الأَوَانِي النُّحَاسِيَّةُ",
+    "",
+    "mis idishlar"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 5",
+  "ar": "أمم نهضت… سنغافورة",
+  "uz": "Yuksalgan xalqlar… Singapur",
+  "w": [
+   [
+    "تَوَقَّعَ، يَتَوَقَّعُ، تَوَقُّعٌ",
+    "",
+    "kutmoq, taxmin qilmoq"
+   ],
+   [
+    "اسْتَقَلَّ، يَسْتَقِلُّ، اسْتِقْلَالٌ",
+    "",
+    "mustaqil bo'lmoq"
+   ],
+   [
+    "اسْتَقَرَّ، يَسْتَقِرُّ، اسْتِقْرَارٌ",
+    "",
+    "barqarorlashmoq"
+   ],
+   [
+    "اسْتَقْطَبَ، يَسْتَقْطِبُ، اسْتِقْطَابٌ",
+    "",
+    "jalb qilmoq"
+   ],
+   [
+    "نَهَضَ، يَنْهَضُ، نُهُوضٌ / نَهْضَةٌ",
+    "",
+    "yuksalmoq"
+   ],
+   [
+    "كَافَحَ، يُكَافِحُ، مُكَافَحَةٌ / كِفَاحٌ",
+    "",
+    "kurashmoq"
+   ],
+   [
+    "اكْتَظَّ، يَكْتَظُّ، اكْتِظَاظٌ",
+    "",
+    "tiqilib ketmoq"
+   ],
+   [
+    "أَتَاحَ، يُتِيحُ، إِتَاحَةٌ",
+    "",
+    "imkon bermoq"
+   ],
+   [
+    "سَاهَمَ، يُسَاهِمُ، مُسَاهَمَةٌ",
+    "",
+    "hissa qo'shmoq"
+   ],
+   [
+    "اسْتَشْعَرَ، يَسْتَشْعِرُ، اسْتِشْعَارٌ",
+    "",
+    "sezmoq"
+   ],
+   [
+    "أَغَاثَ، يُغِيثُ، إِغَاثَةٌ",
+    "",
+    "yordamga kelmoq"
+   ],
+   [
+    "رَفَاهِيَةٌ",
+    "",
+    "farovonlik"
+   ],
+   [
+    "مَوْرِدٌ",
+    "مَوَارِدُ",
+    "resurs, manba"
+   ],
+   [
+    "نَزَاهَةٌ",
+    "",
+    "halollik"
+   ],
+   [
+    "كَارِثَةٌ",
+    "كَوَارِثُ",
+    "falokat"
+   ],
+   [
+    "عُمْلَةٌ",
+    "",
+    "valyuta"
+   ],
+   [
+    "نَامٍ",
+    "",
+    "rivojlanayotgan"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 6",
+  "ar": "بين الكتاب الورقي والرقمي",
+  "uz": "Qog'oz va raqamli kitob orasida",
+  "w": [
+   [
+    "تَحَوَّلَ، يَتَحَوَّلُ، تَحَوُّلٌ (إِلَى)",
+    "",
+    "aylanmoq"
+   ],
+   [
+    "حَمَّلَ، يُحَمِّلُ، تَحْمِيلٌ",
+    "",
+    "yuklab olmoq"
+   ],
+   [
+    "خَزَّنَ، يُخَزِّنُ، تَخْزِينٌ",
+    "",
+    "saqlamoq"
+   ],
+   [
+    "تَدَاوَلَ، يَتَدَاوَلُ، تَدَاوُلٌ",
+    "",
+    "muomalada bo'lmoq"
+   ],
+   [
+    "أَجْهَدَ، يُجْهِدُ، إِجْهَادٌ",
+    "",
+    "charchatmoq"
+   ],
+   [
+    "تَلِفَ، يَتْلَفُ، تَلَفٌ",
+    "",
+    "buzilmoq"
+   ],
+   [
+    "حَرَصَ، يَحْرِصُ، حِرْصٌ (عَلَى)",
+    "",
+    "harakat qilmoq, intilmoq"
+   ],
+   [
+    "أَدْمَنَ، يُدْمِنُ، إِدْمَانٌ",
+    "",
+    "qaram bo'lmoq"
+   ],
+   [
+    "اسْتَهْلَكَ، يَسْتَهْلِكُ، اسْتِهْلَاكٌ",
+    "",
+    "iste'mol qilmoq"
+   ],
+   [
+    "أَهْمَلَ، يُهْمِلُ، إِهْمَالٌ",
+    "",
+    "e'tiborsiz qoldirmoq"
+   ],
+   [
+    "انْعَزَلَ، يَنْعَزِلُ، انْعِزَالٌ (عَنْ)",
+    "",
+    "ajralib qolmoq"
+   ],
+   [
+    "تَعَلَّقَ، يَتَعَلَّقُ، تَعَلُّقٌ (بِـ)",
+    "",
+    "bog'lanib qolmoq"
+   ],
+   [
+    "أَنْفَقَ، يُنْفِقُ، إِنْفَاقٌ",
+    "",
+    "sarflamoq"
+   ],
+   [
+    "اخْتَزَلَ، يَخْتَزِلُ، اخْتِزَالٌ",
+    "",
+    "qisqartirmoq"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 6",
+  "ar": "اختراعات غيرت التاريخ",
+  "uz": "Tarixni o'zgartirgan ixtirolar",
+  "w": [
+   [
+    "حَاوَلَ، يُحَاوِلُ، مُحَاوَلَةٌ",
+    "",
+    "urinmoq"
+   ],
+   [
+    "اسْتَغْنَى، يَسْتَغْنِي، اسْتِغْنَاءٌ (عَنْ)",
+    "",
+    "…siz ham bo'lmoq"
+   ],
+   [
+    "تَكَيَّفَ، يَتَكَيَّفُ، تَكَيُّفٌ (مَعَ)",
+    "",
+    "moslashmoq"
+   ],
+   [
+    "تَنَامَى، يَتَنَامَى، تَنَامٍ",
+    "",
+    "o'smoq"
+   ],
+   [
+    "ابْتَكَرَ، يَبْتَكِرُ، ابْتِكَارٌ",
+    "",
+    "kashf etmoq, yaratmoq"
+   ],
+   [
+    "غَيَّرَ، يُغَيِّرُ، تَغْيِيرٌ",
+    "",
+    "o'zgartirmoq"
+   ],
+   [
+    "اسْتَثْمَرَ، يَسْتَثْمِرُ، اسْتِثْمَارٌ (فِي)",
+    "",
+    "sarmoya kiritmoq"
+   ],
+   [
+    "انْضَمَّ، يَنْضَمُّ، انْضِمَامٌ (إِلَى)",
+    "",
+    "qo'shilmoq"
+   ],
+   [
+    "صَرَّحَ، يُصَرِّحُ، تَصْرِيحٌ",
+    "",
+    "bayonot bermoq"
+   ],
+   [
+    "مَنَعَ، يَمْنَعُ، مَنْعٌ",
+    "",
+    "man qilmoq"
+   ],
+   [
+    "اخْتَصَّ، يَخْتَصُّ، اخْتِصَاصٌ",
+    "",
+    "ixtisoslashmoq"
+   ],
+   [
+    "وَلَّدَ، يُوَلِّدُ، تَوْلِيدٌ",
+    "",
+    "ishlab chiqarmoq (energiya)"
+   ],
+   [
+    "اكْتَشَفَ، يَكْتَشِفُ، اكْتِشَافٌ",
+    "",
+    "kashf qilmoq"
+   ],
+   [
+    "بِدَائِيٌّ",
+    "",
+    "ibtidoiy"
+   ],
+   [
+    "آلَةٌ",
+    "",
+    "mashina, asbob"
+   ],
+   [
+    "البَشَرِيَّةُ",
+    "",
+    "insoniyat"
+   ],
+   [
+    "الطِّبَاعَةُ",
+    "",
+    "bosmaxona ishi"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 7",
+  "ar": "صراع الأجيال",
+  "uz": "Avlodlar to'qnashuvi",
+  "w": [
+   [
+    "رَبَّى، يُرَبِّي، تَرْبِيَةٌ",
+    "",
+    "tarbiyalamoq"
+   ],
+   [
+    "شَكَا، يَشْكُو، شَكْوَى",
+    "",
+    "shikoyat qilmoq"
+   ],
+   [
+    "عَانَدَ، يُعَانِدُ، عِنَادٌ",
+    "",
+    "o'jarlik qilmoq"
+   ],
+   [
+    "تَمَرَّدَ، يَتَمَرَّدُ، تَمَرُّدٌ",
+    "",
+    "isyon qilmoq"
+   ],
+   [
+    "تَسَلَّطَ، يَتَسَلَّطُ، تَسَلُّطٌ",
+    "",
+    "hukmronlik qilmoq"
+   ],
+   [
+    "تَجَاهَلَ، يَتَجَاهَلُ، تَجَاهُلٌ",
+    "",
+    "e'tibor bermaslik"
+   ],
+   [
+    "تَفَكَّكَ، يَتَفَكَّكُ، تَفَكُّكٌ",
+    "",
+    "parchalanmoq"
+   ],
+   [
+    "لَجَأَ، يَلْجَأُ، لُجُوءٌ",
+    "",
+    "murojaat qilmoq, panoh izlamoq"
+   ],
+   [
+    "اتَّبَعَ، يَتَّبِعُ، اتِّبَاعٌ",
+    "",
+    "ergashmoq"
+   ],
+   [
+    "هَدَّدَ، يُهَدِّدُ، تَهْدِيدٌ",
+    "",
+    "tahdid qilmoq"
+   ],
+   [
+    "دَمَّرَ، يُدَمِّرُ، تَدْمِيرٌ",
+    "",
+    "vayron qilmoq"
+   ],
+   [
+    "تَصَرَّفَ، يَتَصَرَّفُ، تَصَرُّفٌ",
+    "",
+    "yo'l tutmoq"
+   ],
+   [
+    "شَتَمَ، يَشْتُمُ، شَتْمٌ",
+    "",
+    "so'kmoq"
+   ],
+   [
+    "قَارَنَ، يُقَارِنُ، مُقَارَنَةٌ",
+    "",
+    "solishtirmoq"
+   ],
+   [
+    "اعْتَرَفَ، يَعْتَرِفُ، اعْتِرَافٌ",
+    "",
+    "tan olmoq"
+   ],
+   [
+    "شَجَّعَ، يُشَجِّعُ، تَشْجِيعٌ",
+    "",
+    "rag'batlantirmoq"
+   ],
+   [
+    "رَفَضَ، يَرْفُضُ، رَفْضٌ",
+    "",
+    "rad etmoq"
+   ],
+   [
+    "تَجَنَّبَ، يَتَجَنَّبُ، تَجَنُّبٌ",
+    "",
+    "qochmoq, chetlab o'tmoq"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 7",
+  "ar": "الأسرة في عصر التكنولوجيا",
+  "uz": "Texnologiyalar davrida oila",
+  "w": [
+   [
+    "أَحْدَثَ، يُحْدِثُ، إِحْدَاثٌ",
+    "",
+    "yuzaga keltirmoq"
+   ],
+   [
+    "اخْتَلَطَ، يَخْتَلِطُ، اخْتِلَاطٌ",
+    "",
+    "aralashmoq"
+   ],
+   [
+    "تَعَقَّبَ، يَتَعَقَّبُ، تَعَقُّبٌ",
+    "",
+    "kuzatib bormoq"
+   ],
+   [
+    "تَوَاصَلَ، يَتَوَاصَلُ، تَوَاصُلٌ",
+    "",
+    "aloqada bo'lmoq"
+   ],
+   [
+    "تَبَادَلَ، يَتَبَادَلُ، تَبَادُلٌ",
+    "",
+    "almashmoq"
+   ],
+   [
+    "نَاقَشَ، يُنَاقِشُ، مُنَاقَشَةٌ",
+    "",
+    "muhokama qilmoq"
+   ],
+   [
+    "انْقَلَبَ، يَنْقَلِبُ، انْقِلَابٌ",
+    "",
+    "ag'darilmoq"
+   ],
+   [
+    "تَلَاقَى، يَتَلَاقَى، تَلَاقٍ",
+    "",
+    "uchrashmoq"
+   ],
+   [
+    "انْهَمَكَ، يَنْهَمِكُ، انْهِمَاكٌ",
+    "",
+    "berilib ketmoq"
+   ],
+   [
+    "نَاحِيَةٌ",
+    "نَوَاحٍ",
+    "tomon, jihat"
+   ],
+   [
+    "فَجْوَةٌ",
+    "",
+    "bo'shliq, uzilish"
+   ],
+   [
+    "عَالَمٌ افْتِرَاضِيٌّ",
+    "",
+    "virtual dunyo"
+   ],
+   [
+    "تِقْنِيَّاتٌ",
+    "",
+    "texnologiyalar"
+   ],
+   [
+    "أَتْرَاحٌ # أَفْرَاحٌ",
+    "",
+    "qayg'ular # quvonchlar"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 8",
+  "ar": "قسوة الحياة أجبرتني على ترك دراستي",
+  "uz": "Hayot qiyinchiligi o'qishni tashlashga majbur qildi",
+  "w": [
+   [
+    "تَسَرَّبَ، يَتَسَرَّبُ، تَسَرُّبٌ (مِنْ)",
+    "",
+    "o'qishni tashlab ketmoq"
+   ],
+   [
+    "اسْتَطْلَعَ، يَسْتَطْلِعُ، اسْتِطْلَاعٌ",
+    "",
+    "so'rov o'tkazmoq"
+   ],
+   [
+    "تَوَافَدَ، يَتَوَافَدُ، تَوَافُدٌ",
+    "",
+    "oqib kelmoq"
+   ],
+   [
+    "تَبَوَّأَ، يَتَبَوَّأُ، تَبَوُّءٌ",
+    "",
+    "egallamoq (o'rin)"
+   ],
+   [
+    "هَيَّأَ، يُهَيِّئُ، تَهْيِئَةٌ",
+    "",
+    "tayyorlamoq"
+   ],
+   [
+    "قَلَّصَ، يُقَلِّصُ، تَقْلِيصٌ",
+    "",
+    "qisqartirmoq"
+   ],
+   [
+    "حَفَّزَ، يُحَفِّزُ، تَحْفِيزٌ",
+    "",
+    "rag'batlantirmoq"
+   ],
+   [
+    "اجْتَازَ، يَجْتَازُ، اجْتِيَازٌ",
+    "",
+    "o'tmoq (imtihondan)"
+   ],
+   [
+    "انْتَقَى، يَنْتَقِي، انْتِقَاءٌ",
+    "",
+    "saralamoq"
+   ],
+   [
+    "سَاوَى، يُسَاوِي، مُسَاوَاةٌ",
+    "",
+    "tenglashtirmoq"
+   ],
+   [
+    "طُمُوحٌ",
+    "",
+    "intilish, orzu"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 8",
+  "ar": "ماذا بعد التخرج؟",
+  "uz": "Bitirgandan keyin nima?",
+  "w": [
+   [
+    "انْقَضَى، يَنْقَضِي، انْقِضَاءٌ",
+    "",
+    "tugamoq (vaqt)"
+   ],
+   [
+    "اصْطَدَمَ، يَصْطَدِمُ، اصْطِدَامٌ",
+    "",
+    "to'qnashmoq"
+   ],
+   [
+    "نَافَسَ، يُنَافِسُ، مُنَافَسَةٌ",
+    "",
+    "raqobat qilmoq"
+   ],
+   [
+    "خَطَّطَ، يُخَطِّطُ، تَخْطِيطٌ",
+    "",
+    "rejalashtirmoq"
+   ],
+   [
+    "أَتْقَنَ، يُتْقِنُ، إِتْقَانٌ",
+    "",
+    "puxta egallamoq"
+   ],
+   [
+    "نَمَّى، يُنَمِّي، تَنْمِيَةٌ",
+    "",
+    "rivojlantirmoq"
+   ],
+   [
+    "تَغَلَّبَ، يَتَغَلَّبُ، تَغَلُّبٌ",
+    "",
+    "yengib o'tmoq"
+   ],
+   [
+    "زَاوَلَ، يُزَاوِلُ، مُزَاوَلَةٌ",
+    "",
+    "shug'ullanmoq (kasb)"
+   ],
+   [
+    "دَعَمَ، يَدْعَمُ، دَعْمٌ",
+    "",
+    "qo'llab-quvvatlamoq"
+   ],
+   [
+    "انْخَرَطَ، يَنْخَرِطُ، انْخِرَاطٌ",
+    "",
+    "kirishmoq, qo'shilmoq"
+   ],
+   [
+    "تَعَمَّقَ، يَتَعَمَّقُ، تَعَمُّقٌ",
+    "",
+    "chuqurlashmoq"
+   ],
+   [
+    "تَخَصَّصَ، يَتَخَصَّصُ، تَخَصُّصٌ",
+    "",
+    "mutaxassislik olmoq"
+   ],
+   [
+    "تَوَافَقَ، يَتَوَافَقُ، تَوَافُقٌ",
+    "",
+    "mos kelmoq"
+   ],
+   [
+    "أَثْرَى، يُثْرِي، إِثْرَاءٌ",
+    "",
+    "boyitmoq"
+   ],
+   [
+    "نَدْوَةٌ",
+    "",
+    "seminar"
+   ],
+   [
+    "مُؤْتَمَرٌ",
+    "",
+    "konferensiya"
+   ],
+   [
+    "وَرْشَةُ عَمَلٍ",
+    "",
+    "o'quv mashg'ulot (trening)"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 9",
+  "ar": "صعوبات الزواج عند الشباب",
+  "uz": "Yoshlarning nikohdagi qiyinchiliklari",
+  "w": [
+   [
+    "عَزَفَ، يَعْزِفُ، عُزُوفٌ (عَنْ)",
+    "",
+    "voz kechmoq"
+   ],
+   [
+    "أَرْهَقَ، يُرْهِقُ، إِرْهَاقٌ",
+    "",
+    "holdan toydirmoq"
+   ],
+   [
+    "أَجَّلَ، يُؤَجِّلُ، تَأْجِيلٌ",
+    "",
+    "kechiktirmoq"
+   ],
+   [
+    "يَسَّرَ، يُيَسِّرُ، تَيْسِيرٌ",
+    "",
+    "osonlashtirmoq"
+   ],
+   [
+    "تَكَفَّلَ، يَتَكَفَّلُ، تَكَفُّلٌ",
+    "",
+    "o'z zimmasiga olmoq"
+   ],
+   [
+    "عَدَّ، يَعُدُّ، عَدٌّ",
+    "",
+    "hisoblamoq, sanamoq"
+   ],
+   [
+    "تَسَوَّلَ، يَتَسَوَّلُ، تَسَوُّلٌ",
+    "",
+    "tilanchilik qilmoq"
+   ],
+   [
+    "اسْتَشَارَ، يَسْتَشِيرُ، اسْتِشَارَةٌ",
+    "",
+    "maslahatlashmoq"
+   ],
+   [
+    "تَمَزَّقَ، يَتَمَزَّقُ، تَمَزُّقٌ",
+    "",
+    "yirtilmoq"
+   ],
+   [
+    "اتَّسَخَ، يَتَّسِخُ، اتِّسَاخٌ",
+    "",
+    "kirlanmoq"
+   ],
+   [
+    "رَدَّدَ، يُرَدِّدُ، تَرْدِيدٌ",
+    "",
+    "takrorlamoq"
+   ],
+   [
+    "اسْتَتَرَ، يَسْتَتِرُ، اسْتِتَارٌ",
+    "",
+    "yashirinmoq"
+   ],
+   [
+    "مَهْرٌ",
+    "",
+    "mahr"
+   ],
+   [
+    "ظَاهِرَةٌ",
+    "ظَوَاهِرُ",
+    "hodisa"
+   ],
+   [
+    "شَفَقَةٌ",
+    "",
+    "rahm-shafqat"
+   ],
+   [
+    "مَارَّةٌ",
+    "",
+    "o'tkinchilar"
+   ],
+   [
+    "مُقَنَّعٌ",
+    "",
+    "niqobli"
+   ],
+   [
+    "عَاهَةٌ",
+    "",
+    "nogironlik"
+   ],
+   [
+    "كَمَالِيَّاتٌ",
+    "",
+    "hashamat buyumlari"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 9",
+  "ar": "آداب الزيارة وأصول الضيافة",
+  "uz": "Mehmondorchilik odobi",
+  "w": [
+   [
+    "طَرَقَ، يَطْرُقُ، طَرْقٌ",
+    "",
+    "taqillatmoq"
+   ],
+   [
+    "أَرْشَدَ، يُرْشِدُ، إِرْشَادٌ",
+    "",
+    "yo'l ko'rsatmoq"
+   ],
+   [
+    "انْتَقَدَ، يَنْتَقِدُ، انْتِقَادٌ",
+    "",
+    "tanqid qilmoq"
+   ],
+   [
+    "غَادَرَ، يُغَادِرُ، مُغَادَرَةٌ",
+    "",
+    "tark etmoq"
+   ],
+   [
+    "هَنَّأَ، يُهَنِّئُ، تَهْنِئَةٌ",
+    "",
+    "tabriklamoq"
+   ],
+   [
+    "اعْتَنَى، يَعْتَنِي، اعْتِنَاءٌ",
+    "",
+    "g'amxo'rlik qilmoq"
+   ],
+   [
+    "رَحَّبَ، يُرَحِّبُ، تَرْحِيبٌ",
+    "",
+    "xush kelibsiz demoq"
+   ],
+   [
+    "تَمَسَّكَ، يَتَمَسَّكُ، تَمَسُّكٌ",
+    "",
+    "mahkam ushlamoq"
+   ],
+   [
+    "أَمْسَكَ، يُمْسِكُ، إِمْسَاكٌ",
+    "",
+    "ushlamoq"
+   ],
+   [
+    "صَبَّ، يَصُبُّ، صَبٌّ",
+    "",
+    "quymoq"
+   ],
+   [
+    "عَدَّلَ، يُعَدِّلُ، تَعْدِيلٌ",
+    "",
+    "to'g'rilamoq"
+   ],
+   [
+    "نَفَخَ، يَنْفُخُ، نَفْخٌ",
+    "",
+    "puflamoq"
+   ],
+   [
+    "هَزَّ، يَهُزُّ، هَزٌّ",
+    "",
+    "silkitmoq"
+   ],
+   [
+    "رَدَّ، يَرُدُّ، رَدٌّ",
+    "",
+    "javob qaytarmoq"
+   ],
+   [
+    "عُرْفٌ",
+    "أَعْرَافٌ",
+    "odat, urf"
+   ]
+  ]
+ },
+ {
+  "k": "3/2 · 10",
+  "ar": "حياتنا في الماضي",
+  "uz": "O'tmishdagi hayotimiz",
+  "w": [
+   [
+    "جَرَّ، يَجُرُّ، جَرٌّ",
+    "",
+    "sudramoq"
+   ],
+   [
+    "خَاطَرَ، يُخَاطِرُ، مُخَاطَرَةٌ",
+    "",
+    "tavakkal qilmoq"
+   ],
+   [
+    "أَدَّى، يُؤَدِّي، تَأْدِيَةٌ",
+    "",
+    "ado etmoq"
+   ],
+   [
+    "نَهَبَ، يَنْهَبُ، نَهْبٌ",
+    "",
+    "talamoq"
+   ],
+   [
+    "سَلَبَ، يَسْلُبُ، سَلْبٌ",
+    "",
+    "tortib olmoq"
+   ],
+   [
+    "غَرِقَ، يَغْرَقُ، غَرَقٌ",
+    "",
+    "cho'kmoq"
+   ],
+   [
+    "ارْتَوَى، يَرْتَوِي، ارْتِوَاءٌ",
+    "",
+    "chanqog'ini qondirmoq"
+   ],
+   [
+    "شَاعَ، يَشِيعُ، شُيُوعٌ",
+    "",
+    "tarqalmoq"
+   ],
+   [
+    "رَفَّهَ، يُرَفِّهُ، تَرْفِيهٌ",
+    "",
+    "ko'ngil ochmoq"
+   ],
+   [
+    "فُضُولٌ",
+    "",
+    "qiziquvchanlik"
+   ],
+   [
+    "قِنْدِيلٌ",
+    "قَنَادِيلُ",
+    "qandil, chiroq; lyustra"
+   ],
+   [
+    "رُكْنٌ",
+    "أَرْكَانٌ",
+    "ustun, rukn"
+   ],
+   [
+    "مَشَقَّةٌ",
+    "",
+    "mashaqqat"
+   ],
+   [
+    "وَعْرٌ",
+    "",
+    "notekis, og'ir (yo'l)"
+   ],
+   [
+    "قَبِيلَةٌ",
+    "قَبَائِلُ",
+    "qabila"
+   ]
+  ]
+ },
+ {
+  "k": "3/1 · 10",
+  "ar": "ذكريات من الزمن الجميل",
+  "uz": "Go'zal zamon xotiralari",
+  "w": [
+   [
+    "قَسَا، يَقْسُو، قَسَاوَةٌ",
+    "",
+    "qattiqqo'llik qilmoq"
+   ],
+   [
+    "حَافَظَ، يُحَافِظُ، مُحَافَظَةٌ",
+    "",
+    "saqlamoq"
+   ],
+   [
+    "تَفَقَّدَ، يَتَفَقَّدُ، تَفَقُّدٌ",
+    "",
+    "holidan xabar olmoq"
+   ],
+   [
+    "حَظِيَ، يَحْظَى",
+    "",
+    "nasib etmoq, erishmoq"
+   ],
+   [
+    "سَادَ، يَسُودُ، سِيَادَةٌ",
+    "",
+    "hukmron bo'lmoq"
+   ],
+   [
+    "تَكَاتَفَ، يَتَكَاتَفُ، تَكَاتُفٌ",
+    "",
+    "birlashmoq, yelkadosh bo'lmoq"
+   ],
+   [
+    "أَفْسَدَ، يُفْسِدُ، إِفْسَادٌ",
+    "",
+    "buzmoq"
+   ],
+   [
+    "زَيَّفَ، يُزَيِّفُ، تَزْيِيفٌ",
+    "",
+    "soxtalashtirmoq"
+   ],
+   [
+    "هَمَّشَ، يُهَمِّشُ، تَهْمِيشٌ",
+    "",
+    "chetga surmoq"
+   ],
+   [
+    "جَوْهَرٌ",
+    "",
+    "mohiyat"
+   ],
+   [
+    "قُدْوَةٌ",
+    "",
+    "o'rnak"
+   ],
+   [
+    "تَافِهٌ",
+    "",
+    "arzimas"
+   ],
+   [
+    "تُرَاثٌ",
+    "",
+    "meros"
+   ],
+   [
+    "شَعْبِيٌّ",
+    "",
+    "xalqona"
+   ],
+   [
+    "هَائِلٌ",
+    "",
+    "ulkan"
+   ],
+   [
+    "مُزَيَّفٌ",
+    "",
+    "soxta"
+   ]
+  ]
+ }
+] };
+const LUGAT_LV = Object.fromEntries(Object.entries(LUGAT).map(([lv, T]) => [lv, T.map(t => [t.ar, `${t.uz} · ${t.w.length} so'z`])]));
+const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV })[b] || {})[lv];  // bo'lim mavzulari (tarkib, muhodasa — tez orada)
 // darajalarning bosh qismi (darslar, nahv, insho — hammasida bir xil): logo, profil, hikmat, progress
 function heroBox(streak, total, d, n, birlik) {
   const h = HIKMAT[new Date().getDate() % HIKMAT.length], p = n ? Math.round(d * 100 / n) : 0;
@@ -1983,10 +10818,10 @@ function bolimScreen() {
     // darslar xaritasi kabi: tugunlar egri yo'l bilan ulanadi; ochiq = birinchisi + o'tilganining keyingisi
     ? `<div class="map"><svg class="trail"></svg>${bolimMavzu(bolim, level).map(([ar, uz], j, L) => {
         const key = `bolim${bolim}-${level}-`, won = store.get(key + j, null), open = TEST || j === 0 || won || store.get(key + (j - 1), null);
-        const x = 50 + 28 * Math.sin(j * 0.95), name = bolim === 1 ? (uz || ar) : ar.replace(/^(A1|A2|B1) · /, "");
+        const x = 50 + 28 * Math.sin(j * 0.95), name = bolim === 1 || bolim === 3 ? (uz || ar) : ar.replace(/^(A1|A2|B1) · /, "");
         return `<div class="node-row" style="--x:${x}%">
           <button class="node ${won ? "won" : open ? "cur" : "lock"}" data-j="${j}" ${open ? "" : "disabled"}><span class="num">${j + 1}</span>${open || won ? "" : `<span class="lk">🔒</span>`}</button>
-          <div class="nlabel">${name}${bolim === 1 && uz ? `<br><span class="ar">${ar}</span>` : ""}</div>${(() => {
+          <div class="nlabel">${name}${(bolim === 1 || bolim === 3) && uz ? `<br><span class="ar">${ar}</span>` : ""}</div>${(() => {
             // nahvda har mavzuga shaharning bitta tarixiy joyi ("!" — haqiqiy suratlar)
             const S = UZ_SHAHAR[level], pk = S && S[0] + j;
             if (bolim !== 1 || !UZJOY[pk]) return "";
@@ -2004,12 +10839,57 @@ function bolimScreen() {
     document.body.classList.add("lvFoto");
     document.body.style.setProperty("--lvfoto", `url(img/${UZ_SHAHAR[level][2]}.jpg)`);
     $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">O'zbekiston sayohati: ${UZ_SHAHAR[level][1]} — <b>!</b> belgisini bosing</p>`);
-  } else if (T.length) $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">Insho: ${T.length} ta mavzu — tartib bilan yozib boring</p>`);
+  } else if (T.length) $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">${bolim === 3 ? `Lug'at: ${T.length} ta dars — so'zlarni kartochka va mashqlar bilan yodlang` : `Insho: ${T.length} ta mavzu — tartib bilan yozib boring`}</p>`);
   $.querySelectorAll(".map button.node:not([disabled])").forEach(b => b.onclick = () => {
+    if (bolim === 3) return lugatDars(level, +b.dataset.j);
     const f = document.createElement("div"); f.className = "fb ok"; f.textContent = "Bu mavzu darsi tez orada qo'shiladi";
     f.style.cssText = "position:fixed;left:16px;right:16px;bottom:24px;z-index:9;text-align:center";
     document.body.appendChild(f); setTimeout(() => f.remove(), 1800);
   });
+}
+// Lug'at darsi: 1) kartochkalar (rasm, so'z, ko'pligi, tarjima, ovoz) 2) mashq: ma'noni tanlash / arabchani tanlash / eshitib tanlash
+function lugatDars(lv, j) {
+  const T = LUGAT[lv][j], W = T.w.map((w, i) => ({ ar: w[0], pl: w[1], uz: w[2], img: `lugat/${lv}-${j}-${i}.jpg` }));
+  const say = s => tts(s.split(/ — | # | \/ /)[0]);
+  const yopish = () => { mode = "home"; render(); };
+  const top = (n, N) => `<div class="top"><button class="o" id="lx" style="padding:6px 12px;font-size:16px">←</button>
+    <div class="pbar" style="flex:1;margin:0 10px"><i style="width:${Math.max(n * 100 / N, 2)}%"></i></div><span class="pill">${n}/${N}</span></div>`;
+  let i = 0;
+  const card = () => {
+    const w = W[i];
+    $.innerHTML = top(i + 1, W.length) + `<h2>${T.uz}</h2>
+      <div style="text-align:center"><img src="${w.img}" alt="" style="width:100%;max-width:360px;aspect-ratio:4/3;object-fit:cover;border-radius:18px" onerror="this.remove()">
+      <div class="big ar" style="margin:14px 0 4px">${w.ar}</div>${w.pl ? `<div class="ar" style="opacity:.7">ج: ${w.pl}</div>` : ""}
+      <p style="font-size:20px;margin:10px 0"><b>${w.uz}</b></p><button class="play" id="pl">🔊</button></div>
+      <button class="main" id="nx">${i + 1 < W.length ? "Keyingi" : "Mashqni boshlash"}</button>`;
+    $.querySelector("#lx").onclick = yopish; $.querySelector("#pl").onclick = () => say(w.ar); setTimeout(() => say(w.ar), 300);
+    $.querySelector("#nx").onclick = () => { if (++i < W.length) card(); else { i = 0; quiz(); } };
+  };
+  const Q = shuffle(W.map((w, k) => ({ w, t: k % 3 }))); let ball = 0;
+  const quiz = () => {
+    const { w, t } = Q[i], boshqa = shuffle(W.filter(x => x !== w)).slice(0, 3), o = shuffle([w, ...boshqa]);
+    const savol = t === 0 ? `<div class="big ar">${w.ar}</div><p>Ma'nosini tanlang</p>` : t === 1 ? `<div class="big">${w.uz}</div><p>Arabchasini tanlang</p>` : `<button class="play" id="pl">🔊</button><p>Eshiting va ma'nosini tanlang</p>`;
+    $.innerHTML = top(i + 1, Q.length) + `<h2>Mashq</h2><div style="text-align:center">${savol}</div>
+      <div class="opts">${o.map((x, k) => `<button class="o ${t === 1 ? "ar" : ""}" data-k="${k}">${t === 1 ? x.ar : x.uz}</button>`).join("")}</div>
+      <div class="fb" id="fb"></div><button class="main" id="nx" disabled>Keyingi</button>`;
+    $.querySelector("#lx").onclick = yopish;
+    if (t === 2) { $.querySelector("#pl").onclick = () => say(w.ar); setTimeout(() => say(w.ar), 300); }
+    $.querySelectorAll(".opts button").forEach(b => b.onclick = () => {
+      const ok = o[+b.dataset.k] === w; if (ok) ball++; else Q.push({ w, t });  // xato — oxirida yana so'raladi
+      $.querySelectorAll(".opts button").forEach((x, k) => { x.disabled = true; if (o[k] === w) x.classList.add("ok"); });
+      if (!ok) b.classList.add("bad");
+      const fb = $.querySelector("#fb"); fb.className = "fb " + (ok ? "ok" : "bad"); fb.textContent = ok ? "To'g'ri!" : `To'g'risi: ${w.ar} — ${w.uz}`;
+      say(w.ar); $.querySelector("#nx").disabled = false;
+    });
+    $.querySelector("#nx").onclick = () => { if (++i < Q.length) quiz(); else tugadi(); };
+  };
+  const tugadi = () => {
+    store.set(`bolim3-${lv}-${j}`, { ball, n: W.length }); store.set("xp", store.get("xp", 0) + ball);
+    $.innerHTML = `<h2>Barakalla!</h2><div class="video">📚<br>${W.length} ta so'z o'rganildi<br>+${ball} ⭐</div>
+      <button class="main" id="nx">Lug'atlarga qaytish</button><button class="o" id="yb" style="width:100%;margin-top:10px">Yana bir bor</button>`;
+    $.querySelector("#nx").onclick = yopish; $.querySelector("#yb").onclick = () => lugatDars(lv, j);
+  };
+  card();
 }
 function home() {  const streak = store.get("streak", 0), total = store.get("xp", 0);
   if (level === null && stage === null) return levelsScreen(streak, total);
