@@ -145,6 +145,12 @@
   .tk-f .slot { color:#8b0000; font-weight:bold; font-family:system-ui, sans-serif; font-size:17px; unicode-bidi:isolate; }
   .tk-f i { font-family:system-ui, sans-serif; font-size:15px; color:#555; font-style:normal; }
   .tk-n { text-align:center; color:#444; font-size:15px; }
+  .hxsvg { width:100%; display:block; background:#fffdf6; border-radius:12px; }
+  .hxs { fill:none; stroke:#0d3b66; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:1; animation:hxchiz 1.2s ease-in-out forwards; }
+  .hxn { opacity:0; animation:hxkor .3s forwards; } .hxn circle { fill:#c62828; } .hxn text { fill:#fff; font:bold 13px system-ui,sans-serif; text-anchor:middle; }
+  .hxd { fill:#0d3b66; opacity:0; animation:hxkor .3s forwards; }
+  .hxt { fill:#c62828; font:12px system-ui,sans-serif; text-anchor:middle; }
+  @keyframes hxchiz { to { stroke-dashoffset:0 } } @keyframes hxkor { to { opacity:1 } }
   .hx-yol { color:#8b0000; font-weight:bold; animation:hxyol 1.6s ease-in-out infinite; }
   @keyframes hxyol { 0% { transform:translateX(30px); opacity:.3 } 60% { transform:translateX(-30px); opacity:1 } 100% { transform:translateX(-30px); opacity:0 } }
 </style>
@@ -901,7 +907,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v151";
+const VERSION = "v153";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -22649,6 +22655,8 @@ function bolimScreen() {
   $.querySelector(".back").onclick = () => { bolim = null; render(); };
   drawTrail();
   $.querySelectorAll(".map button.place:not([disabled])").forEach(b => b.onclick = () => showUz(b.dataset.uz));
+  if (bolim === 2) $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<div style="margin:8px 0">${HX_QOIDA.map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
+    <p class="tk-n">Manba: «فن الكتابة الصحيحة», «فن الكتابة والتعبير»</p></div>`);
   if (bolim === 1 && UZ_SHAHAR[level]) {  // fon: shaharning chizilgan manzarasi
     document.body.classList.add("lvFoto");
     document.body.style.setProperty("--lvfoto", `url(img/${UZ_SHAHAR[level][2]}.jpg)`);
@@ -22801,17 +22809,129 @@ const HX_HARF = [
   ["ي","Ya","Ilonsimon qayiqcha, pastga ikki nuqta."],
 ];
 const HX_ULANMAS = "اأإآدذرزو";
+// Insho bo'limi qoidalari: imlo, tinish belgilari, insho tuzilishi (yozish kitoblaridan o'zbekcha qisqa bayon)
+const HXA = s => `<span class="ar" style="font-size:1.15em">${s}</span>`;
+const HX_HAMZA = [
+  ["✏️ Hamza: ulash va uzish hamzasi", [
+    `<b>Uzish hamzasi (همزة القطع)</b> doim o'qiladi va yoziladi: ${HXA("أَكَلَ، إِسْلَام، أُمّ")}.`,
+    `<b>Ulash hamzasi (همزة الوصل)</b> faqat gap boshida o'qiladi, o'rtada tushib qoladi va ustiga hamza belgisi qo'yilmaydi: ${HXA("اِسْم، اِبْن، اُكْتُبْ")}.`,
+    `Ulash hamzasi qayerda: ${HXA("ال")} artiklida, ${HXA("اسم، ابن، ابنة، امرأة، اثنان")} so'zlarida, 5–6 harfli fe'llarning o'tgan zamoni, buyrug'i va masdarida (${HXA("اِنْطَلَقَ، اِسْتِغْفَار")}), 3 harfli fe'lning buyrug'ida (${HXA("اُكْتُبْ")}).`,
+    `Tekshirish usuli: so'z oldiga ${HXA("وَ")} yoki ${HXA("فَ")} qo'shib o'qing — hamza o'qilsa uzish, tushib qolsa ulash hamzasi.`]],
+  ["✏️ Hamza: so'z o'rtasida va oxirida", [
+    `O'rtadagi hamza o'zi va oldingi harfning <b>kuchliroq harakatiga</b> qarab yoziladi: kasra (ي ustida) > zamma (و ustida) > fatha (ا ustida) > sukun.`,
+    `Kasra bo'lsa — ${HXA("ئ")}: ${HXA("بِئْر، سُئِلَ، ذِئْب")}; zamma bo'lsa — ${HXA("ؤ")}: ${HXA("مُؤْمِن، سُؤَال")}; fatha bo'lsa — ${HXA("أ")}: ${HXA("سَأَلَ، رَأْس")}.`,
+    `Oxirdagi hamza faqat <b>oldingi harf harakatiga</b> qarab yoziladi: ${HXA("قَرَأَ، تَبَاطُؤ، شَاطِئ")}; oldingi harf sukunli yoki cho'ziq bo'lsa, alohida: ${HXA("سَمَاء، شَيْء، جُزْء")}.`]],
+];
+// harf sahifalariga biriktiriladigan imlo qoidalari
+const HX_IMLO = [
+  ["✏️ Ta marbuta va ochiq ta", [
+    `<b>Ta marbuta (ة)</b> otlarning oxirida keladi, to'xtaganda «h» deb o'qiladi: ${HXA("مَدْرَسَة، فَاطِمَة")}.`,
+    `<b>Ochiq ta (ت)</b> fe'llarda (${HXA("كَتَبَتْ")}), muannas ko'plikda (${HXA("مُعَلِّمَات")}), ${HXA("بِنْت، أُخْت، بَيْت")} kabi so'zlarda yoziladi va to'xtaganda ham «t» o'qiladi.`,
+    `Tekshirish: to'xtab o'qing — «h» eshitilsa ${HXA("ة")}, «t» eshitilsa ${HXA("ت")}.`]],
+  ["✏️ Yumshoq alif (الألف اللينة)", [
+    `So'z oxiridagi cho'ziq «a» ${HXA("ا")} yoki ${HXA("ى")} bilan yoziladi.`,
+    `3 harfli so'zda asli و bo'lsa ${HXA("ا")} (${HXA("دَعَا، عَصَا")}), asli ي bo'lsa ${HXA("ى")} (${HXA("رَمَى، هُدَى")}) yoziladi. Aslini topish uchun hozirgi zamon yoki ko'plikka qarang: ${HXA("يَدْعُو")} → ${HXA("دَعَا")}.`,
+    `4 va undan ko'p harfli so'zda doim ${HXA("ى")}: ${HXA("مُسْتَشْفَى، اِشْتَرَى")} — oldida ي bo'lsa ${HXA("ا")}: ${HXA("دُنْيَا")}.`,
+    `${HXA("إلى، على، حتى، متى، لدى")} — ${HXA("ى")} bilan; ${HXA("إذا، أنا، هنا")} — ${HXA("ا")} bilan.`]],
+  ["✏️ Qo'shib va ajratib yozish, ortiqcha va tushib qoladigan harflar", [
+    `Bir harfli so'zlar keyingi so'zga qo'shib yoziladi: ${HXA("بِاللهِ، وَقَالَ، فَذَهَبَ، لِلطَّالِبِ")}.`,
+    `${HXA("مَا")} bilan qo'shiladi: ${HXA("مِمَّا، عَمَّا، كُلَّمَا، إِنَّمَا")}; ${HXA("مَنْ")} bilan: ${HXA("مِمَّنْ، عَمَّنْ")}.`,
+    `Qo'shimcha yoziladigan harflar: ko'plikdagi fe'l oxiridagi alif — ${HXA("ذَهَبُوا، كَتَبُوا")}; ${HXA("مِائَة")} so'zidagi alif (yozilsa ham o'qilmaydi).`,
+    `Yozilmay qoladigan harflar: ${HXA("هٰذَا، ذٰلِكَ، لٰكِنْ، اللهُ، الرَّحْمٰن")} so'zlaridagi alif; ${HXA("بِسْمِ اللهِ")} da ${HXA("اسم")} ning alifi.`]],
+];
+const HX_QOIDA = [
+  ["✏️ Tinish belgilari (علامات الترقيم)", [
+    `${HXA("،")} vergul — gap ichidagi bo'laklar va sanashda: ${HXA("اشتريتُ خبزًا، وحليبًا، وتمرًا")}.`,
+    `${HXA(".")} nuqta — to'liq fikr tugaganda. ${HXA("؛")} nuqtali vergul — sabab yoki natija gaplar orasida.`,
+    `${HXA(":")} ikki nuqta — gapdan keyin, sanashdan oldin va iqtibos oldidan: ${HXA("قال المعلم: …")}.`,
+    `${HXA("؟")} so'roq va ${HXA("!")} undov belgisi — arabchada so'roq belgisi teskari (${HXA("؟")}) yoziladi.`,
+    `${HXA("« »")} qo'shtirnoq — iqtibos uchun; ${HXA("( )")} qavs — izoh uchun; ${HXA("…")} uch nuqta — gapning bir qismi tushirilganda.`]],
+  ["✏️ Insho: abzats va matn tuzilishi", [
+    `Insho 3 qismdan iborat: <b>kirish</b> (mavzuni tanishtirish), <b>asosiy qism</b> (fikr va misollar), <b>xulosa</b> (fikrni yakunlash).`,
+    `Har bir <b>abzats bitta asosiy fikr</b>ga bag'ishlanadi: boshida asosiy gap, keyin izoh va misol keladi.`,
+    `Abzatslar bog'lovchilar bilan ulanadi: ${HXA("أَوَّلًا، ثَانِيًا، بَعْدَ ذٰلِكَ، لِذٰلِكَ، وَأَخِيرًا، فِي النِّهَايَةِ")}.`,
+    `Gaplar qisqa va aniq bo'lsin; bir gapda bitta fikr. Takrorlanadigan so'zlar o'rniga sinonim ishlating.`,
+    `Yozib bo'lgach <b>qayta o'qing</b>: imlo, hamza, ta marbuta va tinish belgilarini tekshiring.`]],
+  ["✏️ Qisqa bayon (talxis) qilish", [
+    `Matnni to'liq o'qing va <b>asosiy g'oyani</b> bir gapda ayting.`,
+    `Har abzatsdan asosiy fikrni ajrating; misol, takror va mayda tafsilotlarni olib tashlang.`,
+    `Fikrlarni <b>o'z so'zlaringiz bilan</b> va asl tartibda yozing; o'z fikringizni qo'shmang.`,
+    `Yaxshi talxis asl matnning taxminan <b>uchdan bir qismi</b> hajmida bo'ladi.`]],
+];
+// Strelkali yozilish tartibi: har harfning qo'lda yozilish chizig'i (200×200, satr chizig'i y=120), tartib bo'yicha raqamlanadi.
+// Asosiy shakllar bir necha harfga umumiy; nuqtalar oxirida qo'yiladi.
+const HX_YOL = {
+  alif: ["M100 40 L100 120"],
+  ba: ["M150 92 Q156 121 128 122 L72 122 Q44 120 50 92"],
+  jim: ["M78 72 Q108 58 136 72 L80 98 Q46 132 92 156 L142 158"],
+  dal: ["M86 70 L126 114 L70 118"],
+  ro: ["M122 98 Q118 142 68 156"],
+  sin: ["M168 96 L166 116 Q150 122 146 102 L146 116 Q130 122 126 102 L126 116 Q130 152 90 152 Q54 150 60 116"],
+  sod: ["M96 116 Q106 84 146 94 Q162 112 130 118 L96 118 Q96 152 60 152 Q34 146 40 116"],
+  to: ["M64 118 Q82 84 128 94 Q150 114 114 120 L58 120", "M90 40 L90 116"],
+  ayn: ["M132 70 Q104 54 90 76 Q90 96 132 100 Q80 106 76 136 Q82 162 138 160"],
+  fa: ["M150 100 Q134 80 124 98 Q134 112 150 105 L150 118 L62 120 Q40 118 46 94"],
+  qof: ["M142 96 Q126 76 116 94 Q126 110 142 104 Q152 152 100 156 Q60 156 66 116"],
+  kaf: ["M142 40 L142 118 L62 118 Q40 115 46 94", "M112 82 Q96 76 100 94 L88 98"],
+  lam: ["M130 40 L130 120 Q126 156 90 156 Q54 152 60 114"],
+  mim: ["M108 118 Q128 112 126 98 Q116 84 100 96 Q92 112 108 118 L70 120 Q60 140 62 170"],
+  nun: ["M142 88 Q152 152 100 152 Q48 152 58 88"],
+  ha: ["M104 72 Q52 118 102 126 Q152 120 104 72"],
+  vov: ["M112 112 Q94 84 120 84 Q138 100 116 122 Q100 148 68 152"],
+  ya: ["M146 80 Q118 68 110 94 Q106 116 142 120 Q162 142 120 156 L72 152 Q44 142 56 120"],
+};
+const HX_HARF_YOL = { "ا":["alif"], "ب":["ba",[[100,140]]], "ت":["ba",[[110,100],[92,100]]], "ث":["ba",[[110,104],[92,104],[101,90]]],
+  "ج":["jim",[[100,118]]], "ح":["jim"], "خ":["jim",[[104,50]]], "د":["dal"], "ذ":["dal",[[90,52]]], "ر":["ro"], "ز":["ro",[[118,80]]],
+  "س":["sin"], "ش":["sin",[[156,82],[138,82],[147,68]]], "ص":["sod"], "ض":["sod",[[124,78]]], "ط":["to"], "ظ":["to",[[124,78]]],
+  "ع":["ayn"], "غ":["ayn",[[110,46]]], "ف":["fa",[[136,70]]], "ق":["qof",[[122,66],[140,66]]], "ك":["kaf"], "ل":["lam"], "م":["mim"],
+  "ن":["nun",[[100,74]]], "ه":["ha"], "و":["vov"], "ي":["ya",[[92,172],[110,172]]] };
+// so'z boshidagi shakl (birinchi chiziq); o'rtadagi = o'ngdan ulanish + boshidagi, oxiridagi = o'ngdan ulanish + alohida
+const HX_BOSH = {
+  ba: "M122 92 L124 118 L40 120", nun: "M122 92 L124 118 L40 120", ya: "M122 92 L124 118 L40 120",
+  jim: "M80 74 Q110 60 138 74 L96 112 L36 118",
+  sin: "M168 96 L166 116 Q150 122 146 102 L146 116 Q130 122 126 102 L126 118 L40 120",
+  sod: "M96 116 Q106 84 146 94 Q162 112 130 118 L40 120",
+  to: "M64 118 Q82 84 128 94 Q150 114 114 120 L40 120",
+  ayn: "M134 74 Q108 60 100 82 Q104 104 128 112 L40 118",
+  fa: "M150 100 Q134 80 124 98 Q134 112 150 105 L150 118 L40 120", qof: "M150 100 Q134 80 124 98 Q134 112 150 105 L150 118 L40 120",
+  kaf: "M142 40 L142 118 L40 120", lam: "M130 40 L130 120 L40 120",
+  mim: "M108 118 Q128 112 126 98 Q116 84 100 96 Q92 112 108 118 L40 120",
+  ha: "M110 70 L110 118 Q140 120 130 98 Q118 84 104 104 L40 120",
+};
+const hxBoshi = d => d.match(/M(\d+) (\d+)/).slice(1).map(Number);
+function hxShakl(k, sh) {  // sh: 0 alohida, 1 oxirida, 2 o'rtada, 3 boshida → chiziqlar ro'yxati
+  const Y = HX_YOL[k] || [];
+  if (!sh || !Y.length) return Y;
+  if (sh === 1) { const [x, y] = hxBoshi(Y[0]); return [`M184 ${y} L${x} ${y} ` + Y[0].replace(/^M\d+ \d+ ?/, "L" + x + " " + y + " "), ...Y.slice(1)]; }
+  const b = HX_BOSH[k]; if (!b) return [];
+  const qolgan = Y.slice(1);
+  if (sh === 3) return [b, ...qolgan];
+  const [x, y] = hxBoshi(b); return [`M184 120 L${x} 120 L${x} ${y} ` + b.replace(/^M\d+ \d+ ?/, ""), ...qolgan];
+}
+function hxStrelka(c, sh = 0) {
+  const [k, nuq = []] = HX_HARF_YOL[c] || [], Y = hxShakl(k, sh), T = 1.4;
+  const yol = Y.map((d, i) => { const m = d.match(/M(\d+) (\d+)/);
+    return `<path d="${d}" pathLength="1" class="hxs" style="animation-delay:${i * T}s" marker-end="url(#hxo)"/>
+      <g class="hxn" style="animation-delay:${i * T}s"><circle cx="${+m[1] + 12}" cy="${+m[2] - 12}" r="10"/><text x="${+m[1] + 12}" y="${+m[2] - 8}">${i + 1}</text></g>`; }).join("");
+  const nq = nuq.map(([x, y], j) => `<circle cx="${x}" cy="${y}" r="6" class="hxd" style="animation-delay:${(Y.length + j * .4) * T}s"/>`).join("");
+  return `<svg viewBox="0 0 200 200" class="hxsvg"><defs><marker id="hxo" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c62828"/></marker></defs>
+    <line x1="10" y1="120" x2="190" y2="120" stroke="#c9b98f" stroke-dasharray="5 5"/>${yol}${nq}
+    ${nuq.length ? `<text x="100" y="196" class="hxt">${Y.length + 1}${nuq.length > 1 ? "–" + (Y.length + nuq.length) : ""}: nuqta${nuq.length > 1 ? "lar" : ""}</text>` : ""}</svg>`;
+}
 function hxHarf(k) {
   const [c, nom, tip] = HX_HARF[k], ul = !HX_ULANMAS.includes(c);
   const F = [["Alohida", c], ["Oxirida", "ـ" + c], ["O'rtada", ul ? "ـ" + c + "ـ" : ""], ["Boshida", ul ? c + "ـ" : ""]];
   $.innerHTML = `<button class="back"><span>‹</span> Husnixat</button><h2>${k + 1}. ${nom} harfi</h2>
-    <div class="tk-card"><div class="ar" style="font-size:96px;line-height:1.3">${c}</div>
-      <div class="hx-yol">← o'ngdan chapga yoziladi</div></div>
+    <div class="tk-card" style="display:flex;align-items:center;justify-content:space-around;gap:8px">
+      <div style="flex:1;max-width:220px">${hxStrelka(c)}<small>Yozilish tartibi</small><br><button class="o" id="hxqay" style="padding:4px 10px;font-size:14px">↻ Qaytadan</button></div>
+      <div><div class="ar" style="font-size:96px;line-height:1.3">${c}</div><div class="hx-yol">← o'ngdan chapga</div></div></div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;direction:ltr">${F.map(([n, s]) => `
       <button class="hxf" data-s="${s}" ${s ? "" : "disabled"} style="text-align:center;padding:6px 2px;background:rgba(255,253,246,.95);border-radius:12px;color:#1d1d1b;box-shadow:0 2px 8px rgba(0,0,0,.12);border:2px solid transparent"><div class="ar" style="font-size:40px;line-height:1.5;min-height:60px">${s || "—"}</div><small>${n}</small></button>`).join("")}</div>
     <p class="tk-n">Shaklni bosing — pastda shu shaklni yozib mashq qilasiz</p>
     ${ul ? "" : `<p class="tk-n">Bu harf chapdagi harfga ulanmaydi, shuning uchun boshida va o'rtada alohida shaklda yoziladi.</p>`}
     <div class="fb ok" style="text-align:left">✍️ ${tip}</div>
+    ${({ "ا": [...HX_HAMZA, HX_IMLO[1]], "ت": [HX_IMLO[0]], "ه": [HX_IMLO[0]], "ي": [HX_IMLO[1]], "و": [HX_IMLO[2]], "ل": [HX_IMLO[2]] }[c] || [])
+      .map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
     <p><b>Barmog'ingiz bilan ustidan yozing:</b></p>
     <div style="position:relative"><canvas id="hxc" style="width:100%;height:260px;background:#fffdf6;border-radius:16px;border:2px dashed #c9b98f;touch-action:none;display:block"></canvas></div>
     <div style="display:flex;gap:8px;margin-top:8px"><button class="o" id="hxtoz" style="flex:1">Tozalash</button>
@@ -22830,7 +22950,10 @@ function hxHarf(k) {
   cv.onpointermove = e => { if (!ch) return; g.lineTo(...nuq(e)); g.strokeStyle = "#0d5c3f"; g.lineWidth = 9; g.lineCap = g.lineJoin = "round"; g.stroke(); };
   cv.onpointerup = cv.onpointercancel = () => { ch = false; };
   $.querySelector("#hxtoz").onclick = fon;
-  const tanla = b => { $.querySelectorAll(".hxf").forEach(x => x.style.borderColor = x === b ? "#8b0000" : "transparent"); shakl = b.dataset.s; fon(); };
+  $.querySelector("#hxqay").onclick = () => { const s = $.querySelector(".hxsvg"); s.outerHTML = hxStrelka(c, shN); };
+  let shN = 0;
+  const tanla = b => { const F = [...$.querySelectorAll(".hxf")]; F.forEach(x => x.style.borderColor = x === b ? "#8b0000" : "transparent"); shakl = b.dataset.s; fon();
+    shN = F.indexOf(b); const s = $.querySelector(".hxsvg"); if (s) s.outerHTML = hxStrelka(c, shN); };
   $.querySelectorAll(".hxf:not([disabled])").forEach(b => b.onclick = () => tanla(b));
   tanla($.querySelector(".hxf"));
   const o = $.querySelector("#hxold"), n = $.querySelector("#hxkey");
@@ -22850,6 +22973,7 @@ function husnixatScreen() {
       <li>Hamza (ء) o'zidan oldingi harakatga qarab <b>alif, vov yoki yo</b> ustida yoki alohida yoziladi.</li>
       <li>So'z oxiridagi <b>ta marbuta (ة)</b> ustida ikki nuqta bo'ladi va to'xtalganda «h» deb o'qiladi.</li>
     </ol></details>
+    <a class="o" href="https://arabic-calligraphy-generator.com/ar" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;margin:8px 0">🖋️ <b>Yozuv turlari</b> — so'zingizni nasx, sulus, kufiy, ruq'a xatlarida ko'ring</a>
     <p><b>Harflar:</b> harfni bosing — 4 shakli, yozish maslahati va ustidan yozish mashqi</p>
     <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px">${HX_HARF.map(([c], k) => `
       <button class="o ar" data-h="${k}" style="font-size:28px;padding:6px 0">${c}</button>`).join("")}</div>
@@ -22934,6 +23058,7 @@ function intro() {
       ? LESSON.yt.map((id, k) => `${LESSON.yt.length > 1 ? `<p><b>${k + 1}-qism</b></p>` : ""}<div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${id}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`).join("")
       : `<div class="video">▶️<br>${LESSON.video}</div>`}
     ${(KITOB[LESSON.n] && !LESSON.exam ? KITOB[LESSON.n] : []).map(src => `<p><b>📖 Kitobdagi beti</b></p><img src="${src}" alt="" loading="lazy" onclick="betOch(this.src)" style="cursor:zoom-in;width:100%;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.15);margin-bottom:10px" onerror="this.previousElementSibling.remove();this.remove()">`).join("")}
+    ${({ 129: HX_HAMZA, 128: [HX_IMLO[0]] }[LESSON.n] || []).map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
     <p>Videoni ko'ring, keyin ${LESSON.steps.length + LESSON.test.length} savollik test.</p>
     <button class="main" id="go">Testni boshlash</button>`;
   document.getElementById("go").onclick = () => { mode = "steps"; i = 0; render(); };
