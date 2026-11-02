@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root { --kufi:url("img/harflar-t.png"); }
+  :root { --kufi:url("img/harflar-b.png"); }  /* harf naqshi: sutrang (bej); oltin varianti — img/harflar-t.png */
   :root { --bg:#fff; --fg:#1f2937; --muted:#6b7280; --card:#f1f6f2; --brand:#003a24; --brand2:#c9a227; --gold:#c9a227;
           --ok:#16a34a; --okbg:#dcfce7; --bad:#dc2626; --badbg:#fee2e2; --line:#e5e7eb; }
   @media (prefers-color-scheme: dark) and (min-width: 99999px) { :root { --bg:#111827; --fg:#f9fafb; --muted:#9ca3af; --card:#16291f; --brand:#137a4e;
@@ -145,6 +145,8 @@
   .tk-f .slot { color:#8b0000; font-weight:bold; font-family:system-ui, sans-serif; font-size:17px; unicode-bidi:isolate; }
   .tk-f i { font-family:system-ui, sans-serif; font-size:15px; color:#555; font-style:normal; }
   .tk-n { text-align:center; color:#444; font-size:15px; }
+  .hx-yol { color:#8b0000; font-weight:bold; animation:hxyol 1.6s ease-in-out infinite; }
+  @keyframes hxyol { 0% { transform:translateX(30px); opacity:.3 } 60% { transform:translateX(-30px); opacity:1 } 100% { transform:translateX(-30px); opacity:0 } }
 </style>
 </head>
 <body>
@@ -899,7 +901,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v149";
+const VERSION = "v150";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -22767,13 +22769,78 @@ function lugatDars(lv, j) {
 }
 // Husnixat: Habib ilm markazi yozuv varaqlari (husnixat\<n>.jpg, husnixat.pdf dan), darslar tartibida
 const HUSNIXAT_N = 27;
+// Husnixat: 28 harf — nomi va yozish maslahati. Ulanmaydigan harflar (ا د ذ ر ز و) faqat o'ngdagi harfga ulanadi
+const HX_HARF = [
+  ["ا","Alif","Tepadan pastga bitta to'g'ri chiziq. Chapdagi harfga ulanmaydi."],
+  ["ب","Ba","Avval o'ngdan chapga qayiqcha chiziladi, oxirida pastga bitta nuqta qo'yiladi."],
+  ["ت","Ta","Ba kabi qayiqcha, keyin ustiga ikki nuqta: avval o'ngdagisi."],
+  ["ث","Sa","Ba kabi qayiqcha, ustiga uch nuqta uchburchak shaklida."],
+  ["ج","Jim","Tepada o'ngdan chapga qisqa chiziq, so'ng pastga katta qorin, qorin ichiga bitta nuqta."],
+  ["ح","Ha","Jim kabi yoziladi, faqat nuqtasiz."],
+  ["خ","Xo","Jim kabi, nuqta tepaga qo'yiladi."],
+  ["د","Dal","Tepadan pastga egilib, o'ngdan chapga qisqa asos. Chapga ulanmaydi."],
+  ["ذ","Zal","Dal kabi, ustiga bitta nuqta."],
+  ["ر","Ro","Satr chizig'idan pastga tushadigan kichik yoy. Chapga ulanmaydi."],
+  ["ز","Zay","Ro kabi, ustiga bitta nuqta."],
+  ["س","Sin","Uchta kichik tishcha, keyin qayiqcha. Tishlar bir xil balandlikda."],
+  ["ش","Shin","Sin kabi, ustiga uch nuqta."],
+  ["ص","Sod","Avval kichik halqa (o'ngdan chapga), keyin uzun qayiqcha."],
+  ["ض","Zod","Sod kabi, halqa ustiga bitta nuqta."],
+  ["ط","To","Avval halqa, oxirida tepadan pastga tik chiziq qo'shiladi."],
+  ["ظ","Zo","To kabi, halqa ustiga bitta nuqta."],
+  ["ع","Ayn","Tepada ochiq kichik yoy, so'ng pastga katta qorin."],
+  ["غ","G'ayn","Ayn kabi, ustiga bitta nuqta."],
+  ["ف","Fa","Kichik halqa va uzun asos, halqa ustiga bitta nuqta."],
+  ["ق","Qof","Halqa va pastga chuqur qorin, ustiga ikki nuqta."],
+  ["ك","Kaf","Tik chiziq, keyin asos; ichiga kichik hamzasimon belgi."],
+  ["ل","Lam","Tepadan pastga tushib, chuqur qayiqcha bilan tugaydi."],
+  ["م","Mim","Kichik dumaloq halqa, so'ng pastga dum."],
+  ["ن","Nun","Chuqur qayiqcha, ustiga bitta nuqta."],
+  ["ه","Ha (yumshoq)","Ikki halqali shakl; boshida, o'rtada va oxirida ko'rinishi ko'p o'zgaradi."],
+  ["و","Vov","Kichik halqa va pastga dum. Chapga ulanmaydi."],
+  ["ي","Ya","Ilonsimon qayiqcha, pastga ikki nuqta."],
+];
+const HX_ULANMAS = "اأإآدذرزو";
+function hxHarf(k) {
+  const [c, nom, tip] = HX_HARF[k], ul = !HX_ULANMAS.includes(c);
+  const F = [["Alohida", c], ["Oxirida", "ـ" + c], ["O'rtada", ul ? "ـ" + c + "ـ" : ""], ["Boshida", ul ? c + "ـ" : ""]];
+  $.innerHTML = `<button class="back"><span>‹</span> Husnixat</button><h2>${k + 1}. ${nom} harfi</h2>
+    <div class="tk-card"><div class="ar" style="font-size:96px;line-height:1.3">${c}</div>
+      <div class="hx-yol">← o'ngdan chapga yoziladi</div></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;direction:ltr">${F.map(([n, s]) => `
+      <div style="text-align:center;padding:6px 2px;background:rgba(255,253,246,.95);border-radius:12px;color:#1d1d1b;box-shadow:0 2px 8px rgba(0,0,0,.12)"><div class="ar" style="font-size:40px;line-height:1.5;min-height:60px">${s || "—"}</div><small>${n}</small></div>`).join("")}</div>
+    ${ul ? "" : `<p class="tk-n">Bu harf chapdagi harfga ulanmaydi, shuning uchun boshida va o'rtada alohida shaklda yoziladi.</p>`}
+    <div class="fb ok" style="text-align:left">✍️ ${tip}</div>
+    <p><b>Barmog'ingiz bilan ustidan yozing:</b></p>
+    <div style="position:relative"><canvas id="hxc" style="width:100%;height:260px;background:#fffdf6;border-radius:16px;border:2px dashed #c9b98f;touch-action:none;display:block"></canvas></div>
+    <div style="display:flex;gap:8px;margin-top:8px"><button class="o" id="hxtoz" style="flex:1">Tozalash</button>
+      ${k > 0 ? `<button class="o" id="hxold" style="flex:1">‹ Oldingi</button>` : ""}${k < HX_HARF.length - 1 ? `<button class="main" id="hxkey" style="flex:1;margin:0">Keyingi ›</button>` : ""}</div>`;
+  $.querySelector(".back").onclick = husnixatScreen;
+  const cv = $.querySelector("#hxc"), r = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W * r; cv.height = H * r; const g = cv.getContext("2d"); g.scale(r, r);
+  const fon = () => { g.clearRect(0, 0, W, H); g.fillStyle = "rgba(160,140,90,.22)"; g.textAlign = "center"; g.textBaseline = "middle"; g.font = `${H * .75}px Amiri, 'Traditional Arabic', serif`; g.fillText(c, W / 2, H * .5);
+    g.strokeStyle = "rgba(160,140,90,.35)"; g.setLineDash([6, 6]); g.beginPath(); g.moveTo(10, H * .68); g.lineTo(W - 10, H * .68); g.stroke(); g.setLineDash([]); };
+  fon(); let ch = false;
+  const nuq = e => { const b = cv.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
+  cv.onpointerdown = e => { ch = true; cv.setPointerCapture(e.pointerId); g.beginPath(); g.moveTo(...nuq(e)); };
+  cv.onpointermove = e => { if (!ch) return; g.lineTo(...nuq(e)); g.strokeStyle = "#0d5c3f"; g.lineWidth = 9; g.lineCap = g.lineJoin = "round"; g.stroke(); };
+  cv.onpointerup = cv.onpointercancel = () => { ch = false; };
+  $.querySelector("#hxtoz").onclick = fon;
+  const o = $.querySelector("#hxold"), n = $.querySelector("#hxkey");
+  if (o) o.onclick = () => hxHarf(k - 1); if (n) n.onclick = () => hxHarf(k + 1);
+}
 function husnixatScreen() {
   $.innerHTML = `<button class="back"><span>‹</span> Boshlang'ich</button><h2>✍️ Husnixat</h2>
+    <p><b>Harflar:</b> harfni bosing — 4 shakli, yozish maslahati va ustidan yozish mashqi</p>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px">${HX_HARF.map(([c], k) => `
+      <button class="o ar" data-h="${k}" style="font-size:28px;padding:6px 0">${c}</button>`).join("")}</div>
+    <p><b>Yozuv varaqlari:</b></p>
     <p class="trip">Varaqni oching, daftarga har bir so'zni 3 qatordan chiroyli ko'chirib yozing va rasmini ustozga yuboring</p>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">${Array.from({ length: HUSNIXAT_N }, (_, k) => `
       <button class="o" data-k="${k + 1}" style="padding:4px;text-align:center"><img src="husnixat/${k + 1}.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:8px;display:block"><b>${k + 1}-varaq</b></button>`).join("")}</div>`;
   $.querySelector(".back").onclick = () => render();
   $.querySelectorAll("button[data-k]").forEach(b => b.onclick = () => betOch(`husnixat/${b.dataset.k}.jpg`));
+  $.querySelectorAll("button[data-h]").forEach(b => b.onclick = () => hxHarf(+b.dataset.h));
 }
 function home() {  const streak = store.get("streak", 0), total = store.get("xp", 0);
   if (level === null && stage === null) return levelsScreen(streak, total);
