@@ -422,8 +422,13 @@ const QOIDA = [
     [["Eshiting: qaysi so'z?","كِتَابٌ",["كَاتِبٌ","كُتُبٌ"],"كِتَابٌ"],["Eshiting: qaysi so'z?","مَسْجِدٌ",["مَسَاجِدُ","سَاجِدٌ"],"مَسْجِدٌ"],["Eshiting: qaysi so'z?","قَلَمٌ",["قَمَرٌ","عَلَمٌ"],"قَلَمٌ"],["Eshiting: qaysi so'z?","صَبْرٌ",["سَبْرٌ","قَصْرٌ"],"صَبْرٌ"]],
     [["Eshiting: qaysi so'z?","عِلْمٌ",["أَلَمٌ","حِلْمٌ"],"عِلْمٌ"],["Eshiting: qaysi so'z?","طَيْرٌ",["تَيْرٌ","خَيْرٌ"],"طَيْرٌ"],["Eshiting: qaysi so'z?","ظِلٌّ",["زِلٌّ","ذِلٌّ"],"ظِلٌّ"],["Eshiting: qaysi so'z?","حَجَرٌ",["هَجَرَ","شَجَرٌ"],"حَجَرٌ"],["Eshiting: qaysi so'z?","أَرْضٌ",["أَرْزٌ","عَرْضٌ"],"أَرْضٌ"]]],
 ];
+// qoida darslari videolari (Habib academy kanalida "ro'yxatsiz"), LESSON.n bo'yicha
+const QOIDA_YT = { 124:["zKV-Dh9lW2E"], 125:["wSN7V3t8LyY"], 126:["zvwz3kxG_88"], 127:["Zrn8mU2Ze8U"], 128:["WQ8bJ5cSxhE"], 129:["xqypbaYjm-E"],
+  130:["x6XYK1LklkM","eGpoauHebl8"], 131:["l0chSlYnjUc"], 132:["Vg4G2HEh0gA","DS2O3Nw4lFQ"], 133:["dlGp7Ml4mn0"], 134:["8hKn-80mI8E"],
+  135:["DZ-WYK21rdo","9fxXMrTqXV4","YAqCzoXPNY8"], 136:["1rmeKDf1GWA","TxrCKYPEW2A"], 137:["tmGoQERKYuA"], 138:["kUrAFztylCY"],
+  139:["Rn30kslNQGw","CZrG7-ren64","GJyoKEgGKmk"], 140:["7S7XEIkEhyw"], 141:["DMnlg_ht7zE","XvNTssU40ME"], 142:["cl364cmTEwU","NNkUCUXel50"], 145:["5doyEmPpPfs"] };
 const QOIDA_DARSLARI = QOIDA.map(([n, title, st, te]) => ({
-  n: n + 100, title: `${n + 4}-dars. ${title}`, video: "Bu mavzu videosi tez orada qo'yiladi",
+  n: n + 100, title: `${n + 4}-dars. ${title}`, video: "Bu mavzu videosi tez orada qo'yiladi", yt: QOIDA_YT[n + 100],
   hw: "Mavzudagi misollarni 10 marta ovoz chiqarib o'qing va ovoz yozib yuboring.",
   steps: st.map(Q(n, 0)).map(x => ({ t: x.say ? "listen" : "choice", ...x })),
   test: te.map(Q(n, 1)),
@@ -894,7 +899,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v147";
+const VERSION = "v148";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -22362,7 +22367,10 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
 }
 
 // harf darslari: "harflar" kitobidagi tegishli bet (kitob\d<dars>-<k>.jpg, harflar.pdf dan)
-const KITOB = Object.fromEntries(Array.from({ length: 27 }, (_, k) => [k + 1, (k === 0 || k === 17 ? [1, 2] : [1]).map(j => `kitob/d${k + 1}-${j}.jpg`)]));
+// qoida darslari (29–47-dars, LESSON.n 125–143): "fonetka" kitobidagi betlar soni
+const KITOB_N = { ...Object.fromEntries(Array.from({ length: 27 }, (_, k) => [k + 1, k === 0 || k === 17 ? 2 : 1])),
+  125:1, 126:3, 127:4, 128:2, 129:4, 130:2, 131:2, 132:2, 133:3, 134:2, 135:3, 136:2, 137:2, 138:2, 139:3, 140:3, 141:3, 142:2, 143:3 };
+const KITOB = Object.fromEntries(Object.entries(KITOB_N).map(([n, c]) => [n, Array.from({ length: c }, (_, j) => `kitob/d${n}-${j + 1}.jpg`)]));
 // kitob betini to'liq ekranda ochish: barmoq bilan kattalashtirish va surish mumkin, × yoki fon bosilsa yopiladi
 function betOch(src) {
   const o = document.createElement("div");
