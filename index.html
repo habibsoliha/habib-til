@@ -901,7 +901,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v150";
+const VERSION = "v151";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -22808,7 +22808,8 @@ function hxHarf(k) {
     <div class="tk-card"><div class="ar" style="font-size:96px;line-height:1.3">${c}</div>
       <div class="hx-yol">← o'ngdan chapga yoziladi</div></div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;direction:ltr">${F.map(([n, s]) => `
-      <div style="text-align:center;padding:6px 2px;background:rgba(255,253,246,.95);border-radius:12px;color:#1d1d1b;box-shadow:0 2px 8px rgba(0,0,0,.12)"><div class="ar" style="font-size:40px;line-height:1.5;min-height:60px">${s || "—"}</div><small>${n}</small></div>`).join("")}</div>
+      <button class="hxf" data-s="${s}" ${s ? "" : "disabled"} style="text-align:center;padding:6px 2px;background:rgba(255,253,246,.95);border-radius:12px;color:#1d1d1b;box-shadow:0 2px 8px rgba(0,0,0,.12);border:2px solid transparent"><div class="ar" style="font-size:40px;line-height:1.5;min-height:60px">${s || "—"}</div><small>${n}</small></button>`).join("")}</div>
+    <p class="tk-n">Shaklni bosing — pastda shu shaklni yozib mashq qilasiz</p>
     ${ul ? "" : `<p class="tk-n">Bu harf chapdagi harfga ulanmaydi, shuning uchun boshida va o'rtada alohida shaklda yoziladi.</p>`}
     <div class="fb ok" style="text-align:left">✍️ ${tip}</div>
     <p><b>Barmog'ingiz bilan ustidan yozing:</b></p>
@@ -22818,7 +22819,10 @@ function hxHarf(k) {
   $.querySelector(".back").onclick = husnixatScreen;
   const cv = $.querySelector("#hxc"), r = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
   cv.width = W * r; cv.height = H * r; const g = cv.getContext("2d"); g.scale(r, r);
-  const fon = () => { g.clearRect(0, 0, W, H); g.fillStyle = "rgba(160,140,90,.22)"; g.textAlign = "center"; g.textBaseline = "middle"; g.font = `${H * .75}px Amiri, 'Traditional Arabic', serif`; g.fillText(c, W / 2, H * .5);
+  let shakl = c;
+  const fon = () => { g.clearRect(0, 0, W, H); g.fillStyle = "rgba(160,140,90,.22)"; g.textAlign = "center"; g.textBaseline = "middle"; g.direction = "rtl";
+    let fs = H * .75; g.font = `${fs}px Amiri, 'Traditional Arabic', serif`; while (g.measureText(shakl).width > W * .9 && fs > 40) { fs -= 8; g.font = `${fs}px Amiri, 'Traditional Arabic', serif`; }
+    g.fillText(shakl, W / 2, H * .5);
     g.strokeStyle = "rgba(160,140,90,.35)"; g.setLineDash([6, 6]); g.beginPath(); g.moveTo(10, H * .68); g.lineTo(W - 10, H * .68); g.stroke(); g.setLineDash([]); };
   fon(); let ch = false;
   const nuq = e => { const b = cv.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
@@ -22826,11 +22830,26 @@ function hxHarf(k) {
   cv.onpointermove = e => { if (!ch) return; g.lineTo(...nuq(e)); g.strokeStyle = "#0d5c3f"; g.lineWidth = 9; g.lineCap = g.lineJoin = "round"; g.stroke(); };
   cv.onpointerup = cv.onpointercancel = () => { ch = false; };
   $.querySelector("#hxtoz").onclick = fon;
+  const tanla = b => { $.querySelectorAll(".hxf").forEach(x => x.style.borderColor = x === b ? "#8b0000" : "transparent"); shakl = b.dataset.s; fon(); };
+  $.querySelectorAll(".hxf:not([disabled])").forEach(b => b.onclick = () => tanla(b));
+  tanla($.querySelector(".hxf"));
   const o = $.querySelector("#hxold"), n = $.querySelector("#hxkey");
   if (o) o.onclick = () => hxHarf(k - 1); if (n) n.onclick = () => hxHarf(k + 1);
 }
 function husnixatScreen() {
   $.innerHTML = `<button class="back"><span>‹</span> Boshlang'ich</button><h2>✍️ Husnixat</h2>
+    <details class="fb ok" style="text-align:left"><summary><b>📏 Arab yozuvining asosiy qoidalari</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">
+      <li>Arabcha <b>o'ngdan chapga</b> yoziladi; daftar ham o'ng tomondan ochiladi.</li>
+      <li>Harflarning ko'pchiligi <b>4 shaklda</b> yoziladi: alohida, so'z boshida, o'rtasida va oxirida.</li>
+      <li><b>6 ta harf</b> (ا د ذ ر ز و) chapdagi harfga ulanmaydi — ulardan keyingi harf yangidan boshlanadi.</li>
+      <li>Avval harfning <b>asosiy tanasi</b> bitta harakatda yoziladi, <b>nuqta va harakatlar</b> esa oxirida qo'yiladi.</li>
+      <li>Harflar <b>satr chizig'ida</b> turadi; ر ز و ج ح خ ع غ م ن ي kabi harflarning dumi chiziqdan pastga tushadi.</li>
+      <li>Alif, lam, kaf, to kabi tik harflar <b>bir xil balandlikda</b> yoziladi.</li>
+      <li>Nuqtalar <b>harfning o'rtasiga</b> to'g'rilanadi, ikki nuqta yonma-yon, uch nuqta uchburchak shaklida.</li>
+      <li>So'z ichida harflar <b>uzilmasdan</b>, qalamni ko'tarmay ulab yoziladi; so'zlar orasida bo'sh joy qoldiriladi.</li>
+      <li>Hamza (ء) o'zidan oldingi harakatga qarab <b>alif, vov yoki yo</b> ustida yoki alohida yoziladi.</li>
+      <li>So'z oxiridagi <b>ta marbuta (ة)</b> ustida ikki nuqta bo'ladi va to'xtalganda «h» deb o'qiladi.</li>
+    </ol></details>
     <p><b>Harflar:</b> harfni bosing — 4 shakli, yozish maslahati va ustidan yozish mashqi</p>
     <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px">${HX_HARF.map(([c], k) => `
       <button class="o ar" data-h="${k}" style="font-size:28px;padding:6px 0">${c}</button>`).join("")}</div>
