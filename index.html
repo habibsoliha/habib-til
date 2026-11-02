@@ -886,7 +886,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v145";
+const VERSION = "v146";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -904,7 +904,7 @@ const AUDIO = {
 PROGRAMMA.forEach(([n, c]) => { AUDIO[HARF[c][3]] = `h${n}-1`; AUDIO[HARF[c][4]] = `h${n}-2`; });
 function speak(text) {
   if (AUDIO[text]) {
-    const a = new Audio("audio/" + AUDIO[text] + (AUDIO[text][0] === "h" ? ".m4a" : ".mp3"));
+    const a = new Audio("audio/" + AUDIO[text] + ".m4a");
     a.onerror = () => tts(text);
     a.play().catch(() => tts(text));
     return;
