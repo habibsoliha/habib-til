@@ -71,6 +71,14 @@
   .h-prog > div:first-child { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
   .h-prog b { font-size:22px; color:#f3dc8f; } .h-prog small { opacity:.7; }
   .lvprog { margin-top:10px; display:grid; gap:7px; }
+  .tanal { margin-top:12px; padding:12px; border-radius:16px; background:rgba(0,0,0,.18); border:1px solid rgba(232,199,102,.35); }
+  .tn-bosh { display:flex; align-items:baseline; justify-content:space-between; }
+  .tn-bosh small { opacity:.85; font-size:13px; } .tn-bosh b { font-size:30px; color:#f3dc8f; letter-spacing:1px; }
+  .tn-shkala { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; margin:8px 0 6px; }
+  .tn-shkala span { position:relative; overflow:hidden; text-align:center; font:700 11px system-ui,sans-serif; padding:7px 0; border-radius:6px; background:rgba(255,255,255,.12); color:rgba(255,255,255,.55); }
+  .tn-shkala span.ol { background:linear-gradient(160deg,#f3dc8f,#c9a227); color:#003a24; }
+  .tn-shkala span.jr { color:#fff; background:linear-gradient(to right, rgba(232,199,102,.55) var(--f), rgba(255,255,255,.12) var(--f)); outline:1.5px solid #e8c766; }
+  .tn-iz { display:block; font-size:12px; opacity:.85; }
   .lvprog > div { display:grid; grid-template-columns:52px 1fr 54px; align-items:center; gap:8px; font-size:13px; }
   .lvprog > div > span:first-child { color:#f3dc8f; font-weight:700; } .lvprog small { opacity:.7; text-align:right; } .lvprog .pbar { margin:0; }
   .pbar { display:block; height:8px; border-radius:99px; background:rgba(255,255,255,.15); overflow:hidden; }
@@ -909,7 +917,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v164";
+const VERSION = "v165";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -2091,7 +2099,13 @@ function levelsScreen(streak, total) {
         const dn = R.reduce((s, r) => s + r[1], 0), all = R.reduce((s, r) => s + r[2], 0), pa = Math.round(dn * 100 / all);
         return `<div class="h-prog"><div><b>${pa}%</b><small>umumiy dastur: ${dn}/${all} mavzu</small></div>
           <div class="pbar"><i style="width:${Math.max(pa, 2)}%"></i></div></div>
-          <div class="lvprog">${R.map(([c, a, n]) => `<div><span>${c}</span><span class="pbar thin"><i style="width:${Math.max(Math.round(a * 100 / n), 2)}%"></i></span><small>${a}/${n}</small></div>`).join("")}</div>`;
+          ${(() => {  // At-Tanal sertifikati kabi: darajama-daraja emas, bitta umumiy CEFR natija (daraja 70% o'zlashtirilsa olingan hisoblanadi)
+            let olingan = -1; R.forEach(([, a, n], k) => { if (olingan === k - 1 && n && a / n >= .7) olingan = k; });
+            const keyingi = R[olingan + 1], foiz = keyingi ? Math.round(keyingi[1] * 100 / keyingi[2]) : 100;
+            return `<div class="tanal"><div class="tn-bosh"><small>Natijangiz (CEFR)</small><b>${olingan >= 0 ? R[olingan][0] : "—"}</b></div>
+              <div class="tn-shkala">${R.map(([c], k) => `<span class="${k <= olingan ? "ol" : k === olingan + 1 ? "jr" : ""}" style="${k === olingan + 1 ? `--f:${foiz}%` : ""}">${c}</span>`).join("")}</div>
+              <small class="tn-iz">${keyingi ? `Keyingi daraja <b>${keyingi[0]}</b>: ${foiz}% — 70% ga yetganda daraja olinadi` : "Eng yuqori daraja olindi!"}</small></div>`;
+          })()}`;
       })()}</div>
     <div class="levels">${DARAJALAR.map((L, k) => `
       <button class="lv ${L.cls}" data-l="${k}">
