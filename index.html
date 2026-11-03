@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v183";
+const VERSION = "v186";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -2176,6 +2176,28 @@ function confetti(n = 40) {
     .fl-3 .fl-tuman { opacity:1; animation:flTuman 2.5s ease-out reverse forwards; }
     .fl-n { display:flex; gap:6px; justify-content:center; margin-bottom:12px; } .fl-n i { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.35); } .fl-n i.on { background:#f5c542; }
     .film .fl-v { padding:0; background:#000 !important; } .fl-v video { width:100%; height:100%; object-fit:contain; }
+    .utepa { display:flex; align-items:center; justify-content:center; gap:10px; margin:8px 0 4px; }
+    .ut-o { width:38px; height:38px; border-radius:50%; padding:0; font-size:22px; flex:none; }
+    .ut-m { position:relative; text-align:center; width:150px; } .ut-m .usvg { width:84px; height:126px; display:block; margin:44px auto 0; animation:uNafas 3s ease-in-out infinite; }
+    .ut-m b { display:block; font-size:15px; } .ut-m small { opacity:.65; font-size:12px; }
+    .ut-m.yopiq .usvg { filter:brightness(0) opacity(.35); }
+    .ut-gap { position:absolute; left:50%; bottom:calc(100% - 50px); transform:translateX(-50%); width:180px; background:#fffaf0; color:#3a2508; border:2px solid #e0b040; border-radius:14px; padding:6px 9px; font-size:12.5px; line-height:1.35; box-shadow:0 4px 12px rgba(0,0,0,.15); }
+    .ut-gap::after { content:""; position:absolute; left:50%; bottom:-8px; margin-left:-7px; border:7px solid transparent; border-top-color:#e0b040; border-bottom:0; }
+    .ust { position:absolute; width:60px; z-index:4; transition:left 1.9s ease-in-out, top 1.9s ease-in-out; cursor:pointer; }
+    .ust .usvg { width:60px; height:90px; display:block; } img.usvg { object-fit:contain; } .ust img.usvg { height:104px; margin-top:-14px; } .ust .uf { animation:uQara 7s steps(1) infinite; }
+    .ust.yur .uf { animation:uSakra .35s ease-in-out infinite; } .ust.yur .o1 { animation:uQadam .35s ease-in-out infinite; } .ust.yur .o2 { animation:uQadam .35s ease-in-out infinite reverse; }
+    .ust .ut-gap { bottom:100%; opacity:0; transition:opacity .4s; pointer-events:none; width:160px; } .ust .ut-gap.on { opacity:1; }
+    /* ustoz harakati (12 s sikl): nafas -> o'ngga qarash -> chapga -> imo-ishora (silkinib qo'l siltash) -> bir aylanish */
+    .ust .uf, .ut-m .usvg { transform-origin:50% 100%; animation:uHarakat 12s ease-in-out infinite !important; }
+    .ust.yur .uf { animation:uSakra .35s ease-in-out infinite !important; }
+    @keyframes uHarakat {
+      0%, 8% { transform:none; } 4% { transform:translateY(-3px) scale(1.02); }
+      12%, 22% { transform:scaleX(-1); } 26%, 34% { transform:scaleX(1); }
+      38% { transform:rotate(-9deg); } 42% { transform:rotate(8deg) translateY(-4px); } 46% { transform:rotate(-7deg); } 50% { transform:rotate(6deg) translateY(-3px); } 54%, 62% { transform:rotate(0); }
+      66% { transform:translateY(-10px); } 74% { transform:translateY(-10px) rotateY(360deg); } 78%, 100% { transform:rotateY(360deg); } }
+    @keyframes uSakra { 50% { transform:translateY(-4px); } }
+    @keyframes uQadam { 50% { transform:translateY(-4px); } }
+    @keyframes uNafas { 50% { transform:translateY(-3px) scale(1.02); } }
     .fl-ovoz { position:absolute; top:16px; left:50%; transform:translateX(-50%); border:0; border-radius:20px; padding:8px 16px; background:rgba(0,0,0,.6); color:#ffe7a8; font-size:14px; }
     .fl-skip { position:absolute; top:12px; right:12px; background:none; border:0; color:inherit; opacity:.6; font-size:13px; }
     @keyframes flKir { from { opacity:0; transform:translateY(24px) scale(.8); } }
@@ -2291,7 +2313,7 @@ function levelsScreen(streak, total) {
   const A1L = LESSONS.slice(PRE_N, 86), d1 = A1L.filter(l => store.get("lesson" + l.n, null)).length, p1 = Math.round(d1 * 100 / A1L.length);
   $.innerHTML = `<div class="hero2">
       <div class="hero-top"><img class="slogo" src="img/logo.png" alt="Habib Academy"><b>HABIB TIL</b><span style="flex:1"></span></div>${profileBox(streak, total)}
-      <div class="arch callig-cluster"><span class="arabiy">عَرَبِيّ</span></div>
+      ${ustozTepa()}
       ${(() => {  // umumiy dastur bo'yicha o'zlashtirilgan darslar: jami va har daraja
         // har daraja: darslar + barcha bo'limlar mavzulari (nahv, insho, lug'at, tarkib, muhodasa)
         const R = DARAJALAR.map((L, k) => { const ls = k === 0 ? PRE : LESSONS.slice(BOSQICHLAR[k + 1].from, BOSQICHLAR[k + 1].to);
@@ -22873,12 +22895,68 @@ const TARKIB = { 1: [
 ] };
 const TARKIB_LV = Object.fromEntries(Object.entries(TARKIB).filter(([, T]) => T.length).map(([lv, T]) => [lv, T.map(t => [t.ar, `${t.uz} · ${t.q.length} qolip`])]));
 const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV, 4: TARKIB_LV, 5: MUHODASA_LV })[b] || {})[lv];  // bo'lim mavzulari
+// --- Ustoz-personajlar: har darajada bitta ustoz. Dars yo'lida o'quvchi darsi yonida turadi, keyingi darsga yurib boradi, nasihat aytadi.
+// Ismlar vaqtincha — haqiqiy ustozlar ismi/qiyofasi berilsa almashtiriladi. [ism, jins, kiyim rangi, bosh kiyim rangi]
+// haqiqiy ustozlar: suratlar — Ilova loyihasi\ustozlar\ (1 Habibulloh, 2 Abbosbek, 3 Mahbuba, 4 Valid)
+// Pre-A1, B1, C2 ustozlari hali belgilanmagan
+const USTOZLAR = [["Ustoz (tez orada)", "m", "#2f6f5e", "#1d3b33"], ["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c"],
+  ["Ustoza (tez orada)", "f", "#7b3f8c", "#4e2459"], ["Valid ag'a", "m", "#3a3a3a", "#222"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738"], ["Ustoz (tez orada)", "s", "#e9e2cf", "#ffffff"]];
+const NASIHAT = ["Har kuni ozgina — lekin har kuni!", "Xato qilishdan qo'rqmang, xato — eng yaxshi ustoz.", "Yangi so'zni ovoz chiqarib 3 marta ayting.", "Darsdan keyin 5 daqiqa takrorlang — xotira mustahkamlanadi.",
+  "Harflarni yozib mashq qiling, qo'l ham eslab qoladi.", "Bugungi so'zlardan bitta gap tuzib ko'ring.", "Shoshilmang: sekin, lekin to'g'ri.", "Arab tili — Qur'on va ilm kaliti.",
+  "Tinglash mashqini quloqchinda qiling.", "Charchasangiz — qisqa tanaffus, keyin davom!", "Kecha o'rganganingizni bugun bir eslang.", "Har bir dars — bitta chiroq. Yana bittasini yoqamizmi?",
+  "Lug'atni rasmlar bilan eslab qolish osonroq.", "Ozdan-ozdan — ko'l bo'lur.", "Bilganingizni boshqaga o'rgating — o'zingiz yaxshiroq bilasiz.", "Streakni uzmang: bugun ham bitta dars!"];
+const ustozIdx = st => st < 2 ? 0 : st - 1;  // bosqich -> daraja ustozi (Pre-A1 ikki bosqichi bitta ustoz)
+const ustozOchiq = k => TEST || k === 0 || !!store.get("lesson" + LESSONS[BOSQICHLAR[k + 1].from - 1].n, null);
+const USTOZ_RASM = [1, 2, 4, 5];  // img/ustoz/<k>.png bor darajalar (Meta AI multfilm rasmi, foni shaffof)
+function ustozSvg(k) {
+  if (USTOZ_RASM.includes(k)) return `<img class="usvg" src="img/ustoz/${k}.png" alt="">`;
+  const [, j, c, h] = USTOZLAR[k], teri = "#f2c9a0";
+  const bosh = j === "f" ? `<path d="M14 30 Q14 8 32 8 Q50 8 50 30 L52 46 Q32 54 12 46 Z" fill="${c}"/><circle cx="32" cy="30" r="12" fill="${teri}"/>`
+    : `<circle cx="32" cy="29" r="13" fill="${teri}"/>${j === "s" ? `<path d="M18 22 Q32 6 46 22 Q32 16 18 22Z" fill="${h}" stroke="#cfc6ad"/><path d="M21 34 Q32 50 43 34 Q32 40 21 34Z" fill="#f4f1ea"/>`
+      : `<path d="M19 21 Q19 13 32 13 Q45 13 45 21 Z" fill="${h}"/><path d="M22 18h20" stroke="#e0b040" stroke-width="1.5" stroke-dasharray="2 2"/><path d="M22 35 Q32 44 42 35 Q32 39 22 35Z" fill="#4a3426"/>`}`;
+  return `<svg viewBox="0 0 64 96" class="usvg"><ellipse cx="32" cy="93" rx="16" ry="3" fill="rgba(0,0,0,.18)"/>
+    <g class="oyoq"><rect class="o1" x="24" y="74" width="6" height="18" rx="3" fill="#3a2a1c"/><rect class="o2" x="34" y="74" width="6" height="18" rx="3" fill="#3a2a1c"/></g>
+    <path d="M16 78 Q14 48 32 44 Q50 48 48 78 Z" fill="${c}"/><path d="M32 46 V78" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+    <rect x="40" y="56" width="11" height="14" rx="2" fill="#c0392b" transform="rotate(-12 45 63)"/>
+    ${bosh}<circle cx="27.5" cy="29" r="1.8" fill="#222"/><circle cx="36.5" cy="29" r="1.8" fill="#222"/><path d="M28 35 Q32 38 36 35" stroke="#7a3b2a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <circle cx="24" cy="33" r="2" fill="rgba(230,120,110,.35)"/><circle cx="40" cy="33" r="2" fill="rgba(230,120,110,.35)"/></svg>`;
+}
+const nasihat = () => NASIHAT[Math.floor(Math.random() * NASIHAT.length)];
+// bosh qism: «عربي» o'rnida tanlangan ustoz, ‹ › bilan boshqa ustozlar (yopiqlari keyingi bosqichda ochiladi)
+function ustozTepa() {
+  let k = store.get("ustoz", -1); if (k < 0 || !USTOZLAR[k]) { k = 0; USTOZLAR.forEach((_, i) => { if (ustozOchiq(i)) k = i; }); }
+  const ochiq = ustozOchiq(k), D = DARAJALAR[k];
+  return `<div class="utepa" data-k="${k}"><button class="ut-o ut-l">‹</button>
+    <div class="ut-m ${ochiq ? "" : "yopiq"}">${ustozSvg(k)}<div class="ut-gap">${ochiq ? nasihat() : `🔒 ${D.code} bosqichiga yetganingizda ochiladi`}</div>
+      <b>${ochiq ? USTOZLAR[k][0] : "???"}</b><small>${D.code} ustozi</small></div><button class="o ut-o ut-r">›</button></div>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest(".ut-o"); if (!b) return;
+  const w = b.closest(".utepa"), n = USTOZLAR.length, k = (+w.dataset.k + (b.classList.contains("ut-l") ? n - 1 : 1)) % n;
+  store.set("ustoz", k); w.outerHTML = ustozTepa();
+});
+// dars yo'li: ustoz joriy dars yonida; oldingi joyi saqlangan bo'lsa — yurib keladi
+let ustozT = null;
+function ustozYol() {
+  clearInterval(ustozT); const map = $.querySelector(".map"), cur = map && $.querySelector(".node.cur");
+  if (!map || !cur) return;
+  const k = ustozIdx(stage), joy = n => { const r = n.closest(".node-row"), x = parseFloat(r.style.getPropertyValue("--x")), w = map.clientWidth;
+    const px = x / 100 * w + (x >= 50 ? 46 : -106); return [Math.max(4, Math.min(w - 64, px)), r.offsetTop + r.offsetHeight / 2 - 60]; };
+  const u = document.createElement("div"); u.className = "ust"; u.innerHTML = `<div class="uf">${ustozSvg(k)}</div><div class="ut-gap"></div>`;
+  const key = "ustozJoy" + stage, old = store.get(key, null), oldN = old != null && map.querySelector(`.node[data-k="${old}"]`), [x, y] = joy(cur);
+  const qoy = ([a, b]) => { u.style.left = a + "px"; u.style.top = b + "px"; };
+  qoy(oldN && old !== +cur.dataset.k ? joy(oldN) : [x, y]); map.appendChild(u);
+  if (oldN && old !== +cur.dataset.k) { u.classList.add("yur"); setTimeout(() => qoy([x, y]), 400); setTimeout(() => u.classList.remove("yur"), 2400); }
+  store.set(key, +cur.dataset.k);
+  const gap = u.querySelector(".ut-gap"), ayt = () => { if (!u.isConnected) return clearInterval(ustozT); gap.textContent = nasihat(); gap.classList.add("on"); setTimeout(() => gap.classList.remove("on"), 4500); };
+  setTimeout(ayt, 2600); ustozT = setInterval(ayt, 11000); u.onclick = ayt;
+}
 // darajalarning bosh qismi (darslar, nahv, insho — hammasida bir xil): logo, profil, hikmat, progress
 function heroBox(streak, total, d, n, birlik) {
   const h = HIKMAT[new Date().getDate() % HIKMAT.length], p = n ? Math.round(d * 100 / n) : 0;
   return `<div class="topband"></div><div class="hero2">
     <div class="hero-top"><img class="slogo" src="img/logo.png" alt="Habib Academy"><b>HABIB TIL</b><span style="flex:1"></span></div>${profileBox(streak, total)}
-    <div class="arch callig-cluster"><span class="arabiy">عَرَبِيّ</span></div>
+    ${ustozTepa()}
     <div class="h-title">Arab tili —<br><span>harfma-harf.</span></div>
     <div class="h-uz">${h[1]}</div>
     <div class="h-prog"><div><b>${p}%</b><small>${d}/${n} ${birlik}</small></div>
@@ -23361,7 +23439,7 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
         ${placeOf(k) == null ? "" : `<button class="place ${res || TEST ? "" : "plock"}" data-p="${placeOf(k)}" ${res || TEST ? "" : "disabled"} style="left:${Math.min(82, Math.max(18, x >= 50 ? x - 42 : x + 42))}%;animation-delay:${(j % 5) * .4}s">
           <span class="pe">${AI[placeOf(k)] ? `<img class="pcol" src="${AI[placeOf(k)]}" alt="">` : MAP_COLOR && (FOTO[placeOf(k)] || []).length ? `<img class="pcol" src="${FOTO[placeOf(k)][0]}" alt="" loading="lazy">` : sketch(placeOf(k))}</span><b>!</b></button>`}</div>`;
     }).join("")}</div>`}`;
-  drawTrail();
+  drawTrail(); setTimeout(ustozYol, 60);
   $.querySelectorAll("button.st:not(.done):not(#husnixat)").forEach(b => b.onclick = () => { stage = +b.dataset.s; render(); });
   const hx = $.querySelector("#husnixat"); if (hx) hx.onclick = husnixatScreen;
   const pm = $.querySelector(".meva.pish"); if (pm) pm.onclick = mevaUz;
