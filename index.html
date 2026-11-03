@@ -619,7 +619,7 @@ const SAYOHAT_LV = {
     ["⛷️","Mzaar tog'lari","Livanda qishda qor yog'adigan tog'lar. Bu yerdan bir kunning o'zida tog'da chang'i uchib, dengizda suzish mumkin."],
     ["🌊","Batrun","Qadimiy tosh devorli kichik dengiz shahri. Uning finikiyaliklar qurgan dengiz devori hanuz saqlanib qolgan."],
   ]],
-  B1: ["🇮🇶 Iroq bo'ylab sayohat", [
+  B1: ["🇮🇶🇰🇼 Iroq va Quvayt bo'ylab sayohat", [
     ["📚","Bag'dod · Bayt ul-Hikma","Abbosiylar davridagi «Hikmat uyi» — olimlar to'plangan buyuk ilm markazi. Al-Xorazmiy ham shu yerda ishlagan."],
     ["🕌","Bag'dod · Mustansiriya madrasasi","1233-yilda qurilgan, dunyodagi eng qadimgi madrasalardan biri. Unda tibbiyot va riyoziyot ham o'qitilgan."],
     ["🕌","Bag'dod · Imom A'zam masjidi","Abu Hanifa rahimahullohning qabri joylashgan masjid. Hanafiy mazhabi shu imom nomi bilan ataladi."],
@@ -651,7 +651,7 @@ const SAYOHAT_LV = {
     ["🌙","Bag'dod · Ming bir kecha","Mashhur «Ming bir kecha» ertaklarining ko'p qismi Bag'dodda bo'lib o'tadi. Ularda xalifa Horun ar-Rashid tasvirlanadi."],
     ["🕌","Bag'dod · Abdulqodir Giloniy maqbarasi","Mashhur olim va zohid Abdulqodir Giloniy dafn etilgan joy. Uning yashil gumbazi uzoqdan ko'rinadi."],
   ]],
-  B2: ["🇦🇪 Birlashgan Arab Amirliklari bo'ylab sayohat", [
+  B2: ["🇦🇪🇶🇦🇧🇭🇴🇲 BAA, Qatar, Bahrayn va Ummon bo'ylab sayohat", [
     ["🕌","Abu-Dabi · Shayx Zoyid masjidi","82 ta oq gumbazli ulkan masjid. Unda dunyodagi eng katta qo'lda to'qilgan gilamlardan biri bor."],
     ["🏙️","Dubay · Burj Xalifa","828 metr — dunyodagi eng baland bino. Uning 160 dan ortiq qavati bor."],
     ["⛵","Dubay · Burj al-Arab","Yelkan shaklidagi mehmonxona sun'iy orolda turibdi. U Dubayning eng mashhur ramzlaridan."],
@@ -683,7 +683,7 @@ const SAYOHAT_LV = {
     ["🏛️","Al-Ayn muzeyi","BAA ning eng qadimgi muzeyi. Unda 4000 yillik topilmalar saqlanadi."],
     ["🚇","Dubay metrosi","Haydovchisiz ishlaydigan dunyodagi eng uzun metro yo'llaridan biri. Bekatlari zamonaviy dizaynda."],
   ]],
-  C1: ["🇸🇦 Saudiya Arabistoni bo'ylab sayohat", [
+  C1: ["🇸🇦🇸🇩 Saudiya Arabistoni va Sudan bo'ylab sayohat", [
     ["⛰️","Arafot tog'i","Hajning eng muhim kunida hojilar shu yerda turib duo qiladi. Bu kun «Arafa kuni» deb ataladi."],
     ["⛰️","Nur tog'i · Hiro g'ori","Payg'ambarimiz ﷺ ga birinchi vahiy kelgan g'or shu tog'da joylashgan. Unga chiqish taxminan 1 soat davom etadi."],
     ["⛰️","Savr g'ori","Hijrat paytida Payg'ambarimiz ﷺ va Abu Bakr roziyallohu anhu shu g'orda yashiringan. G'or Makka yaqinidagi tog'da."],
@@ -715,7 +715,7 @@ const SAYOHAT_LV = {
     ["🐪","Tuya festivali","Har yili Saudiyada eng chiroyli tuyalar tanlovi o'tkaziladi. Bu dunyodagi eng katta tuya festivali."],
     ["⛰️","Tabuk · Hisma cho'li","Qizil qumtosh qoyalar va qum tepalari. Bu yerdagi qoyalarda qadimiy yozuvlar bor."],
   ]],
-  C2: ["🌍 Arab olamining eng mashhur joylari", [
+  C2: ["🌍 Mag'ribdan Andalus va O'rta Osiyo orqali uyga — O'zbekistonga", [
     ["🏮","Marrakesh · Jamaa al-Fna","Kechqurun hikoyachilar, sozandalar va taomlar bozori yig'iladigan mashhur maydon. U UNESCO ro'yxatida."],
     ["💙","Shafshauen","Deyarli barcha uylari ko'k rangga bo'yalgan tog' shahri — «ko'k marvarid»."],
     ["🎓","Fes · Al-Qaraviyyin","859-yilda Fotima al-Fihriya asos solgan, dunyodagi eng qadimgi ishlab turgan universitet."],
@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v179";
+const VERSION = "v183";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -1009,7 +1009,7 @@ const BOSQICHLAR = [{ name: "Harflar maxraji", from: 0, to: 28 }, { name: "Fonet
 LV_IDS.reduce((from, id) => { const to = from + LV_DARSLAR.filter(l => l.lv === id).length; BOSQICHLAR.push({ name: id, from, to }); return to; }, 86);
 // dars indeksi -> joy indeksi (Misr: 0–22 va 46–50, Yaman: 23–45)
 const MAP_COLOR = true;  // xaritada rangli haqiqiy surat (false — qalam chizmasi)
-const placeOf = k => k >= 86 ? PLACE_OF[k - 86] : k >= PRE_N ? k : k < 23 ? k : k < 28 ? 46 + (k - 23) : k - 5;
+const placeOf = k => k >= PRE_N ? DARS_JOY[k] : k < 23 ? k : k < 28 ? 46 + (k - 23) : k - 5;
 // sinov rejimi: havola oxiriga &test=1 (yoki ?test=1) qo'shilsa, barcha darslar ochiq
 let TEST = /[?&]test=1/.test(location.search) || (() => { try { return localStorage.getItem("alif_test") === "1"; } catch { return false; } })();
 try { if (/[?&]test=1/.test(location.search)) localStorage.setItem("alif_test", "1"); if (/[?&]test=0/.test(location.search)) { localStorage.removeItem("alif_test"); TEST = false; } } catch {}
@@ -1024,7 +1024,7 @@ document.addEventListener("click", e => {
 });
 let stage = null, unlockK = null;
 // Har bosqich — bitta davlat bo'ylab sayohat: 1-bosqich Misr, 2-bosqich Yaman (keyin grammatika — Suriya)
-const SAYOHAT = ["🇪🇬 Misr bo'ylab sayohat", "🇾🇪 Yaman bo'ylab sayohat", "🇯🇴 Iordaniya bo'ylab sayohat"];
+const SAYOHAT = ["🇪🇬 Misr bo'ylab sayohat", "🇾🇪 Yaman bo'ylab sayohat", "🇯🇴🇵🇸 Iordaniya va Falastin bo'ylab sayohat"];
 // har daraja bosqichi: BOSQICHLAR[2] = A1, [3..7] = A2..C2
 const PRE_N = 51;  // Pre-A1 darslari soni (A1 dan oldin)
 const PLACES = [
@@ -1121,6 +1121,133 @@ const PLACES = [
 ];
 LV_IDS.forEach(id => PLACES.push(...SAYOHAT_LV[id][1]));
 LV_IDS.forEach(id => PLACES.push(...(LV_QOSH[id] || [])));
+// --- Darslar davlatlarga taqsimoti (MARSHRUT tartibida). Yangi davlatlar joylari PLACES oxiriga (248 dan) qo'shiladi — eski joylar raqami siljimaydi
+const YANGI_JOY = {
+  3: [  // Falastin
+    ["🧱","Quddus · eski shahar devorlari","Usmonli sulton Sulaymon 16-asrda qurdirgan devorlar eski shaharni 4 km ga yaqin o'rab turadi. Devorda sakkizta darvoza bor."],
+    ["🚪","Quddus · Damashq darvozasi","Eski shaharning eng gavjum va eng chiroyli darvozasi. Undan kirgan yo'l to'g'ri bozor ko'chalariga olib boradi."],
+    ["⛰️","Quddus · Zaytun tog'i","Eski shahar sharqidagi tepalik. Undan Al-Aqso va Qubbat as-Saxroning oltin gumbazi yaqqol ko'rinadi."],
+    ["🕌","Xalil · Ibrohimiy masjid","Ibrohim alayhissalom va uning oilasi qabrlari ustiga qurilgan masjid. Shahar nomi ham Ibrohim alayhissalomning laqabi — «Xalilulloh»dan olingan."],
+    ["⭐","Baytlahm","Iso alayhissalom tug'ilgan joy deb hisoblanadigan shahar. Bu yerdagi Tug'ilish cherkovi dunyodagi eng qadimgi cherkovlardan biri."],
+    ["🌴","Ariho","10 000 yildan ortiq tarixga ega, dunyodagi eng qadimgi shaharlardan biri. U dengiz sathidan 250 metrga yaqin pastda joylashgan."],
+    ["🌳","Ariho · Hishom saroyi","8-asrda Umaviylar qurgan saroy xarobalari. Uning «Hayot daraxti» mozaikasi islom san'atining eng go'zal namunalaridan."],
+    ["🧼","Nablus","Zaytun moyidan qilinadigan sovuni va shirin kunafasi bilan mashhur qadimiy shahar. Eski bozorida asrlik sovun ustaxonalari bor."],
+    ["🕌","G'azo · Umariy masjidi","G'azoning eng qadimgi va eng katta masjidi. Shahar ming yillar davomida Misr bilan Shom orasidagi savdo yo'lida turgan."],
+    ["🏰","Akka","Dengiz ichiga kirib turgan devorli qadimiy shahar. Uning yashil gumbazli Jazzor Posho masjidi va yer osti yo'laklari mashhur."],
+    ["🍊","Yafa","O'rta yer dengizi bo'yidagi qadimiy port. Yafa apelsinlari bir vaqtlar butun dunyoga tanilgan."],
+    ["⚓","Hayfa","Karmel tog'i yonbag'ridagi port shahar. Tog'dan butun ko'rfaz ko'rinadi."],
+    ["🌊","Tabariya ko'li","Dengiz sathidan 200 metrdan ko'proq pastdagi chuchuk suvli ko'l. Undan Iordan daryosi oqib chiqadi."],
+    ["🫒","Zaytun bog'lari","Zaytun daraxti — Falastinning ramzi, ba'zi daraxtlar ming yildan ortiq yashagan. Kuzda butun oila bo'lib zaytun terishadi."],
+    ["🕌","Quddus · Al-Aqso hovlisi","Al-Aqso hovlisi 14 gektarga yaqin. Unda masjidlar, gumbazlar, minbarlar va tahorat favvoralari bor."],
+  ],
+  7: [  // Quvayt
+    ["🕌","Quvayt · Buyuk masjid","Mamlakatning eng katta masjidi, 1986-yilda ochilgan. Unda 10 000 dan ortiq kishi namoz o'qiy oladi."],
+    ["🏙️","Al-Hamro minorasi","412 metrlik buralgan shakldagi osmono'par — Quvaytning eng baland binosi."],
+    ["🏛️","Milliy majlis binosi","Uni Sidney opera teatrini loyihalagan daniyalik me'mor Yorn Utzon chizgan. Tomi badaviy chodiriga o'xshaydi."],
+    ["🏮","Muborakiya bozori","Quvaytning eng qadimgi bozori. Bu yerda xurmo, ziravorlar, atir va an'anaviy kiyimlar sotiladi."],
+    ["🏝️","Faylaka oroli","Iskandar Zulqarnayn davridagi yunon xarobalari topilgan orol. Undan Bronza davri qoldiqlari ham chiqqan."],
+    ["🗼","Ozodlik minorasi","372 metrlik aloqa minorasi, Quvaytning 1991-yilda ozod bo'lishi xotirasiga shunday nomlangan."],
+    ["🧶","Sadu uyi","Badaviylarning rang-barang «sadu» to'qimachiligiga bag'ishlangan muzey. Gilamlar tuya va qo'y junidan to'qiladi."],
+    ["🐠","Ilmiy markaz akvariumi","Fors ko'rfazi baliqlari, akulalar va dengiz toshbaqalari bor katta akvarium. Bino yelkan shaklida."],
+    ["⛵","Do'u kemalari","An'anaviy yog'och kemalar. Quvaytliklar ular bilan savdoga va marvarid oviga chiqqan."],
+    ["🦪","Marvarid ovi","Neftdan oldin quvaytliklarning asosiy kasbi dengiz tubidan marvarid olish bo'lgan. G'avvoslar bir nafasda bir necha daqiqa suv ostida qolgan."],
+    ["🌉","Jobir ko'prigi","Ko'rfaz ustidan o'tgan 36 km lik ko'prik, dunyodagi eng uzun ko'priklardan biri."],
+    ["🏯","Sayf saroyi","Amir saroyi, oltin gumbazli soat minorasi bilan tanilgan. U dengiz bo'yida turibdi."],
+    ["🌳","Ash-Shahid bog'i","Shahar markazidagi katta yashil bog'. Unda muzeylar, ko'llar va sayr yo'laklari bor."],
+    ["🦩","Bubiyan oroli","Quvaytning eng katta oroli. Uning botqoqliklariga ko'chmanchi qushlar keladi."],
+  ],
+  9: [  // Qatar
+    ["🌊","Doha · Korniş","Doha ko'rfazi bo'ylab 7 km cho'zilgan sayrgoh. Undan shaharning osmono'parlari ko'rinadi."],
+    ["🌸","Qatar milliy muzeyi","Binosi «cho'l atirguli» — qumda o'sadigan kristall shaklida qurilgan. Uni fransuz me'mori Jan Nuvel loyihalagan."],
+    ["🎭","Katara madaniyat qishlog'i","Teatr, galereya va amfiteatrlardan iborat madaniyat shaharchasi. Uning masjidi rangli koshinlar bilan bezatilgan."],
+    ["🏰","Az-Zubara","Bir vaqtlar marvarid savdosi bilan boyigan port shahar xarobalari. U UNESCO ro'yxatida."],
+    ["🏜️","Xor al-Udayd","Qum tepalari to'g'ridan-to'g'ri dengizga tushadigan «ichki dengiz». Bunday joy dunyoda juda kam."],
+  ],
+  10: [  // Bahrayn
+    ["🕌","Al-Fotih masjidi","Bahrayndagi eng katta masjid, 7000 dan ortiq kishini sig'diradi. Gumbazi dunyodagi eng katta shisha tolali gumbazlardan."],
+    ["🌬️","Jahon savdo markazi","Ikki minorasi orasiga uchta ulkan shamol turbinasi o'rnatilgan. Bino o'z elektrining bir qismini shamoldan oladi."],
+    ["🦪","Muharraq · Marvarid yo'li","Marvarid savdogarlari uylari va do'konlaridan o'tadigan 3,5 km lik yo'l. U UNESCO ro'yxatida."],
+    ["🏰","Arad qal'asi","15-asrda qurilgan to'rtburchak qal'a, burchaklarida dumaloq minoralar bor. Kechasi chiroqlar bilan yoritiladi."],
+    ["⛰️","Dilmun qo'rg'onlari","Bronza davriga oid minglab qabr tepaliklari. Ular qadimgi Dilmun davlatidan qolgan."],
+  ],
+  11: [  // Ummon
+    ["🏮","Maskat · Matrah bozori","Dengiz bo'yidagi eski yopiq bozor. U yerda kumush buyumlar, xanjarlar va lubon sotiladi."],
+    ["⛰️","Jabal Shams","Ummonning eng baland tog'i, 3000 metrga yaqin. Uning chuqur darasi «Arabiston Grand Kanyoni» deb ataladi."],
+    ["💧","Vodiy Shob","Tog' orasidagi zumrad rangli hovuzlar va g'orli sharshara. Unga qayiqda va suzib boriladi."],
+    ["🏰","Bahlo qal'asi","Loydan qurilgan ulkan qal'a va uni o'rab turgan 12 km lik devor. U UNESCO ro'yxatida."],
+  ],
+  13: [  // Sudan
+    ["🌊","Xartum · ikki Nil","Oq Nil va Ko'k Nil Xartumda qo'shilib, bitta Nil daryosiga aylanadi. Ikki xil rangdagi suv bir muddat yonma-yon oqadi."],
+    ["🕌","Umdurmon","Nilning narigi qirg'og'idagi qadimiy shahar, katta bozori va masjidlari bilan mashhur. U Xartum bilan ko'priklar orqali bog'langan."],
+    ["⛰️","Jabal Barkal","Qadimgi Napata shahri yonidagi muqaddas tog'. Uning etagida ibodatxonalar va ehromlar bor."],
+    ["🏛️","Kerma · Deffufa","4000 yildan ortiq oldin loy g'ishtdan qurilgan ulkan inshoot. U Afrikadagi eng qadimgi yirik binolardan biri."],
+    ["🏘️","Savakin","Qizil dengizdagi orolchada marjon toshidan qurilgan eski port. Asrlar davomida hojilar shu yerdan Jiddaga suzgan."],
+    ["🐠","Port Sudan marjonlari","Qizil dengizning eng toza va eng boy marjon riflari Sudan qirg'oqlarida joylashgan."],
+    ["🌋","Marra tog'i","Darfurdagi so'ngan vulqon, kraterida ikki ko'l bor. Atrofi yam-yashil va salqin."],
+  ],
+  18: [  // Mavritaniya
+    ["📜","Shinget","Sahroi Kabirdagi qadimiy shahar, oilaviy kutubxonalarida ming yillik qo'lyozmalar saqlanadi. Qadimda u haj karvonlari yig'iladigan joy bo'lgan."],
+    ["👁️","Sahro ko'zi","Kengligi 40 km lik halqasimon tosh tuzilma, uni kosmosdan ko'rish mumkin. Kosmonavtlar uni mo'ljal sifatida ishlatgan."],
+  ],
+  19: [  // Andalus
+    ["🕌","Kordova · Buyuk masjid","785-yilda qurila boshlagan masjid, 850 dan ortiq ustun va qizil-oq ravoqlari bilan «ustunlar o'rmoni»ga o'xshaydi. Kordova o'sha davrda Yevropaning eng katta ilm shahri bo'lgan."],
+    ["🏯","Granada · Al-Hamro","Nasriylar sultonlari qurgan saroy, nafis ganch naqshlari, favvoralari va bog'lari bilan mashhur. Devorlarida arabcha she'rlar yozilgan."],
+  ],
+  20: [  // Turkiya
+    ["🕌","Istanbul · Sultonahmad masjidi","Ichi ko'k koshinlar bilan bezatilgani uchun «Ko'k masjid» deyiladi. Uning oltita minorasi bor."],
+    ["🕌","Istanbul · Ayasofya","537-yilda qurilgan, 1453-yildan masjid bo'lgan ulkan bino. Uning gumbazi ming yil davomida dunyodagi eng kattasi bo'lgan."],
+  ],
+  21: [  // Eron
+    ["🕌","Isfahon · Naqshi Jahon maydoni","Dunyodagi eng katta maydonlardan biri, atrofida masjidlar, saroy va bozor turibdi. U UNESCO ro'yxatida."],
+    ["🌈","Sheroz · Nasir ul-Mulk masjidi","Ertalab rangli oynalardan tushgan nur gilamlarni kamalakdek bo'yaydi. Uni «pushti masjid» deyishadi."],
+  ],
+  22: [  // Afg'oniston
+    ["🕌","Hirot · Juma masjidi","Temuriylar davrida bezatilgan ulkan masjid, moviy koshinlari bilan mashhur. Hirot Alisher Navoiy yashagan shahar."],
+    ["💧","Band-i Amir ko'llari","Tog'lar orasidagi oltita moviy ko'l. Ular tabiiy ohaktosh to'g'onlar bilan ajralgan."],
+  ],
+  23: [  // Turkmaniston
+    ["🏛️","Marv · Sulton Sanjar maqbarasi","Qadimiy Marv shahridagi Saljuqiylar sultoni maqbarasi. Marv bir vaqtlar dunyodagi eng katta shaharlardan bo'lgan."],
+    ["🗼","Ko'hna Urganch","Xorazmning qadimiy poytaxti. Uning 60 metrlik Qutlug' Temur minorasi Markaziy Osiyodagi eng balandlaridan."],
+  ],
+  24: [  // Tojikiston
+    ["🏔️","Pomir","«Dunyo tomi» deb ataladigan baland tog'lar, cho'qqilari 7000 metrdan oshadi."],
+    ["🏞️","Iskandarko'l","Fon tog'laridagi moviy ko'l, nomi Iskandar Zulqarnayn bilan bog'lanadi."],
+  ],
+  25: [  // Qirg'iziston
+    ["🌊","Issiqko'l","Tog'lar orasidagi ulkan ko'l, qishda ham muzlamaydi. Uning nomi ham shundan."],
+    ["🗼","Burana minorasi","Qadimiy Balasog'un shahridan qolgan 11-asr minorasi. «Qutadg'u bilig» muallifi Yusuf Xos Hojib shu shahardan."],
+  ],
+  26: [  // Qozog'iston
+    ["🕌","Turkiston · Yassaviy maqbarasi","Xoja Ahmad Yassaviy maqbarasini Amir Temur qurdirgan. Uning moviy gumbazi Markaziy Osiyodagi eng kattalaridan."],
+    ["📐","O'tror","Buyuk olim Abu Nasr Forobiy vatani. U «ikkinchi muallim» deb ulug'langan."],
+  ],
+  27: [  // O'zbekiston — uyga qaytish
+    ["📖","Toshkent · Hazrati Imom","Bu majmuada dunyodagi eng qadimgi Qur'on nusxalaridan biri — Usmon mushafi saqlanadi."],
+    ["🕌","Samarqand · Imom Buxoriy majmuasi","«Sahihi Buxoriy» muallifi Imom Buxoriy dafn etilgan joy. Arab tilini bilgan odam uning kitobini asl tilida o'qiy oladi."],
+    ["🏛️","Samarqand · Registon","Uchta madrasa qarab turgan mashhur maydon. Sayohat shu yerda tugaydi — endi siz arab tilida o'qiy olasiz!"],
+  ],
+};
+const _r = (a, n) => Array.from({ length: n }, (_, i) => a + i);
+// [MARSHRUT indeksi, darslar soni, mavjud joylar]. A1 dan boshlab ketma-ket; joy darslardan kam bo'lsa teng oraliqda qo'yiladi
+const DAVLAT_DARS = [
+  [2, 18, _r(51, 18)], [3, 17, [233, 234]],                                        // A1: Iordaniya, Falastin
+  [4, 20, [..._r(86, 14), ..._r(236, 6)]], [5, 22, [..._r(100, 16), ..._r(242, 6)]], // A2: Suriya, Livan
+  [6, 30, _r(116, 30)], [7, 30, [232]],                                             // B1: Iroq, Quvayt
+  [8, 8, _r(146, 8)], [9, 7, [228, 229]], [10, 7, [230, 231]], [11, 8, _r(224, 4)], // B2: BAA, Qatar, Bahrayn, Ummon
+  [12, 22, _r(176, 22)], [13, 8, [223]],                                            // C1: Saudiya, Sudan
+  [14, 2, [220, 221]], [15, 2, [213, 214]], [16, 2, [218, 219]], [17, 3, [208, 210, 206]], // C2: Mag'rib...
+  [18, 2, []], [19, 2, []], [20, 2, []], [21, 2, []], [22, 2, []], [23, 2, []], [24, 2, []], [25, 2, []], [26, 2, []], [27, 3, []], // ...O'zbekistongacha
+];
+const DARS_JOY = {}, DAVLAT_DARSLARI = Array.from({ length: 28 }, () => []);
+for (let k = 0; k < 51; k++) DAVLAT_DARSLARI[k < 28 ? 0 : 1].push(k);  // Pre-A1: Misr 0–27, Yaman 28–50
+DAVLAT_DARS.reduce((k0, [d, n, P]) => {
+  P = P.concat((YANGI_JOY[d] || []).map(j => PLACES.push(j) - 1));
+  for (let i = 0; i < n; i++) {
+    const a = Math.floor(i * P.length / n), b = Math.floor((i + 1) * P.length / n);
+    DAVLAT_DARSLARI[d].push(k0 + i); DARS_JOY[k0 + i] = b > a ? P[a] : null;
+  }
+  return k0 + n;
+}, 51);
 // Joylarning qo'lda chizilgan (siyoh) eskizlari — viewBox 0 0 80 64
 const SK = {
   pyramid: `<path d="M6 56h68M14 56L34 18l20 38M34 18l6 38M44 56l14-26 14 26"/><path d="M20 48h8M24 40h7M27 32h5M38 44l4-2M52 46h8" stroke-width="1"/>`,
@@ -2018,6 +2145,8 @@ function confetti(n = 40) {
     #xaritaBtn { display:none; position:fixed; top:10px; right:10px; z-index:15; width:46px; height:46px; border-radius:50%; font-size:24px; padding:0;
       border:2px solid #f5c542; background:#14361f; box-shadow:0 3px 10px rgba(0,0,0,.35); animation:pish 2.4s infinite ease-in-out; }
     body.homeMode #xaritaBtn { display:block; }
+    #fonBtn { display:none; position:fixed; top:10px; right:62px; z-index:15; width:46px; height:46px; border-radius:50%; font-size:22px; padding:0; }
+    body.homeMode #fonBtn { display:block; }
     .dunyo, .film { position:fixed; inset:0; z-index:30; display:grid; place-items:center; background:rgba(5,11,22,.6); }
     .dn-kar { width:min(440px,94vw); max-height:92vh; overflow:auto; background:#fbf3df; border-radius:18px; padding:14px; box-sizing:border-box; }
     .dn-bosh { display:flex; justify-content:space-between; align-items:center; font-size:18px; } .dn-bosh .o { padding:4px 10px; }
@@ -2046,8 +2175,8 @@ function confetti(n = 40) {
     .fl-1 .fl-tuman { animation:flTuman 3s ease-in forwards; }
     .fl-3 .fl-tuman { opacity:1; animation:flTuman 2.5s ease-out reverse forwards; }
     .fl-n { display:flex; gap:6px; justify-content:center; margin-bottom:12px; } .fl-n i { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.35); } .fl-n i.on { background:#f5c542; }
-    .film .fl-v { padding:0; background:#000 !important; } .fl-v video { width:100%; height:100%; object-fit:cover; }
-    .fl-ovoz { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); border:0; border-radius:20px; padding:8px 16px; background:rgba(0,0,0,.6); color:#ffe7a8; font-size:14px; }
+    .film .fl-v { padding:0; background:#000 !important; } .fl-v video { width:100%; height:100%; object-fit:contain; }
+    .fl-ovoz { position:absolute; top:16px; left:50%; transform:translateX(-50%); border:0; border-radius:20px; padding:8px 16px; background:rgba(0,0,0,.6); color:#ffe7a8; font-size:14px; }
     .fl-skip { position:absolute; top:12px; right:12px; background:none; border:0; color:inherit; opacity:.6; font-size:13px; }
     @keyframes flKir { from { opacity:0; transform:translateY(24px) scale(.8); } }
     @keyframes flSuz { to { transform:translateY(-10px) rotate(2deg); } }
@@ -23558,6 +23687,7 @@ function motiv() {
   document.body.classList.toggle("lvScreen", mode === "home" && level === null && stage === null);
   document.body.classList.toggle("qMode", mode === "steps" || mode === "test");
   document.body.classList.toggle("homeMode", mode === "home");
+  fonMusiqa(mode === "home");
   const lvNow = mode === "home" ? (level >= 1 ? DARAJALAR[level].id : null) : (LESSON && LESSON.a1 ? "A1" : LESSON && LESSON.lv) || null;
   // daraja ichidagi fon: davlatning eng tanish joyi (Petra, Umaviylar masjidi, Malviya, Burj Xalifa)
   const LVFOTO = { A1: 55, A2: 86, B1: 119, B2: 147, C1: 182, C2: 206 }, fk = LVFOTO[lvNow];
@@ -23587,7 +23717,7 @@ function motiv() {
 }
 // Kirish animatsiyasi «Ilm — nurdir»: qorong'ida chiroq yonadi, nur tarqaladi, harflar nurdan uchib chiqadi (har ochilishda bir marta, bosilsa o'tib ketadi)
 // --- Sayohat marshruti: davlatlar ketma-ket ochiladi (oldingisi tugamaguncha keyingisi yopiq) ---
-// lv = DARAJALAR indeksi; har daraja ichida davlatlar daraja progressini teng bo'lib oladi. x/y — xaritadagi joy (%).
+// lv = DARAJALAR indeksi; davlat progressi — o'ziga tegishli darslar ulushi (DAVLAT_DARSLARI). x/y — xaritadagi joy (%).
 const MARSHRUT = [
   // x/y — img/arab-xarita.jpg (1500×844) ustidagi joy, %. Oxiri: Andalusdan Ipak yo'li bo'ylab uyga — O'zbekistonga qaytish
   ["🇪🇬", "Misr", 0, 36, 56], ["🇾🇪", "Yaman", 0, 58, 82], ["🇯🇴", "Iordaniya", 1, 47, 45], ["🇵🇸", "Falastin", 1, 44, 44],
@@ -23608,8 +23738,7 @@ function lvUlush(k) {  // darajaning o'zlashtirilgan ulushi (darslar + bo'lim ma
 function marshrutHolat() {  // har davlat: tugagan / hozirgi / yopiq — qat'iy ketma-ket
   let joriy = -1;
   const H = MARSHRUT.map((d, i) => {
-    const D = MARSHRUT.filter(m => m.lv === d.lv), j = D.indexOf(d), u = lvUlush(d.lv);
-    const foiz = Math.max(0, Math.min(1, u * D.length - j));
+    const L = DAVLAT_DARSLARI[i], foiz = L.length ? L.filter(k => store.get("lesson" + LESSONS[k].n, null)).length / L.length : 0;  // davlat darslari ulushi
     return { ...d, foiz, tugadi: foiz >= 1 };
   });
   H.forEach((d, i) => { if (joriy < 0 && !d.tugadi) joriy = i; });
@@ -23641,7 +23770,7 @@ function multfilm(keyin) {
     ["🏮✨🏮", "Har bir dars — bitta chiroq. Har bir mavzu tumanni bir qadam orqaga suradi."],
     ["🗺️🇪🇬", "Sayohat Misrdan boshlanadi. Bitta davlatni yoritsangiz, keyingisiga yo'l ochiladi. Darslarni davom ettiramiz!"],
   ];
-  let i = 0;
+  let i = 0; fonMusiqa(false);
   const o = document.createElement("div"); o.className = "film";
   const sahna = () => {
     o.innerHTML = `<div class="fl-s fl-${i}"><div class="fl-tuman"></div><div class="fl-r">${S[i][0]}</div><p>${S[i][1]}</p>
@@ -23698,11 +23827,20 @@ function ilmNur() {
   o.onclick = ket; setTimeout(() => o.remove(), 6600);
   document.body.appendChild(o);
 }
-ilmNur();
+if (store.get("multfilm", 0)) ilmNur();  // yangi kelgan odamga birinchi bo'lib multfilm chiqadi (kirish animatsiyasiz)
 addEventListener("resize", () => { const m = $.querySelector(".map"); if (m) tuman(m); });
 loadCloud(() => { restorePos(); render();
   if (!store.get("multfilm", 0)) setTimeout(multfilm, document.getElementById("ilmnur") ? 6700 : 300); });
 // burchakdagi xarita tugmasi (faqat xarita/menyu ekranlarida ko'rinadi)
+// Fon musiqasi: darajalar va bo'limlar ekranida takrorlanib chaladi, darsda va multfilmda o'chadi (🔊 tugmasi bilan o'chiriladi)
+function fonMusiqa(ha) {
+  const F = window._fon || (window._fon = Object.assign(new Audio("img/fon.mp3"), { loop: true, volume: 0.35, preload: "none" }));
+  if (ha && store.get("fonmusiqa", 1) && !document.hidden && !document.querySelector(".film")) F.play().catch(() => {}); else F.pause();
+}
+document.addEventListener("pointerdown", () => setTimeout(() => fonMusiqa(document.body.classList.contains("homeMode")), 0), true);
+document.addEventListener("visibilitychange", () => fonMusiqa(document.body.classList.contains("homeMode")));
+(() => { const b = document.createElement("button"); b.id = "fonBtn"; const t = () => b.textContent = store.get("fonmusiqa", 1) ? "🔊" : "🔇"; t();
+  b.onclick = e => { e.stopPropagation(); store.set("fonmusiqa", store.get("fonmusiqa", 1) ? 0 : 1); t(); fonMusiqa(true); }; document.body.appendChild(b); })();
 (() => { const b = document.createElement("button"); b.id = "xaritaBtn"; b.textContent = "🗺️"; b.title = "Sayohat xaritasi"; b.onclick = dunyoXarita; document.body.appendChild(b); })();
 // Eski nusxa keshda qolib ketgan bo'lsa: saytdagi versiyani tekshirib, yangisi bo'lsa o'zi qayta yuklaydi
 if (location.hostname.endsWith("github.io")) {
