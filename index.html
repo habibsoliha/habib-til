@@ -909,7 +909,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v162";
+const VERSION = "v163";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -1603,7 +1603,10 @@ function tuman(map) {
   const yol = []; P.forEach((p, i) => { yol.push([...p, 1]); const q = P[i + 1]; if (!q) return;
     const d = Math.hypot(q[0] - p[0], q[1] - p[1]), n = Math.floor(d / 45);
     for (let k = 1; k < n; k++) yol.push([p[0] + (q[0] - p[0]) * k / n, p[1] + (q[1] - p[1]) * k / n, 0]); });
-  const teshik = yol.map(([x, y, katta]) => `radial-gradient(circle at ${x}px ${y}px, transparent 0, transparent ${katta ? 70 : 45}px, #000 ${katta ? 135 : 95}px)`);
+  // ochiq darslarning rasmlari ham alohida yoritiladi
+  map.querySelectorAll(".place:not(.plock)").forEach(p => { const b = p.getBoundingClientRect(); if (b.top - sr.top > y) return;
+    yol.push([b.left - sr.left + b.width / 2, b.top - sr.top + b.height / 2, 2]); });
+  const teshik = yol.map(([x, y, katta]) => `radial-gradient(circle at ${x}px ${y}px, transparent 0, transparent ${[45, 70, 95][katta]}px, #000 ${[95, 135, 150][katta]}px)`);
   const m = teshik.length ? teshik.join(",") : "linear-gradient(#000,#000)";
   s.style.webkitMaskImage = s.style.maskImage = m; s.style.webkitMaskComposite = "source-in"; s.style.maskComposite = "intersect";
   s.style.height = Math.max(0, y) + "px";
