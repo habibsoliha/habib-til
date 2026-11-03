@@ -909,7 +909,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v156";
+const VERSION = "v157";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -23399,6 +23399,45 @@ function motiv() {
   if (s.t === "write") return writeStep(s, total);
   return choiceStep(s, total, false);
 }
+// Kirish animatsiyasi «Ilm — nurdir»: qorong'ida chiroq yonadi, nur tarqaladi, harflar nurdan uchib chiqadi (kuniga bir marta, bosilsa o'tib ketadi)
+function ilmNur() {
+  const kun = new Date().toDateString();
+  if (store.get("nurKun", "") === kun && !/nur=1/.test(location.search)) return;
+  store.set("nurKun", kun);
+  const H = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي", hf = Array.from({ length: 22 }, (_, k) => {
+    const a = (k / 22) * Math.PI * 2, r = 120 + (k % 4) * 40;
+    return `<span class="nh" style="--x:${Math.cos(a) * r}px;--y:${Math.sin(a) * r - 40}px;animation-delay:${1.6 + (k % 7) * .12}s">${H[(k * 5) % H.length]}</span>`; }).join("");
+  const o = document.createElement("div"); o.id = "ilmnur";
+  o.innerHTML = `<style>
+    #ilmnur { position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 45%, #10203a 0%, #050b16 70%); overflow:hidden; display:flex; align-items:center; justify-content:center; cursor:pointer; animation:nKet .9s ease-in 5.6s forwards; }
+    #ilmnur .nur { position:absolute; left:50%; top:42%; width:10px; height:10px; margin:-5px; border-radius:50%; background:radial-gradient(circle, rgba(255,246,214,.95) 0%, rgba(243,196,90,.55) 22%, rgba(243,196,90,.12) 50%, transparent 70%); animation:nYoy 2.4s ease-out .9s forwards; }
+    #ilmnur .nurlar { position:absolute; left:50%; top:42%; width:0; height:0; }
+    #ilmnur .nurlar i { position:absolute; left:-2px; bottom:0; width:4px; height:0; transform-origin:bottom center; background:linear-gradient(to top, rgba(255,230,160,.55), transparent); animation:nNur 2s ease-out 1.2s forwards; }
+    #ilmnur svg.chiroq { position:absolute; left:50%; top:42%; width:120px; margin:-34px 0 0 -60px; opacity:0; animation:nKor .8s ease-out .2s forwards; }
+    #ilmnur .alanga { transform-origin:60px 34px; transform:scale(0); animation:nAlanga .6s ease-out .8s forwards, nTit 1.2s ease-in-out 1.4s infinite alternate; }
+    #ilmnur .nh { position:absolute; left:50%; top:42%; font:40px Amiri, serif; color:#f7d77e; text-shadow:0 0 12px #f3c45a; opacity:0; transform:translate(-50%,-50%) scale(.3); animation:nHarf 2.2s ease-out forwards; }
+    #ilmnur .soz { position:absolute; left:0; right:0; top:64%; text-align:center; opacity:0; animation:nKor 1s ease-out 2.6s forwards; }
+    #ilmnur .soz b { display:block; font:56px Amiri, serif; color:#ffe7a8; text-shadow:0 0 18px rgba(243,196,90,.8); }
+    #ilmnur .soz small { display:block; margin-top:6px; font:600 20px system-ui, sans-serif; letter-spacing:2px; color:#e9dcc0; }
+    #ilmnur .otkaz { position:absolute; bottom:22px; left:0; right:0; text-align:center; font:13px system-ui, sans-serif; color:rgba(233,220,192,.55); }
+    @keyframes nKor { to { opacity:1 } }
+    @keyframes nYoy { to { width:460px; height:460px; margin:-230px; } }
+    @keyframes nNur { to { height:340px } }
+    @keyframes nAlanga { to { transform:scale(1) } }
+    @keyframes nTit { from { transform:scale(1) } to { transform:scale(1.08, .94) } }
+    @keyframes nHarf { 0% { opacity:0; transform:translate(-50%,-50%) scale(.3) } 30% { opacity:1 } 100% { opacity:.85; transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) } }
+    @keyframes nKet { to { opacity:0; visibility:hidden } }
+  </style>
+  <div class="nur"></div><div class="nurlar">${Array.from({ length: 16 }, (_, k) => `<i style="transform:rotate(${k * 22.5}deg)"></i>`).join("")}</div>
+  <svg class="chiroq" viewBox="0 0 120 90"><path class="alanga" d="M60 8 Q72 24 60 34 Q48 24 60 8 Z" fill="#ffd36b"/>
+    <path d="M18 52 Q60 80 100 52 Q104 46 96 46 L72 46 Q66 38 60 38 Q54 38 48 46 L24 46 Q16 46 18 52 Z" fill="#c99a3b"/>
+    <path d="M100 50 Q114 44 112 34" stroke="#c99a3b" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="50" y="66" width="20" height="10" rx="3" fill="#a87d2c"/></svg>
+  ${hf}<div class="soz"><b>اَلْعِلْمُ نُورٌ</b><small>ILM — NURDIR</small></div><div class="otkaz">o'tkazish uchun bosing</div>`;
+  const ket = () => { o.style.animation = "nKet .4s forwards"; setTimeout(() => o.remove(), 450); };
+  o.onclick = ket; setTimeout(() => o.remove(), 6600);
+  document.body.appendChild(o);
+}
+ilmNur();
 loadCloud(() => { restorePos(); render(); });
 // Eski nusxa keshda qolib ketgan bo'lsa: saytdagi versiyani tekshirib, yangisi bo'lsa o'zi qayta yuklaydi
 if (location.hostname.endsWith("github.io")) {
