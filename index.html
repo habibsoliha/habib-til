@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v186";
+const VERSION = "v187";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -2180,7 +2180,7 @@ function confetti(n = 40) {
     .ut-o { width:38px; height:38px; border-radius:50%; padding:0; font-size:22px; flex:none; }
     .ut-m { position:relative; text-align:center; width:150px; } .ut-m .usvg { width:84px; height:126px; display:block; margin:44px auto 0; animation:uNafas 3s ease-in-out infinite; }
     .ut-m b { display:block; font-size:15px; } .ut-m small { opacity:.65; font-size:12px; }
-    .ut-m.yopiq .usvg { filter:brightness(0) opacity(.35); }
+    .ut-m.yopiq .usvg { filter:grayscale(1) opacity(.55); }
     .ut-gap { position:absolute; left:50%; bottom:calc(100% - 50px); transform:translateX(-50%); width:180px; background:#fffaf0; color:#3a2508; border:2px solid #e0b040; border-radius:14px; padding:6px 9px; font-size:12.5px; line-height:1.35; box-shadow:0 4px 12px rgba(0,0,0,.15); }
     .ut-gap::after { content:""; position:absolute; left:50%; bottom:-8px; margin-left:-7px; border:7px solid transparent; border-top-color:#e0b040; border-bottom:0; }
     .ust { position:absolute; width:60px; z-index:4; transition:left 1.9s ease-in-out, top 1.9s ease-in-out; cursor:pointer; }
@@ -22928,7 +22928,7 @@ function ustozTepa() {
   const ochiq = ustozOchiq(k), D = DARAJALAR[k];
   return `<div class="utepa" data-k="${k}"><button class="ut-o ut-l">‹</button>
     <div class="ut-m ${ochiq ? "" : "yopiq"}">${ustozSvg(k)}<div class="ut-gap">${ochiq ? nasihat() : `🔒 ${D.code} bosqichiga yetganingizda ochiladi`}</div>
-      <b>${ochiq ? USTOZLAR[k][0] : "???"}</b><small>${D.code} ustozi</small></div><button class="o ut-o ut-r">›</button></div>`;
+      <b>${USTOZLAR[k][0]}</b><small>${D.code} ustozi</small></div><button class="o ut-o ut-r">›</button></div>`;
 }
 document.addEventListener("click", e => {
   const b = e.target.closest && e.target.closest(".ut-o"); if (!b) return;
