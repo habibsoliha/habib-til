@@ -897,7 +897,7 @@ function loadCloud(cb) {
   let called = false;
   const done = () => { if (!called) { called = true; cb(); } };  // faqat bir marta
   if (!cloud) return done();
-  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
+  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", "ustoz", "ustozSarf", ...[0, 1, 2, 3, 4, 5, 6].map(k => "ustozLv" + k), ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
   const t = setTimeout(done, 2500);
   try {
     cloud.getItems(keys, (err, vals) => {
@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v189";
+const VERSION = "v192";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -2146,7 +2146,6 @@ function confetti(n = 40) {
       border:2px solid #f5c542; background:#14361f; box-shadow:0 3px 10px rgba(0,0,0,.35); animation:pish 2.4s infinite ease-in-out; }
     body.homeMode #xaritaBtn { display:block; }
     #fonBtn { display:none; position:fixed; top:10px; right:62px; z-index:15; width:46px; height:46px; border-radius:50%; font-size:22px; padding:0; }
-    body.homeMode #fonBtn { display:block; }
     .dunyo, .film { position:fixed; inset:0; z-index:30; display:grid; place-items:center; background:rgba(5,11,22,.6); }
     .dn-kar { width:min(440px,94vw); max-height:92vh; overflow:auto; background:#fbf3df; border-radius:18px; padding:14px; box-sizing:border-box; }
     .dn-bosh { display:flex; justify-content:space-between; align-items:center; font-size:18px; } .dn-bosh .o { padding:4px 10px; }
@@ -2180,11 +2179,30 @@ function confetti(n = 40) {
     .ut-o { width:38px; height:38px; border-radius:50%; padding:0; font-size:22px; flex:none; }
     .ut-m { position:relative; text-align:center; width:150px; } .ut-m .usvg { width:84px; height:126px; display:block; margin:44px auto 0; animation:uNafas 3s ease-in-out infinite; }
     .ut-m b { display:block; font-size:15px; } .ut-m small { opacity:.65; font-size:12px; }
-    .ut-m.yopiq .usvg { filter:grayscale(1) opacity(.55); }
+    /* tanlash ekrani: strelkalar chetda, qahramon katta, nasihat va qulf yonida */
+    .utepa { position:relative; display:block !important; margin:6px -6px 4px !important; }
+    .utepa > .ut-o { position:absolute; top:105px; z-index:3; } .utepa > .ut-l { left:0; } .utepa > .ut-r { right:0; }
+    .utepa .ut-m { margin:0 auto; padding-top:4px; } .ut-m .usvg.usp { width:105px !important; height:210px !important; margin:0 auto !important; }
+    .utepa .ut-gap { top:4px; bottom:auto !important; left:auto; right:calc(50% - 160px); transform:none; width:118px; font-size:11.5px; padding:5px 7px; }
+    .utepa .ut-gap::after { left:-8px; top:18px; bottom:auto; margin:0; border:7px solid transparent; border-right-color:#e0b040; border-left:0; }
+    .utepa .ut-qulf { top:auto !important; bottom:150px; right:auto !important; left:calc(50% - 98px); }
+    .ut-qulf { position:absolute; top:44px; right:22px; font-size:22px; background:rgba(0,0,0,.55); border-radius:50%; width:36px; height:36px; display:grid; place-items:center; border:2px solid #e0b040; }
+    .ut-tug { display:flex; gap:6px; justify-content:center; margin-top:8px; } .ut-tug .o { font-size:12px; padding:6px 9px; white-space:nowrap; }
+    .ut-m { width:auto !important; min-width:150px; }
+    /* formalar: malaka darajasiga qarab ustoz atrofidagi nur */
+    .forma-2 .usvg { filter:drop-shadow(0 0 6px #cd7f32); } .forma-3 .usvg { filter:drop-shadow(0 0 8px #d8e2ea); }
+    .forma-4 .usvg { filter:drop-shadow(0 0 10px #f5c542); } .forma-5 .usvg { filter:drop-shadow(0 0 8px #f5c542) drop-shadow(0 0 16px #b06cff); }
+    .uo .uo-bosh { display:flex; gap:12px; align-items:center; margin:6px 0 10px; } .uo .uo-bosh .usvg { width:52px !important; height:104px !important; flex:none; animation:none !important; margin:0 !important; }
+    .uo .uo-bosh small { display:block; opacity:.7; } .uo-kon > div { display:grid; grid-template-columns:90px 1fr 30px; gap:8px; align-items:center; margin:6px 0; font-size:13px; }
+    .uo-max { margin:12px 0 4px; } .uo-iz { font-size:13px; opacity:.8; margin:8px 0; }
+    .uo-forma { display:flex; flex-wrap:wrap; gap:6px; } .uo-forma span { font-size:12px; padding:4px 8px; border-radius:12px; border:1px solid rgba(224,176,64,.5); opacity:.6; } .uo-forma span.ol { opacity:1; background:rgba(224,176,64,.25); }
     .ut-gap { position:absolute; left:50%; bottom:calc(100% - 50px); transform:translateX(-50%); width:180px; background:#fffaf0; color:#3a2508; border:2px solid #e0b040; border-radius:14px; padding:6px 9px; font-size:12.5px; line-height:1.35; box-shadow:0 4px 12px rgba(0,0,0,.15); }
     .ut-gap::after { content:""; position:absolute; left:50%; bottom:-8px; margin-left:-7px; border:7px solid transparent; border-top-color:#e0b040; border-bottom:0; }
     .ust { position:absolute; width:60px; z-index:4; transition:left 1.9s ease-in-out, top 1.9s ease-in-out; cursor:pointer; }
     .ust .usvg { width:60px; height:90px; display:block; } 
+    .usp { position:relative; display:block; } .usp > i { position:absolute; inset:0; background-size:600% 100%; background-repeat:no-repeat; }
+    .ut-m .usvg.usp { width:63px; height:126px; animation:uNafas 3s ease-in-out infinite !important; } .ust .usvg.usp { width:52px; height:104px; margin-top:-14px; }
+    .ust .uf.spr { animation:uNafas 3s ease-in-out infinite !important; } .ust.yur .uf.spr { animation:uSakra .24s ease-in-out infinite !important; }
     .ufa { position:relative; } .ut-m .usvg.ufa { width:63px; height:126px; } .ust .usvg.ufa { width:52px; height:104px; margin-top:-14px; }
     .ufa img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; } .ufa i { position:absolute; display:block; }
     .ufa .ukz { border-radius:50%; transform:scaleY(0); transform-origin:50% 0; border-bottom:1.5px solid rgba(60,30,20,.75); animation:uKoz 4.3s infinite; }
@@ -22904,23 +22922,38 @@ const TARKIB = { 1: [
 ] };
 const TARKIB_LV = Object.fromEntries(Object.entries(TARKIB).filter(([, T]) => T.length).map(([lv, T]) => [lv, T.map(t => [t.ar, `${t.uz} · ${t.q.length} qolip`])]));
 const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV, 4: TARKIB_LV, 5: MUHODASA_LV })[b] || {})[lv];  // bo'lim mavzulari
-// --- Ustoz-personajlar: har darajada bitta ustoz. Dars yo'lida o'quvchi darsi yonida turadi, keyingi darsga yurib boradi, nasihat aytadi.
-// Ismlar vaqtincha — haqiqiy ustozlar ismi/qiyofasi berilsa almashtiriladi. [ism, jins, kiyim rangi, bosh kiyim rangi]
-// haqiqiy ustozlar: suratlar — Ilova loyihasi\ustozlar\ (1 Habibulloh, 2 Abbosbek, 3 Mahbuba, 4 Valid)
-// Pre-A1, B1, C2 ustozlari hali belgilanmagan
-const USTOZLAR = [["Ustoz (tez orada)", "m", "#2f6f5e", "#1d3b33"], ["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c"],
-  ["Ustoza (tez orada)", "f", "#7b3f8c", "#4e2459"], ["Valid ag'a", "m", "#3a3a3a", "#222"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738"], ["Ustoz (tez orada)", "s", "#e9e2cf", "#ffffff"]];
+// --- Ustoz-personajlar (Habib Academy ustozlari): o'quvchi ustozni o'zi tanlaydi; ustoz o'z darajasidan boshlab ochiladi.
+// Dars yo'lida tanlangan ustoz o'quvchi darsi yonida turadi, keyingi darsga yurib boradi, nasihat aytadi. Suratlar — Ilova loyihasi\ustozlar\
+// [ism, jins, kiyim rangi, bosh kiyim rangi, ochiladigan daraja (DARAJALAR indeksi), sprite fayli img/ustoz/<id>s.png]
+const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 1, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 1, "2"],
+  ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 1, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 1, "muslima"],
+  ["Valid ag'a", "m", "#3a3a3a", "#222", 4, "4"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738", 5, "5"]];
 const NASIHAT = ["Har kuni ozgina — lekin har kuni!", "Xato qilishdan qo'rqmang, xato — eng yaxshi ustoz.", "Yangi so'zni ovoz chiqarib 3 marta ayting.", "Darsdan keyin 5 daqiqa takrorlang — xotira mustahkamlanadi.",
   "Harflarni yozib mashq qiling, qo'l ham eslab qoladi.", "Bugungi so'zlardan bitta gap tuzib ko'ring.", "Shoshilmang: sekin, lekin to'g'ri.", "Arab tili — Qur'on va ilm kaliti.",
   "Tinglash mashqini quloqchinda qiling.", "Charchasangiz — qisqa tanaffus, keyin davom!", "Kecha o'rganganingizni bugun bir eslang.", "Har bir dars — bitta chiroq. Yana bittasini yoqamizmi?",
   "Lug'atni rasmlar bilan eslab qolish osonroq.", "Ozdan-ozdan — ko'l bo'lur.", "Bilganingizni boshqaga o'rgating — o'zingiz yaxshiroq bilasiz.", "Streakni uzmang: bugun ham bitta dars!"];
-const ustozIdx = st => st < 2 ? 0 : st - 1;  // bosqich -> daraja ustozi (Pre-A1 ikki bosqichi bitta ustoz)
-const ustozOchiq = k => TEST || k === 0 || !!store.get("lesson" + LESSONS[BOSQICHLAR[k + 1].from - 1].n, null);
+// navbatda (surat kutilmoqda): A2 — Abduqodir, Zilola opa, Zebo, Sabrina; B1 — Shodiya
+const ustozDaraja = k => USTOZLAR[k][4];
+const ustozOchiq = k => { const d = ustozDaraja(k); return TEST || d === 0 || !!store.get("lesson" + LESSONS[BOSQICHLAR[d + 1].from - 1].n, null); };
+const ustozTanlangan = () => { const k = store.get("ustoz", 0); return USTOZLAR[k] ? k : 0; };
 const USTOZ_RASM = [1, 2, 4, 5];  // img/ustoz/<k>.png bor darajalar (Meta AI multfilm rasmi, foni shaffof)
 // yuz nuqtalari (180×360 rasmda): k — ikki ko'z markazi, r — ko'z yarim kengligi, q — qosh chizig'i (y oralig'i), t — teri rangi
 const USTOZ_YUZ = { 1: { k: [[66, 110], [111, 110]], r: 10, q: [87, 99], x: [52, 128], t: "#dfa274" }, 2: { k: [[77, 58], [101, 57]], r: 6, q: [43, 50], x: [70, 108], t: "#f7c7a3" },
   4: { k: [[76, 68], [103, 67]], r: 6, q: [52, 61], x: [66, 115], t: "#f5b98f" }, 5: { k: [[69, 87], [103, 85]], r: 7, q: [69, 78], x: [56, 118], t: "#fcc7a1" } };
+// tirik qahramon: img/ustoz/<k>s.png — 6 kadr (0 old, 1 yarim o'ng, 2 o'ng yon, 3 orqa, 4 qo'l silkitish, 5 qadam)
+const USTOZ_SPRITE = [1, 2, 4, 5];
+const USP_KETMA = [[0, 18], [4, 14], [0, 8], [1, 2], [2, 2], [3, 6], [2, 2, 1], [1, 2, 1], [0, 12], [1, 9], [0, 5], [1, 9, 1], [0, 10]];  // [kadr, 120ms tik, ko'zgu]
+setInterval(() => {
+  const t = Math.floor(performance.now() / 120), N = USP_KETMA.reduce((s, x) => s + x[1], 0);
+  document.querySelectorAll(".usp > i").forEach(e => {
+    const yur = e.closest(".ust.yur"); let f = 0, ak = false;
+    if (yur) { f = t % 4 < 2 ? 5 : 2; ak = yur.dataset.yon === "-1"; }
+    else { let m = t % N; for (const [k, d, a] of USP_KETMA) { if (m < d) { f = k; ak = !!a; break; } m -= d; } }
+    e.style.backgroundPosition = `${f * 20}% 0`; e.style.transform = ak ? "scaleX(-1)" : "";
+  });
+}, 120);
 function ustozSvg(k) {
+  if (USTOZLAR[k][5]) return `<span class="usvg usp"><i style="background-image:url(img/ustoz/${USTOZLAR[k][5]}s.png)"></i></span>`;
   if (USTOZ_RASM.includes(k)) {  // rasm ustiga: ko'z qovoqlari (pirpiratish) va qosh nusxasi (qosh qoqish); koordinatalar 180×360 rasmda
     const Y = USTOZ_YUZ[k], src = `img/ustoz/${k}.png`, L = Y.x[0] / 1.8, R = 100 - Y.x[1] / 1.8;
     return `<span class="usvg ufa"><img src="${src}" alt=""><i style="left:${L}%;right:${R}%;top:${Y.q[0] / 3.6}%;bottom:${100 - Y.q[1] / 3.6}%;background:${Y.t}"></i>
@@ -22941,12 +22974,45 @@ function ustozSvg(k) {
 const nasihat = () => NASIHAT[Math.floor(Math.random() * NASIHAT.length)];
 // bosh qism: «عربي» o'rnida tanlangan ustoz, ‹ › bilan boshqa ustozlar (yopiqlari keyingi bosqichda ochiladi)
 function ustozTepa() {
-  let k = store.get("ustoz", -1); if (k < 0 || !USTOZLAR[k]) { k = 0; USTOZLAR.forEach((_, i) => { if (ustozOchiq(i)) k = i; }); }
-  const ochiq = ustozOchiq(k), D = DARAJALAR[k];
-  return `<div class="utepa" data-k="${k}"><button class="ut-o ut-l">‹</button>
-    <div class="ut-m ${ochiq ? "" : "yopiq"}">${ustozSvg(k)}<div class="ut-gap">${ochiq ? nasihat() : `🔒 ${D.code} bosqichiga yetganingizda ochiladi`}</div>
-      <b>${USTOZLAR[k][0]}</b><small>${D.code} ustozi</small></div><button class="o ut-o ut-r">›</button></div>`;
+  const k = ustozTanlangan(), ochiq = ustozOchiq(k), D = DARAJALAR[ustozDaraja(k)];
+  return `<div class="utepa" data-k="${k}"><button class="o ut-o ut-l">‹</button>
+    <div class="ut-m ${ochiq ? "" : "yopiq"} forma-${uLv(k)}">${ustozSvg(k)}${ochiq ? "" : `<span class="ut-qulf">🔒</span>`}<div class="ut-gap">${ochiq ? nasihat() : `🔒 ${D.code} bosqichiga yetganingizda ochiladi`}</div>
+      <b>${USTOZLAR[k][0]}</b><small>${D.code} ustozi · ${uLv(k)}-daraja · ${FORMA[uLv(k) - 1]}</small>
+      <div class="ut-tug"><button class="o ut-q">⚡ Qudrati</button><button class="o ut-mk">🎓 Malaka oshirish</button></div></div><button class="o ut-o ut-r">›</button></div>`;
 }
+// --- Ustoz qudrati va malaka oshirish (PUBG qahramonlari kabi): o'quvchi to'plagan kuch (XP) bilan ustoz darajasi oshadi, formasi o'zgaradi
+const KONIKMA = ["Talaffuz", "Grammatika", "Lug'at", "Suhbat", "Sabr"];
+const FORMA = ["Oddiy", "Bronza", "Kumush", "Oltin", "Afsonaviy"];
+const USTOZ_QUDRAT = [  // [boshlang'ich ko'nikmalar 0–100, [maxsus imkoniyat, izoh]]
+  [[70, 65, 60, 60, 90], ["Harf ustasi", "Har bir harfning maxrajini ko'rsatib tushuntiradi"]],
+  [[60, 70, 75, 55, 85], ["Tez lug'at", "Yangi so'zlarni rasm va misol bilan eslab qoldiradi"]],
+  [[60, 80, 65, 65, 80], ["Qoida kaliti", "Grammatik qoidani bir daqiqada ochib beradi"]],
+  [[75, 60, 65, 70, 90], ["Talaffuz ustasi", "Har bir so'zni to'g'ri va chiroyli o'qishga o'rgatadi"]],
+  [[65, 80, 80, 85, 75], ["Suhbat ustasi", "Erkin gaplashishga va fikrni ifodalashga o'rgatadi"]],
+  [[75, 90, 90, 85, 80], ["Ilm cho'qqisi", "Murakkab ilmiy va adabiy matnlarni tushuntiradi"]]];
+const uLv = k => Math.min(5, store.get("ustozLv" + k, 1)), kuchBor = () => store.get("xp", 0) - store.get("ustozSarf", 0), malakaNarx = lv => lv * 150;
+function ustozOyna(k, tur) {
+  const o = document.createElement("div"); o.className = "dunyo";
+  const chiz = () => {
+    const lv = uLv(k), [S, [mN, mI]] = USTOZ_QUDRAT[k], ochiq = ustozOchiq(k), narx = malakaNarx(lv), bor = kuchBor();
+    o.innerHTML = `<div class="dn-kar uo"><div class="dn-bosh"><b>${tur === "q" ? "⚡ Qudrati" : "🎓 Malaka oshirish kursi"}</b><button class="o" id="uo-x">✕</button></div>
+      <div class="uo-bosh forma-${lv}">${ustozSvg(k)}<div><b>${USTOZLAR[k][0]}</b><small>${DARAJALAR[ustozDaraja(k)].code} dan · ${lv}-daraja · ${FORMA[lv - 1]} forma</small></div></div>
+      ${tur === "q" ? `<div class="uo-kon">${KONIKMA.map((n, i) => { const v = Math.min(100, S[i] + (lv - 1) * 3); return `<div><span>${n}</span><span class="pbar thin"><i style="width:${v}%"></i></span><small>${v}</small></div>`; }).join("")}</div>
+        <p class="uo-max">✨ <b>${mN}</b> — ${mI}</p><p class="uo-iz">Malaka oshirilgan sari ko'nikmalar +3 dan o'sadi.</p>`
+      : `<p class="uo-iz">Darslardan yig'gan kuchingiz (⭐ XP) bilan ustozni malaka oshirish kursiga yuborasiz. Har darajada ko'nikmalari o'sadi va formasi almashadi.</p>
+        <div class="uo-forma">${FORMA.map((f, i) => `<span class="${i < lv ? "ol" : ""}">${i + 1}. ${f}</span>`).join("")}</div>
+        <p class="uo-iz">Sizdagi kuch: <b>⭐ ${bor}</b></p>
+        ${lv >= 5 ? `<p class="uo-max">👑 Ustoz eng yuqori darajada!</p>` : !ochiq ? `<p class="uo-max">🔒 Avval ${DARAJALAR[ustozDaraja(k)].code} bosqichiga yeting</p>`
+          : `<button class="main" id="uo-osh" ${bor < narx ? "disabled" : ""}>${lv + 1}-darajaga oshirish · ⭐ ${narx}</button>${bor < narx ? `<p class="uo-iz">Yana ⭐ ${narx - bor} kuch kerak — darslarni davom ettiring!</p>` : ""}`}`}</div>`;
+    o.querySelector("#uo-x").onclick = () => o.remove();
+    const b = o.querySelector("#uo-osh"); if (b) b.onclick = () => { store.set("ustozSarf", store.get("ustozSarf", 0) + narx); store.set("ustozLv" + k, lv + 1); chiz(); const w = document.querySelector(".utepa"); if (w) w.outerHTML = ustozTepa(); };
+  };
+  chiz(); o.onclick = e => { if (e.target === o) o.remove(); }; document.body.appendChild(o);
+}
+document.addEventListener("click", e => {
+  const q = e.target.closest && e.target.closest(".ut-q, .ut-mk"); if (!q) return;
+  ustozOyna(+q.closest(".utepa").dataset.k, q.classList.contains("ut-q") ? "q" : "m");
+});
 document.addEventListener("click", e => {
   const b = e.target.closest && e.target.closest(".ut-o"); if (!b) return;
   const w = b.closest(".utepa"), n = USTOZLAR.length, k = (+w.dataset.k + (b.classList.contains("ut-l") ? n - 1 : 1)) % n;
@@ -22957,13 +23023,13 @@ let ustozT = null;
 function ustozYol() {
   clearInterval(ustozT); const map = $.querySelector(".map"), cur = map && $.querySelector(".node.cur");
   if (!map || !cur) return;
-  const k = ustozIdx(stage), joy = n => { const r = n.closest(".node-row"), x = parseFloat(r.style.getPropertyValue("--x")), w = map.clientWidth;
+  const k = ustozTanlangan(), joy = n => { const r = n.closest(".node-row"), x = parseFloat(r.style.getPropertyValue("--x")), w = map.clientWidth;
     const px = x / 100 * w + (x >= 50 ? 46 : -106); return [Math.max(4, Math.min(w - 64, px)), r.offsetTop + r.offsetHeight / 2 - 60]; };
-  const u = document.createElement("div"); u.className = "ust"; u.innerHTML = `<div class="uf">${ustozSvg(k)}</div><div class="ut-gap"></div>`;
+  const u = document.createElement("div"); u.className = "ust"; u.innerHTML = `<div class="uf ${USTOZLAR[k][5] ? "spr" : ""}">${ustozSvg(k)}</div><div class="ut-gap"></div>`;
   const key = "ustozJoy" + stage, old = store.get(key, null), oldN = old != null && map.querySelector(`.node[data-k="${old}"]`), [x, y] = joy(cur);
   const qoy = ([a, b]) => { u.style.left = a + "px"; u.style.top = b + "px"; };
   qoy(oldN && old !== +cur.dataset.k ? joy(oldN) : [x, y]); map.appendChild(u);
-  if (oldN && old !== +cur.dataset.k) { u.classList.add("yur"); setTimeout(() => qoy([x, y]), 400); setTimeout(() => u.classList.remove("yur"), 2400); }
+  if (oldN && old !== +cur.dataset.k) { u.classList.add("yur"); u.dataset.yon = joy(oldN)[0] > x ? "-1" : "1"; setTimeout(() => qoy([x, y]), 400); setTimeout(() => u.classList.remove("yur"), 2400); }
   store.set(key, +cur.dataset.k);
   const gap = u.querySelector(".ut-gap"), ayt = () => { if (!u.isConnected) return clearInterval(ustozT); gap.textContent = nasihat(); gap.classList.add("on"); setTimeout(() => gap.classList.remove("on"), 4500); };
   setTimeout(ayt, 2600); ustozT = setInterval(ayt, 11000); u.onclick = ayt;
@@ -23928,7 +23994,9 @@ loadCloud(() => { restorePos(); render();
   if (!store.get("multfilm", 0)) setTimeout(multfilm, document.getElementById("ilmnur") ? 6700 : 300); });
 // burchakdagi xarita tugmasi (faqat xarita/menyu ekranlarida ko'rinadi)
 // Fon musiqasi: darajalar va bo'limlar ekranida takrorlanib chaladi, darsda va multfilmda o'chadi (🔊 tugmasi bilan o'chiriladi)
+var FON_MUSIQA = false;  // var: render() bu qatordan oldin chaqiriladi  // eski fon musiqasi olib tashlandi (lug'at/tarkiblarda ham chalinardi); yangi ovoz tanlangach true qilinadi
 function fonMusiqa(ha) {
+  if (!FON_MUSIQA) { if (window._fon) window._fon.pause(); return; }
   const F = window._fon || (window._fon = Object.assign(new Audio("img/fon.mp3"), { loop: true, volume: 0.35, preload: "none" }));
   if (ha && store.get("fonmusiqa", 1) && !document.hidden && !document.querySelector(".film")) F.play().catch(() => {}); else F.pause();
 }
