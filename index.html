@@ -909,7 +909,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v155";
+const VERSION = "v156";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -22915,7 +22915,7 @@ const HX_VIDEO = { "ا":"En7hakp7sbA", "ب":"zp3I6vHsi3E", "ت":"zp3I6vHsi3E", "
   "ج":"c0_W5KmQmGc", "ح":"c0_W5KmQmGc", "خ":"c0_W5KmQmGc", "د":"UR8wdinfaFo", "ذ":"UR8wdinfaFo", "ر":"MwayySDyy4k", "ز":"MwayySDyy4k",
   "س":"WauCuQVEhtQ", "ش":"WauCuQVEhtQ", "ص":"j7OOGyzeRto", "ض":"j7OOGyzeRto", "ط":"TQxjqTY0rHE", "ظ":"TQxjqTY0rHE",
   "ع":"YGUnSwMvn0U", "غ":"YGUnSwMvn0U", "ف":"3Y539_xPvKo", "ق":"BNDnWmbvK-Q", "ك":"W5_yS-nKEp4", "ل":"ciRejDOEURg",
-  "م":"g0LZ8tpUyWM", "ه":"V0H0ac3XW4A" };
+  "م":"g0LZ8tpUyWM", "ه":"V0H0ac3XW4A", "و":"XdNJMc_GM7w" /* و — «محمود بالخط العربى» kanali */ };
 // Yozilish animatsiyasi shriftdagi aniq shakl asosida: avval nuqtasiz tanasi o'ngdan chapga "yoziladi" (1), keyin nuqtalar paydo bo'ladi (2)
 const HX_TANA = { "ب":"ٮ","ت":"ٮ","ث":"ٮ","ج":"ح","خ":"ح","ذ":"د","ز":"ر","ش":"س","ض":"ص","ظ":"ط","غ":"ع","ف":"ڡ","ق":"ٯ","ن":"ں","ي":"ى" };
 function hxStrelka(c, sh = 0) {
