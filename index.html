@@ -897,7 +897,7 @@ function loadCloud(cb) {
   let called = false;
   const done = () => { if (!called) { called = true; cb(); } };  // faqat bir marta
   if (!cloud) return done();
-  const keys = ["streak", "lastDay", "xp", "pos", "fullname", ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
+  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
   const t = setTimeout(done, 2500);
   try {
     cloud.getItems(keys, (err, vals) => {
@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v176";
+const VERSION = "v179";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -2015,6 +2015,60 @@ function confetti(n = 40) {
       background:rgba(255,253,245,.94); border:1.5px solid #c9a227; box-shadow:0 8px 18px -12px rgba(0,0,0,.45); }
     html body p.trip { color:#3a2a10 !important; } .trip b { background:#0f6b45; color:#fff; border-radius:50%; padding:0 6px; font-family:system-ui; }
     .win { text-align:center; margin:8px 0 6px; }
+    #xaritaBtn { display:none; position:fixed; top:10px; right:10px; z-index:15; width:46px; height:46px; border-radius:50%; font-size:24px; padding:0;
+      border:2px solid #f5c542; background:#14361f; box-shadow:0 3px 10px rgba(0,0,0,.35); animation:pish 2.4s infinite ease-in-out; }
+    body.homeMode #xaritaBtn { display:block; }
+    .dunyo, .film { position:fixed; inset:0; z-index:30; display:grid; place-items:center; background:rgba(5,11,22,.6); }
+    .dn-kar { width:min(440px,94vw); max-height:92vh; overflow:auto; background:#fbf3df; border-radius:18px; padding:14px; box-sizing:border-box; }
+    .dn-bosh { display:flex; justify-content:space-between; align-items:center; font-size:18px; } .dn-bosh .o { padding:4px 10px; }
+    .dn-iz { margin:6px 0 10px; }
+    .dn-map { position:relative; aspect-ratio:1500/844; border-radius:14px; overflow:hidden;
+      background:url(img/arab-xarita.jpg) center/100% 100%; border:2px solid #c9a24a; }
+    .dn-map svg { position:absolute; inset:0; width:100%; height:100%; }
+    .dn-map polyline { fill:none; stroke:#8a5a1c; stroke-width:.6; stroke-dasharray:1.5 1.2; vector-effect:non-scaling-stroke; }
+    .dn-d { position:absolute; transform:translate(-50%,-50%); text-align:center; }
+    .dn-d i { display:grid; place-items:center; width:26px; height:26px; margin:auto; border-radius:50%; font-style:normal; font-size:15px; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.3); }
+    .dn-d small { display:none; font-size:9px; white-space:nowrap; background:rgba(255,255,255,.85); border-radius:6px; padding:0 3px; }
+    .dn-d.yopiq i { width:14px; height:14px; background:rgba(60,40,20,.55); border:1.5px solid #fff3d0; font-size:0; box-shadow:none; }
+    .dn-d.joriy i { width:34px; height:34px; font-size:20px; box-shadow:0 0 0 3px #f5c542, 0 0 16px #ffd54a; animation:pish 1.4s infinite; }
+    .dn-d.joriy small, .dn-d.uzb small { display:block; font-weight:700; }
+    .dn-uz { margin:10px 0 4px; font-size:13px; } .dn-uz span { white-space:nowrap; }
+    .dn-list { columns:2; font-size:13px; margin:8px 0; padding-left:22px; }
+    .dn-list .yopiq { opacity:.45; } .dn-list .joriy { font-weight:700; color:#7a4fb0; } .dn-list em { color:#c97b0a; font-style:normal; }
+    .film .fl-s { position:relative; width:min(420px,94vw); height:min(560px,88vh); border-radius:22px; overflow:hidden; color:#fff8e1; text-align:center;
+      display:flex; flex-direction:column; justify-content:flex-end; padding:22px; box-sizing:border-box; background:linear-gradient(#0f2340,#1d3b2a); }
+    .fl-0 { background:radial-gradient(circle at 50% 35%,#ffcf6b,#b5651d 40%,#2a1608 85%) !important; }
+    .fl-1 { background:linear-gradient(#2b2f3a,#0b0d12) !important; } .fl-2 { background:radial-gradient(circle at 50% 40%,#3b4a6b,#0d1424) !important; }
+    .fl-3 { background:radial-gradient(circle at 50% 40%,#f5c542,#5b2a86 55%,#1b0f2e) !important; } .fl-4 { background:linear-gradient(#7fb3c9,#d9bd7c) !important; color:#3a2508; }
+    .fl-r { font-size:76px; line-height:1.1; margin-bottom:auto; margin-top:60px; animation:flKir 1.2s ease-out both, flSuz 4s 1.2s ease-in-out infinite alternate; }
+    .fl-s p { font-size:18px; line-height:1.45; margin:0 0 14px; animation:flKir 1s .5s both; }
+    .fl-tuman { position:absolute; inset:0; pointer-events:none; opacity:0; background:radial-gradient(circle at 20% 60%,rgba(120,120,130,.8),transparent 50%),radial-gradient(circle at 80% 40%,rgba(90,90,100,.8),transparent 55%); }
+    .fl-1 .fl-tuman { animation:flTuman 3s ease-in forwards; }
+    .fl-3 .fl-tuman { opacity:1; animation:flTuman 2.5s ease-out reverse forwards; }
+    .fl-n { display:flex; gap:6px; justify-content:center; margin-bottom:12px; } .fl-n i { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.35); } .fl-n i.on { background:#f5c542; }
+    .film .fl-v { padding:0; background:#000 !important; } .fl-v video { width:100%; height:100%; object-fit:cover; }
+    .fl-ovoz { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); border:0; border-radius:20px; padding:8px 16px; background:rgba(0,0,0,.6); color:#ffe7a8; font-size:14px; }
+    .fl-skip { position:absolute; top:12px; right:12px; background:none; border:0; color:inherit; opacity:.6; font-size:13px; }
+    @keyframes flKir { from { opacity:0; transform:translateY(24px) scale(.8); } }
+    @keyframes flSuz { to { transform:translateY(-10px) rotate(2deg); } }
+    @keyframes flTuman { from { opacity:0; transform:translateX(-30%); } to { opacity:1; transform:none; } }
+    .nkuch { display:block; margin-top:3px; font-size:11px; color:#7a4fb0; font-weight:700; }
+    .kuchlar { text-align:center; margin:4px 0 8px; padding:8px; border-radius:12px; color:#fff8e1; background:linear-gradient(135deg,#5b2a86,#1f6f8b); }
+    .kuchlar b { color:#f5c542; }
+    .daraxt { position:relative; display:block; width:100%; box-sizing:border-box; height:210px; margin:6px auto 10px; max-width:340px;
+      background:linear-gradient(#6b4423,#4a2e17) 50% 100%/18px 70px no-repeat; }
+    .daraxt .toj { position:absolute; inset:0 0 50px; border-radius:50% 50% 45% 45%; background:radial-gradient(circle at 40% 35%,#5fa84a,#2f6b2a 70%); box-shadow:inset 0 -10px 20px rgba(0,0,0,.25); }
+    .meva { position:absolute; width:30px; height:30px; margin:-15px; padding:0; border-radius:50%; border:0; background:#8fbf5a; color:#244; font-size:15px; box-shadow:0 2px 4px rgba(0,0,0,.3); }
+    .meva.pish { background:radial-gradient(circle at 35% 30%,#ffe9a3,#f5b51b 60%,#c97b0a); color:#5a2d00; width:38px; height:38px; margin:-19px; font-size:19px;
+      animation:pish 1.4s infinite ease-in-out; box-shadow:0 0 14px #ffd54a; }
+    @keyframes pish { 50% { transform:translateY(-4px) scale(1.08); } }
+    .daraxt .savat { position:absolute; left:50%; transform:translateX(-50%); bottom:0; white-space:nowrap; text-align:center; font-weight:700;
+      background:#fff8e1; border:2px solid #c9a24a; border-radius:14px; padding:4px 14px; }
+    .daraxt .savat small { display:block; font-weight:400; opacity:.75; }
+    .meva-q { position:fixed; inset:0; z-index:20; display:grid; place-items:center; background:rgba(0,0,0,.45); }
+    .meva-q > div { background:var(--card,#fff); border-radius:18px; padding:18px; width:min(320px,86vw); text-align:center; }
+    .meva-q .opts { display:flex; gap:8px; justify-content:center; } .meva-q .opts .o { font-size:28px; flex:1; }
+    .meva-q .ok { background:#2e7d32; color:#fff; } .meva-q .no { background:#c62828; color:#fff; }
     .kuch { margin:10px auto 12px; max-width:320px; padding:12px 14px; border-radius:16px; text-align:center; color:#fff8e1;
       background:linear-gradient(135deg,#5b2a86,#1f6f8b); box-shadow:0 0 0 2px #f5c542, 0 6px 20px rgba(91,42,134,.45);
       animation:kuch .7s 1.4s both cubic-bezier(.3,1.6,.5,1); }
@@ -2155,6 +2209,12 @@ let bolim = null;
 const NAHV_LV = { 1: [["المذكر والمؤنث","Muzakkar va muannas"],["ياء النسبة","Nisba yosi"],["الضمائر المنفصلة","Alohida olmoshlar"],["الضمائر المتصلة","Qo'shimcha olmoshlar"],["أسماء الإشارة","Ko'rsatish olmoshlari"],["تصريف الأفعال","5 ta fe'lning tuslanishi"],["الجمع","Ko'plik"],["جمع المؤنث السالم","Muannas to'g'ri ko'plik"],["جمع المذكر السالم","Muzakkar to'g'ri ko'plik"],["المثنى","Ikkilik"],["النكرة والمعرفة","Noaniq va aniq ot"],["الإضافة","Izofa"],["أنواع الإضافة","Izofa turlari"],["أنواع الجملة","Gap turlari"],["المبتدأ والخبر","Mubtado va xabar"],["ليس في الجملة","Gapda ليس"],["الفعل والفاعل","Fe'l va foil"],["الفاعل","Foil"],["الأعداد الترتيبية","Tartib sonlar"],["حروف الجر","Jor harflari"],["حروف العطف (و، فـ، ثم)","Bog'lovchilar"],["الفعل اللازم والمتعدي","O'timsiz va o'timli fe'l"],["الصفة والموصوف","Sifat va sifatlanmish"],["فعل الأمر من المضارع","Muzoredan buyruq fe'li"],["لا الناهية","Taqiq لا si"],["المضارع والمستقبل","Hozirgi va kelasi zamon"],["قاعدة «يجب أن»","«يجب أن» qoidasi"],["ظروف التكرار","Takror ravishlari"],["ظروف الزمان والمكان","Payt va o'rin ravishlari"],["عندما","«عندما» bilan gap"],["الغائب في الفعل المضارع","Muzoreda III shaxs"],["حروف المضارعة","Muzore boshidagi harflar"],["الألوان","Ranglar (muzakkar va muannas)"],["الصفة المشبهة","Sifatu mushabbaha"],["إسناد الاسم إلى الضمائر",""],["ألفاظ العقود",""],["اسما الاستفهام (ما، من)",""],["الجملة الاسمية",""],["إسناد المضارع إلى الضمائر",""],["إسناد الأمر إلى الضمائر",""],["نفي المضارع بـ«لا»",""],["ظرفا الزمان (قبل، بعد)",""],["ليس ... وليس",""]], 2: [["التاء المربوطة والمبسوطة",""],["الأداة «لأنّ»",""],["الوصف",""],["إسناد المضارع للضمائر",""],["اسم التفضيل",""],["الماضي المستمر (كان + مضارع)",""],["صيغة التفضيل (مِن + أفعل)",""],["حروف الجر مع «ال»",""],["الجموع",""],["الاسم الموصول",""],["أداة الربط «لِـ»",""],["إسناد الفعل الماضي",""],["النفي بـ«ما» و«لا»",""],["الأعداد الترتيبية",""],["الصفة والموصوف",""],["الظرف «مُنذُ»",""],["النفي بـ«لن»",""],["أسلوب التفضيل «أفعل مِن»",""],["فعل الأمر",""],["«يجب عليك أن»",""],["النفي بـ«لم»",""],["تركيب «مليء بـ»",""],["«قبل، بعد» مع «أن»",""],["تركيب «تختلف باختلاف»",""],["النفي بـ«ليس»",""],["الفعل «أصبح»",""],["الظرف «عندما»",""],["أداة الشرط «إذا»",""],["ليس ... ولكن",""],["الظرفان «منذ، قبل»",""],["«أُفضِّل ... على»",""],["ظروف المكان (فوق، تحت، أمام ...)",""],["«ليس» مع الضمائر",""],["«أ ... أم ...؟»",""],["«مصنوع من»",""],["«مزوّد بـ»",""],["«أليس كذلك؟»",""],["«أمّا ... فـ»",""],["لا الناهية",""],["«مسؤول عن»",""],["«هل هذه أوّل مرّة؟»",""],["«عليك أن / لا تنسَ أن»",""],["«يُفضَّل أن»",""],["«ليس له ... ولا»",""],["«من الآن»",""],["«دعنا» + المضارع",""],["«لكنْ»",""],["«في آنٍ واحد»",""]], 3: [["أنواع الفعل الصحيح",""],["مفهوم الجذر، أوزان الفعل الثلاثي",""],["الهمزة المتطرفة",""],["الفعل المعتل",""],["اسم الفاعل واسم المفعول من الثلاثي",""],["حروف تُلفظ ولا تُكتب",""],["حالات الخبر في الجملة الاسمية",""],["الوزنان فعّل وفاعل",""],["توسيع الجمل",""],["الهمزة المتوسطة",""],["الأحرف المشبهة بالفعل",""],["الوزنان أفعل وتفعّل",""],["روابط التعليل",""],["حالات استثنائية في الهمزة المتوسطة",""],["الأفعال الناقصة (كان وأخواتها)",""],["الوزنان انفعل وتفاعل",""],["أدوات المقارنة",""],["الألف اللينة المتطرفة في الأفعال",""],["الأفعال الخمسة",""],["الوزنان افتعل واستفعل",""],["الألف اللينة المتطرفة في الأسماء",""],["نصب الفعل المضارع",""],["المصدر المؤوّل",""],["الوزن فعلل",""],["روابط التوكيد",""],["الفرق بين النون والتنوين",""],["جزم الفعل المضارع",""],["الوزنان افعلّ ويفعلّ",""],["اسما الزمان والمكان",""],["حذف الألف من أسماء الاستفهام",""],["الفعل الثلاثي المبني للمجهول",""],["أوزان الثلاثي الصحيح والمزيد",""],["همزتا الوصل والقطع",""],["الفعل المعتل الثلاثي المبني للمجهول",""],["اسم الآلة",""],["الهمزة الممدودة في أول الكلمة ووسطها",""]] };
 const INSHO_ALL = [["A1 · Shaxsiy ma'lumotlar anketasi",""],["A1 · Mashhur shaxs haqida",""],["A1 · Bir kishining kasbi haqida",""],["A1 · O'quv rejasini tuzish",""],["A1 · O'qishim haqida",""],["A1 · Uchrashuvlar jadvali",""],["A1 · Yurtingizdagi transport haqida",""],["A1 · Oilam haqida",""],["A1 · Do'stimni tasvirlash",""],["A1 · Uyim haqida",""],["A1 · Bir joyni tasvirlash",""],["A1 · Bir kishining yomon odatlari haqida",""],["A1 · Savol-javob yozish",""],["A1 · Kundalik daftar",""],["A1 · Kundalik ishlarim haqida",""],["A1 · Kiyimlarni tasvirlash",""],["A1 · Bir kishini tasvirlash",""],["A2 · Odamlarning turmush tarzi",""],["A2 · Ertangi ob-havo haqida",""],["A2 · Shahrim (joylashuvi va ob-havosi)",""],["A2 · Yurtimdagi tarixiy joylar",""],["A2 · Sevimli mashg'ulotlarim",""],["A2 · Bozorni tasvirlash",""],["A2 · Seyyor sotuvchilar va do'konlar",""],["A2 · Yashash joyimni tasvirlash",""],["A2 · Qishloq va shahar: solishtirish",""],["A2 · Bo'sh vaqtim",""],["A2 · Ovqatlanish tartibim",""]];
 const INSHO_LV = { 1: INSHO_ALL.filter(x => x[0].startsWith('A1')), 2: INSHO_ALL.filter(x => x[0].startsWith('A2')), 3: [["B1 · Tarjimai hol: muvaffaqiyatga erishgan shaxs haqida",""],["B1 · Kundalik: bir haftalik ish hayotim",""],["B1 · Jumlalarni kengaytirish: muqobil tibbiyot",""],["B1 · Sabab va oqibat: urf-odatlar nega saqlanadi",""],["B1 · Solishtirish: shahar kecha va bugun",""],["B1 · Matnni qisqartirish: hayotimizni o'zgartirgan ixtirolar",""],["B1 · Dalilli insho: zamonaviy oilada munosabatlar",""],["B1 · Qayta ifodalash: o'qishdan keyin nima qilish kerak",""],["B1 · Mehmondorchilik odobi haqida",""],["B1 · Xotiralar: o'tmishdagi bir kunim",""]] };
+// Nahv mavzusi o'tilganda ochiladigan "kuch": o'quvchi endi nimani qila oladi (bolimMavzu(1, lv) tartibida)
+const NAHV_KUCH = {
+  1: ["Narsaning erkak yoki ayol jinsini ajratasiz", "«O'zbekistonlik» kabi nisbat so'z yasaysiz", "«Men, sen, u» deb gapira olasiz", "«Kitobim, kitobing» deysiz", "«Bu, anavi» deb ko'rsatasiz", "5 ta fe'lni shaxslarda tuslaysiz", "Bitta narsani ko'plikka aylantirasiz", "«-aat» bilan ayollar ko'pligini yasaysiz", "«-uuna» bilan erkaklar ko'pligini yasaysiz", "«Ikki kitob» deya olasiz", "«Bir kitob» va «o'sha kitob»ni farqlaysiz", "«O'qituvchining kitobi» deysiz", "Izofaning turini taniysiz", "Ismli va fe'lli gapni ajratasiz", "Oddiy «Uy katta» gapini tuzasiz", "«Bu ... emas» deb inkor qilasiz", "«Talaba yozdi» kabi gap tuzasiz", "Ishni kim qilganini topasiz", "«Birinchi, ikkinchi» deb sanaysiz", "«Uyda, maktabga» deysiz", "Gaplarni «va, so'ng» bilan bog'laysiz", "Fe'l to'ldiruvchi so'raydimi — bilasiz", "«Katta uy» kabi sifat qo'shasiz", "«O'qi! Yoz!» deb buyurasiz", "«Qilma!» deb taqiqlaysiz", "Hozir va ertangi ishni aytasiz", "«...ishi kerak» deysiz", "«Har kuni, ba'zan» deysiz", "«Ertalab, uy oldida» deysiz", "«...ganda» bilan gap qurasiz", "«U qiladi» shaklini yasaysiz", "Muzore harflarini taniysiz", "Ranglarni ikki jinsda aytasiz", "«Chiroyli, katta» sifatlarini yasaysiz", "Otni olmoshlar bilan qo'shasiz", "«Yigirma, o'ttiz» deb sanaysiz", "«Nima? Kim?» deb so'raysiz", "Ismli gapni to'liq tuzasiz", "Muzoreni barcha shaxslarda aytasiz", "Buyruqni barcha shaxslarda berasiz", "«Qilmayman» deb inkor qilasiz", "«Oldin, keyin» deysiz", "«Bu ham emas, u ham emas» deysiz"],
+  2: ["Ta marbutani to'g'ri yozasiz", "«Chunki» bilan sabab aytasiz", "Odam va narsani tasvirlaysiz", "Fe'lni hamma olmosh bilan aytasiz", "«Kattaroq, eng katta» deysiz", "«Qilardi» — o'tgan odatni aytasiz", "«...dan ko'ra» deb solishtirasiz", "Old ko'makchini «al» bilan to'g'ri qo'shasiz", "Turli ko'plik shakllarini taniysiz", "«Qaysiki» bilan gap ulaysiz", "«...ish uchun» deb maqsad aytasiz", "O'tgan zamonni tuslaysiz", "«Ma» va «la» bilan inkor qilasiz", "Tartib sonlarni ishlatasiz", "Sifatni otga moslaysiz", "«...dan beri» deysiz", "«Qilmayman (kelajakda)» deysiz", "«...dan afzal» deb solishtirasiz", "Buyruq fe'lini yasaysiz", "«Sen ...ishing kerak» deysiz", "«Qilmadi» deb o'tganni inkor qilasiz", "«...ga to'la» deysiz", "«...dan oldin/keyin» gap qurasiz", "«...ga qarab farq qiladi» deysiz", "«Laysa» bilan inkor qilasiz", "«Bo'lib qoldi» deysiz", "«Qachonki» bilan gap qurasiz", "«Agar» bilan shart aytasiz", "«... emas, balki ...» deysiz", "«...dan beri, ...oldin» deysiz", "«...ni ...dan afzal ko'raman» deysiz", "«Ustida, ostida, oldida» deysiz", "«Laysa»ni olmoshlar bilan tuslaysiz", "«...mi yoki ...mi?» deb so'raysiz", "«...dan yasalgan» deysiz", "«... bilan jihozlangan» deysiz", "«Shunday emasmi?» deb so'raysiz", "«Ammo ... esa» deb taqqoslaysiz", "«Qilma!» deb taqiqlaysiz", "«...ga mas'ul» deysiz", "«Bu birinchi martami?» deb so'raysiz", "«Unutma ...» deb eslatasiz", "«...gani ma'qul» deb maslahat berasiz", "«Unda ... ham, ... ham yo'q» deysiz", "«Hozirdan boshlab» deysiz", "«Keling, ...aylik» deb taklif qilasiz", "«Lekin» bilan qarshi fikr aytasiz", "«Bir vaqtning o'zida» deysiz"],
+  3: ["Sog'lom fe'l turlarini ajratasiz", "So'zning ildizini topasiz", "So'z oxiridagi hamzani yozasiz", "Illatli fe'lni taniysiz", "«Qiluvchi, qilingan» so'zlarini yasaysiz", "Yozilmay o'qiladigan harflarni bilasiz", "Xabarning turlarini ajratasiz", "fa''ala va faa'ala vaznlarini qo'llaysiz", "Qisqa gapni kengaytirasiz", "O'rtadagi hamzani yozasiz", "«Inna» va singillarini qo'llaysiz", "af'ala va tafa''ala vaznlarini qo'llaysiz", "Sabab bog'lovchilarini ishlatasiz", "Hamzaning istisno holatlarini bilasiz", "«Kaana» va singillarini qo'llaysiz", "infa'ala va tafaa'ala vaznlarini qo'llaysiz", "Solishtirish vositalarini ishlatasiz", "Fe'l oxiridagi alifni yozasiz", "Beshta fe'lni tuslaysiz", "ifta'ala va istaf'ala vaznlarini qo'llaysiz", "Ot oxiridagi alifni yozasiz", "Muzoreni nasb qilasiz", "«An + fe'l»ni masdarga aylantirasiz", "fa'lala vaznini qo'llaysiz", "Ta'kid bog'lovchilarini ishlatasiz", "Nun va tanvinni farqlaysiz", "Muzoreni jazm qilasiz", "if'alla vaznini qo'llaysiz", "Payt va o'rin otini yasaysiz", "So'roq so'zidagi alif tushishini bilasiz", "Majhul fe'l yasaysiz", "Uch harfli va orttirma vaznlarni ajratasiz", "Vasl va qat' hamzasini ajratasiz", "Illatli fe'lni majhulga aylantirasiz", "Asbob otini yasaysiz", "Madli hamzani yozasiz"],
+};
 const BOLIMLAR = [["📖", "Darslar", "Mavzular va sayohat xaritasi"], ["ن", "Nahv va sarf", "Grammatika qoidalari"], ["✍️", "Insho", "Yozish mashqlari"],
   ["📚", "Lug'atlar", "Mavzular bo'yicha so'zlar"], ["🧩", "Tarkiblar", "Iboralar va so'z birikmalari"], ["💬", "Muhodasa", "Suhbat va dialoglar"]];
 // Lug'atlar: Miftah kitoblaridan (Sheet "Lug'at (Habib til)" → app\lugat\a1.json, build qo'shadi); daraja → mavzular
@@ -22723,7 +22783,7 @@ function bolimScreen() {
         const x = 50 + 28 * Math.sin(j * 0.95), uzli = bolim === 1 || bolim >= 3, name = uzli ? (uz || ar) : ar.replace(/^(A1|A2|B1) · /, "");
         return `<div class="node-row" style="--x:${x}%">
           <button class="node ${won ? "won" : open ? "cur" : "lock"}" data-j="${j}" ${open ? "" : "disabled"}><span class="num">${j + 1}</span>${open || won ? "" : `<span class="lk">🔒</span>`}</button>
-          <div class="nlabel">${name}${uzli && uz ? `<br><span class="ar">${ar}</span>` : ""}</div>${(() => {
+          <div class="nlabel">${name}${uzli && uz ? `<br><span class="ar">${ar}</span>` : ""}${bolim === 1 && won && NAHV_KUCH[level] && NAHV_KUCH[level][j] ? `<span class="nkuch">⚡ ${NAHV_KUCH[level][j]}</span>` : ""}</div>${(() => {
             // nahvda har mavzuga shaharning bitta tarixiy joyi ("!" — haqiqiy suratlar)
             const S = UZ_SHAHAR[level], pk = S && S[0] + j;
             if (bolim !== 1 || !UZJOY[pk]) return "";
@@ -22742,13 +22802,16 @@ function bolimScreen() {
   if (bolim === 1 && UZ_SHAHAR[level]) {  // fon: shaharning chizilgan manzarasi
     document.body.classList.add("lvFoto");
     document.body.style.setProperty("--lvfoto", `url(img/${UZ_SHAHAR[level][2]}.jpg)`);
-    $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">O'zbekiston sayohati: ${UZ_SHAHAR[level][1]} — <b>!</b> belgisini bosing</p>`);
+    $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">O'zbekiston sayohati: ${UZ_SHAHAR[level][1]} — <b>!</b> belgisini bosing</p>
+      <p class="kuchlar">⚡ Kuchlarim: <b>${T.filter((_, j) => store.get(key0 + j, null)).length}</b> / ${T.length} — har mavzu bitta yangi kuch ochadi</p>`);
   } else if (T.length) $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<p class="trip">${bolim === 3 ? `Lug'at: ${T.length} ta dars — so'zlarni kartochka va mashqlar bilan yodlang` : bolim === 5 ? `Muhodasa: ${T.length} ta mavzu — savollarga og'zaki javob bering, qolipdan foydalaning` : bolim === 4 ? `Tarkiblar: ${T.length} ta mavzu — qolipni o'rganing, qizil joyga o'z so'zingizni qo'yib gapiring` : `Insho: ${T.length} ta mavzu — tartib bilan yozib boring`}</p>`);
   $.querySelectorAll(".map button.node:not([disabled])").forEach(b => b.onclick = () => {
     if (bolim === 3) return lugatDars(level, +b.dataset.j);
     if (bolim === 5) return muhodasaDars(level, +b.dataset.j);
     if (bolim === 4) return tarkibDars(level, +b.dataset.j);
-    const f = document.createElement("div"); f.className = "fb ok"; f.textContent = "Bu mavzu darsi tez orada qo'shiladi";
+    const f = document.createElement("div"); f.className = "fb ok";
+    const kk = bolim === 1 && NAHV_KUCH[level] && NAHV_KUCH[level][+b.dataset.j];
+    f.innerHTML = (kk ? `⚡ Bu mavzu kuchi: <b>${kk}</b><br>` : "") + "Bu mavzu darsi tez orada qo'shiladi";
     f.style.cssText = "position:fixed;left:16px;right:16px;bottom:24px;z-index:9;text-align:center";
     document.body.appendChild(f); setTimeout(() => f.remove(), 1800);
   });
@@ -23093,13 +23156,52 @@ function husnixatScreen() {
   $.querySelectorAll("button[data-k]").forEach(b => b.onclick = () => betOch(`husnixat/${b.dataset.k}.jpg`));
   $.querySelectorAll("button[data-h]").forEach(b => b.onclick = () => hxHarf(+b.dataset.h));
 }
+// Harf daraxti (fonetika): o'tilgan harflar meva bo'lib osiladi; har kuni bittasi pishadi — uzsang mini-savol, to'g'ri bo'lsa savatga.
+// 3 kundan ko'p kirmasang savatdan bitta meva tushib ketadi.
+function mevaHarflar() {
+  const H = [];
+  LESSONS.slice(0, BOSQICHLAR[1].to).forEach(l => { const m = store.get("lesson" + l.n, null) && l.title.match(/[ء-ي]/); if (m && !H.includes(m[0])) H.push(m[0]); });
+  return H;
+}
+function mevaHolat() {
+  const t = new Date().toDateString(), s = store.get("meva", { savat: 0, oxirgi: null, kun: null, harf: null });
+  if (s.oxirgi && (Date.now() - new Date(s.oxirgi)) / 864e5 > 3 && s.savat > 0 && s.tushdi !== t) { s.savat--; s.tushdi = t; store.set("meva", s); }
+  return { ...s, bugunUzildi: s.kun === t };
+}
+function daraxt() {
+  const H = mevaHarflar(); if (!H.length) return "";
+  const s = mevaHolat(), pish = s.bugunUzildi ? -1 : new Date().getDate() % H.length;
+  return `<div class="daraxt"><div class="toj">${H.slice(-14).map((h, j, A) => {
+      const a = j * 2.4, r = 18 + 22 * Math.sqrt(j / Math.max(A.length - 1, 1));
+      return `<button class="meva ${H.indexOf(h) === pish ? "pish" : ""}" style="left:${50 + r * Math.cos(a)}%;top:${45 + r * .8 * Math.sin(a)}%"><span class="ar">${h}</span></button>`;
+    }).join("")}</div>
+    <div class="savat">🧺 ${s.savat} <small>${s.bugunUzildi ? "Bugungi meva uzildi — ertaga yana keling" : "Oltin mevani bosib uzing!"}</small></div></div>`;
+}
+function mevaUz() {
+  const H = mevaHarflar(), h = H[new Date().getDate() % H.length];
+  const var3 = [h, ...H.filter(x => x !== h).sort(() => Math.random() - .5).slice(0, 2)].sort(() => Math.random() - .5);
+  speak(h + "َ");
+  const box = document.createElement("div"); box.className = "meva-q";
+  box.innerHTML = `<div><p>🔊 Qaysi harfni eshitdingiz?</p><button class="o" id="mq-tak">🔁</button>
+    <div class="opts">${var3.map(x => `<button class="o ar" data-h="${x}">${x}</button>`).join("")}</div></div>`;
+  document.body.appendChild(box);
+  box.querySelector("#mq-tak").onclick = () => speak(h + "َ");
+  box.querySelectorAll("[data-h]").forEach(b => b.onclick = () => {
+    const ok = b.dataset.h === h, s = mevaHolat(), t = new Date().toDateString();
+    b.classList.add(ok ? "ok" : "no");
+    if (ok) { s.savat++; store.set("xp", store.get("xp", 0) + 5); }
+    store.set("meva", { savat: s.savat, oxirgi: t, kun: t, tushdi: s.tushdi });
+    box.querySelector("p").textContent = ok ? "🍎 Savatga tushdi! +5 XP" : `Bu «${h}» edi. Ertaga yana urinib ko'ring`;
+    setTimeout(() => { box.remove(); render(); }, 1400);
+  });
+}
 function home() {  const streak = store.get("streak", 0), total = store.get("xp", 0);
   if (level === null && stage === null) return levelsScreen(streak, total);
   if (level >= 1 && stage === null) return bolimScreen();  // A1–C2: Darslar / Nahv va sarf / Insho
   $.innerHTML = `
     ${(() => { const LV = level >= 1 ? LESSONS.slice(BOSQICHLAR[level + 1].from, BOSQICHLAR[level + 1].to) : LESSONS.slice(0, PRE_N), d = LV.filter(l => store.get("lesson" + l.n, null)).length;
       return heroBox(streak, total, d, LV.length, "dars"); })()}
-    ${stage === null ? `<button class="back lvback"><span>‹</span> Darajalar</button><div class="opts">${BOSQICHLAR.slice(0, 2).map((b, s) => {
+    ${stage === null ? `<button class="back lvback"><span>‹</span> Darajalar</button>${daraxt()}<div class="opts">${BOSQICHLAR.slice(0, 2).map((b, s) => {
       const ls = LESSONS.slice(b.from, b.to), done = ls.filter(l => store.get("lesson" + l.n, null)).length;
       const open = TEST || s === 0 || store.get("lesson" + LESSONS[b.from - 1].n, null);
       const sp = Math.round(done * 100 / ls.length);
@@ -23133,6 +23235,7 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
   drawTrail();
   $.querySelectorAll("button.st:not(.done):not(#husnixat)").forEach(b => b.onclick = () => { stage = +b.dataset.s; render(); });
   const hx = $.querySelector("#husnixat"); if (hx) hx.onclick = husnixatScreen;
+  const pm = $.querySelector(".meva.pish"); if (pm) pm.onclick = mevaUz;
   $.querySelectorAll("button.back").forEach(b => b.onclick = () => { if (b.classList.contains("lvback") && !(level >= 1)) level = null; stage = null; bolim = null; render(); });
   $.querySelectorAll("button.node:not([disabled])").forEach(b => b.onclick = () => {
     b.classList.add("tap"); setTimeout(() => { LESSON = LESSONS[+b.dataset.k]; xp = 0; testScore = 0; i = 0; mode = "motiv"; render(); }, 260);
@@ -23383,7 +23486,8 @@ function finish() {
       <div class="bigstars">${[0, 1, 2].map(s => `<span class="${s < st ? "on" : ""}" style="animation-delay:${.35 + s * .35}s">★</span>`).join("")}</div>
       <h1>${["Yaxshi boshlanish!", "Ajoyib!", "Mukammal!"][st - 1]}</h1>
       <p>${LESSON.title}</p></div>
-    <div class="kuch"><small>⚡ Yangi kuch ochildi</small><b>${LESSON.kuch || `Endi «${LESSON.title.replace(/^\d+-dars\.\s*/, "")}» sizga bo'ysunadi`}</b><i>${LESSONS.filter(l => store.get("lesson" + l.n, null)).length}-kuch · ${LESSONS.length} tadan</i></div>
+    ${k0 < BOSQICHLAR[1].to ? `<div class="kuch"><small>🍏 Harf daraxtingizga yangi meva qo'shildi</small><b>Har kuni bittasi pishadi — uzib olishni unutmang</b></div>` : ""}
+    <div class="kuch" ${k0 < BOSQICHLAR[1].to ? 'style="display:none"' : ""}><small>⚡ Yangi kuch ochildi</small><b>${LESSON.kuch || `Endi «${LESSON.title.replace(/^\d+-dars\.\s*/, "")}» sizga bo'ysunadi`}</b><i>${LESSONS.filter(l => store.get("lesson" + l.n, null)).length}-kuch · ${LESSONS.length} tadan</i></div>
     <div class="stats">
       <div class="stat"><b>${testScore}/${balli}</b>test</div>
       <div class="stat"><b>⭐ ${xp}</b>XP</div>
@@ -23453,6 +23557,7 @@ function motiv() {
   document.body.classList.toggle("examMode", !!(LESSON && LESSON.exam) && mode !== "home");
   document.body.classList.toggle("lvScreen", mode === "home" && level === null && stage === null);
   document.body.classList.toggle("qMode", mode === "steps" || mode === "test");
+  document.body.classList.toggle("homeMode", mode === "home");
   const lvNow = mode === "home" ? (level >= 1 ? DARAJALAR[level].id : null) : (LESSON && LESSON.a1 ? "A1" : LESSON && LESSON.lv) || null;
   // daraja ichidagi fon: davlatning eng tanish joyi (Petra, Umaviylar masjidi, Malviya, Burj Xalifa)
   const LVFOTO = { A1: 55, A2: 86, B1: 119, B2: 147, C1: 182, C2: 206 }, fk = LVFOTO[lvNow];
@@ -23481,6 +23586,82 @@ function motiv() {
   return choiceStep(s, total, false);
 }
 // Kirish animatsiyasi «Ilm — nurdir»: qorong'ida chiroq yonadi, nur tarqaladi, harflar nurdan uchib chiqadi (har ochilishda bir marta, bosilsa o'tib ketadi)
+// --- Sayohat marshruti: davlatlar ketma-ket ochiladi (oldingisi tugamaguncha keyingisi yopiq) ---
+// lv = DARAJALAR indeksi; har daraja ichida davlatlar daraja progressini teng bo'lib oladi. x/y — xaritadagi joy (%).
+const MARSHRUT = [
+  // x/y — img/arab-xarita.jpg (1500×844) ustidagi joy, %. Oxiri: Andalusdan Ipak yo'li bo'ylab uyga — O'zbekistonga qaytish
+  ["🇪🇬", "Misr", 0, 36, 56], ["🇾🇪", "Yaman", 0, 58, 82], ["🇯🇴", "Iordaniya", 1, 47, 45], ["🇵🇸", "Falastin", 1, 44, 44],
+  ["🇸🇾", "Suriya", 2, 48, 36], ["🇱🇧", "Livan", 2, 45, 38], ["🇮🇶", "Iroq", 3, 53, 43], ["🇰🇼", "Quvayt", 3, 58, 49],
+  ["🇦🇪", "BAA", 4, 66, 63], ["🇶🇦", "Qatar", 4, 63, 58], ["🇧🇭", "Bahrayn", 4, 62, 55], ["🇴🇲", "Ummon", 4, 69, 69],
+  ["🇸🇦", "Saudiya Arabistoni", 5, 58, 66], ["🇸🇩", "Sudan", 5, 40, 77], ["🇱🇾", "Liviya", 6, 22, 51], ["🇹🇳", "Tunis", 6, 18, 36],
+  ["🇩🇿", "Jazoir", 6, 12, 47], ["🇲🇦", "Marokash", 6, 6, 40], ["🇲🇷", "Mavritaniya", 6, 3, 66],
+  ["🇪🇸", "Andalus (Ispaniya)", 6, 9, 26], ["🇹🇷", "Turkiya", 6, 37, 21], ["🇮🇷", "Eron", 6, 63, 39], ["🇦🇫", "Afg'oniston", 6, 79, 39],
+  ["🇹🇲", "Turkmaniston", 6, 70, 26], ["🇹🇯", "Tojikiston", 6, 83, 30], ["🇰🇬", "Qirg'iziston", 6, 89, 21], ["🇰🇿", "Qozog'iston", 6, 77, 9],
+  ["🇺🇿", "O'zbekiston — uyga qaytish", 6, 78, 20],
+].map(([f, n, lv, x, y]) => ({ f, n, lv, x, y }));
+function lvUlush(k) {  // darajaning o'zlashtirilgan ulushi (darslar + bo'lim mavzulari)
+  const ls = k === 0 ? LESSONS.slice(0, PRE_N) : BOSQICHLAR[k + 1] ? LESSONS.slice(BOSQICHLAR[k + 1].from, BOSQICHLAR[k + 1].to) : [];
+  let a = ls.filter(l => store.get("lesson" + l.n, null)).length, n = ls.length;
+  if (k >= 1) BOLIMLAR.forEach((_, b) => { const T = b && bolimMavzu(b, k) || []; n += T.length; a += T.filter((_, j) => store.get(`bolim${b}-${k}-${j}`, null)).length; });
+  return n ? a / n : 0;
+}
+function marshrutHolat() {  // har davlat: tugagan / hozirgi / yopiq — qat'iy ketma-ket
+  let joriy = -1;
+  const H = MARSHRUT.map((d, i) => {
+    const D = MARSHRUT.filter(m => m.lv === d.lv), j = D.indexOf(d), u = lvUlush(d.lv);
+    const foiz = Math.max(0, Math.min(1, u * D.length - j));
+    return { ...d, foiz, tugadi: foiz >= 1 };
+  });
+  H.forEach((d, i) => { if (joriy < 0 && !d.tugadi) joriy = i; });
+  return H.map((d, i) => ({ ...d, holat: joriy < 0 || i < joriy ? "tugadi" : i === joriy ? "joriy" : "yopiq" }));
+}
+function dunyoXarita() {
+  const H = marshrutHolat(), j = H.find(d => d.holat === "joriy");
+  const uz = [1, 2, 3].map(k => { const T = bolimMavzu(1, k) || [], a = T.filter((_, i) => store.get(`bolim1-${k}-${i}`, null)).length; return [UZ_SHAHAR[k][1], a, T.length]; });
+  const o = document.createElement("div"); o.className = "dunyo";
+  o.innerHTML = `<div class="dn-kar">
+    <div class="dn-bosh"><b>🗺️ Sayohat xaritasi</b><button class="o" id="dn-x">✕</button></div>
+    <p class="dn-iz">${j ? `Hozir: ${j.f} <b>${j.n}</b> — ${Math.round(j.foiz * 100)}%. Tugatsangiz, keyingi davlat ochiladi.` : "Butun arab olami bo'ylab sayohat tugadi! 🎉"}</p>
+    <div class="dn-map"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${H.map(d => `${d.x},${d.y}`).join(" ")}" /></svg>
+      ${H.map((d, i) => `<span class="dn-d ${d.holat}" style="left:${d.x}%;top:${d.y}%"><i>${d.holat === "yopiq" ? "🔒" : d.f}</i><small>${i + 1}. ${d.n}</small></span>`).join("")}</div>
+    <div class="dn-uz"><b>🇺🇿 Nahv yo'li — O'zbekiston:</b> ${uz.map(([s, a, n]) => `<span>${s} ${a}/${n}</span>`).join(" · ")}</div>
+    <ol class="dn-list">${H.map(d => `<li class="${d.holat}">${d.f} ${d.n} <small>${DARAJALAR[d.lv].code}</small>${d.holat === "joriy" ? ` <em>${Math.round(d.foiz * 100)}%</em>` : d.holat === "tugadi" ? " ✓" : ""}</li>`).join("")}</ol>
+    <button class="o" id="dn-film">▶ Multfilmni qayta ko'rish</button></div>`;
+  document.body.appendChild(o);
+  o.querySelector("#dn-x").onclick = () => o.remove();
+  o.onclick = e => { if (e.target === o) o.remove(); };
+  o.querySelector("#dn-film").onclick = () => { o.remove(); multfilm(); };
+}
+// Multfilm: arab olamini johillik tumani qopladi — har dars bitta chiroq yoqadi. Birinchi kirishda bir marta, keyin xaritadan.
+function multfilm(keyin) {
+  const S = [
+    ["🌙🕌📚", "Qadim zamonlarda arab o'lkalarida ilm nuri porlab turardi. Kitoblar oltindek yonardi."],
+    ["🌫️🌫️🌫️", "Bir kuni johillik tumani bostirib keldi. Chiroqlar birin-ketin so'ndi, kitoblar qorong'ulikda qoldi."],
+    ["🧑‍🎓🏮", "Faqat arab tilini bilgan odam chiroqlarni qayta yoqa oladi. Bu odam — siz!"],
+    ["🏮✨🏮", "Har bir dars — bitta chiroq. Har bir mavzu tumanni bir qadam orqaga suradi."],
+    ["🗺️🇪🇬", "Sayohat Misrdan boshlanadi. Bitta davlatni yoritsangiz, keyingisiga yo'l ochiladi. Darslarni davom ettiramiz!"],
+  ];
+  let i = 0;
+  const o = document.createElement("div"); o.className = "film";
+  const sahna = () => {
+    o.innerHTML = `<div class="fl-s fl-${i}"><div class="fl-tuman"></div><div class="fl-r">${S[i][0]}</div><p>${S[i][1]}</p>
+      <div class="fl-n">${S.map((_, k) => `<i class="${k === i ? "on" : ""}"></i>`).join("")}</div>
+      <button class="main" id="fl-go">${i < S.length - 1 ? "Keyingi ›" : "Xaritani ochish 🗺️"}</button><button class="fl-skip">o'tkazish</button></div>`;
+    o.querySelector("#fl-go").onclick = () => { if (++i < S.length) sahna(); else tamom(); };
+    o.querySelector(".fl-skip").onclick = tamom;
+    clearTimeout(o.t); o.t = setTimeout(() => { if (o.isConnected && i < S.length - 1) { i++; sahna(); } }, 6500);
+  };
+  const tamom = () => { clearTimeout(o.t); o.remove(); store.set("multfilm", 1); dunyoXarita(); };
+  document.body.appendChild(o);
+  // asosiy variant — Instadoodle'da chizilgan multfilm (img/multfilm.mp4, musiqa bilan); video ochilmasa — sahnalar
+  o.innerHTML = `<div class="fl-s fl-v"><video src="img/multfilm.mp4" playsinline autoplay></video>
+    <button class="fl-skip">o'tkazish ›</button><button class="fl-ovoz">🔇 ovozni yoqish</button></div>`;
+  const v = o.querySelector("video"), ov = o.querySelector(".fl-ovoz");
+  v.onended = tamom; v.onerror = sahna; o.querySelector(".fl-skip").onclick = tamom;
+  v.play().catch(() => { v.muted = true; v.play().catch(sahna); });
+  setTimeout(() => { if (!v.muted) ov.remove(); }, 300);
+  ov.onclick = () => { v.muted = false; ov.remove(); };
+}
 function ilmNur() {
   // ilova har ochilganda bir marta (Telegram oynasi yopib ochilsa yana chiqadi)
   try { if (sessionStorage.getItem("nur") && !/nur=1/.test(location.search)) return; sessionStorage.setItem("nur", "1"); } catch (e) {}
@@ -23519,7 +23700,10 @@ function ilmNur() {
 }
 ilmNur();
 addEventListener("resize", () => { const m = $.querySelector(".map"); if (m) tuman(m); });
-loadCloud(() => { restorePos(); render(); });
+loadCloud(() => { restorePos(); render();
+  if (!store.get("multfilm", 0)) setTimeout(multfilm, document.getElementById("ilmnur") ? 6700 : 300); });
+// burchakdagi xarita tugmasi (faqat xarita/menyu ekranlarida ko'rinadi)
+(() => { const b = document.createElement("button"); b.id = "xaritaBtn"; b.textContent = "🗺️"; b.title = "Sayohat xaritasi"; b.onclick = dunyoXarita; document.body.appendChild(b); })();
 // Eski nusxa keshda qolib ketgan bo'lsa: saytdagi versiyani tekshirib, yangisi bo'lsa o'zi qayta yuklaydi
 if (location.hostname.endsWith("github.io")) {
   fetch(location.pathname + "?nc=" + Date.now(), { cache: "no-store" }).then(r => r.text()).then(t => {
