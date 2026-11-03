@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v175";
+const VERSION = "v176";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -2015,6 +2015,13 @@ function confetti(n = 40) {
       background:rgba(255,253,245,.94); border:1.5px solid #c9a227; box-shadow:0 8px 18px -12px rgba(0,0,0,.45); }
     html body p.trip { color:#3a2a10 !important; } .trip b { background:#0f6b45; color:#fff; border-radius:50%; padding:0 6px; font-family:system-ui; }
     .win { text-align:center; margin:8px 0 6px; }
+    .kuch { margin:10px auto 12px; max-width:320px; padding:12px 14px; border-radius:16px; text-align:center; color:#fff8e1;
+      background:linear-gradient(135deg,#5b2a86,#1f6f8b); box-shadow:0 0 0 2px #f5c542, 0 6px 20px rgba(91,42,134,.45);
+      animation:kuch .7s 1.4s both cubic-bezier(.3,1.6,.5,1); }
+    .kuch small { display:block; color:#f5c542; font-weight:700; letter-spacing:.5px; }
+    .kuch b { display:block; font-size:17px; margin:4px 0; }
+    .kuch i { font-size:12px; opacity:.75; }
+    @keyframes kuch { from { transform:scale(.3) rotate(-8deg); opacity:0; } to { transform:none; opacity:1; } }
     .bigstars { display:flex; justify-content:center; gap:6px; margin:10px 0 4px; }
     .bigstars span { font-size:64px; line-height:1; color:#d6d3c4; transform:scale(0); animation:starpop .55s cubic-bezier(.3,1.8,.5,1) forwards; }
     .bigstars span:nth-child(2) { font-size:84px; margin-top:-14px; }
@@ -23376,6 +23383,7 @@ function finish() {
       <div class="bigstars">${[0, 1, 2].map(s => `<span class="${s < st ? "on" : ""}" style="animation-delay:${.35 + s * .35}s">★</span>`).join("")}</div>
       <h1>${["Yaxshi boshlanish!", "Ajoyib!", "Mukammal!"][st - 1]}</h1>
       <p>${LESSON.title}</p></div>
+    <div class="kuch"><small>⚡ Yangi kuch ochildi</small><b>${LESSON.kuch || `Endi «${LESSON.title.replace(/^\d+-dars\.\s*/, "")}» sizga bo'ysunadi`}</b><i>${LESSONS.filter(l => store.get("lesson" + l.n, null)).length}-kuch · ${LESSONS.length} tadan</i></div>
     <div class="stats">
       <div class="stat"><b>${testScore}/${balli}</b>test</div>
       <div class="stat"><b>⭐ ${xp}</b>XP</div>
