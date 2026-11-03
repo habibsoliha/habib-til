@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v171";
+const VERSION = "v172";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -939,6 +939,9 @@ const AUDIO = {
 };
 // harf darslari so'zlari: ustoz ovozi audio/h<dars>-<1|2>.m4a
 PROGRAMMA.forEach(([n, c]) => { AUDIO[HARF[c][3]] = `h${n}-1`; AUDIO[HARF[c][4]] = `h${n}-2`; });
+// hijolar (4–27-darslar harflari × fatha/kasra/damma): audio/hj<tartib><a|i|u>.m4a; qoida darslari so'zlari: audio/q<1..19>.m4a
+PROGRAMMA.forEach(([, c], k) => ["َ", "ِ", "ُ"].forEach((h, j) => { AUDIO[c + h] = `hj${k + 1}${"aiu"[j]}`; }));
+["بَا","نُو","رَبَّ","أُمُّ","بَيْتٌ","جَنَّةٌ","سَأَلَ","أَحَدْ","الْكِتَابُ","كُنْتُمْ","كِتَابٌ","مَسْجِدٌ","قَلَمٌ","صَبْرٌ","عِلْمٌ","طَيْرٌ","ظِلٌّ","حَجَرٌ","أَرْضٌ"].forEach((w, k) => { AUDIO[w] = `q${k + 1}`; });
 function speak(text) {
   if (AUDIO[text]) {
     const a = new Audio("audio/" + AUDIO[text] + ".m4a");
