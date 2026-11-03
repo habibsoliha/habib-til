@@ -909,7 +909,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v158";
+const VERSION = "v160";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -1588,8 +1588,18 @@ function showPlace(k) {
 }
 const starsOf =(s, t) => s / t >= 0.9 ? 3 : s / t >= 0.6 ? 2 : 1;
 // xaritadagi tugunlarni egri nuqtali yo'l bilan ulash
+// «Tuman» (Dota kabi): xaritaning o'tilmagan qismi qorong'u parda ostida; parda joriy darsdan sal pastdan boshlanadi
+function tuman(map) {
+  let f = map.querySelector(".tuman"); if (!f) { f = document.createElement("div"); f.className = "tuman"; map.appendChild(f); }
+  const r = map.getBoundingClientRect(), nodes = [...map.querySelectorAll(".node")];
+  const oxirgi = nodes.filter(n => !n.classList.contains("lock")).pop();
+  const y = oxirgi ? oxirgi.getBoundingClientRect().bottom - r.top + 70 : 0;
+  map.style.setProperty("--tuman", Math.max(0, y) + "px");
+  f.style.display = nodes.some(n => n.classList.contains("lock")) ? "" : "none";
+}
 function drawTrail() {
   const map = $.querySelector(".map"); if (!map) return;
+  requestAnimationFrame(() => tuman(map));
   const svgEl = map.querySelector(".trail"), r = map.getBoundingClientRect();
   const pts = [...map.querySelectorAll(".node")].map(n => { const b = n.getBoundingClientRect(); return [b.left - r.left + b.width / 2, b.top - r.top + b.height / 2]; });
   svgEl.setAttribute("viewBox", `0 0 ${r.width} ${r.height}`);
@@ -1713,8 +1723,15 @@ function confetti(n = 40) {
     @keyframes unlock { 0% { transform:translateX(-50%) scale(.2) rotate(-25deg); opacity:0; } 60% { transform:translateX(-50%) scale(1.25) rotate(8deg); opacity:1; } 100% { transform:translateX(-50%) scale(1) rotate(0); } }
     @keyframes burst { 0% { transform:scale(.3); opacity:1; } 100% { transform:scale(1.8); opacity:0; } }
     /* «Ilm — nur»: o'tilmagan darslar qorong'uda, o'tilganlari yorqin; navbatdagi dars nur bilan yorishadi */
-    .node-row { transition:filter .8s; }
-    .node-row:has(.node.lock) { filter:brightness(.45) saturate(.55) blur(.3px); }
+    .map { position:relative; }
+    .map .tuman { position:absolute; left:calc(50% - 50vw); width:100vw; top:calc(var(--tuman, 0px) - 30px); bottom:-20px; z-index:3; pointer-events:none;
+      background:linear-gradient(to bottom, rgba(6,14,26,0) 0, rgba(6,14,26,.6) 90px, rgba(6,14,26,.82) 220px, rgba(6,14,26,.88) 100%);
+      transition:top 1.6s ease-out; }
+    .map .tuman::before { content:""; position:absolute; inset:0; opacity:.35; background:radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.08), transparent 40%), radial-gradient(ellipse at 75% 55%, rgba(255,255,255,.06), transparent 45%);
+      animation:tumanSuz 9s ease-in-out infinite alternate; }
+    @keyframes tumanSuz { to { transform:translateX(18px) translateY(-10px); } }
+    .node-row:has(.node.unlock) { animation:yorish 1.8s ease-out both; }
+    @keyframes yorish { 0% { filter:brightness(.4); } 100% { filter:none; } }
     .node-row:has(.node.won) { filter:brightness(1.06) saturate(1.1) contrast(1.04); }
     .node-row:has(.node.cur)::before { content:""; position:absolute; left:var(--x); top:-30px; width:220px; height:180px; transform:translateX(-50%); pointer-events:none;
       background:radial-gradient(ellipse at center 38%, rgba(255,236,170,.55), rgba(255,236,170,0) 65%); z-index:0; animation:nurNafas 3s ease-in-out infinite; }
