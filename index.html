@@ -909,7 +909,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v157";
+const VERSION = "v158";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -1712,6 +1712,15 @@ function confetti(n = 40) {
             background:radial-gradient(circle, rgba(243,220,143,.9), rgba(243,220,143,0) 65%); animation:burst 1.2s ease-out both; }
     @keyframes unlock { 0% { transform:translateX(-50%) scale(.2) rotate(-25deg); opacity:0; } 60% { transform:translateX(-50%) scale(1.25) rotate(8deg); opacity:1; } 100% { transform:translateX(-50%) scale(1) rotate(0); } }
     @keyframes burst { 0% { transform:scale(.3); opacity:1; } 100% { transform:scale(1.8); opacity:0; } }
+    /* «Ilm — nur»: o'tilmagan darslar qorong'uda, o'tilganlari yorqin; navbatdagi dars nur bilan yorishadi */
+    .node-row { transition:filter .8s; }
+    .node-row:has(.node.lock) { filter:brightness(.45) saturate(.55) blur(.3px); }
+    .node-row:has(.node.won) { filter:brightness(1.06) saturate(1.1) contrast(1.04); }
+    .node-row:has(.node.cur)::before { content:""; position:absolute; left:var(--x); top:-30px; width:220px; height:180px; transform:translateX(-50%); pointer-events:none;
+      background:radial-gradient(ellipse at center 38%, rgba(255,236,170,.55), rgba(255,236,170,0) 65%); z-index:0; animation:nurNafas 3s ease-in-out infinite; }
+    .node-row:has(.node.unlock) { animation:yorish 1.8s ease-out both; }
+    @keyframes yorish { 0% { filter:brightness(.45) saturate(.55); } 100% { filter:none; } }
+    @keyframes nurNafas { 0%,100% { opacity:.7; } 50% { opacity:1; } }
     .place { top:18px; width:54px; height:54px; border-radius:50%; border:2px solid rgba(201,162,39,.6); background:rgba(255,253,245,.95);
              box-shadow:0 6px 14px -8px rgba(0,0,0,.35); cursor:pointer; animation:bob 2.6s ease-in-out infinite; padding:0; }
     .place .pe { font-size:28px; line-height:50px; }
