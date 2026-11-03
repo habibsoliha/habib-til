@@ -897,7 +897,7 @@ function loadCloud(cb) {
   let called = false;
   const done = () => { if (!called) { called = true; cb(); } };  // faqat bir marta
   if (!cloud) return done();
-  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", "ustoz", "ustozSarf", ...[0, 1, 2, 3, 4, 5, 6].map(k => "ustozLv" + k), ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
+  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", "ustoz", "ustozSarf", ...[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(k => "ustozLv" + k), ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
   const t = setTimeout(done, 2500);
   try {
     cloud.getItems(keys, (err, vals) => {
@@ -923,7 +923,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v193";
+const VERSION = "v194";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -23045,6 +23045,7 @@ const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV, 4: TARKI
 // [ism, jins, kiyim rangi, bosh kiyim rangi, ochiladigan daraja (DARAJALAR indeksi), sprite fayli img/ustoz/<id>s.png]
 const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 1, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 1, "2"],
   ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 1, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 1, "muslima"],
+  ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 2, "sabrina"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 3, "shodiya"],
   ["Valid ag'a", "m", "#3a3a3a", "#222", 4, "4"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738", 5, "5"]];
 const NASIHAT = ["Har kuni ozgina — lekin har kuni!", "Xato qilishdan qo'rqmang, xato — eng yaxshi ustoz.", "Yangi so'zni ovoz chiqarib 3 marta ayting.", "Darsdan keyin 5 daqiqa takrorlang — xotira mustahkamlanadi.",
   "Harflarni yozib mashq qiling, qo'l ham eslab qoladi.", "Bugungi so'zlardan bitta gap tuzib ko'ring.", "Shoshilmang: sekin, lekin to'g'ri.", "Arab tili — Qur'on va ilm kaliti.",
@@ -23106,6 +23107,8 @@ const USTOZ_QUDRAT = [  // [boshlang'ich ko'nikmalar 0–100, [maxsus imkoniyat,
   [[60, 70, 75, 55, 85], ["Tez lug'at", "Yangi so'zlarni rasm va misol bilan eslab qoldiradi"]],
   [[60, 80, 65, 65, 80], ["Qoida kaliti", "Grammatik qoidani bir daqiqada ochib beradi"]],
   [[75, 60, 65, 70, 90], ["Talaffuz ustasi", "Har bir so'zni to'g'ri va chiroyli o'qishga o'rgatadi"]],
+  [[65, 75, 75, 70, 85], ["Matn ustasi", "Matnni bo'laklab, so'zma-so'z tahlil qiladi"]],
+  [[70, 80, 80, 75, 85], ["Tarkib kaliti", "Iboralarni qolip bilan o'rgatib, gapirishga tayyorlaydi"]],
   [[65, 80, 80, 85, 75], ["Suhbat ustasi", "Erkin gaplashishga va fikrni ifodalashga o'rgatadi"]],
   [[75, 90, 90, 85, 80], ["Ilm cho'qqisi", "Murakkab ilmiy va adabiy matnlarni tushuntiradi"]]];
 const uLv = k => Math.min(5, store.get("ustozLv" + k, 1)), kuchBor = () => store.get("xp", 0) - store.get("ustozSarf", 0), malakaNarx = lv => lv * 150;
