@@ -920,7 +920,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v166";
+const VERSION = "v167";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -23463,11 +23463,10 @@ function motiv() {
   if (s.t === "write") return writeStep(s, total);
   return choiceStep(s, total, false);
 }
-// Kirish animatsiyasi «Ilm — nurdir»: qorong'ida chiroq yonadi, nur tarqaladi, harflar nurdan uchib chiqadi (kuniga bir marta, bosilsa o'tib ketadi)
+// Kirish animatsiyasi «Ilm — nurdir»: qorong'ida chiroq yonadi, nur tarqaladi, harflar nurdan uchib chiqadi (har ochilishda bir marta, bosilsa o'tib ketadi)
 function ilmNur() {
-  const kun = new Date().toDateString();
-  if (store.get("nurKun", "") === kun && !/nur=1/.test(location.search)) return;
-  store.set("nurKun", kun);
+  // ilova har ochilganda bir marta (Telegram oynasi yopib ochilsa yana chiqadi)
+  try { if (sessionStorage.getItem("nur") && !/nur=1/.test(location.search)) return; sessionStorage.setItem("nur", "1"); } catch (e) {}
   const H = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي", hf = Array.from({ length: 22 }, (_, k) => {
     const a = (k / 22) * Math.PI * 2, r = 120 + (k % 4) * 40;
     return `<span class="nh" style="--x:${Math.cos(a) * r}px;--y:${Math.sin(a) * r - 40}px;animation-delay:${1.6 + (k % 7) * .12}s">${H[(k * 5) % H.length]}</span>`; }).join("");
