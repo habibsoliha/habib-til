@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v210";
+const VERSION = "v214";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2523,7 +2523,8 @@ function confetti(n = 40) {
     .kuchlar { text-align:center; margin:4px 0 8px; padding:8px; border-radius:12px; color:#fff8e1; background:linear-gradient(135deg,#5b2a86,#1f6f8b); }
     .kuchlar b { color:#f5c542; }
     .daraxt { display:block; width:100%; max-width:340px; margin:6px auto 10px; text-align:center; }
-    .daraxt .toj { position:relative; height:230px; transform-origin:50% 95%; animation:shamol 6s ease-in-out infinite; }
+    .daraxt .toj { position:relative; width:100%; max-width:300px; margin:0 auto; aspect-ratio:480/465; transform-origin:50% 95%; animation:shamol 6s ease-in-out infinite; }
+    .daraxt .dr-rasm { position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 6px 8px rgba(60,40,10,.25)); }
     @keyframes shamol { 0%,100% { transform:rotate(0); } 50% { transform:rotate(.8deg); } }  /* shamolda sekin tebranish */
     .daraxt .toj > svg { position:absolute; inset:0; width:100%; height:100%; }
     .meva { position:absolute; width:30px; height:30px; margin:-15px; padding:0; border-radius:50% 50% 46% 46%; border:0; color:#244; font-size:15px;
@@ -23844,6 +23845,7 @@ const HX_HARF = [
 const HX_ULANMAS = "اأإآدذرزو";
 // Insho bo'limi qoidalari: imlo, tinish belgilari, insho tuzilishi (yozish kitoblaridan o'zbekcha qisqa bayon)
 const HXA = s => `<span class="ar" style="font-size:1.15em">${s}</span>`;
+// hozircha ishlatilmaydi: hamza qoidalari A1 dan yuqori darajalarga mos (rahbar, 04.11) — o'sha darajalarga ko'chiriladi
 const HX_HAMZA = [
   ["✏️ Hamza: ulash va uzish hamzasi", [
     `<b>Uzish hamzasi (همزة القطع)</b> doim o'qiladi va yoziladi: ${HXA("أَكَلَ، إِسْلَام، أُمّ")}.`,
@@ -23976,8 +23978,17 @@ function hxStrelkaEski(c, sh = 0) {
     <line x1="10" y1="120" x2="190" y2="120" stroke="#c9b98f" stroke-dasharray="5 5"/>${yol}${nq}
     ${nuq.length ? `<text x="100" y="196" class="hxt">${Y.length + 1}${nuq.length > 1 ? "–" + (Y.length + nuq.length) : ""}: nuqta${nuq.length > 1 ? "lar" : ""}</text>` : ""}</svg>`;
 }
+// harf → yozuv varag'i (husnixat/<n>.jpg), varaqlarning o'zidan tekshirilgan (04.11): 1 ا ب, 2 ت, 3 ن, 4 ي va م birga,
+// keyin har harf o'z darsidan bitta oldingi varaqda (5 ل, 6 ج, … 8 س, 9 ش, … 26 ض); 27-varaq 26-ning takrori
+const HX_VARAQ = { ...Object.fromEntries(PROGRAMMA.map(([n, c]) => [c, n - 1])), "ا": 1, "ب": 1, "ت": 2, "ن": 3, "ي": 4, "م": 4 };
+// varaqni yuklab olish: Telegram ichida — Telegram.WebApp.downloadFile (Bot API 8.0), bo'lmasa oddiy havola
+function varaqYukla(n) {
+  const url = new URL(`husnixat/${n}.jpg`, location.href).href, nom = `Habib-husnixat-${n}-varaq.jpg`;
+  try { if (tg && tg.downloadFile && tg.isVersionAtLeast && tg.isVersionAtLeast("8.0")) return tg.downloadFile({ url, file_name: nom }); } catch (e) {}
+  const a = document.createElement("a"); a.href = url; a.download = nom; a.target = "_blank"; document.body.appendChild(a); a.click(); a.remove();
+}
 function hxHarf(k) {
-  const [c, nom, tip] = HX_HARF[k], ul = !HX_ULANMAS.includes(c);
+  const [c, nom, tip] = HX_HARF[k], ul = !HX_ULANMAS.includes(c), vq = HX_VARAQ[c];
   const F = [["Alohida", c], ["Oxirida", "ـ" + c], ["O'rtada", ul ? "ـ" + c + "ـ" : ""], ["Boshida", ul ? c + "ـ" : ""]];
   $.innerHTML = `<button class="back"><span>‹</span> Husnixat</button><h2>${k + 1}. ${nom} harfi</h2>
     <div class="tk-card" style="display:flex;align-items:center;justify-content:space-around;gap:8px">
@@ -23989,13 +24000,18 @@ function hxHarf(k) {
     ${ul ? "" : `<p class="tk-n">Bu harf chapdagi harfga ulanmaydi, shuning uchun boshida va o'rtada alohida shaklda yoziladi.</p>`}
     <div class="fb ok" style="text-align:left">✍️ ${tip}</div>
     ${HX_VIDEO[c] ? `<p><b>🎬 Video dars</b> <small>(nasx xati, oddiy ruchka bilan)</small></p><div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${HX_VIDEO[c]}?rel=0&playsinline=1" loading="lazy" style="width:100%;height:100%;border:0" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>` : ""}
-    ${({ "ا": [...HX_HAMZA, HX_IMLO[1]], "ت": [HX_IMLO[0]], "ه": [HX_IMLO[0]], "ي": [HX_IMLO[1]], "و": [HX_IMLO[2]], "ل": [HX_IMLO[2]] }[c] || [])
+    ${vq ? `<p><b>📄 Yozuv varag'i</b> <small>(${vq}-varaq)</small></p>
+      <img src="husnixat/${vq}.jpg" alt="" loading="lazy" onclick="betOch(this.src)" style="width:100%;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.15);cursor:zoom-in;display:block">
+      <p class="tk-n">Varaqni chop eting yoki daftarga har so'zni 3 qatordan ko'chirib yozing, rasmini ustozga yuboring</p>
+      <button class="main" id="hxvq" style="margin:4px 0 12px">⬇️ Varaqni yuklab olish</button>` : ""}
+    ${({ "ا": [HX_IMLO[1]], "ت": [HX_IMLO[0]], "ه": [HX_IMLO[0]], "ي": [HX_IMLO[1]], "و": [HX_IMLO[2]], "ل": [HX_IMLO[2]] }[c] || [])
       .map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
     <p><b>Barmog'ingiz bilan ustidan yozing:</b></p>
     <div style="position:relative"><canvas id="hxc" style="width:100%;height:260px;background:#fffdf6;border-radius:16px;border:2px dashed #c9b98f;touch-action:none;display:block"></canvas></div>
     <div style="display:flex;gap:8px;margin-top:8px"><button class="o" id="hxtoz" style="flex:1">Tozalash</button>
       ${k > 0 ? `<button class="o" id="hxold" style="flex:1">‹ Oldingi</button>` : ""}${k < HX_HARF.length - 1 ? `<button class="main" id="hxkey" style="flex:1;margin:0">Keyingi ›</button>` : ""}</div>`;
   $.querySelector(".back").onclick = husnixatScreen;
+  const vb = $.querySelector("#hxvq"); if (vb) vb.onclick = () => varaqYukla(vq);
   const cv = $.querySelector("#hxc"), r = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
   cv.width = W * r; cv.height = H * r; const g = cv.getContext("2d"); g.scale(r, r);
   let shakl = c;
@@ -24080,9 +24096,11 @@ function daraxt() {
     <g>${barg(124, 88, 38, "url(#dtj)")}${barg(216, 90, 38, "url(#dtj)")}${barg(170, 56, 44, "url(#dtj)")}${barg(144, 126, 34, "url(#dtj)")}${barg(198, 126, 34, "url(#dtj)")}</g>
     <g fill="rgba(255,255,240,.16)"><ellipse cx="146" cy="38" rx="24" ry="14"/><ellipse cx="104" cy="74" rx="14" ry="9"/><ellipse cx="190" cy="44" rx="12" ry="7"/></g>
     <g fill="rgba(10,40,10,.18)"><ellipse cx="226" cy="132" rx="22" ry="10"/><ellipse cx="170" cy="146" rx="30" ry="9"/></g></svg>`;
-  return `<div class="daraxt"><div class="toj">${rasm}${H.slice(-14).map((h, j, A) => {
+  // multfilm daraxti — Meta AI'da chizilgan rasm (img/daraxt.png, foni shaffof); SVG rasm zaxira sifatida qoldirildi
+  void rasm;
+  return `<div class="daraxt"><div class="toj"><img class="dr-rasm" src="img/daraxt.png" alt="">${H.slice(-14).map((h, j, A) => {
       const a = j * 2.4, r = Math.sqrt((j + .5) / Math.max(A.length, 1));
-      return `<button class="meva ${H.indexOf(h) === pish ? "pish" : ""}" style="left:${50 + 26 * r * Math.cos(a)}%;top:${43 + 30 * r * Math.sin(a)}%"><span class="ar">${h}</span></button>`;
+      return `<button class="meva ${H.indexOf(h) === pish ? "pish" : ""}" style="left:${50 + 34 * r * Math.cos(a)}%;top:${34 + 25 * r * Math.sin(a)}%"><span class="ar">${h}</span></button>`;
     }).join("")}</div>
     <div class="savat">🧺 ${s.savat} <small>${s.bugunUzildi ? "Bugungi meva uzildi — ertaga yana keling" : "Oltin mevani bosib uzing!"}</small></div></div>`;
 }
@@ -24181,7 +24199,7 @@ function intro() {
       ? LESSON.yt.map((id, k) => `${LESSON.yt.length > 1 ? `<p><b>${k + 1}-qism</b></p>` : ""}<div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${id}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`).join("")
       : `<div class="video">▶️<br>${LESSON.video}</div>`}
     ${(KITOB[LESSON.n] && !LESSON.exam ? KITOB[LESSON.n] : []).map(src => `<p><b>📖 Kitobdagi beti</b></p><img src="${src}" alt="" loading="lazy" onclick="betOch(this.src)" style="cursor:zoom-in;width:100%;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.15);margin-bottom:10px" onerror="this.previousElementSibling.remove();this.remove()">`).join("")}
-    ${({ 129: HX_HAMZA, 128: [HX_IMLO[0]] }[LESSON.n] || []).map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
+    ${({ 128: [HX_IMLO[0]] }[LESSON.n] || []).map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
     <p>Videoni ko'ring, keyin ${LESSON.steps.length + LESSON.test.length} savollik test.</p>
     <button class="main" id="go">Testni boshlash</button>`;
   document.getElementById("go").onclick = () => { mode = "steps"; i = 0; render(); };
