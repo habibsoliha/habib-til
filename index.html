@@ -898,7 +898,7 @@ function loadCloud(cb) {
   let called = false;
   const done = () => { if (!called) { called = true; cb(); } };  // faqat bir marta
   if (!cloud) return done();
-  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", "ustoz", "ustozSarf", "pullik", ...[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(k => "ustozLv" + k), ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
+  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", "ustoz", "ustozSarf", "pullik", "dtest", ...[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(k => "ustozLv" + k), ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
   const t = setTimeout(done, 2500);
   try {
     cloud.getItems(keys, (err, vals) => {
@@ -924,7 +924,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v200";
+const VERSION = "v201";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2653,12 +2653,14 @@ function levelsScreen(streak, total) {
               <small class="tn-iz">${keyingi ? `Keyingi daraja <b>${keyingi[0]}</b>: ${foiz}% — 70% ga yetganda daraja olinadi` : "Eng yuqori daraja olindi!"}</small></div>`;
           })()}`;
       })()}</div>
+    <button class="main" id="dtest" style="margin:14px 0 4px">📝 Darajani tekshirish${(r => r ? ` · ${r.d}` : "")(store.get("dtest", null))}</button>
     <div class="levels">${DARAJALAR.map((L, k) => `
       <button class="lv ${L.cls}" data-l="${k}">
         <span class="lv-code">${L.code}</span>
         <span class="lv-body"><span class="lv-ar ar">${L.ar}</span><b>${L.name}</b><small>${L.sub}</small>
           ${k > 1 ? (() => { const LL = LESSONS.slice(BOSQICHLAR[k + 1].from, BOSQICHLAR[k + 1].to), dd = LL.filter(l => store.get("lesson" + l.n, null)).length, pp = Math.round(dd * 100 / LL.length); return `<span class="pbar thin"><i style="width:${Math.max(pp, 2)}%"></i></span><small>${dd}/${LL.length} dars · ${pp}%</small>`; })() : k ? `<span class="pbar thin"><i style="width:${Math.max(p1, 2)}%"></i></span><small>${d1}/${A1L.length} dars · ${p1}%</small>` : `<span class="pbar thin"><i style="width:${Math.max(p, 2)}%"></i></span><small>${d}/${PRE.length} dars · ${p}%</small>`}</span>
         <span class="arrow">${k >= 4 && !TEST ? "🔒" : "›"}</span></button>`).join("")}</div>`;
+  $.querySelector("#dtest").onclick = () => darajaTest();
   $.querySelectorAll("button.lv").forEach(b => b.onclick = () => {
     if (+b.dataset.l >= 4 && !TEST) {  // B2, C1, C2 hozircha yopiq — faqat sinov rejimida ochiladi
       const f = document.createElement("div"); f.className = "fb ok"; f.textContent = "Bu daraja tez orada ochiladi";
@@ -2670,6 +2672,148 @@ function levelsScreen(streak, total) {
     else { level = +b.dataset.l; stage = null; bolim = null; render(); }  // A1–C2: 6 ta bo'lim
   });
 }
+// --- Daraja aniqlash testi (metodist: "dars qo'llanma\Daraja aniqlash testi (arab tili).html") ---
+// Ilovada avtomatik tekshiriladigan qismi: lug'at 10, grammatika 20, o'qish 10, tinglash 8 (matnni ilova o'qib beradi).
+// Daraja = o'qish va tinglash 75 ballik o'rtachasi (testdagi shkala); yozish va gapirish — ustoz bilan, alohida.
+const DT_MATN = {
+  o1: "عَزِيزٌ طَالِبٌ أُوزْبَكِيٌّ. يَسْكُنُ فِي مَدِينَةِ سَمَرْقَنْدَ مَعَ أُسْرَتِهِ. يَدْرُسُ عَزِيزٌ فِي الْجَامِعَةِ، وَيَدْرُسُ اللُّغَةَ الْعَرَبِيَّةَ. يَسْتَيْقِظُ كُلَّ يَوْمٍ فِي السَّاعَةِ السَّادِسَةِ، ثُمَّ يُصَلِّي وَيَفْطُرُ مَعَ أَبِيهِ وَأُمِّهِ. يَذْهَبُ إِلَى الْجَامِعَةِ بِالْحَافِلَةِ. هِوَايَتُهُ الْمُفَضَّلَةُ الْقِرَاءَةُ، وَهُوَ يُحِبُّ فَصْلَ الرَّبِيعِ؛ لِأَنَّهُ مُعْتَدِلٌ.",
+  o2: "تَلْعَبُ الْقِرَاءَةُ دَوْرًا كَبِيرًا فِي حَيَاةِ الْإِنْسَانِ؛ فَهِيَ تُوَسِّعُ مَعَارِفَهُ وَتُنَمِّي خَيَالَهُ. وَعَلَى الرَّغْمِ مِنِ انْتِشَارِ الْإِنْتَرْنِتِ وَوَسَائِلِ التَّوَاصُلِ الِاجْتِمَاعِيِّ، فَإِنَّ كَثِيرًا مِنَ الْبَاحِثِينَ يَرَوْنَ أَنَّ الْكِتَابَ الْوَرَقِيَّ مَا زَالَ يَحْتَفِظُ بِمَكَانَتِهِ؛ فَالْقَارِئُ يَسْتَطِيعُ أَنْ يُرَكِّزَ أَكْثَرَ حِينَ يَقْرَأُ كِتَابًا، بَيْنَمَا يَتَشَتَّتُ انْتِبَاهُهُ أَمَامَ الشَّاشَاتِ بِسَبَبِ كَثْرَةِ الْإِشْعَارَاتِ. وَلِذٰلِكَ يَنْصَحُ الْخُبَرَاءُ بِتَخْصِيصِ نِصْفِ سَاعَةٍ يَوْمِيًّا لِلْقِرَاءَةِ بَعِيدًا عَنِ الْهَاتِفِ.",
+  t1: "اِسْمِي فَاطِمَةُ. أَنَا مُعَلِّمَةٌ فِي مَدْرَسَةٍ قَرِيبَةٍ مِنْ بَيْتِي. أَذْهَبُ إِلَى الْمَدْرَسَةِ مَشْيًا، وَيَسْتَغْرِقُ الطَّرِيقُ عَشْرَ دَقَائِقَ. فِي الصَّيْفِ الْمَاضِي سَافَرْتُ مَعَ أُسْرَتِي إِلَى الْمَدِينَةِ الْمُنَوَّرَةِ بِالطَّائِرَةِ، وَبَقِينَا هُنَاكَ أُسْبُوعًا. وَفِي الْعَامِ الْقَادِمِ أُرِيدُ أَنْ أَدْرُسَ فِي الْجَامِعَةِ لِأَحْصُلَ عَلَى شَهَادَةِ الْمَاجِسْتِيرِ.",
+  t2: "أَعْلَنَتْ وَزَارَةُ الصِّحَّةِ أَنَّ عَدَدَ الْمُصَابِينَ بِمَرَضِ السُّكَّرِيِّ ارْتَفَعَ فِي السَّنَوَاتِ الْأَخِيرَةِ، وَأَرْجَعَتْ ذٰلِكَ إِلَى قِلَّةِ الْحَرَكَةِ وَالْإِكْثَارِ مِنَ الْوَجَبَاتِ السَّرِيعَةِ. وَدَعَتِ الْوَزَارَةُ الْمُوَاطِنِينَ إِلَى الْمَشْيِ ثَلَاثِينَ دَقِيقَةً يَوْمِيًّا، وَإِجْرَاءِ فَحْصٍ طِبِّيٍّ مَرَّةً كُلَّ سَنَةٍ عَلَى الْأَقَلِّ.",
+};
+// [bo'lim, savol, [a,b,c,d], to'g'ri (0..3), matn?]  bo'lim: l — lug'at, g — grammatika, o — o'qish, t — tinglash
+const DT = [
+  ["l","كِتَابٌ",["qalam","kitob","stol","sumka"],1], ["l","مَدْرَسَةٌ",["maktab","masjid","bozor","uy"],0], ["l","الشِّتَاءُ",["yoz","bahor","kuz","qish"],3],
+  ["l","جِنْسِيَّةٌ",["til","millat / fuqarolik","shahar","poytaxt"],1], ["l","مَطَارٌ",["bekat","ko'cha","aeroport","yomg'ir"],2], ["l","هِوَايَةٌ",["havo","sevimli mashg'ulot","sayohat","kasb"],1],
+  ["l","مُسْتَشْفًى",["dorixona","kutubxona","mehmonxona","kasalxona"],3], ["l","سِيرَةٌ ذَاتِيَّةٌ",["rezyume (tarjimai hol)","shaxsiy mashina","ish shartnomasi","safar"],0],
+  ["l","يُقَوِّي مَنَاعَةَ الْجِسْمِ",["tanani charchatadi","vaznni kamaytiradi","immunitetni mustahkamlaydi","uyquni buzadi"],2], ["l","عَادَ إِلَى مَسْقِطِ رَأْسِهِ",["ishiga qaytdi","tug'ilgan joyiga qaytdi","boshini ko'tardi","kasal bo'ldi"],1],
+  ["g","______ طَاوِلَةٌ.",["هٰذَا","هٰذِهِ","هٰؤُلَاءِ","ذٰلِكَ"],1], ["g","مَا ______؟ — اِسْمِي أَحْمَدُ.",["اسْمِي","اسْمُهُ","اسْمُكَ","اسْمٌ"],2],
+  ["g","هِيَ ______ . (o'zbek qiz)",["أُوزْبَكِيٌّ","أُوزْبَكِسْتَانُ","أُوزْبَكِيُّونَ","أُوزْبَكِيَّةٌ"],3], ["g","______ هٰذَا الْكِتَابُ؟ — هٰذَا الْكِتَابُ لِي.",["لِمَنْ","مَنْ","أَيْنَ","كَمْ"],0],
+  ["g","الطُّلَّابُ ______ فِي الصَّفِّ.",["يَدْرُسُ","تَدْرُسُ","يَدْرُسُونَ","أَدْرُسُ"],2], ["g","أَمْسِ ______ إِلَى السُّوقِ.",["ذَهَبْتُ","أَذْهَبُ","سَأَذْهَبُ","اِذْهَبْ"],0],
+  ["g","أَسْكُنُ فِي طَشْقَنْدَ ______ سَنَتَيْنِ.",["قَبْلَ","مُنْذُ","عِنْدَ","بَعْدَ"],1], ["g","فِي الصَّفِّ ______ طُلَّابٍ.",["ثَلَاثُ","ثَلَاثُونَ","ثَلَاثَةَ عَشَرَ","ثَلَاثَةُ"],3],
+  ["g","فَاطِمَةُ ______ مِنْ أُخْتِهَا.",["طَوِيلَةٌ","أَطْوَلُ","طُولَى","الطَّوِيلَةُ"],1], ["g","أُرِيدُ أَنْ ______ اللُّغَةَ الْعَرَبِيَّةَ.",["أَتَعَلَّمُ","تَعَلَّمْتُ","أَتَعَلَّمَ","تَعَلُّمٌ"],2],
+  ["g","لَمْ ______ الطَّالِبُ الدَّرْسَ.",["يَفْهَمُ","فَهِمَ","سَيَفْهَمُ","يَفْهَمْ"],3], ["g","إِنَّ ______ مُجْتَهِدُونَ.",["الْمُعَلِّمِينَ","الْمُعَلِّمُونَ","مُعَلِّمُونَ","الْمُعَلِّمَانِ"],0],
+  ["g","كَانَ الْجَوُّ ______ أَمْسِ.",["بَارِدٌ","بَارِدًا","بَارِدٍ","الْبَارِدُ"],1], ["g","لَا حَاجَةَ إِلَى أَنْ ______ الْحَافِلَةَ.",["تَرْكَبُ","رَكِبْتَ","تَرْكَبَ","اِرْكَبْ"],2],
+  ["g","الْكِتَابُ الَّذِي ______ أَمْسِ مُفِيدٌ.",["قَرَأْتُهَا","قَرَأْتُهُ","أَقْرَأُ","قِرَاءَةٌ"],1], ["g","كُتِبَتِ الرِّسَالَةُ. — ma'nosi:",["Xat yozildi.","Xatni yozdi.","Xat yozadi.","Xatni yoz!"],0],
+  ["g","الْمُهَنْدِسَتَانِ ______ فِي الشَّرِكَةِ.",["تَعْمَلُ","يَعْمَلُونَ","يَعْمَلْنَ","تَعْمَلَانِ"],3], ["g","لَوْ دَرَسْتَ جَيِّدًا ______ فِي الِامْتِحَانِ.",["لَنَجَحْتَ","تَنْجَحُ","سَتَنْجَحُ","نَجَحَ"],0],
+  ["g","______ بُرُودَةِ الْجَوِّ، خَرَجْنَا لِلنُّزْهَةِ.",["لِأَنَّ","لِكَيْ","عَلَى الرَّغْمِ مِنْ","حَتَّى"],2], ["g","مَا أَجْمَلَ ______ !",["السَّمَاءُ","السَّمَاءِ","سَمَاءٌ","السَّمَاءَ"],3],
+  ["o","Aziz qayerda yashaydi?",["Toshkentda","Buxoroda","Samarqandda","Xivada"],2,"o1"], ["o","Aziz universitetda nima o'qiydi?",["arab tili","tibbiyot","ingliz tili","matematika"],0,"o1"],
+  ["o","U soat nechada uyg'onadi?",["5 da","6 da","7 da","8 da"],1,"o1"], ["o","Universitetga nimada boradi?",["piyoda","taksida","metroda","avtobusda"],3,"o1"],
+  ["o","Nega bahorni yaxshi ko'radi?",["issiq bo'lgani uchun","mo''tadil bo'lgani uchun","qor yoqqani uchun","ta'til bo'lgani uchun"],1,"o1"],
+  ["o","Matnning asosiy fikri:",["Internet kitobni butunlay siqib chiqardi.","Qog'oz kitob hali ham o'z o'rnini saqlab turibdi.","Ijtimoiy tarmoqlar o'qishga foydali.","Tadqiqotchilar kitob o'qimaydi."],1,"o2"],
+  ["o","Nega ekran oldida diqqat tarqaladi?",["ekran juda katta","bildirishnomalar ko'p","matn qiyin","ko'z charchaydi"],1,"o2"],
+  ["o","Mutaxassislar nimani maslahat beradi?",["kuniga 2 soat internetda o'qish","telefonni sotib yuborish","haftada bir kitob sotib olish","kuniga yarim soat telefondan uzoqda o'qish"],3,"o2"],
+  ["o","تُنَمِّي خَيَالَهُ — ma'nosi:",["xayolini (tasavvurini) rivojlantiradi","xayolini buzadi","uni uxlatadi","uni yolg'iz qoldiradi"],0,"o2"],
+  ["o","يَتَشَتَّتُ so'ziga ma'nodosh so'z:",["يَجْتَمِعُ","يَنَامُ","يَتَفَرَّقُ","يَكْتُبُ"],2,"o2"],
+  ["t","Fotimaning kasbi nima?",["shifokor","o'qituvchi","talaba","muhandis"],1,"t1"], ["t","U maktabga qanday boradi?",["piyoda","avtobusda","mashinada","metroda"],0,"t1"],
+  ["t","Yo'l qancha vaqt oladi?",["5 daqiqa","30 daqiqa","10 daqiqa","1 soat"],2,"t1"], ["t","O'tgan yozda qayerga sayohat qildi?",["Makkaga","Qohiraga","Istanbulga","Madinaga"],3,"t1"],
+  ["t","Kelasi yilgi rejasi:",["magistraturada o'qish","maktabni almashtirish","uy sotib olish","yana sayohat qilish"],0,"t1"],
+  ["t","Xabar nima haqida?",["qandli diabet ko'payishi haqida","yangi kasalxona ochilishi","ob-havo","sport musobaqasi"],0,"t2"],
+  ["t","Vazirlik buning sababini nimada ko'radi?",["yoshning kattaligida","kam harakat va tez tayyor ovqatda","havo ifloslanishida","irsiyatda"],1,"t2"],
+  ["t","Vazirlik fuqarolarni nimaga chaqirdi?",["haftada bir marta sport zaliga borishga","shakarni butunlay tashlashga","kuniga 30 daqiqa yurish va yiliga kamida bir marta tekshiruvdan o'tishga","har oy shifokorga borishga"],2,"t2"],
+];
+const DT_BOLIM = { l: "Lug'at", g: "Grammatika", o: "O'qib tushunish", t: "Tinglab tushunish" };
+// test sahifalari fon ustida o'qilishi uchun oq kartochka ichida
+const kartaHTML = h => `<div style="background:rgba(255,251,240,.96);color:#2a2418;border-radius:18px;padding:14px 14px 18px;box-shadow:0 6px 20px rgba(0,0,0,.18)">${h}</div>`;
+function darajaTest() {
+  const J = [];  // o'quvchi javoblari (indeks yoki null — "bilmayman")
+  const $0 = $, box = { set innerHTML(h) { $0.innerHTML = kartaHTML(h); window.scrollTo(0, 0); } };
+  const bosh = () => {
+    box.innerHTML = `<button class="back"><span>‹</span> Orqaga</button><h2>📝 Darajani tekshirish</h2>
+      <p>48 ta savol: lug'at, grammatika, o'qib tushunish va tinglab tushunish. Taxminan 40 daqiqa.</p>
+      <p>Bilmasangiz, taxmin qilmang — «Bilmayman» ni bosing. Shunda natija aniqroq chiqadi.</p>
+      <p><small>Yozish va gapirish ko'nikmalari ustoz bilan alohida tekshiriladi.</small></p>
+      <button class="main" id="dtGo">Boshlash</button>`;
+    $.querySelector(".back").onclick = () => render();
+    $.querySelector("#dtGo").onclick = () => savol(0);
+  };
+  const savol = k => {
+    if (k >= DT.length) return natija();
+    const [b, q, V, , m] = DT[k], ar = /[؀-ۿ]/.test(q);
+    box.innerHTML = `<button class="back"><span>‹</span> To'xtatish</button>
+      <p class="trip">${DT_BOLIM[b]} · ${k + 1} / ${DT.length}</p><div class="pbar thin"><i style="width:${Math.max(2, k * 100 / DT.length)}%"></i></div>
+      ${m && b === "o" ? `<div class="fb ok ar" style="text-align:right;line-height:2;font-size:20px;margin:10px 0">${DT_MATN[m]}</div>` : ""}
+      ${m && b === "t" ? `<button class="o" id="dtEsh" style="width:100%;margin:10px 0">🔊 Matnni tinglash</button>` : ""}
+      <h2 class="${ar ? "ar" : ""}" style="${ar ? "direction:rtl;font-size:26px" : ""}">${q}</h2>
+      <div class="opts">${V.map((v, j) => `<button class="o ${/[؀-ۿ]/.test(v) ? "ar" : ""}" data-j="${j}">${"abcd"[j]}) ${v}</button>`).join("")}
+      <button class="o" data-j="-1" style="opacity:.75">Bilmayman</button></div>`;
+    $.querySelector(".back").onclick = () => render();
+    const e = $.querySelector("#dtEsh"); if (e) e.onclick = () => speak(DT_MATN[m]);
+    $.querySelectorAll(".opts button").forEach(x => x.onclick = () => { J[k] = +x.dataset.j; savol(k + 1); });
+  };
+  const natija = () => {
+    const s = c => DT.reduce((a, d, k) => a + (d[0] === c && J[k] === d[3] ? 1 : 0), 0);
+    const l = s("l"), g = s("g"), o = s("o"), t = s("t");
+    const o75 = Math.round(o * 7.5), t75 = Math.min(75, Math.round(t * 9.4)), u = Math.round((o75 + t75) / 2);
+    const d = u >= 65 ? "C1" : u >= 51 ? "B2" : u >= 38 ? "B1" : u >= 20 ? "A2" : "A1";
+    store.set("dtest", { d, u, l, g, o, t, sana: new Date().toISOString().slice(0, 10) });
+    sendResult({ lesson: "DARAJA TESTI", score: `${d} (${u}/75) · lug'at ${l}/10 · grammatika ${g}/20 · o'qish ${o}/10 · tinglash ${t}/8`, xp: "" });
+    box.innerHTML = `<h2>Natijangiz</h2><div class="tanal"><div class="tn-bosh"><small>Taxminiy daraja (o'qish + tinglash)</small><b>${d}</b></div>
+      <div class="tn-kon">${[["Lug'at", l, 10], ["Grammatika", g, 20], ["O'qib tushunish", o, 10], ["Tinglab tushunish", t, 8]].map(([n, a, m]) => `<div><span>${n}</span><span class="pbar thin"><i style="width:${Math.max(2, a * 100 / m)}%"></i></span><small>${a} / ${m}</small></div>`).join("")}</div>
+      <small class="tn-iz">Umumiy: ${u} / 75. To'liq daraja uchun yozish va gapirishni ustoz bilan topshiring.</small></div>
+      <p>Tavsiya: <b>${d === "A1" ? "Fonetika va A1 dan boshlang" : d}</b> darajasidagi darslardan boshlang.</p>
+      <button class="main" id="dtOk">Darajalarga qaytish</button>`;
+    $.querySelector("#dtOk").onclick = () => render();
+  };
+  bosh();
+}
+// --- Yo'nalish imtihoni: har yo'nalish tepasidagi «Imtihon olish» — shu daraja va yo'nalishning hamma mavzularidan 20 ta savol.
+// b: 0 darslar (darslar testlaridan), 3 lug'at, 4 tarkib (qolip qaysi mavzuga tegishli), 5 muhodasa (savolga mos javob qolipi).
+// Nahv va insho uchun tayyor savollar yo'q — ularning imtihoni ustoz bilan jonli darsda. 70% va undan yuqori — o'tdi.
+function imtihonSavollar(lv, b) {
+  const sh = a => shuffle([...a]), uch = (to, hamma, f) => sh(hamma.filter(x => f(x) !== f(to))).slice(0, 3);
+  const tuz = (q, to, boshq, f, ar) => { const o = sh([to, ...boshq]); return { q, o: o.map(f), a: o.indexOf(to), ar }; };
+  if (b === 0 && lv >= 1) return sh([3, 4, 5].flatMap(k => imtihonSavollar(lv, k).slice(0, 7))).slice(0, 20);  // A1+ darslarida hali test yo'q — lug'at, tarkib, muhodasadan aralash
+  if (b === 0) {
+    const L = lv >= 1 ? LESSONS.slice(BOSQICHLAR[lv + 1].from, BOSQICHLAR[lv + 1].to) : LESSONS.slice(0, PRE_N);
+    return sh(L.flatMap(l => l.test || []).filter(t => t.o && t.o.length >= 2 && t.a != null)).slice(0, 20);  // faqat variantli savollar
+  }
+  if (b === 3) {
+    const W = (LUGAT[lv] || []).flatMap(t => t.w.map(w => ({ ar: w[0], uz: w[2] })));
+    return sh(W).slice(0, 20).map(w => tuz(`<div class="big ar">${w.ar}</div><p>Ma'nosini tanlang</p>`, w, uch(w, W, x => x.uz), x => x.uz));
+  }
+  if (b === 4) {
+    const Q = (TARKIB[lv] || []).flatMap(t => t.q.filter(q => !q.izoh).map(q => ({ m: q.m, uz: t.uz })));
+    const M = [...new Set(Q.map(q => q.uz))].map(uz => ({ uz }));
+    return sh(Q).slice(0, 20).map(q => tuz(`<div class="ar tk-m" style="direction:rtl">${q.m}</div><p>Bu qolip qaysi mavzuga tegishli?</p>`, { uz: q.uz }, uch({ uz: q.uz }, M, x => x.uz), x => x.uz));
+  }
+  if (b === 5) {
+    const S = (MUH_LV[lv] || []).flatMap(t => t.savollar).filter(q => q.t);
+    return sh(S).slice(0, 20).map(q => tuz(`<div class="big ar" style="font-size:26px">${q.s}</div><p>Savolga mos javobni tanlang</p>`, q, uch(q, S, x => x.t), x => x.t, true));
+  }
+  return [];
+}
+function yonalishImtihon(lv, b) {
+  const S = imtihonSavollar(lv, b), nomi = b === 0 ? "Darslar" : BOLIMLAR[b][1], ortga = () => { mode = "home"; render(); };
+  const box = { set innerHTML(h) { $.innerHTML = kartaHTML(h); window.scrollTo(0, 0); } };
+  if (!S.length) {
+    box.innerHTML = `<h2>🎓 ${nomi} imtihoni</h2><p>Bu yo'nalish imtihoni ustoz bilan jonli darsda topshiriladi.</p><button class="main" id="nx">Qaytish</button>`;
+    return $.querySelector("#nx").onclick = ortga;
+  }
+  let i = 0, ball = 0;
+  const savol = () => {
+    const s = S[i];
+    box.innerHTML = `<button class="back"><span>‹</span> To'xtatish</button><p class="trip">🎓 ${nomi} imtihoni · ${i + 1} / ${S.length}</p>
+      <div class="pbar thin"><i style="width:${Math.max(2, i * 100 / S.length)}%"></i></div>
+      <div style="text-align:center;margin:10px 0">${s.say ? `<button class="play" id="pl">🔊</button>` : ""}<div ${s.ar && !/</.test(s.q) ? `class="big ar"` : ""}>${s.q}</div></div>
+      <div class="opts">${s.o.map((v, k) => `<button class="o ${s.ar || /[؀-ۿ]/.test(v) ? "ar" : ""}" data-k="${k}">${v}</button>`).join("")}</div>`;
+    $.querySelector(".back").onclick = ortga;
+    const pl = $.querySelector("#pl"); if (pl) { pl.onclick = () => speak(s.say); setTimeout(() => speak(s.say), 300); }
+    $.querySelectorAll(".opts button").forEach(x => x.onclick = () => { if (+x.dataset.k === s.a) ball++; if (++i < S.length) savol(); else natija(); });
+  };
+  const natija = () => {
+    const f = Math.round(ball * 100 / S.length), otdi = f >= 70, key = `imtihon${b}-${lv}`;
+    if (f > (store.get(key, { f: 0 }).f || 0)) store.set(key, { f, sana: new Date().toISOString().slice(0, 10) });
+    sendResult({ lesson: `IMTIHON ${DARAJALAR[lv].code} · ${nomi}`, score: `${ball}/${S.length} (${f}%)`, xp: "" });
+    box.innerHTML = `<h2>${otdi ? "🎉 Imtihondan o'tdingiz!" : "Yana tayyorlaning"}</h2>
+      <div class="video">🎓<br>${DARAJALAR[lv].code} · ${nomi}<br><b>${ball} / ${S.length}</b> · ${f}%</div>
+      <p>${otdi ? "Barakalla! Keyingi yo'nalishga o'tishingiz mumkin." : "O'tish uchun 70% kerak. Mavzularni takrorlab, qayta topshiring."}</p>
+      <button class="main" id="nx">Qaytish</button><button class="o" id="yb" style="width:100%;margin-top:10px">Qayta topshirish</button>`;
+    $.querySelector("#nx").onclick = ortga; $.querySelector("#yb").onclick = () => yonalishImtihon(lv, b);
+  };
+  savol();
+}
+const imtihonTugma = (lv, b) => (r => `<button class="main" id="imt" style="margin:8px 0">🎓 Imtihon olish${r ? ` · eng yaxshi natija ${r.f}%` : ""}</button>`)(store.get(`imtihon${b}-${lv}`, null));
 // A1, A2, B1: 1) darslar (sayohat xaritasi), 2) Nahv va sarf, 3) Insho — 2- va 3-bo'lim mavzulari metodistdan keladi
 let bolim = null;
 // Nahv va insho mavzulari — metodistning "Ustozlar o'quv dasturi" (artifact, 2026-10-31 oxirgi nusxa)
@@ -23424,7 +23568,7 @@ function bolimScreen() {
   const T = bolimMavzu(bolim, level) || [], key0 = `bolim${bolim}-${level}-`;
   $.innerHTML = heroBox(streak, total, T.filter((_, j) => store.get(key0 + j, null)).length, T.length, "mavzu")
     + `<button class="back"><span>‹</span> ${D.code} bo'limlari</button>
-    ${lvH(BOLIMLAR[bolim][1])}` + (bolimMavzu(bolim, level)
+    ${lvH(BOLIMLAR[bolim][1])}${imtihonTugma(level, bolim)}` + (bolimMavzu(bolim, level)
     // darslar xaritasi kabi: tugunlar egri yo'l bilan ulanadi; ochiq = birinchisi + o'tilganining keyingisi
     ? `<div class="map"><svg class="trail"></svg>${bolimMavzu(bolim, level).map(([ar, uz], j, L) => {
         const key = `bolim${bolim}-${level}-`, won = store.get(key + j, null), open = TEST || j === 0 || won || store.get(key + (j - 1), null);
@@ -23443,6 +23587,7 @@ function bolimScreen() {
         <p class="note">Darslar va mashqlar tez orada qo'shiladi.</p>`
     : `<div class="video">🕰️<br>Bu bo'lim mavzulari tez orada qo'shiladi</div>`);
   $.querySelector(".back").onclick = () => { bolim = null; render(); };
+  $.querySelector("#imt").onclick = () => yonalishImtihon(level, bolim);
   drawTrail();
   $.querySelectorAll(".map button.place:not([disabled])").forEach(b => b.onclick = () => showUz(b.dataset.uz));
   if (bolim === 2) $.querySelector("h2.a1h").insertAdjacentHTML("afterend", `<div style="margin:8px 0">${HX_QOIDA.map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
@@ -23866,6 +24011,7 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
     : `${stage >= 2 ? `<button class="back lvback"><span>‹</span> Darajalar</button>
     <h2 class="a1h lvword"><span class="lvc">${DARAJALAR[stage - 1].code}</span><span class="ar lva">${DARAJALAR[stage - 1].ar}</span><span class="lvn">${DARAJALAR[stage - 1].name}${stage === 2 ? " (Miftah)" : ""}</span></h2><p class="trip">${stage === 2 ? SAYOHAT[2] : SAYOHAT_LV[DARAJALAR[stage - 1].id][0]} — <b>!</b> belgisini bosing</p>` : `<button class="back"><span>‹</span> Bosqichlar</button>
     <h2>${stage + 1}-bosqich. ${BOSQICHLAR[stage].name}</h2><p class="trip">${SAYOHAT[stage]} — <b>!</b> belgisini bosing</p>`}
+    ${imtihonTugma(stage >= 2 ? stage - 1 : 0, 0)}
     <div class="map"><svg class="trail"></svg>${LESSONS.slice(BOSQICHLAR[stage].from, BOSQICHLAR[stage].to).map((l, j) => {
       const k = BOSQICHLAR[stage].from + j, res = store.get("lesson" + l.n, null);
       const open = TEST || k === 0 || BOSQICHLAR.some((b, s) => s >= 2 && b.from === k) || store.get("lesson" + LESSONS[k - 1].n, null);
@@ -23883,6 +24029,7 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
   drawTrail(); setTimeout(ustozYol, 60);
   $.querySelectorAll("button.st:not(.done):not(#husnixat)").forEach(b => b.onclick = () => { stage = +b.dataset.s; render(); });
   const hx = $.querySelector("#husnixat"); if (hx) hx.onclick = husnixatScreen;
+  const im = $.querySelector("#imt"); if (im) im.onclick = () => yonalishImtihon(stage >= 2 ? stage - 1 : 0, 0);
   const pm = $.querySelector(".meva.pish"); if (pm) pm.onclick = mevaUz;
   $.querySelectorAll("button.back").forEach(b => b.onclick = () => { if (b.classList.contains("lvback") && !(level >= 1)) level = null; stage = null; bolim = null; render(); });
   $.querySelectorAll("button.node:not([disabled])").forEach(b => b.onclick = () => {
