@@ -924,7 +924,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v203";
+const VERSION = "v205";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2815,6 +2815,29 @@ function yonalishImtihon(lv, b) {
     return $.querySelector("#nx").onclick = ortga;
   }
   let i = 0, ball = 0;
+  // imtihon boshidagi sharh: nima tekshiriladi, savollar qanday, o'tish sharti
+  const SHARH = {
+    0: lv >= 1 ? "Bu daraja darslarida o'rganilgan so'zlar, qoliplar va suhbat savollari aralash tekshiriladi."
+      : "Fonetika darslari bo'yicha: harflarni eshitib tanish, harakatlar o'qilishi, maxrajlar va so'zlar.",
+    3: "Shu darajadagi lug'at darslaridan tasodifiy so'zlar chiqadi. Har bir arabcha so'zning o'zbekcha ma'nosini tanlang.",
+    4: "Shu darajadagi tarkib (qolip) misollari chiqadi. Har bir qolip qaysi mavzuga tegishli ekanini tanlang.",
+    5: "Shu darajadagi muhodasa savollari chiqadi. Har bir savolga mos keladigan javob qolipini tanlang.",
+  };
+  const bosh = () => {
+    const r = store.get(`imtihon${b}-${lv}`, null);
+    box.innerHTML = `<button class="back"><span>‹</span> Orqaga</button><h2>🎓 ${DARAJALAR[lv].code} · ${nomi} imtihoni</h2>
+      <p>${SHARH[b] || ""}</p>
+      <ul style="margin:8px 0 12px 18px;padding:0;line-height:1.7">
+        <li>${S.length} ta savol, har birida bitta to'g'ri javob.</li>
+        <li>Javob tanlangach, keyingi savolga o'tiladi — orqaga qaytib bo'lmaydi.</li>
+        <li>O'tish uchun kamida <b>70%</b> to'g'ri javob kerak.</li>
+        <li>Natija saqlanadi; imtihonni istalgancha qayta topshirish mumkin — eng yaxshi natija hisobga olinadi.</li>
+      </ul>
+      ${r ? `<p>Oldingi eng yaxshi natijangiz: <b>${r.f}%</b> (${r.sana})</p>` : ""}
+      <button class="main" id="imGo">Imtihonni boshlash</button>`;
+    $.querySelector(".back").onclick = ortga;
+    $.querySelector("#imGo").onclick = savol;
+  };
   const savol = () => {
     const s = S[i];
     box.innerHTML = `<button class="back"><span>‹</span> To'xtatish</button><p class="trip">🎓 ${nomi} imtihoni · ${i + 1} / ${S.length}</p>
@@ -2835,7 +2858,7 @@ function yonalishImtihon(lv, b) {
       <button class="main" id="nx">Qaytish</button><button class="o" id="yb" style="width:100%;margin-top:10px">Qayta topshirish</button>`;
     $.querySelector("#nx").onclick = ortga; $.querySelector("#yb").onclick = () => yonalishImtihon(lv, b);
   };
-  savol();
+  bosh();
 }
 const imtihonTugma = (lv, b) => (r => `<button class="main" id="imt" style="margin:8px 0">🎓 Imtihon olish${r ? ` · eng yaxshi natija ${r.f}%` : ""}</button>`)(store.get(`imtihon${b}-${lv}`, null));
 // A1, A2, B1: 1) darslar (sayohat xaritasi), 2) Nahv va sarf, 3) Insho — 2- va 3-bo'lim mavzulari metodistdan keladi
@@ -23447,8 +23470,8 @@ const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV, 4: TARKI
 // --- Ustoz-personajlar (Habib Academy ustozlari): o'quvchi ustozni o'zi tanlaydi; ustoz o'z darajasidan boshlab ochiladi.
 // Dars yo'lida tanlangan ustoz o'quvchi darsi yonida turadi, keyingi darsga yurib boradi, nasihat aytadi. Suratlar — Ilova loyihasi\ustozlar\
 // [ism, jins, kiyim rangi, bosh kiyim rangi, ochiladigan daraja (DARAJALAR indeksi), sprite fayli img/ustoz/<id>s.png]
-const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 1, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 1, "2"],
-  ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 1, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 1, "muslima"],
+const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 1, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 0, "2"],
+  ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 0, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 0, "muslima"],  // Pre-A1 (Fonetika) ustozlari — boshidan ochiq
   ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 2, "sabrina"], ["Ustoz Asadulloh Abdulazizov","m", "#6b6b6b", "#1a1a1a", 2, "abduqodir"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 3, "shodiya"],
   ["Valid ag'a", "m", "#3a3a3a", "#222", 4, "4"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738", 5, "5"]];
 const NASIHAT = ["Har kuni ozgina — lekin har kuni!", "Xato qilishdan qo'rqmang, xato — eng yaxshi ustoz.", "Yangi so'zni ovoz chiqarib 3 marta ayting.", "Darsdan keyin 5 daqiqa takrorlang — xotira mustahkamlanadi.",
@@ -23458,7 +23481,7 @@ const NASIHAT = ["Har kuni ozgina — lekin har kuni!", "Xato qilishdan qo'rqman
 // navbatda (surat kutilmoqda): A2 — Abduqodir, Zilola opa, Zebo, Sabrina; B1 — Shodiya
 const ustozDaraja = k => USTOZLAR[k][4];
 const ustozOchiq = k => { const d = ustozDaraja(k); return TEST || d === 0 || !!store.get("lesson" + LESSONS[BOSQICHLAR[d + 1].from - 1].n, null); };
-const ustozTanlangan = () => { const k = store.get("ustoz", 0); return USTOZLAR[k] ? k : 0; };
+const ustozTanlangan = () => { const b = USTOZLAR.findIndex(u => u[4] === 0), k = store.get("ustoz", b); return USTOZLAR[k] && ustozOchiq(k) ? k : b; };  // yangi o'quvchiga (yoki tanlagani hali yopiq bo'lsa) — ochiq Pre-A1 ustoz
 const USTOZ_RASM = [1, 2, 4, 5];  // img/ustoz/<k>.png bor darajalar (Meta AI multfilm rasmi, foni shaffof)
 // yuz nuqtalari (180×360 rasmda): k — ikki ko'z markazi, r — ko'z yarim kengligi, q — qosh chizig'i (y oralig'i), t — teri rangi
 const USTOZ_YUZ = { 1: { k: [[66, 110], [111, 110]], r: 10, q: [87, 99], x: [52, 128], t: "#dfa274" }, 2: { k: [[77, 58], [101, 57]], r: 6, q: [43, 50], x: [70, 108], t: "#f7c7a3" },
@@ -23497,11 +23520,11 @@ function ustozSvg(k) {
 const nasihat = () => NASIHAT[Math.floor(Math.random() * NASIHAT.length)];
 // bosh qism: «عربي» o'rnida tanlangan ustoz, ‹ › bilan boshqa ustozlar (yopiqlari keyingi bosqichda ochiladi)
 function ustozTepa() {
-  const k = ustozTanlangan(), ochiq = ustozOchiq(k), D = DARAJALAR[ustozDaraja(k)];
-  return `<div class="utepa" data-k="${k}"><button class="o ut-o ut-l">‹</button>
+  const k = ustozTanlangan(), ochiq = ustozOchiq(k), D = DARAJALAR[ustozDaraja(k)], kop = USTOZLAR.filter((_, i) => ustozOchiq(i)).length > 1;
+  return `<div class="utepa" data-k="${k}">${kop ? `<button class="o ut-o ut-l">‹</button>` : ""}
     <div class="ut-m ${ochiq ? "" : "yopiq"} forma-${uLv(k)}">${ustozSvg(k)}${ochiq ? "" : `<span class="ut-qulf">🔒</span>`}<div class="ut-gap">${ochiq ? nasihat() : `🔒 ${D.code} bosqichiga yetganingizda ochiladi`}</div>
       <b>${USTOZLAR[k][0]}</b><small>${D.code} ustozi · ${uLv(k)}-daraja · ${FORMA[uLv(k) - 1]}</small>
-      <div class="ut-tug"><button class="o ut-q">⚡ Qudrati</button><button class="o ut-mk">🎓 Malaka oshirish</button></div></div><button class="o ut-o ut-r">›</button></div>`;
+      <div class="ut-tug"><button class="o ut-q">⚡ Qudrati</button><button class="o ut-mk">🎓 Malaka oshirish</button></div></div>${kop ? `<button class="o ut-o ut-r">›</button>` : ""}</div>`;
 }
 // --- Ustoz qudrati va malaka oshirish (PUBG qahramonlari kabi): o'quvchi to'plagan kuch (XP) bilan ustoz darajasi oshadi, formasi o'zgaradi
 const KONIKMA = ["Talaffuz", "Grammatika", "Lug'at", "Suhbat", "Sabr"];
@@ -23541,7 +23564,9 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("click", e => {
   const b = e.target.closest && e.target.closest(".ut-o"); if (!b) return;
-  const w = b.closest(".utepa"), n = USTOZLAR.length, k = (+w.dataset.k + (b.classList.contains("ut-l") ? n - 1 : 1)) % n;
+  // faqat ochilgan ustozlar orasida aylanadi — yopiqlari o'quvchi o'sha darajaga yetmaguncha ko'rinmaydi
+  const w = b.closest(".utepa"), O = USTOZLAR.map((_, k) => k).filter(ustozOchiq), n = O.length, j = Math.max(0, O.indexOf(+w.dataset.k));
+  const k = O[(j + (b.classList.contains("ut-l") ? n - 1 : 1)) % n];
   store.set("ustoz", k); w.outerHTML = ustozTepa();
 });
 // dars yo'li: ustoz joriy dars yonida; oldingi joyi saqlangan bo'lsa — yurib keladi
