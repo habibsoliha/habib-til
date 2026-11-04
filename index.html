@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v217";
+const VERSION = "v218";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2126,7 +2126,7 @@ function showUz(k) {
 function showPlace(k) {
   const [e, n, f] = PLACES[k] || PLACES[0];
   const m = document.createElement("div"); m.className = "pmodal";
-  m.innerHTML = `<div class="pcard"><h2>${n}</h2><div class="fotos">${(FOTO[k] || []).map(u => `<img src="${u}" alt="" loading="lazy" onerror="this.remove()">`).join("") || `<div class="pemoji">${sketch(k)}</div>`}</div><p>${f}</p><small style="display:block;opacity:.55;margin:-6px 0 10px">Suratlar: Wikipedia / Wikimedia Commons</small><button class="main pclose">Qiziq ekan!</button></div>`;
+  m.innerHTML = `<div class="pcard"><h2>${n}</h2><div class="fotos">${(FOTO[k] || []).map(u => `<img src="${u}" alt="" loading="lazy" onerror="this.remove()">`).join("") || (AI[k] ? `<img src="${AI[k]}" alt="" style="width:100%;border-radius:14px">` : `<div class="pemoji">${sketch(k)}</div>`)}</div><p>${f}</p>${(FOTO[k] || []).length ? `<small style="display:block;opacity:.55;margin:-6px 0 10px">Suratlar: Wikipedia / Wikimedia Commons</small>` : ""}<button class="main pclose">Qiziq ekan!</button></div>`;
   m.onclick = ev => { if (ev.target === m || ev.target.closest(".pclose")) m.remove(); };
   document.body.appendChild(m);
 }
@@ -2550,8 +2550,8 @@ function confetti(n = 40) {
     .dn-kar { width:min(440px,94vw); max-height:92vh; overflow:auto; background:#fbf3df; border-radius:18px; padding:14px; box-sizing:border-box; }
     .dn-bosh { display:flex; justify-content:space-between; align-items:center; font-size:18px; } .dn-bosh .o { padding:4px 10px; }
     .dn-iz { margin:6px 0 10px; }
-    .dn-map { position:relative; aspect-ratio:2150/1400; border-radius:14px; overflow:hidden;
-      background:url(img/arab-xarita2.jpg) center/100% 100%; border:2px solid #c9a24a; }
+    .dn-map { position:relative; aspect-ratio:1024/666; border-radius:14px; overflow:hidden;
+      background:url(img/arab-xarita3.jpg) center/100% 100%; border:2px solid #c9a24a; }
     .dn-map svg { position:absolute; inset:0; width:100%; height:100%; }
     .dn-map polyline { fill:none; stroke:#8a5a1c; stroke-width:.6; stroke-dasharray:1.5 1.2; vector-effect:non-scaling-stroke; }
     .dn-d { position:absolute; transform:translate(-50%,-50%); text-align:center; }
@@ -2576,6 +2576,16 @@ function confetti(n = 40) {
     .fl-n { display:flex; gap:6px; justify-content:center; margin-bottom:12px; } .fl-n i { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.35); } .fl-n i.on { background:#f5c542; }
     .film .fl-v { padding:0; background:#000 !important; } .fl-v video { width:100%; height:100%; object-fit:contain; }
     .utepa { display:flex; align-items:center; justify-content:center; gap:10px; margin:8px 0 4px; }
+    /* o'yindagi qahramon kartasi (Instagram "Ustozlarimiz bilan tanishing" videosidagidek): ‹ › bosilganda siljib kiradi */
+    .ut-karta { margin:6px auto 2px; width:min(250px,86%); padding:8px 10px 6px; border-radius:12px; text-align:left; background:rgba(20,28,24,.78); border:1px solid rgba(255,255,255,.25); box-shadow:0 6px 18px rgba(0,0,0,.25); }
+    .ut-karta div { margin:3px 0 5px; } .ut-karta small { display:flex; justify-content:space-between; font:800 10.5px system-ui,sans-serif; letter-spacing:.6px; text-transform:uppercase; color:var(--c); }
+    .ut-karta small b { color:#fff; font-weight:700; letter-spacing:0; } .ut-karta span { display:block; height:6px; border-radius:9px; background:rgba(255,255,255,.22); overflow:hidden; }
+    .ut-karta span i { display:block; height:100%; border-radius:9px; background:var(--c); box-shadow:0 0 8px var(--c); animation:ukT .9s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes ukT { from { width:0 } }
+    .ut-karta .uk-um { display:flex; align-items:baseline; gap:8px; margin:0 0 6px; padding-bottom:6px; border-bottom:1px solid rgba(255,255,255,.18); }
+    .uk-um b { font:800 26px system-ui,sans-serif; color:#ffd23f; } .uk-um em { font-style:normal; font-size:15px; letter-spacing:1px; } .uk-um small { display:block !important; margin-left:auto; text-transform:none !important; }
+    .utepa.kir-o .ut-m { animation:ukO .45s ease-out; } .utepa.kir-c .ut-m { animation:ukC .45s ease-out; }
+    @keyframes ukO { from { transform:translateX(60px); opacity:0 } } @keyframes ukC { from { transform:translateX(-60px); opacity:0 } }
     .ut-o { width:38px; height:38px; border-radius:50%; padding:0; font-size:22px; flex:none; }
     .ut-m { position:relative; text-align:center; width:150px; } .ut-m .usvg { width:84px; height:126px; display:block; margin:44px auto 0; animation:uNafas 3s ease-in-out infinite; }
     .ut-m b { display:block; font-size:15px; } .ut-m small { opacity:.65; font-size:12px; }
@@ -2755,19 +2765,18 @@ function levelsScreen(streak, total) {
         const dn = R.reduce((s, r) => s + r[1], 0), all = R.reduce((s, r) => s + r[2], 0), pa = Math.round(dn * 100 / all);
         return `<div class="h-prog"><div><b>${pa}%</b><small>umumiy dastur: ${dn}/${all} mavzu</small></div>
           <div class="pbar"><i style="width:${Math.max(pa, 2)}%"></i></div></div>
-          ${(() => {  // At-Tanal sertifikati kabi: darajama-daraja emas, bitta umumiy CEFR natija (daraja 70% o'zlashtirilsa olingan hisoblanadi)
-            let olingan = -1; R.forEach(([, a, n], k) => { if (olingan === k - 1 && n && a / n >= .7) olingan = k; });
-            const keyingi = R[olingan + 1], foiz = keyingi ? Math.round(keyingi[1] * 100 / keyingi[2]) : 100;
-            // At-Tanal hisoboti kabi 5 ko'nikma × 30 ball = 150: ilovaning bo'limlari ko'nikmalarga taqsimlanadi
+          ${(() => {  // Milliy sertifikat (CEFR, Multilevel) kabi: 4 ko'nikma × 0–75 ball, umumiy ball = o'rtacha, daraja shkaladan
+            // ilovaning bo'limlari ko'nikmalarga taqsimlanadi; ko'nikma bali = butun dastur (A1–C1) bo'yicha o'zlashtirish × 75
             const ulush = (bs) => { let a = 0, n = 0; for (let k = 1; k <= 6; k++) bs.forEach(b => { const T = bolimMavzu(b, k) || []; n += T.length; a += T.filter((_, j) => store.get(`bolim${b}-${k}-${j}`, null)).length; }); return n ? a / n : 0; };
-            const darsU = all ? R.reduce((s, r) => s + r[1], 0) / all : 0;
-            const K = [["Tinglash", darsU], ["O'qish", (darsU + ulush([3])) / 2], ["Gapirish", ulush([5])], ["Lug'at va tuzilma", ulush([1, 3, 4])], ["Yozish", ulush([2])]]
-              .map(([n, u]) => [n, Math.round(u * 30 * 100) / 100]);
-            const jami = Math.round(K.reduce((s, k) => s + k[1], 0) * 100) / 100;
-            return `<div class="tanal"><div class="tn-bosh"><small>Natijangiz (CEFR) · ${jami} / 150</small><b>${olingan >= 0 ? R[olingan][0] : "—"}</b></div>
-              <div class="tn-kon">${K.map(([n, b]) => `<div><span>${n}</span><span class="pbar thin"><i style="width:${Math.max(b * 100 / 30, 2)}%"></i></span><small>${b} / 30</small></div>`).join("")}</div>
-              <div class="tn-shkala">${R.map(([c], k) => `<span class="${k <= olingan ? "ol" : k === olingan + 1 ? "jr" : ""}" style="${k === olingan + 1 ? `--f:${foiz}%` : ""}">${c}</span>`).join("")}</div>
-              <small class="tn-iz">${keyingi ? `Keyingi daraja <b>${keyingi[0]}</b>: ${foiz}% — 70% ga yetganda daraja olinadi` : "Eng yuqori daraja olindi!"}</small></div>`;
+            const darsU = all ? dn / all : 0;
+            const K = [["Tinglash", (darsU + ulush([5])) / 2], ["O'qish", (darsU + ulush([3])) / 2], ["Yozish", ulush([1, 2])], ["Gapirish", ulush([4, 5])]].map(([n, u]) => [n, Math.round(u * 75)]);
+            const ball = Math.round(K.reduce((s, k) => s + k[1], 0) / 4);
+            const SH = [["A1", 10], ["A2", 20], ["B1", 38], ["B2", 51], ["C1", 65]];  // Multilevel shkalasi: 10–19 A1, 20–37 A2, 38–50 B1, 51–64 B2, 65–75 C1
+            const ol = SH.filter(s => ball >= s[1]).length - 1, kel = SH[ol + 1];
+            return `<div class="tanal"><div class="tn-bosh"><small>Natijangiz (CEFR · Multilevel) · ${ball} / 75</small><b>${ol >= 0 ? SH[ol][0] : "A1 dan past"}</b></div>
+              <div class="tn-kon">${K.map(([n, b]) => `<div><span>${n}</span><span class="pbar thin"><i style="width:${Math.max(b * 100 / 75, 2)}%"></i></span><small>${b} / 75</small></div>`).join("")}</div>
+              <div class="tn-shkala" style="grid-template-columns:repeat(5,1fr)">${SH.map(([c, b], k) => `<span class="${k <= ol ? "ol" : k === ol + 1 ? "jr" : ""}" style="${k === ol + 1 ? `--f:${Math.round(ball * 100 / b)}%` : ""}">${c}<br><small style="font-weight:400">${b}+</small></span>`).join("")}</div>
+              <small class="tn-iz">${kel ? `Keyingi daraja <b>${kel[0]}</b>: ${kel[1]} ball kerak (hozir ${ball}). Umumiy ball — 4 ko'nikma o'rtachasi` : "Eng yuqori daraja — C1!"}</small></div>`;
           })()}`;
       })()}</div>
     ${jonliTugma()}<button class="main" id="dtest" style="margin:14px 0 4px">📝 Darajani tekshirish${(r => r ? ` · ${r.d}` : "")(store.get("dtest", null))}</button>
@@ -3082,7 +3091,7 @@ function dtBolim(nom, qadamlar, tugadi) {
         <div class="opts">${Q.v.map((v, j) => `<button class="o ${isAr(v) ? "ar" : ""}" data-j="${j}">${"abcd"[j]}) ${v}</button>`).join("")}
         <button class="o" data-j="-1" style="opacity:.75">Bilmayman</button></div>`;
       const e = $.querySelector("#esh"); if (e) e.onclick = () => { eshitildi[Q.audio] = (eshitildi[Q.audio] || 0) + 1; speak(Q.audio); e.textContent = `🔊 Tinglash (${2 - eshitildi[Q.audio]} marta qoldi)`; if (eshitildi[Q.audio] >= 2) e.disabled = true; };
-      $.querySelectorAll(".opts button").forEach(x => x.onclick = () => { jami++; if (+x.dataset.j === Q.j) tog++; qadam(k + 1); });
+      $.querySelectorAll(".opts button").forEach(x => x.onclick = () => { jami++; if (+x.dataset.j === Q.j) tog++; qadam(k + 1); });  // testda to'g'ri/xato ovozi chalinmaydi — javob oshkor bo'lmasin
     } else {
       const gap = Q.t === "gap";
       box.innerHTML = `${tepa}
@@ -23986,6 +23995,18 @@ function ustozSvg(k) {
 const nasihat = () => NASIHAT[Math.floor(Math.random() * NASIHAT.length)];
 // bosh qism: «عربي» o'rnida tanlangan ustoz, ‹ › bilan boshqa ustozlar (yopiqlari keyingi bosqichda ochiladi)
 // kv — ko'rsatilayotgan ustoz (‹ › bilan hammasi ko'rinadi); tanlangan (saqlangan) ustoz faqat ochiqlardan bo'ladi
+// ustoz kartasi (o'yindagi qahramon kartasidek): umumiy reyting ★ va tarkibiy ballar, hammasi 5 ballik; null — hali baholanmagan
+// umumiy = Ustozlar reytingi (−6…+10) → 1…5: (ball + 6) / 16 × 4 + 1. Keyin "Ustozlar reytingi (Habib til)" jadvalidan kuniga 1 marta yangilanadi
+const REYTING_BAND = [["O'quvchilar mamnunligi", "#ffe14d"], ["Pedagogika va psixologiya", "#5dd6ff"], ["Tartib-intizom", "#5df25d"], ["Faollik", "#ff8a3b"]];
+let USTOZ_REYTING = [  // USTOZLAR tartibida: [umumiy, mamnunlik, pedagogika va psixologiya, intizom, faollik] — "O'quv bo'limi" jadvali, "Ilova reyting" varag'i (2026-11-05)
+  [3.1, 2.2, 4.2, 2.9, 2.9], [2.5, 1.5, 5, 1.8, 1.8], [4.0, 1.0, 5, 5, 5], [3.0, 2.1, 5, 2.5, 2.5],
+  [3.1, 5, 5, 1.2, 1.2], [3.2, 1.8, 4.6, 3.1, 3.1], [2.9, 1.4, 5, 2.5, 2.5], [null, null, null, null, null], [null, null, null, null, null]];
+function ustozKarta(k) {
+  const [u, ...B] = USTOZ_REYTING[k] || [];
+  const qator = (n, c, v) => `<div style="--c:${c}"><small>${n}<b>${v == null ? "—" : v.toFixed(1)}</b></small><span><i style="width:${v == null ? 3 : Math.max(3, Math.round(v * 20))}%"></i></span></div>`;
+  const yulduz = u == null ? "" : [1, 2, 3, 4, 5].map(i => `<i style="color:${u >= i - .25 ? "#ffd23f" : "rgba(255,255,255,.25)"}">★</i>`).join("");
+  return `<div class="ut-karta"><div class="uk-um"><b>${u == null ? "—" : u.toFixed(1)}</b><em>${yulduz}</em><small style="color:#fff;opacity:.8">umumiy reyting</small></div>${REYTING_BAND.map(([n, c], i) => qator(n, c, B[i])).join("")}</div>`;
+}
 function ustozTepa(kv) {
   const k = kv ?? ustozTanlangan(), ochiq = ustozOchiq(k), D = DARAJALAR[ustozDaraja(k)], yop = ochiq ? "" : "disabled";
   return `<div class="utepa" data-k="${k}"><button class="o ut-o ut-l">‹</button>
@@ -24013,8 +24034,8 @@ function ustozOyna(k, tur) {
     const lv = uLv(k), [S, [mN, mI]] = USTOZ_QUDRAT[k], ochiq = ustozOchiq(k), narx = malakaNarx(lv), bor = kuchBor();
     o.innerHTML = `<div class="dn-kar uo"><div class="dn-bosh"><b>${tur === "q" ? "⚡ Qudrati" : "🎓 Malaka oshirish kursi"}</b><button class="o" id="uo-x">✕</button></div>
       <div class="uo-bosh forma-${lv}">${ustozSvg(k)}<div><b>${USTOZLAR[k][0]}</b><small>${DARAJALAR[ustozDaraja(k)].code} dan · ${lv}-daraja · ${FORMA[lv - 1]} forma</small></div></div>
-      ${tur === "q" ? `<div class="uo-kon">${KONIKMA.map((n, i) => { const v = Math.min(100, S[i] + (lv - 1) * 3); return `<div><span>${n}</span><span class="pbar thin"><i style="width:${v}%"></i></span><small>${v}</small></div>`; }).join("")}</div>
-        <p class="uo-max">✨ <b>${mN}</b> — ${mI}</p><p class="uo-iz">Malaka oshirilgan sari ko'nikmalar +3 dan o'sadi.</p>`
+      ${tur === "q" ? `${ustozKarta(k)}
+        <p class="uo-max">✨ <b>${mN}</b> — ${mI}</p><p class="uo-iz">Reyting har kuni yangilanadi: o'quvchilar fikri, bilim testi, intizom va faollik.</p>`
       : `<p class="uo-iz">Darslardan yig'gan kuchingiz (⭐ XP) bilan ustozni malaka oshirish kursiga yuborasiz. Har darajada ko'nikmalari o'sadi va formasi almashadi.</p>
         <div class="uo-forma">${FORMA.map((f, i) => `<span class="${i < lv ? "ol" : ""}">${i + 1}. ${f}</span>`).join("")}</div>
         <p class="uo-iz">Sizdagi kuch: <b>⭐ ${bor}</b></p>
@@ -24035,6 +24056,8 @@ document.addEventListener("click", e => {
   const w = b.closest(".utepa"), n = USTOZLAR.length, k = (+w.dataset.k + (b.classList.contains("ut-l") ? n - 1 : 1)) % n;
   if (ustozOchiq(k)) store.set("ustoz", k);
   w.outerHTML = ustozTepa(k);
+  const y = document.querySelector(`.utepa[data-k="${k}"]`); if (y) y.classList.add(b.classList.contains("ut-l") ? "kir-c" : "kir-o");  // o'yindagidek siljib kiradi
+  sfx("togri");
 });
 // dars yo'li: ustoz joriy dars yonida; oldingi joyi saqlangan bo'lsa — yurib keladi
 let ustozT = null;
@@ -24214,6 +24237,7 @@ function lugatDars(lv, j) {
     if (t === 2) { $.querySelector("#pl").onclick = () => say(w.ar); setTimeout(() => say(w.ar), 300); }
     $.querySelectorAll(".opts button").forEach(b => b.onclick = () => {
       const ok = o[+b.dataset.k] === w; if (ok) ball++; else Q.push({ w, t });  // xato — oxirida yana so'raladi
+      sfx(ok ? "togri" : "xato");
       $.querySelectorAll(".opts button").forEach((x, k) => { x.disabled = true; if (o[k] === w) x.classList.add("ok"); });
       if (!ok) b.classList.add("bad");
       const fb = $.querySelector("#fb"); fb.className = "fb " + (ok ? "ok" : "bad"); fb.textContent = ok ? "To'g'ri!" : `To'g'risi: ${w.ar} — ${w.uz}`;
@@ -24537,7 +24561,7 @@ function mevaUz() {
   box.querySelector("#mq-tak").onclick = () => speak(h + "َ");
   box.querySelectorAll("[data-h]").forEach(b => b.onclick = () => {
     const ok = b.dataset.h === h, s = mevaHolat(), t = new Date().toDateString();
-    b.classList.add(ok ? "ok" : "no");
+    b.classList.add(ok ? "ok" : "no"); sfx(ok ? "togri" : "xato");
     if (ok) { s.savat++; store.set("xp", store.get("xp", 0) + 5); }
     store.set("meva", { savat: s.savat, oxirgi: t, kun: t, tushdi: s.tushdi });
     box.querySelector("p").textContent = ok ? "🍎 Savatga tushdi! +5 XP" : `Bu «${h}» edi. Ertaga yana urinib ko'ring`;
@@ -24633,6 +24657,7 @@ function feedback(ok, extra) {
   fb.className = "fb " + (ok ? "ok" : "bad");
   fb.textContent = ok ? "To'g'ri! +10 XP" : "Noto'g'ri. " + (extra || "");
   if (ok) xp += 10;
+  sfx(ok ? "togri" : "xato");
   if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred(ok ? "success" : "error");
   const btn = document.getElementById("next");
   btn.disabled = false; btn.textContent = "Davom etish";
@@ -24850,6 +24875,7 @@ function finish() {
     <button class="main" id="go">${nextL ? "Keyingi bosqichni ochish ➜" : "Xaritaga qaytish"}</button>
     <p style="opacity:.5;font-size:12px">${VERSION} · ${sent ? "natija yuborildi ✓" : "natija yuborilmadi ✗"}</p>`;
   setTimeout(() => confetti(), 300);
+  sfx(BOSQICHLAR.some(b => b.to === k0 + 1) ? "bosqich" : "dars");  // bosqichning oxirgi darsi — karnay-surnay, oddiy dars — olqish
   try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success"); } catch {}
   document.getElementById("go").onclick = () => { mode = "home"; render(); };
 }
@@ -24900,7 +24926,7 @@ function motiv() {
   const q = LESSON.exam ? (LESSON.n === 200 ? "O'ychi o'yini o'ylaguncha, tavakkalchi ishini bitiradi." : "O'zingizning bilimingizga suyaning — o'zgalardan ko'chirish doimo xato bo'ladi. Siz bunga tayyorsiz!")
     : MOTIV[num] || MOTIV_ALL[(LESSONS.indexOf(LESSON) * 7) % MOTIV_ALL.length];
   $.innerHTML = `<div class="top"><button class="hback" id="back">←</button><span style="flex:1"></span></div>
-    <div class="motiv"><div class="mq ar">❝</div><p class="mtext">${q}</p><div class="mauth">— Habibulloh Ahmadov</div></div>
+    <div class="motiv"><div class="mq ar">❝</div><p class="mtext">${q}</p><div class="mauth">— Qalam chaqnashi</div></div>
     <p style="text-align:center;margin:14px 0 4px">${LESSON.title}</p>
     <button class="main" id="go">${LESSON.exam ? "Imtihonni boshlash ➜" : "Darsni boshlash ➜"}</button>`;
   document.getElementById("go").onclick = () => { if (LESSON.exam) { mode = "test"; i = 0; testScore = 0; } else mode = "intro"; render(); };
@@ -24942,17 +24968,17 @@ function motiv() {
 // --- Sayohat marshruti: davlatlar ketma-ket ochiladi (oldingisi tugamaguncha keyingisi yopiq) ---
 // lv = DARAJALAR indeksi; davlat progressi — o'ziga tegishli darslar ulushi (DAVLAT_DARSLARI). x/y — xaritadagi joy (%).
 // [bayroq, nom, daraja, x, y, yo'nalish (BOLIMLAR indeksi: 0 darslar, 2 insho, 3 lug'at, 4 tarkib, 5 muhodasa)]
-// x/y — eski arab-xarita.jpg (1500×844) bo'yicha %, img/arab-xarita2.jpg (2150×1400, xarita 260px pastda) ga o'giriladi; 100 dan oshgani — xarita chetida
+// x/y — img/arab-xarita3.jpg (Ispaniyadan Indoneziyagacha to'liq xarita) dagi joy, 1024×666 o'lchamdagi piksel bo'yicha
 const MARSHRUT = [
-  ["🇪🇸", "Andalus", 0, 9, 26, 0], ["🇲🇦", "Marokash", 0, 6, 40, 0],
-  ["🇲🇷", "Mavritaniya", 1, 3, 66, 0], ["🇩🇿", "Jazoir", 1, 12, 47, 0], ["🇹🇳", "Tunis", 1, 18, 36, 2], ["🇱🇾", "Liviya", 1, 22, 51, 3], ["🇪🇬", "Misr", 1, 36, 56, 4], ["🇸🇩", "Sudan", 1, 40, 77, 5],
-  ["🇾🇪", "Yaman", 2, 58, 82, 0], ["🇴🇲", "Ummon", 2, 69, 69, 0], ["🇦🇪", "BAA", 2, 66, 63, 2], ["🇶🇦", "Qatar", 2, 63, 58, 3], ["🇧🇭", "Bahrayn", 2, 62, 54, 4], ["🇸🇦", "Saudiya Arabistoni", 2, 55, 64, 5],
-  ["🇯🇴", "Iordaniya", 3, 47, 45, 0], ["🇵🇸", "Falastin", 3, 43, 44, 0], ["🇱🇧", "Livan", 3, 44, 37, 2], ["🇸🇾", "Suriya", 3, 48, 35, 3], ["🇹🇷", "Turkiya", 3, 37, 21, 4], ["🇮🇶", "Iroq", 3, 53, 42, 5],
-  ["🇰🇼", "Quvayt", 4, 58, 49, 0], ["🇮🇷", "Eron", 4, 64, 39, 0], ["🇵🇰", "Pokiston", 4, 84, 46, 2], ["🇮🇳", "Hindiston", 4, 93, 50, 3], ["🇲🇾", "Malayziya", 4, 124, 103, 4], ["🇮🇩", "Indoneziya", 4, 132, 116, 5],
-  ["🇦🇫", "Afg'oniston", 5, 79, 39, 0], ["🇹🇯", "Tojikiston", 5, 83, 30, 0], ["🇰🇬", "Qirg'iziston", 5, 89, 21, 2], ["🏔️", "Qashqar", 5, 95, 26, 3], ["🇰🇿", "Qozog'iston", 5, 77, 9, 4], ["🇹🇲", "Turkmaniston", 5, 70, 27, 5],
-  ["🇦🇿", "Ozarbayjon", 6, 59, 21, 2], ["⛰️", "Dog'iston", 6, 56, 15, 3], ["🕌", "Tatariston (Qozon)", 6, 57, -14, 4], ["🏞️", "Boshqirdiston (Ufa)", 6, 68, -12, 5],
-  ["🇺🇿", "O'zbekiston — uyga qaytish", 6, 78, 20, 0],
-].map(([f, n, lv, x, y, b]) => ({ f, n, lv, b, x: x * 15 / 21.5, y: (260 + y * 8.44) / 14 }));
+  ["🇪🇸", "Andalus", 0, 75, 240, 0], ["🇲🇦", "Marokash", 0, 60, 290, 0],
+  ["🇲🇷", "Mavritaniya", 1, 40, 380, 0], ["🇩🇿", "Jazoir", 1, 130, 290, 0], ["🇹🇳", "Tunis", 1, 175, 255, 2], ["🇱🇾", "Liviya", 1, 210, 300, 3], ["🇪🇬", "Misr", 1, 275, 320, 4], ["🇸🇩", "Sudan", 1, 290, 420, 5],
+  ["🇾🇪", "Yaman", 2, 410, 445, 0], ["🇴🇲", "Ummon", 2, 500, 395, 0], ["🇦🇪", "BAA", 2, 470, 375, 2], ["🇶🇦", "Qatar", 2, 450, 365, 3], ["🇧🇭", "Bahrayn", 2, 440, 352, 4], ["🇸🇦", "Saudiya Arabistoni", 2, 385, 380, 5],
+  ["🇯🇴", "Iordaniya", 3, 322, 305, 0], ["🇵🇸", "Falastin", 3, 305, 300, 0], ["🇱🇧", "Livan", 3, 310, 275, 2], ["🇸🇾", "Suriya", 3, 332, 268, 3], ["🇹🇷", "Turkiya", 3, 290, 215, 4], ["🇮🇶", "Iroq", 3, 380, 290, 5],
+  ["🇰🇼", "Quvayt", 4, 420, 330, 0], ["🇮🇷", "Eron", 4, 470, 290, 0], ["🇵🇰", "Pokiston", 4, 585, 330, 2], ["🇮🇳", "Hindiston", 4, 640, 370, 3], ["🇲🇾", "Malayziya", 4, 870, 520, 4], ["🇮🇩", "Indoneziya", 4, 900, 585, 5],
+  ["🇦🇫", "Afg'oniston", 5, 575, 280, 0], ["🇹🇯", "Tojikiston", 5, 610, 250, 0], ["🇰🇬", "Qirg'iziston", 5, 670, 215, 2], ["🏔️", "Qashqar", 5, 700, 240, 3], ["🇰🇿", "Qozog'iston", 5, 560, 130, 4], ["🇹🇲", "Turkmaniston", 5, 500, 235, 5],
+  ["🇦🇿", "Ozarbayjon", 6, 425, 215, 2], ["⛰️", "Dog'iston", 6, 410, 190, 3], ["🕌", "Tatariston (Qozon)", 6, 435, 58, 4], ["🏞️", "Boshqirdiston (Ufa)", 6, 475, 78, 5],
+  ["🇺🇿", "O'zbekiston — uyga qaytish", 6, 590, 200, 0],
+].map(([f, n, lv, x, y, b]) => ({ f, n, lv, b, x: x / 10.24, y: y / 6.66 }));
 const YONALISH = { 0: "darslar", 2: "insho", 3: "lug'at", 4: "tarkib", 5: "muhodasa" };
 const bolimDavlat = (b, lv) => MARSHRUT.find(d => d.lv === lv && d.b === b);  // yo'nalish sahifasi sarlavhasi uchun
 function lvUlush(k) {  // darajaning o'zlashtirilgan ulushi (darslar + bo'lim mavzulari)
@@ -24984,7 +25010,7 @@ function dunyoXarita() {
   o.innerHTML = `<div class="dn-kar">
     <div class="dn-bosh"><b>🗺️ Sayohat xaritasi</b><button class="o" id="dn-x">✕</button></div>
     <p class="dn-iz">${j ? `Hozir: ${j.f} <b>${j.n}</b> — ${Math.round(j.foiz * 100)}%. Tugatsangiz, keyingi davlat ochiladi.` : "Butun arab olami bo'ylab sayohat tugadi! 🎉"}</p>
-    <div class="dn-map" style="background:none"><img class="dn-img" src="img/arab-xarita2.jpg" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;display:block"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${H.map(d => `${d.x},${d.y}`).join(" ")}" /></svg>
+    <div class="dn-map" style="background:none"><img class="dn-img" src="img/arab-xarita3.jpg" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;display:block"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${H.map(d => `${d.x},${d.y}`).join(" ")}" /></svg>
       ${H.map((d, i) => `<span class="dn-d ${d.holat}" style="left:${d.x}%;top:${d.y}%"><i>${d.holat === "yopiq" ? "🔒" : d.f}</i><small>${i + 1}. ${d.n}</small></span>`).join("")}
       <button id="dn-katta" title="Katta ekranda ochish" style="position:absolute;top:6px;right:6px;z-index:3;width:34px;height:34px;border-radius:10px;border:2px solid #c9a24a;background:rgba(255,251,240,.92);font-size:18px;line-height:1;padding:0">⛶</button></div>
     <div class="dn-uz"><b>🇺🇿 Nahv yo'li — O'zbekiston:</b> ${uz.map(([s, a, n]) => `<span>${s} ${a}/${n}</span>`).join(" · ")}</div>
@@ -25000,7 +25026,7 @@ function dunyoXarita() {
     k.style.cssText = "position:fixed;inset:0;z-index:120;background:#10202a;overflow:auto;touch-action:pan-x pan-y pinch-zoom";
     const m = o.querySelector(".dn-map").cloneNode(true); m.querySelector("#dn-katta").remove();
     // Telegram webview'da 100vh va CSS foni noto'g'ri cho'zilardi — o'lcham pikselda, xarita esa alohida <img> (nuqtalar bilan bir xil o'lchamda)
-    const H = window.innerHeight, W = Math.round(H * 2150 / 1400);
+    const H = window.innerHeight, W = Math.round(H * 1024 / 666);
     m.style.cssText = `position:relative;height:${H}px;width:${W}px;min-width:${W}px;max-width:none;aspect-ratio:auto;border-radius:0;border:0;margin:0;flex:none;background:none`;
     const mi = m.querySelector(".dn-img"); mi.style.width = W + "px"; mi.style.height = H + "px";  // kartadagi xarita rasmi — piksel o'lchamda
     k.style.setProperty("background", "#10202a", "important");
@@ -25083,11 +25109,97 @@ loadCloud(() => { restorePos(); render();
   if (!store.get("multfilm", 0)) setTimeout(multfilm, document.getElementById("ilmnur") ? 6700 : 300); });
 // burchakdagi xarita tugmasi (faqat xarita/menyu ekranlarida ko'rinadi)
 // Fon musiqasi: darajalar va bo'limlar ekranida takrorlanib chaladi, darsda va multfilmda o'chadi (🔊 tugmasi bilan o'chiriladi)
-var FON_MUSIQA = false;  // var: render() bu qatordan oldin chaqiriladi  // eski fon musiqasi olib tashlandi (lug'at/tarkiblarda ham chalinardi); yangi ovoz tanlangach true qilinadi
+// Fon — 4 xil sokin tabiat ovozi (qushlar, soy suvi, yomg'ir, shamol), har kirishda navbatdagisi; fayl emas, WebAudio'da yasaladi.
+// Tadqiqotlar: so'zsiz, sekin, past ovozli tabiat tovushi diqqatni tiklaydi va uzoq o'tirishga yordam beradi.
+var FON_MUSIQA = true;  // var: render() bu qatordan oldin chaqiriladi
+var FON = null;  // { tur, g (GainNode), toxta() }
 function fonMusiqa(ha) {
-  if (!FON_MUSIQA) { if (window._fon) window._fon.pause(); return; }
-  const F = window._fon || (window._fon = Object.assign(new Audio("img/fon.mp3"), { loop: true, volume: 0.35, preload: "none" }));
-  if (ha && store.get("fonmusiqa", 1) && !document.hidden && !document.querySelector(".film")) F.play().catch(() => {}); else F.pause();
+  const yoq = ha && store.get("fonmusiqa", 1) && !document.hidden && !document.querySelector(".film");
+  if (!yoq) { if (FON) { const f = FON; FON = null; f.g.gain.setTargetAtTime(0, ac().currentTime, .4); setTimeout(f.toxta, 1500); } return; }
+  if (FON || !FON_MUSIQA) return;
+  const k = store.get("fontur", 0); store.set("fontur", (k + 1) % 4);
+  FON = tabiatYozuv(k);
+}
+// haqiqiy yozuvlar (sfx/*.mp3, Pixabay); yuklanmasa — WebAudio'da yasalgan o'xshash tovush
+function tabiatYozuv(k) {
+  const a = Object.assign(new Audio(`sfx/${["qushlar", "suv", "yomgir", "shamol"][k]}.mp3`), { loop: true, volume: 0 });
+  let zaxira = null, t = 0;
+  const kuch = setInterval(() => { if (a.volume < .3) a.volume = Math.min(.3, a.volume + .02); }, 100);
+  a.play().catch(() => { zaxira = tabiatOvozi(k); });
+  a.onerror = () => { if (!zaxira) zaxira = tabiatOvozi(k); };
+  const g = { gain: { setTargetAtTime: () => { clearInterval(kuch); t = setInterval(() => { a.volume = Math.max(0, a.volume - .03); if (!a.volume) clearInterval(t); }, 100); if (zaxira) zaxira.g.gain.setTargetAtTime(0, ac().currentTime, .4); } } };
+  return { tur: k, g, toxta: () => { clearInterval(kuch); clearInterval(t); a.pause(); if (zaxira) zaxira.toxta(); } };
+}
+const SFX_FAYL = { togri: "togri", dars: "olqish", bosqich: "fanfara" };
+function sfxYozuv(tur) {  // fayl chalinsa true
+  if (!SFX_FAYL[tur]) return false;
+  const a = new Audio(`sfx/${SFX_FAYL[tur]}.mp3`); a.volume = tur === "togri" ? .6 : .8;
+  a.play().catch(() => sfx(tur, true));
+  if (tur === "bosqich") setTimeout(() => sfxYozuv("dars"), 2600);
+  return true;
+}
+function ac() { return window._ac || (window._ac = new (window.AudioContext || window.webkitAudioContext)()); }  // function: render() bu qatordan oldin chaqiriladi
+function shovqin(s = 2) { const c = ac(), b = c.createBuffer(1, c.sampleRate * s, c.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return b; }
+function tabiatOvozi(k) {
+  const c = ac(); if (c.state === "suspended") c.resume();
+  const g = c.createGain(); g.gain.value = 0; g.connect(c.destination); g.gain.setTargetAtTime(.5, c.currentTime, 1.5);
+  const tugun = [], vaqt = [];
+  const fon = (tip, f, q, v) => { const s = c.createBufferSource(); s.buffer = shovqin(); s.loop = true; const fl = c.createBiquadFilter(); fl.type = tip; fl.frequency.value = f; fl.Q.value = q;
+    const gg = c.createGain(); gg.gain.value = v; s.connect(fl).connect(gg).connect(g); s.start(); tugun.push(s); return { fl, gg }; };
+  const lfo = (param, chuq, tez) => { const o = c.createOscillator(), og = c.createGain(); o.frequency.value = tez; og.gain.value = chuq; o.connect(og).connect(param); o.start(); tugun.push(o); };
+  if (k === 0) {  // qushlar: yengil shamol ustida turli sayrash
+    fon("lowpass", 500, .5, .05);
+    const sayra = () => { const t = c.currentTime, n = 2 + Math.floor(Math.random() * 5), f0 = 2200 + Math.random() * 2200;
+      for (let i = 0; i < n; i++) { const o = c.createOscillator(), og = c.createGain(), t0 = t + i * (.09 + Math.random() * .08);
+        o.frequency.setValueAtTime(f0, t0); o.frequency.exponentialRampToValueAtTime(f0 * (.6 + Math.random() * .9), t0 + .08);
+        og.gain.setValueAtTime(0, t0); og.gain.linearRampToValueAtTime(.05, t0 + .01); og.gain.exponentialRampToValueAtTime(.0001, t0 + .09);
+        o.connect(og).connect(g); o.start(t0); o.stop(t0 + .1); }
+      vaqt.push(setTimeout(sayra, 700 + Math.random() * 2600)); };
+    sayra();
+  } else if (k === 1) {  // soy suvi: o'zgaruvchan tor shovqin
+    const a = fon("bandpass", 900, .8, .35), b = fon("bandpass", 2500, 1.2, .12);
+    lfo(a.fl.frequency, 300, .23); lfo(b.fl.frequency, 700, .37); lfo(a.gg.gain, .1, .5);
+  } else if (k === 2) {  // yomg'ir: shitirlash + tomchilar
+    fon("highpass", 1500, .3, .14); fon("lowpass", 400, .5, .08);
+    const tomchi = () => { const t = c.currentTime, o = c.createOscillator(), og = c.createGain(), f = 1200 + Math.random() * 2500;
+      o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * .5, t + .03); og.gain.setValueAtTime(.025, t); og.gain.exponentialRampToValueAtTime(.0001, t + .04);
+      o.connect(og).connect(g); o.start(t); o.stop(t + .05); vaqt.push(setTimeout(tomchi, 30 + Math.random() * 160)); };
+    tomchi();
+  } else {  // shamol: sekin ko'tarilib-pasayadigan g'uvillash
+    const a = fon("lowpass", 350, 4, .4); lfo(a.fl.frequency, 220, .08); lfo(a.gg.gain, .2, .05);
+  }
+  return { tur: k, g, toxta: () => { vaqt.forEach(clearTimeout); vaqt.length = 0; tugun.forEach(n => { try { n.stop(); } catch {} }); g.disconnect(); } };
+}
+// Effektlar: to'g'ri javob — qo'ng'iroqcha, dars tugadi — olqish va hayqiriq, bosqich tugadi — karnay-surnay
+function nota(f, t, d, v = .2, tip = "sine", g0) {
+  const c = ac(), o = c.createOscillator(), g = c.createGain(); o.type = tip; o.frequency.value = f;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(g).connect(g0 || c.destination); o.start(t); o.stop(t + d + .05);
+}
+function sfx(tur, yasalgan) {
+  if (!yasalgan && sfxYozuv(tur)) return;
+  try {
+    const c = ac(); if (c.state === "suspended") c.resume(); const t = c.currentTime;
+    if (tur === "togri") { nota(1047, t, .25, .18); nota(1568, t + .09, .4, .16); }
+    else if (tur === "xato") { nota(220, t, .25, .1, "triangle"); nota(196, t + .12, .3, .1, "triangle"); }
+    else if (tur === "dars") {  // olqish: ko'p qisqa chapaklar + hayqiriq
+      const kuch = c.createGain(); kuch.gain.value = .9; kuch.connect(c.destination);
+      for (let i = 0; i < 160; i++) { const s = c.createBufferSource(), fl = c.createBiquadFilter(), g = c.createGain(), t0 = t + Math.random() * 3 * Math.sqrt(Math.random());
+        s.buffer = shovqin(.05); fl.type = "bandpass"; fl.frequency.value = 900 + Math.random() * 1800; fl.Q.value = 1.5;
+        g.gain.setValueAtTime(.35 * (1 - (t0 - t) / 3.3), t0); g.gain.exponentialRampToValueAtTime(.0001, t0 + .04); s.connect(fl).connect(g).connect(kuch); s.start(t0); }
+      [0, 1, 2, 3, 4].forEach(j => { const o = c.createOscillator(), fl = c.createBiquadFilter(), g = c.createGain(), f = 260 + j * 45 + Math.random() * 30;  // "hurra" — bir nechta ovoz
+        o.type = "sawtooth"; o.frequency.setValueAtTime(f, t + .1); o.frequency.linearRampToValueAtTime(f * 1.5, t + .6); o.frequency.linearRampToValueAtTime(f * 1.2, t + 1.4);
+        fl.type = "bandpass"; fl.frequency.value = 1000; fl.Q.value = 2; g.gain.setValueAtTime(0, t + .1); g.gain.linearRampToValueAtTime(.05, t + .3); g.gain.exponentialRampToValueAtTime(.0001, t + 1.6);
+        o.connect(fl).connect(g).connect(kuch); o.start(t + .1); o.stop(t + 1.7); });
+      [523, 659, 784, 1047].forEach((f, j) => nota(f, t + j * .1, .5, .12, "triangle"));
+    }
+    else if (tur === "bosqich") {  // karnay-surnay: ko'tariluvchi fanfara va akkord
+      const g0 = c.createGain(), fl = c.createBiquadFilter(); fl.type = "lowpass"; fl.frequency.value = 2400; g0.gain.value = .5; g0.connect(fl).connect(c.destination);
+      [[392, 0, .18], [392, .2, .12], [392, .34, .12], [523, .5, .5], [659, 1.05, .25], [784, 1.3, 1.2]].forEach(([f, d, l]) => { nota(f, t + d, l + .1, .22, "sawtooth", g0); nota(f * 2, t + d, l, .06, "square", g0); });
+      [523, 659, 784, 1047].forEach(f => nota(f, t + 1.3, 1.6, .1, "triangle"));
+      setTimeout(() => sfx("dars"), 1500);
+    }
+  } catch {}
 }
 document.addEventListener("pointerdown", () => setTimeout(() => fonMusiqa(document.body.classList.contains("homeMode")), 0), true);
 document.addEventListener("visibilitychange", () => fonMusiqa(document.body.classList.contains("homeMode")));
@@ -25095,7 +25207,7 @@ document.addEventListener("visibilitychange", () => fonMusiqa(document.body.clas
   b.onclick = e => { e.stopPropagation(); store.set("fonmusiqa", store.get("fonmusiqa", 1) ? 0 : 1); t(); fonMusiqa(true); }; document.body.appendChild(b); })();
 (() => { const b = document.createElement("button"); b.id = "xaritaBtn"; b.textContent = "🗺️"; b.title = "Sayohat xaritasi"; b.onclick = dunyoXarita; document.body.appendChild(b); })();
 // Eski nusxa keshda qolib ketgan bo'lsa: saytdagi versiyani tekshirib, yangisi bo'lsa o'zi qayta yuklaydi
-if (location.hostname.endsWith("github.io")) {
+if (/github\.io$|pages\.dev$/.test(location.hostname)) {
   fetch(location.pathname + "?nc=" + Date.now(), { cache: "no-store" }).then(r => r.text()).then(t => {
     const m = t.match(/const VERSION = "(v\d+)"/);
     if (m && +m[1].slice(1) > +VERSION.slice(1)) location.replace(location.pathname + "?v=" + m[1].slice(1));
