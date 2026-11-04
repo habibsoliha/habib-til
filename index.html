@@ -924,7 +924,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v201";
+const VERSION = "v203";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2653,7 +2653,7 @@ function levelsScreen(streak, total) {
               <small class="tn-iz">${keyingi ? `Keyingi daraja <b>${keyingi[0]}</b>: ${foiz}% — 70% ga yetganda daraja olinadi` : "Eng yuqori daraja olindi!"}</small></div>`;
           })()}`;
       })()}</div>
-    <button class="main" id="dtest" style="margin:14px 0 4px">📝 Darajani tekshirish${(r => r ? ` · ${r.d}` : "")(store.get("dtest", null))}</button>
+    ${jonliTugma()}<button class="main" id="dtest" style="margin:14px 0 4px">📝 Darajani tekshirish${(r => r ? ` · ${r.d}` : "")(store.get("dtest", null))}</button>
     <div class="levels">${DARAJALAR.map((L, k) => `
       <button class="lv ${L.cls}" data-l="${k}">
         <span class="lv-code">${L.code}</span>
@@ -2661,6 +2661,11 @@ function levelsScreen(streak, total) {
           ${k > 1 ? (() => { const LL = LESSONS.slice(BOSQICHLAR[k + 1].from, BOSQICHLAR[k + 1].to), dd = LL.filter(l => store.get("lesson" + l.n, null)).length, pp = Math.round(dd * 100 / LL.length); return `<span class="pbar thin"><i style="width:${Math.max(pp, 2)}%"></i></span><small>${dd}/${LL.length} dars · ${pp}%</small>`; })() : k ? `<span class="pbar thin"><i style="width:${Math.max(p1, 2)}%"></i></span><small>${d1}/${A1L.length} dars · ${p1}%</small>` : `<span class="pbar thin"><i style="width:${Math.max(p, 2)}%"></i></span><small>${d}/${PRE.length} dars · ${p}%</small>`}</span>
         <span class="arrow">${k >= 4 && !TEST ? "🔒" : "›"}</span></button>`).join("")}</div>`;
   $.querySelector("#dtest").onclick = () => darajaTest();
+  jonliYukla();
+  const jt = $.querySelector("#jonli"); if (jt) jt.onclick = () => {
+    const r = JONLI[0]; sendResult({ lesson: "JONLI DARS", score: `${r.guruh} ${r.sana} ${r.soat}`, xp: "" });
+    if (tg && tg.openLink) tg.openLink(r.url); else window.open(r.url, "_blank");
+  };
   $.querySelectorAll("button.lv").forEach(b => b.onclick = () => {
     if (+b.dataset.l >= 4 && !TEST) {  // B2, C1, C2 hozircha yopiq — faqat sinov rejimida ochiladi
       const f = document.createElement("div"); f.className = "fb ok"; f.textContent = "Bu daraja tez orada ochiladi";
@@ -2714,6 +2719,25 @@ const DT = [
 ];
 const DT_BOLIM = { l: "Lug'at", g: "Grammatika", o: "O'qib tushunish", t: "Tinglab tushunish" };
 // test sahifalari fon ustida o'qilishi uchun oq kartochka ichida
+// --- Jonli dars (Google Meet): ustoz har hafta "Jonli darslar (Habib til)" jadvaliga sana/soatni yozadi, ilova shu jadvaldan o'qiydi.
+// Jadval "havolasi bor har kim — ko'ruvchi" bo'lishi kerak (gviz CSV ochiq o'qiladi). Tugma faqat to'lov qilganlarga ko'rinadi.
+const JONLI_SHEET = "1lcy1lGNSD6juWvW5Y7WZ9dg8mP8afMBFp6_47ElHKEA";
+let JONLI = null;  // [{guruh, sana, soat, ustoz, url}]
+function jonliYukla() {
+  if (JONLI || !pullikOchiq()) return;
+  JONLI = [];
+  fetch(`https://docs.google.com/spreadsheets/d/${JONLI_SHEET}/gviz/tq?tqx=out:csv&t=${Date.now()}`).then(r => r.text()).then(t => {
+    const qator = s => (s.match(/("([^"]|"")*"|[^,]*)(,|$)/g) || []).slice(0, -1).map(x => x.replace(/,$/, "").replace(/^"|"$/g, "").replace(/""/g, '"').trim());
+    JONLI = t.trim().split(/\r?\n/).slice(1).map(qator).filter(r => r[0] && r[4]).map(([guruh, sana, soat, ustoz, url]) => ({ guruh, sana, soat, ustoz, url }));
+    if (JONLI.length && level === null && mode === "home") render();
+  }).catch(() => {});
+}
+const jonliTugma = () => {
+  if (!pullikOchiq() || !JONLI || !JONLI.length) return "";
+  const r = JONLI[0], d = r.sana ? new Date(r.sana + "T00:00") : null;
+  const kun = d && !isNaN(d) ? `${["yakshanba", "dushanba", "seshanba", "chorshanba", "payshanba", "juma", "shanba"][d.getDay()]}, ${d.getDate()}-${["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"][d.getMonth()]}` : r.sana;
+  return `<button class="main" id="jonli" style="margin:8px 0">📹 Jonli dars${kun || r.soat ? ` · ${kun} ${r.soat}` : ""}</button>`;
+};
 const kartaHTML = h => `<div style="background:rgba(255,251,240,.96);color:#2a2418;border-radius:18px;padding:14px 14px 18px;box-shadow:0 6px 20px rgba(0,0,0,.18)">${h}</div>`;
 function darajaTest() {
   const J = [];  // o'quvchi javoblari (indeks yoki null — "bilmayman")
@@ -24429,7 +24453,8 @@ function dunyoXarita() {
     <div class="dn-bosh"><b>🗺️ Sayohat xaritasi</b><button class="o" id="dn-x">✕</button></div>
     <p class="dn-iz">${j ? `Hozir: ${j.f} <b>${j.n}</b> — ${Math.round(j.foiz * 100)}%. Tugatsangiz, keyingi davlat ochiladi.` : "Butun arab olami bo'ylab sayohat tugadi! 🎉"}</p>
     <div class="dn-map"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${H.map(d => `${d.x},${d.y}`).join(" ")}" /></svg>
-      ${H.map((d, i) => `<span class="dn-d ${d.holat}" style="left:${d.x}%;top:${d.y}%"><i>${d.holat === "yopiq" ? "🔒" : d.f}</i><small>${i + 1}. ${d.n}</small></span>`).join("")}</div>
+      ${H.map((d, i) => `<span class="dn-d ${d.holat}" style="left:${d.x}%;top:${d.y}%"><i>${d.holat === "yopiq" ? "🔒" : d.f}</i><small>${i + 1}. ${d.n}</small></span>`).join("")}
+      <button id="dn-katta" title="Katta ekranda ochish" style="position:absolute;top:6px;right:6px;z-index:3;width:34px;height:34px;border-radius:10px;border:2px solid #c9a24a;background:rgba(255,251,240,.92);font-size:18px;line-height:1;padding:0">⛶</button></div>
     <div class="dn-uz"><b>🇺🇿 Nahv yo'li — O'zbekiston:</b> ${uz.map(([s, a, n]) => `<span>${s} ${a}/${n}</span>`).join(" · ")}</div>
     <ol class="dn-list">${H.map(d => `<li class="${d.holat}">${d.f} ${d.n} <small>${DARAJALAR[d.lv].code} · ${YONALISH[d.b]}</small>${d.holat === "joriy" ? ` <em>${Math.round(d.foiz * 100)}%</em>` : d.holat === "tugadi" ? " ✓" : ""}</li>`).join("")}</ol>
     <button class="o" id="dn-film">▶ Multfilmni qayta ko'rish</button></div>`;
@@ -24437,6 +24462,19 @@ function dunyoXarita() {
   o.querySelector("#dn-x").onclick = () => o.remove();
   o.onclick = e => { if (e.target === o) o.remove(); };
   o.querySelector("#dn-film").onclick = () => { o.remove(); multfilm(); };
+  // katta ekran: xarita ekran balandligiga cho'ziladi, barmoq bilan suriladi va kattalashtiriladi
+  o.querySelector("#dn-katta").onclick = () => {
+    const k = document.createElement("div");
+    k.style.cssText = "position:fixed;inset:0;z-index:120;background:#10202a;overflow:auto;touch-action:pan-x pan-y pinch-zoom";
+    const m = o.querySelector(".dn-map").cloneNode(true); m.querySelector("#dn-katta").remove();
+    m.style.cssText = "height:100vh;width:calc(100vh * 2150 / 1400);max-width:none;aspect-ratio:auto;border-radius:0;border:0;margin:0;flex:none";
+    k.style.setProperty("background", "#10202a", "important");
+    k.appendChild(m);
+    k.insertAdjacentHTML("beforeend", `<button style="position:fixed;top:12px;right:12px;z-index:121;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:22px">✕</button>`);
+    k.querySelector("button").onclick = () => k.remove();
+    document.body.appendChild(k);
+    const j0 = m.querySelector(".dn-d.joriy"); if (j0) setTimeout(() => j0.scrollIntoView({ inline: "center", block: "center" }), 50);  // joriy davlatga suriladi
+  };
 }
 // Multfilm: arab olamini johillik tumani qopladi — har dars bitta chiroq yoqadi. Birinchi kirishda bir marta, keyin xaritadan.
 function multfilm(keyin) {
