@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v214";
+const VERSION = "v215";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -24051,13 +24051,9 @@ function husnixatScreen() {
     <a class="o" href="https://arabic-calligraphy-generator.com/ar" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;margin:8px 0">🖋️ <b>Yozuv turlari</b> — so'zingizni nasx, sulus, kufiy, ruq'a xatlarida ko'ring</a>
     <p><b>Harflar:</b> harfni bosing — 4 shakli, yozish maslahati va ustidan yozish mashqi</p>
     <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px">${HX_HARF.map(([c], k) => `
-      <button class="o ar" data-h="${k}" style="font-size:28px;padding:6px 0">${c}</button>`).join("")}</div>
-    <p><b>Yozuv varaqlari:</b></p>
-    <p class="trip">Varaqni oching, daftarga har bir so'zni 3 qatordan chiroyli ko'chirib yozing va rasmini ustozga yuboring</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">${Array.from({ length: HUSNIXAT_N }, (_, k) => `
-      <button class="o" data-k="${k + 1}" style="padding:4px;text-align:center"><img src="husnixat/${k + 1}.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:8px;display:block"><b>${k + 1}-varaq</b></button>`).join("")}</div>`;
+      <button class="o ar" data-h="${k}" style="font-size:28px;padding:6px 0">${c}</button>`).join("")}</div>`;
+  // umumiy varaqlar ro'yxati olib tashlandi (05.11) — har harfning varag'i o'z sahifasida, yuklab olish tugmasi bilan
   $.querySelector(".back").onclick = () => render();
-  $.querySelectorAll("button[data-k]").forEach(b => b.onclick = () => betOch(`husnixat/${b.dataset.k}.jpg`));
   $.querySelectorAll("button[data-h]").forEach(b => b.onclick = () => hxHarf(+b.dataset.h));
 }
 // Harf daraxti (fonetika): o'tilgan harflar meva bo'lib osiladi; har kuni bittasi pishadi — uzsang mini-savol, to'g'ri bo'lsa savatga.
@@ -24140,7 +24136,7 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
         <span class="arrow">›</span></button>`;
     }).join("")}<button class="o st" id="husnixat">
         <span class="badge">✍️</span>
-        <span class="st-body"><small>QO'SHIMCHA</small><b>Husnixat</b><small>${HUSNIXAT_N} ta yozuv varag'i</small></span>
+        <span class="st-body"><small>QO'SHIMCHA</small><b>Husnixat</b><small>28 ta harf · yozish tartibi, video va varaq</small></span>
         <span class="arrow">›</span></button></div>`
     : `${stage >= 2 ? `<button class="back lvback"><span>‹</span> Darajalar</button>
     <h2 class="a1h lvword"><span class="lvc">${DARAJALAR[stage - 1].code}</span><span class="ar lva">${DARAJALAR[stage - 1].ar}</span><span class="lvn">${DARAJALAR[stage - 1].name}${stage === 2 ? " (Miftah)" : ""}</span></h2><p class="trip">${stage === 2 ? SAYOHAT[2] : SAYOHAT_LV[DARAJALAR[stage - 1].id][0]} — <b>!</b> belgisini bosing</p>` : `<button class="back"><span>‹</span> Bosqichlar</button>
