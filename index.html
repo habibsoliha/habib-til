@@ -924,10 +924,10 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v199";
+const VERSION = "v200";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
-const BEPUL = 3, ADMIN_TG = "";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
+const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
 const tgId = () => String(((tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}).id || "");
 function kirishKodi(id) { let h = 2166136261; for (const c of id + "|habib-til-2026") { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return String(100000 + h % 900000); }
 const pullikOchiq = () => TEST || store.get("pullik", false) === true;
@@ -938,7 +938,7 @@ function tolovOyna() {
   o.innerHTML = `<div style="background:#fff;color:#222;border-radius:18px;padding:20px;max-width:360px;width:100%;text-align:center">
     <div style="font-size:40px">🔒</div><h2 style="margin:6px 0">To'liq kurs</h2>
     <p>Birinchi ${BEPUL} ta dars bepul edi. Qolgan darslar, lug'at, tarkib va muhodasa to'lovdan keyin ochiladi. Har hafta ustoz bilan jonli dars ham bor.</p>
-    <p>To'lov uchun administratorga yozing${ADMIN_TG ? `: <b>@${ADMIN_TG}</b>` : ""} va ID raqamingizni ayting:</p>
+    <p>To'lov uchun administratorga yozing${ADMIN_TG ? `: <a href="https://t.me/${ADMIN_TG}" onclick="if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.openTelegramLink){Telegram.WebApp.openTelegramLink(this.href);return false}"><b>@${ADMIN_TG}</b></a>` : ""} va ID raqamingizni ayting:</p>
     <p style="font-size:22px"><b>${tgId() || "—"}</b></p>
     <input id="kodIn" inputmode="numeric" maxlength="6" placeholder="Kirish kodi" style="width:100%;font-size:20px;text-align:center;padding:10px;border-radius:12px;border:2px solid #ccc;box-sizing:border-box">
     <p id="kodXato" style="color:#c33;min-height:1em;margin:6px 0"></p>
@@ -23281,7 +23281,7 @@ const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV, 4: TARKI
 // [ism, jins, kiyim rangi, bosh kiyim rangi, ochiladigan daraja (DARAJALAR indeksi), sprite fayli img/ustoz/<id>s.png]
 const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 1, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 1, "2"],
   ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 1, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 1, "muslima"],
-  ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 2, "sabrina"], ["Ustoz Asadulloh", "m", "#6b6b6b", "#1a1a1a", 2, "abduqodir"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 3, "shodiya"],
+  ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 2, "sabrina"], ["Ustoz Asadulloh Abdulazizov","m", "#6b6b6b", "#1a1a1a", 2, "abduqodir"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 3, "shodiya"],
   ["Valid ag'a", "m", "#3a3a3a", "#222", 4, "4"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738", 5, "5"]];
 const NASIHAT = ["Har kuni ozgina — lekin har kuni!", "Xato qilishdan qo'rqmang, xato — eng yaxshi ustoz.", "Yangi so'zni ovoz chiqarib 3 marta ayting.", "Darsdan keyin 5 daqiqa takrorlang — xotira mustahkamlanadi.",
   "Harflarni yozib mashq qiling, qo'l ham eslab qoladi.", "Bugungi so'zlardan bitta gap tuzib ko'ring.", "Shoshilmang: sekin, lekin to'g'ri.", "Arab tili — Qur'on va ilm kaliti.",
