@@ -517,7 +517,7 @@ const SIFATLAR = ["jarangli", "jarangsiz", "havo chiquvchi", "portlovchi", "oral
 function sifatlari(c) {
   const hams = "فحثهشخصسكت".includes(c), s = [];
   s.push(hams ? "jarangsiz" : "jarangli"); if (hams) s.push("havo chiquvchi");
-  s.push("جدقطبكت".includes(c) ? "portlovchi" : "لنعمر".includes(c) ? "oraliq" : "sirg'aluvchi");
+  s.push("ءأجدقطبكت".includes(c) ? "portlovchi"  // shidda: «أَجِدْ قَطٍ بَكَتْ» — hamza ham kiradi : "لنعمر".includes(c) ? "oraliq" : "sirg'aluvchi");
   s.push("خصضغطقظ".includes(c) ? "yo'g'on" : "ingichka");
   if ("قطبجد".includes(c)) s.push("tebranuvchi");
   if ("صزس".includes(c)) s.push("hushtaksimon");
@@ -924,7 +924,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v205";
+const VERSION = "v209";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2521,14 +2521,18 @@ function confetti(n = 40) {
     .nkuch { display:block; margin-top:3px; font-size:11px; color:#7a4fb0; font-weight:700; }
     .kuchlar { text-align:center; margin:4px 0 8px; padding:8px; border-radius:12px; color:#fff8e1; background:linear-gradient(135deg,#5b2a86,#1f6f8b); }
     .kuchlar b { color:#f5c542; }
-    .daraxt { position:relative; display:block; width:100%; box-sizing:border-box; height:210px; margin:6px auto 10px; max-width:340px;
-      background:linear-gradient(#6b4423,#4a2e17) 50% 100%/18px 70px no-repeat; }
-    .daraxt .toj { position:absolute; inset:0 0 50px; border-radius:50% 50% 45% 45%; background:radial-gradient(circle at 40% 35%,#5fa84a,#2f6b2a 70%); box-shadow:inset 0 -10px 20px rgba(0,0,0,.25); }
-    .meva { position:absolute; width:30px; height:30px; margin:-15px; padding:0; border-radius:50%; border:0; background:#8fbf5a; color:#244; font-size:15px; box-shadow:0 2px 4px rgba(0,0,0,.3); }
+    .daraxt { display:block; width:100%; max-width:340px; margin:6px auto 10px; text-align:center; }
+    .daraxt .toj { position:relative; height:230px; transform-origin:50% 95%; animation:shamol 6s ease-in-out infinite; }
+    @keyframes shamol { 0%,100% { transform:rotate(0); } 50% { transform:rotate(.8deg); } }  /* shamolda sekin tebranish */
+    .daraxt .toj > svg { position:absolute; inset:0; width:100%; height:100%; }
+    .meva { position:absolute; width:30px; height:30px; margin:-15px; padding:0; border-radius:50% 50% 46% 46%; border:0; color:#244; font-size:15px;
+      background:radial-gradient(circle at 35% 30%,#e9f7b8,#a8d468 45%,#6f9f3a); box-shadow:0 3px 5px rgba(0,0,0,.3), inset -3px -4px 6px rgba(0,0,0,.12); }
+    .meva::before { content:""; position:absolute; left:50%; top:-5px; width:2px; height:7px; margin-left:-1px; background:#5a3a1a; border-radius:1px; }  /* bandi */
+    .meva::after { content:""; position:absolute; left:52%; top:-7px; width:9px; height:5px; background:#3f8a36; border-radius:0 80% 0 80%; transform:rotate(-20deg); }  /* bargi */
     .meva.pish { background:radial-gradient(circle at 35% 30%,#ffe9a3,#f5b51b 60%,#c97b0a); color:#5a2d00; width:38px; height:38px; margin:-19px; font-size:19px;
       animation:pish 1.4s infinite ease-in-out; box-shadow:0 0 14px #ffd54a; }
     @keyframes pish { 50% { transform:translateY(-4px) scale(1.08); } }
-    .daraxt .savat { position:absolute; left:50%; transform:translateX(-50%); bottom:0; white-space:nowrap; text-align:center; font-weight:700;
+    .daraxt .savat { display:inline-block; margin-top:4px; text-align:center; font-weight:700;
       background:#fff8e1; border:2px solid #c9a24a; border-radius:14px; padding:4px 14px; }
     .daraxt .savat small { display:block; font-weight:400; opacity:.75; }
     .meva-q { position:fixed; inset:0; z-index:20; display:grid; place-items:center; background:rgba(0,0,0,.45); }
@@ -2784,9 +2788,47 @@ function darajaTest() {
 // --- Yo'nalish imtihoni: har yo'nalish tepasidagi «Imtihon olish» — shu daraja va yo'nalishning hamma mavzularidan 20 ta savol.
 // b: 0 darslar (darslar testlaridan), 3 lug'at, 4 tarkib (qolip qaysi mavzuga tegishli), 5 muhodasa (savolga mos javob qolipi).
 // Nahv va insho uchun tayyor savollar yo'q — ularning imtihoni ustoz bilan jonli darsda. 70% va undan yuqori — o'tdi.
+// NAMUNA: Nahv (1) va Insho (2) imtihonlari uchun vaqtinchalik savollar — keyin metodist/ustozlar bilan qayta tuziladi.
+// [savol, [to'g'ri, xato, xato, xato]] — variantlar imtihonda aralashtiriladi
+const NAMUNA_IMTIHON = {
+  1: {
+    1: [["______ طَالِبَةٌ.", ["هِيَ", "هُوَ", "هُمْ", "أَنْتَ"]], ["هٰذَا ______ .", ["كِتَابٌ", "سَيَّارَةٌ", "مَدْرَسَةٌ", "حَقِيبَةٌ"]],
+      ["\"مُعَلِّمٌ\" ning muannasi:", ["مُعَلِّمَةٌ", "مُعَلِّمُونَ", "مُعَلِّمَانِ", "مُعَلِّمَاتٌ"]], ["\"طَالِبٌ\" ning ikkiligi:", ["طَالِبَانِ", "طُلَّابٌ", "طَالِبَةٌ", "طَالِبُونَ"]],
+      ["أَنَا مِنْ أُوزْبَكِسْتَانَ، أَنَا ______ .", ["أُوزْبَكِيٌّ", "أُوزْبَكِيَّةٌ", "أُوزْبَكِيُّونَ", "أُوزْبَكِسْتَانُ"]], ["هٰذَا كِتَابُ ______ .", ["الطَّالِبِ", "الطَّالِبُ", "الطَّالِبَ", "طَالِبٌ"]],
+      ["الْكِتَابُ ______ الطَّاوِلَةِ.", ["عَلَى", "إِلَى", "مِنْ", "عَنْ"]], ["أَنَا ______ الْعَرَبِيَّةَ.", ["أَدْرُسُ", "يَدْرُسُ", "تَدْرُسُ", "نَدْرُسُ"]],
+      ["Muzakkar to'g'ri ko'plik qaysi?", ["مُهَنْدِسُونَ", "مُهَنْدِسَاتٌ", "مُهَنْدِسَانِ", "مُهَنْدِسٌ"]], ["لَا ______ فِي الْفَصْلِ! (taqiq)", ["تَأْكُلْ", "تَأْكُلُ", "أَكَلْتَ", "كُلْ"]],
+      ["الْبَيْتُ ______ . (sifat)", ["كَبِيرٌ", "كَبِيرَةٌ", "الْكَبِيرِ", "كِبَارٌ"]], ["______ الطَّالِبُ؟ — فِي الْمَكْتَبَةِ.", ["أَيْنَ", "مَنْ", "مَا", "كَمْ"]]],
+    2: [["ذَهَبْتُ ______ السُّوقِ أَمْسِ.", ["إِلَى", "عَلَى", "فِي", "عَنْ"]], ["سَوْفَ ______ غَدًا.", ["أُسَافِرُ", "سَافَرْتُ", "سَافِرْ", "مُسَافِرٌ"]],
+      ["الطَّالِبَاتُ ______ فِي الصَّفِّ.", ["يَدْرُسْنَ", "يَدْرُسُونَ", "تَدْرُسُ", "يَدْرُسَانِ"]], ["فِي الْفَصْلِ ______ طُلَّابٍ.", ["خَمْسَةُ", "خَمْسُ", "خَمْسُونَ", "خَامِسُ"]],
+      ["هٰذِهِ السَّيَّارَةُ ______ مِنْ تِلْكَ.", ["أَسْرَعُ", "سَرِيعَةٌ", "سُرْعَى", "سَرِيعٌ"]], ["لَمْ ______ الدَّرْسَ.", ["أَفْهَمْ", "أَفْهَمُ", "فَهِمْتُ", "سَأَفْهَمُ"]],
+      ["\"كَتَبَ\" fe'lining masdari:", ["كِتَابَةٌ", "كَاتِبٌ", "مَكْتُوبٌ", "مَكْتَبٌ"]], ["رَأَيْتُ ______ فِي الْحَدِيقَةِ.", ["الْأَطْفَالَ", "الْأَطْفَالُ", "الْأَطْفَالِ", "أَطْفَالٌ"]],
+      ["يَجِبُ أَنْ ______ مُبَكِّرًا.", ["تَنَامَ", "تَنَامُ", "نِمْتَ", "نَمْ"]], ["كَانَ الطَّقْسُ ______ .", ["جَمِيلًا", "جَمِيلٌ", "جَمِيلٍ", "الْجَمِيلُ"]]],
+    3: [["إِنَّ ______ نَافِعٌ.", ["الْعِلْمَ", "الْعِلْمُ", "الْعِلْمِ", "عِلْمٌ"]], ["لَنْ ______ أَبَدًا.", ["أَنْسَاكَ", "أَنْسَاكُ", "نَسِيتُكَ", "سَأَنْسَاكَ"]],
+      ["الْكِتَابُ الَّذِي ______ مُفِيدٌ.", ["قَرَأْتُهُ", "قَرَأْتُهَا", "قَرَأْتُهُمْ", "قَرَأْتَ"]], ["فُتِحَ الْبَابُ — bu qanday fe'l?", ["majhul (passiv)", "ma'lum (aktiv)", "buyruq", "masdar"]],
+      ["لَوْ دَرَسْتَ ______ .", ["لَنَجَحْتَ", "تَنْجَحُ", "سَتَنْجَحُ", "نَاجِحٌ"]], ["الْمُهَنْدِسَاتُ ______ فِي الشَّرِكَةِ.", ["يَعْمَلْنَ", "يَعْمَلُونَ", "تَعْمَلَانِ", "يَعْمَلُ"]],
+      ["\"مَكْتَبَةٌ\" qaysi vazndagi ot?", ["مَفْعَلَةٌ (joy oti)", "فَاعِلٌ", "مَفْعُولٌ", "فَعِيلٌ"]], ["مَا أَجْمَلَ ______ !", ["الطَّبِيعَةَ", "الطَّبِيعَةُ", "الطَّبِيعَةِ", "طَبِيعَةٌ"]],
+      ["جَاءَ الطُّلَّابُ ______ زَيْدًا.", ["إِلَّا", "لَكِنْ", "بَلْ", "حَتَّى"]], ["عَلَى الرَّغْمِ مِنْ ______ ، خَرَجْنَا.", ["الْمَطَرِ", "الْمَطَرُ", "الْمَطَرَ", "مَطَرٌ"]]],
+  },
+  2: {
+    1: [["To'g'ri yozilganini tanlang:", ["مَدْرَسَةٌ", "مَدْرَسَتٌ", "مدرسه", "مَدْرَسَه"]], ["Gapni to'g'ri tartibda tanlang:", ["أَنَا طَالِبٌ فِي الْجَامِعَةِ.", "طَالِبٌ الْجَامِعَةِ أَنَا فِي.", "فِي أَنَا طَالِبٌ الْجَامِعَةِ.", "الْجَامِعَةِ فِي طَالِبٌ أَنَا."]],
+      ["Gap oxiriga qaysi belgi qo'yiladi: مَا اسْمُكَ", ["؟", ".", "!", "،"]], ["O'zingizni tanishtirishni qaysi gap bilan boshlaysiz?", ["اِسْمِي أَحْمَدُ.", "مَعَ السَّلَامَةِ.", "شُكْرًا جَزِيلًا.", "إِلَى اللِّقَاءِ."]],
+      ["أُحِبُّ الْقَهْوَةَ ______ الشَّايَ. (va)", ["وَ", "ثُمَّ", "لٰكِنْ", "أَوْ"]], ["Hamzasi to'g'ri yozilganini tanlang:", ["أُمٌّ", "اُمٌّ", "ءُمٌّ", "ؤُمٌّ"]],
+      ["Xatni qanday tugatasiz?", ["مَعَ أَطْيَبِ التَّحِيَّاتِ.", "صَبَاحُ الْخَيْرِ.", "كَيْفَ حَالُكَ؟", "مَا اسْمُكَ؟"]], ["أَسْتَيْقِظُ صَبَاحًا، ______ أَتَنَاوَلُ الْفُطُورَ. (keyin)", ["ثُمَّ", "لِأَنَّ", "لٰكِنْ", "إِذَا"]]],
+    2: [["Sababni bildiruvchi bog'lovchi:", ["لِأَنَّ", "ثُمَّ", "أَوْ", "حَتَّى"]], ["Rasmiy xat qanday boshlanadi?", ["السَّيِّدُ الْمُدِيرُ الْمُحْتَرَمُ،", "يَا صَدِيقِي!", "أَهْلًا يَا أَخِي!", "مَرْحَبًا يَا حَبِيبِي!"]],
+      ["Ziddiyatni bildiruvchi bog'lovchi:", ["لٰكِنَّ", "وَ", "فَ", "ثُمَّ"]], ["To'g'ri yozilganini tanlang:", ["مَسْؤُولٌ", "مَسْأُولٌ", "مَسْءُولٌ", "مسوول"]],
+      ["Kundalik (يَوْمِيَّات) odatda qaysi zamonda yoziladi?", ["o'tgan zamon (الْمَاضِي)", "buyruq (الْأَمْر)", "kelasi zamon", "faqat otli gaplar"]], ["Insho xulosasi qaysi so'z bilan boshlanadi?", ["وَفِي الْخِتَامِ،", "أَوَّلًا،", "مَثَلًا،", "بِالْإِضَافَةِ إِلَى ذٰلِكَ،"]],
+      ["Fikrni misol bilan ko'rsatish:", ["عَلَى سَبِيلِ الْمِثَالِ", "فِي الْخِتَامِ", "مِنْ نَاحِيَةٍ أُخْرَى", "لِذٰلِكَ"]], ["Vergul qayerda to'g'ri qo'yilgan?", ["ذَهَبْتُ إِلَى السُّوقِ، وَاشْتَرَيْتُ خُبْزًا.", "ذَهَبْتُ، إِلَى السُّوقِ وَاشْتَرَيْتُ خُبْزًا.", "ذَهَبْتُ إِلَى، السُّوقِ وَاشْتَرَيْتُ خُبْزًا.", "ذَهَبْتُ إِلَى السُّوقِ وَاشْتَرَيْتُ، خُبْزًا."]]],
+    3: [["Dalilli inshoda qarshi fikrni kiritish:", ["وَمِنْ نَاحِيَةٍ أُخْرَى،", "أَوَّلًا،", "فِي الْبِدَايَةِ،", "ثُمَّ"]], ["Oqibatni bildiruvchi ibora:", ["وَنَتِيجَةً لِذٰلِكَ،", "عَلَى الرَّغْمِ مِنْ", "بَيْنَمَا", "قَبْلَ أَنْ"]],
+      ["Matnni qisqartirishda nima tashlab yuboriladi?", ["takror va misollar", "asosiy fikr", "xulosa", "mavzu"]], ["Solishtirishda ishlatiladi:", ["أَمَّا ... فَـ", "لِأَنَّ", "كَيْ", "لَنْ"]],
+      ["Qayta ifodalash (إِعَادَةُ الصِّيَاغَةِ) — bu:", ["ma'noni saqlab, boshqa so'zlar bilan yozish", "matnni tarjima qilish", "matnni ko'chirish", "matnni qisqartirmasdan takrorlash"]], ["Tarjimai holda birinchi nima yoziladi?", ["tug'ilgan joy va yili", "xulosa", "maslahatlar", "shaxsiy fikr"]],
+      ["To'g'ri yozilganini tanlang:", ["قِرَاءَةٌ", "قِرَائَةٌ", "قراءه", "قِرَاءَتٌ"]], ["Inshoning asosiy qismi qanday bo'ladi?", ["har bir fikr — alohida xatboshi, dalil bilan", "bitta uzun gap", "faqat savollar", "faqat sarlavhalar"]]],
+  },
+};
 function imtihonSavollar(lv, b) {
   const sh = a => shuffle([...a]), uch = (to, hamma, f) => sh(hamma.filter(x => f(x) !== f(to))).slice(0, 3);
   const tuz = (q, to, boshq, f, ar) => { const o = sh([to, ...boshq]); return { q, o: o.map(f), a: o.indexOf(to), ar }; };
+  if ((b === 1 || b === 2) && NAMUNA_IMTIHON[b][lv])
+    return sh(NAMUNA_IMTIHON[b][lv]).map(([q, V]) => { const o = sh(V); return { q, o, a: o.indexOf(V[0]) }; });
   if (b === 0 && lv >= 1) return sh([3, 4, 5].flatMap(k => imtihonSavollar(lv, k).slice(0, 7))).slice(0, 20);  // A1+ darslarida hali test yo'q — lug'at, tarkib, muhodasadan aralash
   if (b === 0) {
     const L = lv >= 1 ? LESSONS.slice(BOSQICHLAR[lv + 1].from, BOSQICHLAR[lv + 1].to) : LESSONS.slice(0, PRE_N);
@@ -2819,6 +2861,8 @@ function yonalishImtihon(lv, b) {
   const SHARH = {
     0: lv >= 1 ? "Bu daraja darslarida o'rganilgan so'zlar, qoliplar va suhbat savollari aralash tekshiriladi."
       : "Fonetika darslari bo'yicha: harflarni eshitib tanish, harakatlar o'qilishi, maxrajlar va so'zlar.",
+    1: "Grammatika (nahv va sarf): bo'sh joyga mos so'zni tanlang. Bu namuna imtihon — savollar keyinroq to'ldiriladi.",
+    2: "Yozish (insho) ko'nikmalari: imlo, tinish belgilari, bog'lovchilar va matn tuzilishi. Bu namuna imtihon — savollar keyinroq to'ldiriladi.",
     3: "Shu darajadagi lug'at darslaridan tasodifiy so'zlar chiqadi. Har bir arabcha so'zning o'zbekcha ma'nosini tanlang.",
     4: "Shu darajadagi tarkib (qolip) misollari chiqadi. Har bir qolip qaysi mavzuga tegishli ekanini tanlang.",
     5: "Shu darajadagi muhodasa savollari chiqadi. Har bir savolga mos keladigan javob qolipini tanlang.",
@@ -2842,7 +2886,7 @@ function yonalishImtihon(lv, b) {
     const s = S[i];
     box.innerHTML = `<button class="back"><span>‹</span> To'xtatish</button><p class="trip">🎓 ${nomi} imtihoni · ${i + 1} / ${S.length}</p>
       <div class="pbar thin"><i style="width:${Math.max(2, i * 100 / S.length)}%"></i></div>
-      <div style="text-align:center;margin:10px 0">${s.say ? `<button class="play" id="pl">🔊</button>` : ""}<div ${s.ar && !/</.test(s.q) ? `class="big ar"` : ""}>${s.q}</div></div>
+      <div style="text-align:center;margin:10px 0">${s.say ? `<button class="play" id="pl">🔊</button>` : ""}<div ${/[؀-ۿ]/.test(s.q) && !/</.test(s.q) ? `class="ar" dir="rtl" style="font-size:26px;line-height:1.7;font-weight:700"` : ""}>${s.q}</div></div>
       <div class="opts">${s.o.map((v, k) => `<button class="o ${s.ar || /[؀-ۿ]/.test(v) ? "ar" : ""}" data-k="${k}">${v}</button>`).join("")}</div>`;
     $.querySelector(".back").onclick = ortga;
     const pl = $.querySelector("#pl"); if (pl) { pl.onclick = () => speak(s.say); setTimeout(() => speak(s.say), 300); }
@@ -23519,12 +23563,13 @@ function ustozSvg(k) {
 }
 const nasihat = () => NASIHAT[Math.floor(Math.random() * NASIHAT.length)];
 // bosh qism: «عربي» o'rnida tanlangan ustoz, ‹ › bilan boshqa ustozlar (yopiqlari keyingi bosqichda ochiladi)
-function ustozTepa() {
-  const k = ustozTanlangan(), ochiq = ustozOchiq(k), D = DARAJALAR[ustozDaraja(k)], kop = USTOZLAR.filter((_, i) => ustozOchiq(i)).length > 1;
-  return `<div class="utepa" data-k="${k}">${kop ? `<button class="o ut-o ut-l">‹</button>` : ""}
+// kv — ko'rsatilayotgan ustoz (‹ › bilan hammasi ko'rinadi); tanlangan (saqlangan) ustoz faqat ochiqlardan bo'ladi
+function ustozTepa(kv) {
+  const k = kv ?? ustozTanlangan(), ochiq = ustozOchiq(k), D = DARAJALAR[ustozDaraja(k)], yop = ochiq ? "" : "disabled";
+  return `<div class="utepa" data-k="${k}"><button class="o ut-o ut-l">‹</button>
     <div class="ut-m ${ochiq ? "" : "yopiq"} forma-${uLv(k)}">${ustozSvg(k)}${ochiq ? "" : `<span class="ut-qulf">🔒</span>`}<div class="ut-gap">${ochiq ? nasihat() : `🔒 ${D.code} bosqichiga yetganingizda ochiladi`}</div>
       <b>${USTOZLAR[k][0]}</b><small>${D.code} ustozi · ${uLv(k)}-daraja · ${FORMA[uLv(k) - 1]}</small>
-      <div class="ut-tug"><button class="o ut-q">⚡ Qudrati</button><button class="o ut-mk">🎓 Malaka oshirish</button></div></div>${kop ? `<button class="o ut-o ut-r">›</button>` : ""}</div>`;
+      <div class="ut-tug"><button class="o ut-q" ${yop}>⚡ Qudrati</button><button class="o ut-mk" ${yop}>🎓 Malaka oshirish</button></div></div><button class="o ut-o ut-r">›</button></div>`;
 }
 // --- Ustoz qudrati va malaka oshirish (PUBG qahramonlari kabi): o'quvchi to'plagan kuch (XP) bilan ustoz darajasi oshadi, formasi o'zgaradi
 const KONIKMA = ["Talaffuz", "Grammatika", "Lug'at", "Suhbat", "Sabr"];
@@ -23559,15 +23604,15 @@ function ustozOyna(k, tur) {
   chiz(); o.onclick = e => { if (e.target === o) o.remove(); }; document.body.appendChild(o);
 }
 document.addEventListener("click", e => {
-  const q = e.target.closest && e.target.closest(".ut-q, .ut-mk"); if (!q) return;
+  const q = e.target.closest && e.target.closest(".ut-q, .ut-mk"); if (!q || q.disabled || !ustozOchiq(+q.closest(".utepa").dataset.k)) return;  // yopiq ustoz — ishlamaydi
   ustozOyna(+q.closest(".utepa").dataset.k, q.classList.contains("ut-q") ? "q" : "m");
 });
 document.addEventListener("click", e => {
   const b = e.target.closest && e.target.closest(".ut-o"); if (!b) return;
-  // faqat ochilgan ustozlar orasida aylanadi — yopiqlari o'quvchi o'sha darajaga yetmaguncha ko'rinmaydi
-  const w = b.closest(".utepa"), O = USTOZLAR.map((_, k) => k).filter(ustozOchiq), n = O.length, j = Math.max(0, O.indexOf(+w.dataset.k));
-  const k = O[(j + (b.classList.contains("ut-l") ? n - 1 : 1)) % n];
-  store.set("ustoz", k); w.outerHTML = ustozTepa();
+  // hamma ustozlar ko'rinadi; yopig'i qulf bilan ko'rsatiladi, lekin tanlanmaydi (saqlanmaydi) va tugmalari ishlamaydi
+  const w = b.closest(".utepa"), n = USTOZLAR.length, k = (+w.dataset.k + (b.classList.contains("ut-l") ? n - 1 : 1)) % n;
+  if (ustozOchiq(k)) store.set("ustoz", k);
+  w.outerHTML = ustozTepa(k);
 });
 // dars yo'li: ustoz joriy dars yonida; oldingi joyi saqlangan bo'lsa — yurib keladi
 let ustozT = null;
@@ -24013,9 +24058,30 @@ function mevaHolat() {
 function daraxt() {
   const H = mevaHarflar(); if (!H.length) return "";
   const s = mevaHolat(), pish = s.bugunUzildi ? -1 : new Date().getDate() % H.length;
-  return `<div class="daraxt"><div class="toj">${H.slice(-14).map((h, j, A) => {
-      const a = j * 2.4, r = 18 + 22 * Math.sqrt(j / Math.max(A.length - 1, 1));
-      return `<button class="meva ${H.indexOf(h) === pish ? "pish" : ""}" style="left:${50 + r * Math.cos(a)}%;top:${45 + r * .8 * Math.sin(a)}%"><span class="ar">${h}</span></button>`;
+  // daraxt rasmi (SVG): yer, shoxli tana va bir necha doiradan iborat dumaloq toj; mevalar toj ichida spiral bo'ylab
+  // jonliroq: orqa (to'q) va old (och) barg qatlamlari, yorug'lik tomonidan yaltirash, toj orasidan ko'rinadigan shoxlar,
+  // po'stloq chiziqlari, ildizlar, o't va soya
+  const barg = (cx, cy, r, f) => [[0, 0, 1], [-.55, .25, .7], [.55, .2, .72], [-.25, -.45, .68], [.32, -.4, .62], [0, .5, .6]]
+    .map(([dx, dy, k]) => `<circle cx="${cx + dx * r}" cy="${cy + dy * r}" r="${r * k}" fill="${f}"/>`).join("");
+  const rasm = `<svg viewBox="0 0 340 230" preserveAspectRatio="xMidYMid meet"><defs>
+      <radialGradient id="dto" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#3f8a36"/><stop offset="1" stop-color="#1f4d1e"/></radialGradient>
+      <radialGradient id="dtj" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#9bd46f"/><stop offset=".45" stop-color="#5aa443"/><stop offset="1" stop-color="#2f6f2a"/></radialGradient>
+      <linearGradient id="dtn" x1="0" x2="1"><stop offset="0" stop-color="#8a5c33"/><stop offset=".45" stop-color="#6a4322"/><stop offset="1" stop-color="#3a2410"/></linearGradient>
+      <radialGradient id="dsy" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="rgba(40,28,8,.35)"/><stop offset="1" stop-color="rgba(40,28,8,0)"/></radialGradient></defs>
+    <ellipse cx="170" cy="216" rx="120" ry="14" fill="url(#dsy)"/>
+    <g fill="#5d9b3e">${Array.from({ length: 22 }, (_, i) => { const x = 82 + i * 8.2 + (i % 3) * 2, h = 6 + (i * 7) % 9; return `<path d="M${x} 216 q2 -${h} 1 -${h + 3} q1 ${h - 2} 3 ${h + 3}z"/>`; }).join("")}</g>
+    <g fill="url(#dtn)">
+      <path d="M150 216 q-14 4 -26 2 q14 -6 22 -14 Z"/><path d="M188 216 q16 4 28 1 q-15 -6 -23 -14 Z"/>
+      <path d="M157 216 C161 186 160 162 154 142 C150 130 140 120 128 112 L134 106 C146 114 154 120 160 128 C161 114 161 102 158 90 L168 88 C170 102 170 116 168 128 C176 118 186 110 200 104 L204 112 C190 118 180 128 176 140 C172 160 174 188 182 216 Z"/></g>
+    <g stroke="rgba(30,18,6,.35)" stroke-width="1.4" fill="none" stroke-linecap="round">
+      <path d="M165 210 q-2 -18 0 -34"/><path d="M172 206 q2 -14 0 -26"/><path d="M162 168 q-3 -8 -2 -16"/></g>
+    <g fill="url(#dto)">${barg(116, 96, 46, "url(#dto)")}${barg(224, 96, 46, "url(#dto)")}${barg(170, 64, 54, "url(#dto)")}</g>
+    <g>${barg(124, 88, 38, "url(#dtj)")}${barg(216, 90, 38, "url(#dtj)")}${barg(170, 56, 44, "url(#dtj)")}${barg(144, 126, 34, "url(#dtj)")}${barg(198, 126, 34, "url(#dtj)")}</g>
+    <g fill="rgba(255,255,240,.16)"><ellipse cx="146" cy="38" rx="24" ry="14"/><ellipse cx="104" cy="74" rx="14" ry="9"/><ellipse cx="190" cy="44" rx="12" ry="7"/></g>
+    <g fill="rgba(10,40,10,.18)"><ellipse cx="226" cy="132" rx="22" ry="10"/><ellipse cx="170" cy="146" rx="30" ry="9"/></g></svg>`;
+  return `<div class="daraxt"><div class="toj">${rasm}${H.slice(-14).map((h, j, A) => {
+      const a = j * 2.4, r = Math.sqrt((j + .5) / Math.max(A.length, 1));
+      return `<button class="meva ${H.indexOf(h) === pish ? "pish" : ""}" style="left:${50 + 26 * r * Math.cos(a)}%;top:${43 + 30 * r * Math.sin(a)}%"><span class="ar">${h}</span></button>`;
     }).join("")}</div>
     <div class="savat">🧺 ${s.savat} <small>${s.bugunUzildi ? "Bugungi meva uzildi — ertaga yana keling" : "Oltin mevani bosib uzing!"}</small></div></div>`;
 }
