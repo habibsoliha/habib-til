@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v215";
+const VERSION = "v217";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -1385,9 +1385,52 @@ const DAVLAT_DARS = [
   [26, 15, [], 22], [27, 15, [], 24],                         // C1: Afg'oniston, Tojikiston
   [36, 30, [], 27],                                           // C2: O'zbekiston — uyga qaytish
 ];
+// 05.11: joysiz qolgan 68 ta dars uchun qo'shimcha joylar (MARSHRUT indeksi bo'yicha). Ular PLACES oxiriga (391-dan)
+// qo'shiladi — oldingi joylarning raqami (img/ai/<k>.jpg) o'zgarmasin
+const YANGI3 = {
+  0: [["🌉", "Ronda · Yangi ko'prik", "Chuqur dara ustidagi baland tosh ko'prik; ikki tomonida oq uylar."], ["🛁", "Ronda · Arab hammomi", "XIII asrdan qolgan gumbazli hammom, shiftidagi yulduzsimon tuynuklardan yorug'lik tushadi."],
+    ["🏰", "Almeriya · Alkazaba", "Dengiz bo'yidagi tepalikda turgan ulkan arab qal'asi."], ["🗼", "Sevilya · Oltin minora", "Guadalkivir daryosi bo'yidagi o'n ikki qirrali qorovul minorasi."],
+    ["🏯", "Kordova · Kalahorra minorasi", "Rim ko'prigining boshidagi qal'a-minora, bugun Andalus madaniyati muzeyi."], ["♨️", "Granada · Banuelo hammomi", "Andalusdagi eng yaxshi saqlangan arab hammomlaridan biri."]],
+  1: [["🔵", "Shafshovan · Moviy shahar", "Tog' bag'ridagi hamma uylari moviy rangga bo'yalgan shahar."], ["📚", "Fes · Al-Qaraviyin", "859-yilda Fotima al-Fihriya asos solgan, dunyodagi eng qadimgi universitet."],
+    ["🏜️", "Ayt Benhaddu · Qasaba", "Atlas tog'lari etagidagi loydan qurilgan qadimiy qal'a-qishloq."], ["🕌", "Kasablanka · Hasan II masjidi", "Okean ustiga qurilgan, minorasi 210 metr bo'lgan ulkan masjid."]],
+  2: [["🐟", "Nuakshot · Baliq bozori", "Rang-barang qayiqlar qirg'oqqa chiqib, baliq tushiradigan shovqinli bozor."], ["🌴", "Adrar · Terjit vohasi", "Qoyalar orasidagi salqin buloq va palmalar vohasi."],
+    ["📜", "Shingit · Qo'lyozmalar", "Oilaviy kutubxonalarda asrlab saqlanayotgan qadimiy arabcha qo'lyozmalar."], ["🏘️", "Atar · Vohali shahar", "Adrar cho'li darvozasidagi palmazor shaharcha."],
+    ["🌊", "Senegal daryosi · Rosso", "Mavritaniya va Senegalni ajratib turuvchi daryo, sol-paromlar qatnaydi."], ["🍵", "Choy marosimi", "Chodir ichida uch piyola yashil choy — mehmondo'stlik ramzi."],
+    ["🚢", "Nuadibu · Kemalar qabristoni", "Qirg'oqda yuzlab eski kemalar qolib ketgan joy."]],
+  3: [["🏘️", "G'ardoya · Mzab vodiysi", "Tepalik bo'ylab zinapoya kabi joylashgan rangli uylar, YuNESKO merosi."], ["🎨", "Tassili n-Ajjer", "Qoyalardagi ming yillik suratlar va tosh 'o'rmon'lar."],
+    ["🏛️", "Tipaza · Dengiz bo'yi xarobalari", "O'rta yer dengizi qirg'og'idagi qadimiy Rim shahri qoldiqlari."], ["🕌", "Jazoir · Ketshava masjidi", "Qasaba etagidagi oq minorali tarixiy masjid."],
+    ["🏰", "Vahron · Santa-Krus qal'asi", "Shahar ustidagi tog'da turgan qal'a, dengizga keng manzara."], ["⛪", "El-Vad · Ming gumbazli shahar", "Qum barxanlari orasidagi gumbazli uylar shahri."],
+    ["🗼", "Bijoya · Kap-Karbon mayog'i", "Qoyali burundagi mayoq va moviy dengiz."], ["⛰️", "Qobiliya tog' qishloqlari", "Tog' cho'qqilaridagi tosh uylardan iborat qishloqlar."]],
+  9: [["🕌", "Maskat · Sulton Qobus masjidi", "Ulkan qandil va qo'lda to'qilgan gilam bilan bezatilgan Jome masjid."], ["🏰", "Nazva qal'asi", "Dumaloq ulkan minorali XVII asr qal'asi va xurmo bozori."],
+    ["🏜️", "Vahiba qumliklari", "To'lqinsimon qizg'ish qum barxanlari va badaviylar lageri."], ["⛵", "Musandam fyordlari", "Tog'lar orasidagi ko'k ko'rfazlar, delfinlar suzadi."],
+    ["🌿", "Salola · Xarif mavsumi", "Yozda yomg'irdan yam-yashil bo'ladigan tog'lar va sharsharalar."], ["🏘️", "Misfat al-Abriyin", "Tog' yonbag'ridagi loy uylar va falaj suvi oqib turadigan qishloq."],
+    ["💧", "Bimma chuquri", "Yer ostidan yorilib chiqqan feruza rangli tabiiy hovuz."]],
+  15: [["🛍️", "Xalil · Eski bozor", "Tosh ravoqli tor ko'chalardagi qadimiy bozor."], ["🏺", "Xalil · Shisha ustaxonasi", "Ko'k va yashil shisha idishlar puflab yasaladigan ustaxona."],
+    ["🌾", "Battir · Zinapoya dalalar", "Rim davridan qolgan suv tarmog'i bilan sug'oriladigan zinapoya dalalar."], ["🏛️", "Sabastiya xarobalari", "Tepalikdagi qadimiy ustunlar va zaytunzorlar."],
+    ["🏞️", "Vodi Qelt darasi", "Cho'l orasidagi chuqur dara va undagi buloq suvi."], ["🌊", "O'lik dengiz sohili", "Suvi juda sho'r bo'lgani uchun odam cho'kmaydigan dengiz."],
+    ["🕌", "Nabiy Muso maqomi", "Cho'l tepaligidagi oq gumbazli majmua."], ["🧵", "Tatriz · Kashtachilik", "Falastin ayollarining qizil iplar bilan tikadigan an'anaviy naqshlari."],
+    ["🍮", "Nablus · Kunafa", "Nablusning mashhur shirinligi — pishloqli, shirin sharbatli kunafa."], ["⛵", "G'azo · Baliqchilar porti", "Rang-barang baliqchi qayiqlari to'xtaydigan port."],
+    ["🫒", "Jenin · Zaytun tepaliklari", "Keng tekislik va tepaliklardagi zaytunzorlar."], ["🥕", "Romalloh · Sabzavot bozori", "Dehqonlar meva-sabzavot sotadigan gavjum bozor."],
+    ["🏺", "Ariho · Tell as-Sulton", "Dunyodagi eng qadimgi shaharlardan biri — ming yillik xarobalar."]],
+  21: [["🌳", "Koshon · Fin bog'i", "Ariqlar va favvoralar bilan bezatilgan klassik fors bog'i."], ["🕌", "Tabriz · Ko'k masjid", "Feruza koshinlari bilan mashhur XV asr masjidi."],
+    ["🏜️", "Lut cho'li · Kalutlar", "Shamol o'yib ishlagan ulkan qum-tosh qoyalar."]],
+  26: [["🏛️", "Kobul · Dor ul-Amon saroyi", "Tepalikdagi ulkan tarixiy saroy."], ["🏞️", "Panjshir vodiysi", "Tog'lar orasidan oqib o'tuvchi tiniq daryo vodiysi."],
+    ["🕌", "Qandahor · Xirqa sharif maqbarasi", "Payg'ambarimiz xirqasi saqlanadigan ko'k gumbazli maqbara."], ["🐂", "Vaxon yo'lagi", "Pomir etagidagi baland yaylovlar va qo'tos podalari."],
+    ["🧶", "Afg'on gilam bozori", "Qo'lda to'qilgan qizil-jigarrang gilamlar bozori."]],
+  27: [["🕌", "Istaravshan · Ko'k gumbaz", "Ko'k gumbazli XVI asr madrasasi."], ["🏛️", "Dushanbe · Navro'z saroyi", "Naqshinkor zallari bilan mashhur ulkan saroy."],
+    ["🏞️", "Varzob darasi", "Dushanbe yonidagi shovqinli tog' daryosi va sharsharalar."], ["🌺", "Xorug' · Botanika bog'i", "Dunyodagi eng baland botanika bog'laridan biri."],
+    ["🏔️", "Qorako'l ko'li", "Pomirdagi 3900 metr balandlikdagi moviy ko'l."]],
+  36: [["⛲", "Buxoro · Labi Hovuz", "Qadimiy tut daraxtlari soyasidagi hovuz va madrasalar."], ["🕌", "Buxoro · Chor Minor", "To'rt ko'k gumbazli minoradan iborat noyob bino."],
+    ["🗼", "Xiva · Islomxo'ja minorasi", "Xivaning eng baland, rang-barang koshinli minorasi."], ["🏺", "Samarqand · Afrosiyob", "Qadimiy Samarqand xarobalari va mashhur devoriy suratlar."],
+    ["🛒", "Toshkent · Chorsu bozori", "Ko'k gumbaz ostidagi katta sharq bozori."], ["💧", "Nurota · Chashma", "Muqaddas buloq va unda suzuvchi baliqlar."],
+    ["⛰️", "Chimyon tog'lari", "Toshkent yonidagi qorli cho'qqilar va yaylovlar."], ["🚢", "Mo'ynoq · Orol kemalari", "Qurib qolgan Orol dengizi tubida qolgan kemalar."],
+    ["🕌", "Buxoro · Bahouddin Naqshband majmuasi", "Mashhur avliyo maqbarasi va bog'lari."], ["🕌", "Qo'qon · Jome masjidi", "98 ta naqshinkor yog'och ustunli ayvonli masjid."]],
+};
 const DARS_JOY = {}, DAVLAT_DARSLARI = Array.from({ length: 37 }, () => []);
-DAVLAT_DARS.reduce((k0, [d, n, P, yk]) => {
-  P = P.concat((YANGI_JOY[yk] || []).map(j => PLACES.push(j) - 1));
+const PJ = DAVLAT_DARS.map(([, , P, yk]) => P.concat((YANGI_JOY[yk] || []).map(j => PLACES.push(j) - 1)));
+DAVLAT_DARS.forEach(([d], i) => { PJ[i] = PJ[i].concat((YANGI3[d] || []).map(j => PLACES.push(j) - 1)); });
+DAVLAT_DARS.reduce((k0, [d, n], di) => {
+  const P = PJ[di];
   for (let i = 0; i < n; i++) {
     const a = Math.floor(i * P.length / n), b = Math.floor((i + 1) * P.length / n);
     DAVLAT_DARSLARI[d].push(k0 + i); DARS_JOY[k0 + i] = b > a ? P[a] : null;
@@ -1760,12 +1803,80 @@ AI[388]="ai4/388.jpg";
 AI[389]="ai4/389.jpg";
 AI[39]="ai0/39.jpg";
 AI[390]="ai4/390.jpg";
+AI[391]="ai4/391.jpg";
+AI[392]="ai4/392.jpg";
+AI[393]="ai4/393.jpg";
+AI[394]="ai4/394.jpg";
+AI[395]="ai4/395.jpg";
+AI[396]="ai4/396.jpg";
+AI[397]="ai4/397.jpg";
+AI[398]="ai4/398.jpg";
+AI[399]="ai4/399.jpg";
 AI[40]="ai0/40.jpg";
+AI[400]="ai4/400.jpg";
+AI[401]="ai4/401.jpg";
+AI[402]="ai4/402.jpg";
+AI[403]="ai4/403.jpg";
+AI[404]="ai4/404.jpg";
+AI[405]="ai4/405.jpg";
+AI[406]="ai4/406.jpg";
+AI[407]="ai4/407.jpg";
+AI[408]="ai4/408.jpg";
+AI[409]="ai4/409.jpg";
 AI[41]="ai0/41.jpg";
+AI[410]="ai4/410.jpg";
+AI[411]="ai4/411.jpg";
+AI[412]="ai4/412.jpg";
+AI[413]="ai4/413.jpg";
+AI[414]="ai4/414.jpg";
+AI[415]="ai4/415.jpg";
+AI[416]="ai4/416.jpg";
+AI[417]="ai4/417.jpg";
+AI[418]="ai4/418.jpg";
+AI[419]="ai4/419.jpg";
 AI[42]="ai0/42.jpg";
+AI[420]="ai4/420.jpg";
+AI[421]="ai4/421.jpg";
+AI[422]="ai4/422.jpg";
+AI[423]="ai4/423.jpg";
+AI[424]="ai4/424.jpg";
+AI[425]="ai4/425.jpg";
+AI[426]="ai4/426.jpg";
+AI[427]="ai4/427.jpg";
+AI[428]="ai4/428.jpg";
+AI[429]="ai4/429.jpg";
 AI[43]="ai0/43.jpg";
+AI[430]="ai4/430.jpg";
+AI[431]="ai4/431.jpg";
+AI[432]="ai4/432.jpg";
+AI[433]="ai4/433.jpg";
+AI[434]="ai4/434.jpg";
+AI[435]="ai4/435.jpg";
+AI[436]="ai4/436.jpg";
+AI[437]="ai4/437.jpg";
+AI[438]="ai4/438.jpg";
+AI[439]="ai4/439.jpg";
 AI[44]="ai0/44.jpg";
+AI[440]="ai4/440.jpg";
+AI[441]="ai4/441.jpg";
+AI[442]="ai4/442.jpg";
+AI[443]="ai4/443.jpg";
+AI[444]="ai4/444.jpg";
+AI[445]="ai4/445.jpg";
+AI[446]="ai4/446.jpg";
+AI[447]="ai4/447.jpg";
+AI[448]="ai4/448.jpg";
+AI[449]="ai4/449.jpg";
 AI[45]="ai0/45.jpg";
+AI[450]="ai5/450.jpg";
+AI[451]="ai5/451.jpg";
+AI[452]="ai5/452.jpg";
+AI[453]="ai5/453.jpg";
+AI[454]="ai5/454.jpg";
+AI[455]="ai5/455.jpg";
+AI[456]="ai5/456.jpg";
+AI[457]="ai5/457.jpg";
+AI[458]="ai5/458.jpg";
 AI[46]="ai0/46.jpg";
 AI[47]="ai0/47.jpg";
 AI[48]="ai0/48.jpg";
@@ -2745,7 +2856,316 @@ const jonliTugma = () => {
   return `<button class="main" id="jonli" style="margin:8px 0">📹 Jonli dars${kun || r.soat ? ` · ${kun} ${r.soat}` : ""}</button>`;
 };
 const kartaHTML = h => `<div style="background:rgba(255,251,240,.96);color:#2a2418;border-radius:18px;padding:14px 14px 18px;box-shadow:0 6px 20px rgba(0,0,0,.18)">${h}</div>`;
+// --- Yangi daraja testi (metodist: app\daraja-test\daraja-test.json, build qo'shadi): umumiy test + A1–B2 yo'nalishlari.
+// Test qismlari avtomatik, 75 ballik jadval bilan; yozish va gapirish ustozga yuboriladi (ustoz yozish_75/gapirish_75 bo'yicha baholaydi).
+const DTJ = {
+"izoh": "Daraja aniqlash testi. Manba: dars qo'llanma\\Daraja aniqlash testi (arab tili).html va Daraja bo'yicha savollar (arab tili).html. j = to'g'ri javob indeksi (0=a). Tinglash matni ekranda ko'rsatilmaydi — ovoz bilan o'qiladi (audio yoki ar-SA speechSynthesis), 2 marta.",
+"umumiy": {
+ "nom": "Umumiy daraja testi",
+ "bolimlar": [
+  {"id":"lugat","nom":"Lug'at","turi":"test","hisobga":false,"savollar":[
+   {"s":"كِتَابٌ","v":["qalam","kitob","stol","sumka"],"j":1},
+   {"s":"مَدْرَسَةٌ","v":["maktab","masjid","bozor","uy"],"j":0},
+   {"s":"الشِّتَاءُ","v":["yoz","bahor","kuz","qish"],"j":3},
+   {"s":"جِنْسِيَّةٌ","v":["til","millat / fuqarolik","shahar","poytaxt"],"j":1},
+   {"s":"مَطَارٌ","v":["bekat","ko'cha","aeroport","yomg'ir"],"j":2},
+   {"s":"هِوَايَةٌ","v":["havo","sevimli mashg'ulot","sayohat","kasb"],"j":1},
+   {"s":"مُسْتَشْفًى","v":["dorixona","kutubxona","mehmonxona","kasalxona"],"j":3},
+   {"s":"سِيرَةٌ ذَاتِيَّةٌ","v":["rezyume (tarjimai hol)","shaxsiy mashina","ish shartnomasi","safar"],"j":0},
+   {"s":"يُقَوِّي مَنَاعَةَ الْجِسْمِ","v":["tanani charchatadi","vaznni kamaytiradi","immunitetni mustahkamlaydi","uyquni buzadi"],"j":2},
+   {"s":"عَادَ إِلَى مَسْقِطِ رَأْسِهِ","v":["ishiga qaytdi","tug'ilgan joyiga qaytdi","boshini ko'tardi","kasal bo'ldi"],"j":1}
+  ]},
+  {"id":"grammatika","nom":"Grammatika","turi":"test","hisobga":false,"savollar":[
+   {"s":"______ طَاوِلَةٌ.","v":["هٰذَا","هٰذِهِ","هٰؤُلَاءِ","ذٰلِكَ"],"j":1},
+   {"s":"مَا ______؟ — اِسْمِي أَحْمَدُ.","v":["اسْمِي","اسْمُهُ","اسْمُكَ","اسْمٌ"],"j":2},
+   {"s":"هِيَ ______ . (o'zbek qiz)","v":["أُوزْبَكِيٌّ","أُوزْبَكِسْتَانُ","أُوزْبَكِيُّونَ","أُوزْبَكِيَّةٌ"],"j":3},
+   {"s":"______ هٰذَا الْكِتَابُ؟ — هٰذَا الْكِتَابُ لِي.","v":["لِمَنْ","مَنْ","أَيْنَ","كَمْ"],"j":0},
+   {"s":"الطُّلَّابُ ______ فِي الصَّفِّ.","v":["يَدْرُسُ","تَدْرُسُ","يَدْرُسُونَ","أَدْرُسُ"],"j":2},
+   {"s":"أَمْسِ ______ إِلَى السُّوقِ.","v":["ذَهَبْتُ","أَذْهَبُ","سَأَذْهَبُ","اِذْهَبْ"],"j":0},
+   {"s":"أَسْكُنُ فِي طَشْقَنْدَ ______ سَنَتَيْنِ.","v":["قَبْلَ","مُنْذُ","عِنْدَ","بَعْدَ"],"j":1},
+   {"s":"فِي الصَّفِّ ______ طُلَّابٍ.","v":["ثَلَاثُ","ثَلَاثُونَ","ثَلَاثَةَ عَشَرَ","ثَلَاثَةُ"],"j":3},
+   {"s":"فَاطِمَةُ ______ مِنْ أُخْتِهَا.","v":["طَوِيلَةٌ","أَطْوَلُ","طُولَى","الطَّوِيلَةُ"],"j":1},
+   {"s":"أُرِيدُ أَنْ ______ اللُّغَةَ الْعَرَبِيَّةَ.","v":["أَتَعَلَّمُ","تَعَلَّمْتُ","أَتَعَلَّمَ","تَعَلُّمٌ"],"j":2},
+   {"s":"لَمْ ______ الطَّالِبُ الدَّرْسَ.","v":["يَفْهَمُ","فَهِمَ","سَيَفْهَمُ","يَفْهَمْ"],"j":3},
+   {"s":"إِنَّ ______ مُجْتَهِدُونَ.","v":["الْمُعَلِّمِينَ","الْمُعَلِّمُونَ","مُعَلِّمُونَ","الْمُعَلِّمَانِ"],"j":0},
+   {"s":"كَانَ الْجَوُّ ______ أَمْسِ.","v":["بَارِدٌ","بَارِدًا","بَارِدٍ","الْبَارِدُ"],"j":1},
+   {"s":"لَا حَاجَةَ إِلَى أَنْ ______ الْحَافِلَةَ.","v":["تَرْكَبُ","رَكِبْتَ","تَرْكَبَ","اِرْكَبْ"],"j":2},
+   {"s":"الْكِتَابُ الَّذِي ______ أَمْسِ مُفِيدٌ.","v":["قَرَأْتُهَا","قَرَأْتُهُ","أَقْرَأُ","قِرَاءَةٌ"],"j":1},
+   {"s":"كُتِبَتِ الرِّسَالَةُ. — ma'nosi:","v":["Xat yozildi.","Xatni yozdi.","Xat yozadi.","Xatni yoz!"],"j":0},
+   {"s":"الْمُهَنْدِسَتَانِ ______ فِي الشَّرِكَةِ.","v":["تَعْمَلُ","يَعْمَلُونَ","يَعْمَلْنَ","تَعْمَلَانِ"],"j":3},
+   {"s":"لَوْ دَرَسْتَ جَيِّدًا ______ فِي الِامْتِحَانِ.","v":["لَنَجَحْتَ","تَنْجَحُ","سَتَنْجَحُ","نَجَحَ"],"j":0},
+   {"s":"______ بُرُودَةِ الْجَوِّ، خَرَجْنَا لِلنُّزْهَةِ.","v":["لِأَنَّ","لِكَيْ","عَلَى الرَّغْمِ مِنْ","حَتَّى"],"j":2},
+   {"s":"مَا أَجْمَلَ ______ !","v":["السَّمَاءُ","السَّمَاءِ","سَمَاءٌ","السَّمَاءَ"],"j":3}
+  ]},
+  {"id":"oqish","nom":"O'qish","turi":"matn","matnlar":[
+   {"matn":"عَزِيزٌ طَالِبٌ أُوزْبَكِيٌّ. يَسْكُنُ فِي مَدِينَةِ سَمَرْقَنْدَ مَعَ أُسْرَتِهِ. يَدْرُسُ عَزِيزٌ فِي الْجَامِعَةِ، وَيَدْرُسُ اللُّغَةَ الْعَرَبِيَّةَ. يَسْتَيْقِظُ كُلَّ يَوْمٍ فِي السَّاعَةِ السَّادِسَةِ، ثُمَّ يُصَلِّي وَيَفْطُرُ مَعَ أَبِيهِ وَأُمِّهِ. يَذْهَبُ إِلَى الْجَامِعَةِ بِالْحَافِلَةِ. هِوَايَتُهُ الْمُفَضَّلَةُ الْقِرَاءَةُ، وَهُوَ يُحِبُّ فَصْلَ الرَّبِيعِ؛ لِأَنَّهُ مُعْتَدِلٌ.","savollar":[
+    {"s":"Aziz qayerda yashaydi?","v":["Toshkentda","Buxoroda","Samarqandda","Xivada"],"j":2},
+    {"s":"Aziz universitetda nima o'qiydi?","v":["arab tili","tibbiyot","ingliz tili","matematika"],"j":0},
+    {"s":"U soat nechada uyg'onadi?","v":["5 da","6 da","7 da","8 da"],"j":1},
+    {"s":"Universitetga nimada boradi?","v":["piyoda","taksida","metroda","avtobusda"],"j":3},
+    {"s":"Nega bahorni yaxshi ko'radi?","v":["issiq bo'lgani uchun","mo''tadil bo'lgani uchun","qor yoqqani uchun","ta'til bo'lgani uchun"],"j":1}
+   ]},
+   {"matn":"تَلْعَبُ الْقِرَاءَةُ دَوْرًا كَبِيرًا فِي حَيَاةِ الْإِنْسَانِ؛ فَهِيَ تُوَسِّعُ مَعَارِفَهُ وَتُنَمِّي خَيَالَهُ. وَعَلَى الرَّغْمِ مِنِ انْتِشَارِ الْإِنْتَرْنِتِ وَوَسَائِلِ التَّوَاصُلِ الِاجْتِمَاعِيِّ، فَإِنَّ كَثِيرًا مِنَ الْبَاحِثِينَ يَرَوْنَ أَنَّ الْكِتَابَ الْوَرَقِيَّ مَا زَالَ يَحْتَفِظُ بِمَكَانَتِهِ؛ فَالْقَارِئُ يَسْتَطِيعُ أَنْ يُرَكِّزَ أَكْثَرَ حِينَ يَقْرَأُ كِتَابًا، بَيْنَمَا يَتَشَتَّتُ انْتِبَاهُهُ أَمَامَ الشَّاشَاتِ بِسَبَبِ كَثْرَةِ الْإِشْعَارَاتِ. وَلِذٰلِكَ يَنْصَحُ الْخُبَرَاءُ بِتَخْصِيصِ نِصْفِ سَاعَةٍ يَوْمِيًّا لِلْقِرَاءَةِ بَعِيدًا عَنِ الْهَاتِفِ.","savollar":[
+    {"s":"Matnning asosiy fikri:","v":["Internet kitobni butunlay siqib chiqardi.","Qog'oz kitob hali ham o'z o'rnini saqlab turibdi.","Ijtimoiy tarmoqlar o'qishga foydali.","Tadqiqotchilar kitob o'qimaydi."],"j":1},
+    {"s":"Nega ekran oldida diqqat tarqaladi?","v":["ekran juda katta","bildirishnomalar ko'p","matn qiyin","ko'z charchaydi"],"j":1},
+    {"s":"Mutaxassislar nimani maslahat beradi?","v":["kuniga 2 soat internetda o'qish","telefonni sotib yuborish","haftada bir kitob sotib olish","kuniga yarim soat telefondan uzoqda o'qish"],"j":3},
+    {"s":"تُنَمِّي خَيَالَهُ — ma'nosi:","v":["xayolini (tasavvurini) rivojlantiradi","xayolini buzadi","uni uxlatadi","uni yolg'iz qoldiradi"],"j":0},
+    {"s":"يَتَشَتَّتُ so'ziga ma'nodosh:","v":["يَجْتَمِعُ","يَنَامُ","يَتَفَرَّقُ","يَكْتُبُ"],"j":2}
+   ]}
+  ]},
+  {"id":"tinglash","nom":"Tinglash","turi":"audio","matnlar":[
+   {"audio_matn":"اِسْمِي فَاطِمَةُ. أَنَا مُعَلِّمَةٌ فِي مَدْرَسَةٍ قَرِيبَةٍ مِنْ بَيْتِي. أَذْهَبُ إِلَى الْمَدْرَسَةِ مَشْيًا، وَيَسْتَغْرِقُ الطَّرِيقُ عَشْرَ دَقَائِقَ. فِي الصَّيْفِ الْمَاضِي سَافَرْتُ مَعَ أُسْرَتِي إِلَى الْمَدِينَةِ الْمُنَوَّرَةِ بِالطَّائِرَةِ، وَبَقِينَا هُنَاكَ أُسْبُوعًا. وَفِي الْعَامِ الْقَادِمِ أُرِيدُ أَنْ أَدْرُسَ فِي الْجَامِعَةِ لِأَحْصُلَ عَلَى شَهَادَةِ الْمَاجِسْتِيرِ.","savollar":[
+    {"s":"Fotimaning kasbi nima?","v":["shifokor","o'qituvchi","talaba","muhandis"],"j":1},
+    {"s":"U maktabga qanday boradi?","v":["piyoda","avtobusda","mashinada","metroda"],"j":0},
+    {"s":"Yo'l qancha vaqt oladi?","v":["5 daqiqa","30 daqiqa","10 daqiqa","1 soat"],"j":2},
+    {"s":"O'tgan yozda qayerga sayohat qildi?","v":["Makkaga","Qohiraga","Istanbulga","Madinaga"],"j":3},
+    {"s":"Kelasi yilgi rejasi:","v":["magistraturada o'qish","maktabni almashtirish","uy sotib olish","yana sayohat qilish"],"j":0}
+   ]},
+   {"audio_matn":"أَعْلَنَتْ وَزَارَةُ الصِّحَّةِ أَنَّ عَدَدَ الْمُصَابِينَ بِمَرَضِ السُّكَّرِيِّ ارْتَفَعَ فِي السَّنَوَاتِ الْأَخِيرَةِ، وَأَرْجَعَتْ ذٰلِكَ إِلَى قِلَّةِ الْحَرَكَةِ وَالْإِكْثَارِ مِنَ الْوَجَبَاتِ السَّرِيعَةِ. وَدَعَتِ الْوَزَارَةُ الْمُوَاطِنِينَ إِلَى الْمَشْيِ ثَلَاثِينَ دَقِيقَةً يَوْمِيًّا، وَإِجْرَاءِ فَحْصٍ طِبِّيٍّ مَرَّةً كُلَّ سَنَةٍ عَلَى الْأَقَلِّ.","savollar":[
+    {"s":"Xabar nima haqida?","v":["qandli diabet ko'payishi haqida","yangi kasalxona ochilishi","ob-havo","sport musobaqasi"],"j":0},
+    {"s":"Vazirlik buning sababini nimada ko'radi?","v":["yoshning kattaligida","kam harakat va tez tayyor ovqatda","havo ifloslanishida","irsiyatda"],"j":1},
+    {"s":"Vazirlik fuqarolarni nimaga chaqirdi?","v":["haftada bir marta sport zaliga borishga","shakarni butunlay tashlashga","kuniga 30 daqiqa yurish va yiliga kamida bir marta tekshiruvdan o'tishga","har oy shifokorga borishga"],"j":2}
+   ]}
+  ]},
+  {"id":"yozish","nom":"Yozish","turi":"yozma","kontekst":"عَزِيزِي الطَّالِبَ، يُسْعِدُنَا أَنْ نُخْبِرَكَ أَنَّ الْمَرْكَزَ سَيُنَظِّمُ رِحْلَةً تَعْلِيمِيَّةً إِلَى سَمَرْقَنْدَ فِي الْعُطْلَةِ الْقَادِمَةِ لِمُدَّةِ ثَلَاثَةِ أَيَّامٍ. مَا الْأَنْشِطَةُ الَّتِي تَقْتَرِحُهَا؟ وَمَا الْوَقْتُ الْمُنَاسِبُ لَكَ؟ نَنْتَظِرُ رَأْيَكَ. — إِدَارَةُ الْمَرْكَزِ","topshiriqlar":[
+   {"id":"1.1","s":"Markazda o'qiydigan do'stingizga xat yozing: bu xabar haqida nima his qilyapsiz va nima taklif qilasiz.","soz":"~50 so'z","max":5},
+   {"id":"1.2","s":"Markaz rahbariyatiga rasmiy javob xati yozing: fikringiz, takliflaringiz va sizga qulay vaqt.","soz":"120–150 so'z","max":5},
+   {"id":"2","s":"Forum savoli: هَلِ الْعَيْشُ فِي مَدِينَةٍ كَبِيرَةٍ أَفْضَلُ أَمْ فِي قَرْيَةٍ صَغِيرَةٍ؟ Sabab va misollar bilan javob yozing.","soz":"180–200 so'z","max":6}
+  ],"baholovchi":"ustoz"},
+  {"id":"gapirish","nom":"Gapirish","turi":"ovozli","izoh":"Har savolga ovozli javob yoziladi, ustoz baholaydi.","qismlar":[
+   {"id":"1–3","max":5,"savollar":[{"s":"مَا اسْمُكَ؟ وَمِنْ أَيْنَ أَنْتَ؟","vaqt":30},{"s":"مَاذَا تَفْعَلُ فِي يَوْمِ الْعُطْلَةِ؟","vaqt":30},{"s":"مَا طَعَامُكَ الْمُفَضَّلُ؟ وَلِمَاذَا؟","vaqt":30}]},
+   {"id":"4–6","max":5,"savollar":[{"s":"صِفْ مَدِينَتَكَ: مَاذَا يُعْجِبُكَ فِيهَا وَمَاذَا لَا يُعْجِبُكَ؟","vaqt":30},{"s":"مَا الْفَرْقُ بَيْنَ الدِّرَاسَةِ فِي الْبَيْتِ وَالدِّرَاسَةِ فِي الْمَرْكَزِ؟","vaqt":30},{"s":"أَيُّهُمَا تُفَضِّلُ: السَّفَرَ بِالطَّائِرَةِ أَمْ بِالْقِطَارِ؟ لِمَاذَا؟","vaqt":30}]},
+   {"id":"7","max":5,"tayyorlanish":60,"savollar":[{"s":"حَدِّثْنَا عَنْ شَخْصٍ أَثَّرَ فِي حَيَاتِكَ: ١. مَنْ هُوَ؟ ٢. كَيْفَ تَعَرَّفْتَ عَلَيْهِ؟ ٣. لِمَاذَا أَثَّرَ فِيكَ؟","vaqt":120}]},
+   {"id":"8","max":6,"tayyorlanish":60,"savollar":[{"s":"«يَجِبُ أَنْ يَتَعَلَّمَ الْأَطْفَالُ لُغَةً أَجْنَبِيَّةً مُنْذُ الصِّغَرِ» — مَعَ: الطِّفْلُ يَتَعَلَّمُ بِسُرْعَةٍ · فُرَصُ عَمَلٍ أَكْثَرُ · يَفْهَمُ ثَقَافَاتٍ أُخْرَى | ضِدَّ: قَدْ تَضْعُفُ لُغَتُهُ الْأُمُّ · ضَغْطٌ دِرَاسِيٌّ · يَحْتَاجُ إِلَى مُعَلِّمٍ مُتَخَصِّصٍ. Ikkala tomonni muhokama qilib, fikringizni ayting.","vaqt":120}]}
+  ],"baholovchi":"ustoz"}
+ ],
+ "baholash": {
+  "izoh":"Har ko'nikma 0–75 ga o'tkaziladi, umumiy = 4 ta ko'nikma o'rtachasi. Lug'at+grammatika umumiy ballga kirmaydi (yordamchi ko'rsatkich).",
+  "tinglash_75":[0,9,19,28,38,47,56,66,75],
+  "oqish_75":[0,8,15,23,30,38,45,53,60,68,75],
+  "yozish_75":[0,12,18,23,27,30,35,38,42,46,49,52,57,61,65,71,75],
+  "gapirish_75":{"0":0,"0.5":10,"1":11,"1.5":13,"2":15,"2.5":17,"3":19,"3.5":21,"4":23,"4.5":24,"5":26,"5.5":27,"6":29,"6.5":30,"7":32,"7.5":33,"8":35,"8.5":37,"9":38,"9.5":39,"10":40,"10.5":42,"11":43,"11.5":45,"12":46,"12.5":47,"13":49,"13.5":50,"14":51,"14.5":52,"15":54,"15.5":56,"16":57,"16.5":59,"17":61,"17.5":63,"18":64,"18.5":65,"19":67,"19.5":69,"20":71,"20.5":73,"21":75},
+  "darajalar":[{"dan":0,"gacha":9,"daraja":"A1 dan past","guruh":"A1 boshidan"},{"dan":10,"gacha":19,"daraja":"A1","guruh":"A2 guruhi"},{"dan":20,"gacha":37,"daraja":"A2","guruh":"B1 guruhi"},{"dan":38,"gacha":50,"daraja":"B1","guruh":"B2 guruhi"},{"dan":51,"gacha":64,"daraja":"B2","guruh":"B2 / C1 tayyorlov"},{"dan":65,"gacha":75,"daraja":"C1","guruh":"C1"}],
+  "qoidalar":["Gapirish juda past bo'lsa — 1 daraja pastga joylanadi.","Chegaradan ±2 ball ichida — quyi guruhga, sinov darsidan keyin hal qilinadi.","Arab harflarini o'qiy olmasa — fonetika kursi.","Gapirishda 1–3 ga ≤2 ball bo'lsa 7–8 berilmaydi; 4–6 ga ≤1 bo'lsa 8 berilmaydi."]
+ }
+},
+"darajalar": [
+ {"daraja":"A1","mezon":"O'zi, oilasi va kundalik narsalar haqida alohida so'z va oddiy iboralar; sodda gap (mubtado + xabar, هَذَا/هَذِهِ, egalik qo'shimchalari, oddiy predloglar).",
+  "otish":"Test 12 dan ≥9; yozish ≥1; gapirish (1–3) ≥2",
+  "bolimlar":[
+   {"id":"grammatika","nom":"Lug'at va grammatika","savollar":[
+    {"s":"هَذِهِ ______ .","v":["قَلَمٌ","بَابٌ","سَيَّارَةٌ","بَيْتٌ"],"j":2},
+    {"s":"______ طَالِبَةٌ.","v":["هُوَ","هِيَ","هُمْ","أَنْتَ"],"j":1},
+    {"s":"الْقَلَمُ ______ الْمَكْتَبِ. (stolning ustida)","v":["فِي","عَلَى","مِنْ","إِلَى"],"j":1},
+    {"s":"مَا اسْمُ______؟ اسْمِي أَحْمَدُ.","v":["ـهُ","ـهَا","ـكَ","ـنَا"],"j":2},
+    {"s":"\"Uy\" so'zi qaysi?","v":["بَابٌ","بَيْتٌ","بِنْتٌ","بَحْرٌ"],"j":1},
+    {"s":"مِنْ أَيْنَ أَنْتَ؟","v":["أَنَا مِنْ طَشْقَنْدَ","أَنَا طَالِبٌ","اسْمِي عَلِيٌّ","هَذَا بَيْتٌ"],"j":0}
+   ]},
+   {"id":"oqish","nom":"O'qish","matn":"اسْمِي مَرْيَمُ. أَنَا مِنْ سَمَرْقَنْدَ. أَنَا طَالِبَةٌ. أَبِي مُهَنْدِسٌ، وَأُمِّي مُعَلِّمَةٌ. لِي أَخٌ وَاحِدٌ، اسْمُهُ يُوسُفُ. بَيْتُنَا كَبِيرٌ.","savollar":[
+    {"s":"Maryam qayerdan?","v":["طَشْقَنْدُ","بُخَارَى","سَمَرْقَنْدُ","خِيوَةُ"],"j":2},
+    {"s":"Onasi kim?","v":["طَبِيبَةٌ","مُعَلِّمَةٌ","مُهَنْدِسَةٌ","طَالِبَةٌ"],"j":1},
+    {"s":"Maryamning nechta akasi/ukasi bor?","v":["yo'q","1 ta","2 ta","3 ta"],"j":1}
+   ]},
+   {"id":"tinglash","nom":"Tinglash","audio_matn":"صَبَاحَ الْخَيْرِ! أَنَا خَالِدٌ. عُمْرِي عِشْرُونَ سَنَةً. أَسْكُنُ فِي طَشْقَنْدَ. أُحِبُّ الشَّايَ وَالْكُرَةَ.","savollar":[
+    {"s":"Xolid necha yoshda?","v":["12","20","25","30"],"j":1},
+    {"s":"U qayerda yashaydi?","v":["Toshkent","Samarqand","Buxoro","Qo'qon"],"j":0},
+    {"s":"U nimani yaxshi ko'radi?","v":["qahva va kitob","choy va futbol","sut va suzish","choy va kitob"],"j":1}
+   ]},
+   {"id":"yozish","nom":"Yozish","s":"Do'stingizga o'zingiz haqingizda yozing: ismingiz, qayerdansiz, oilangiz, nimani yaxshi ko'rasiz.","soz":"25–30 so'z","shkala":"1.1 (0–5)","talab":1},
+   {"id":"gapirish","nom":"Gapirish","qism":"1–3 (0–5)","talab":2,"savollar":["مَا اسْمُكَ؟ وَمِنْ أَيْنَ أَنْتَ؟","كَمْ شَخْصًا فِي أُسْرَتِكَ؟","مَاذَا تُحِبُّ أَنْ تَأْكُلَ؟"]}
+  ]},
+ {"daraja":"A2","mezon":"Kundalik mavzularda oddiy gaplar: hozirgi va o'tgan zamon, sonlar, vaqt, ko'plik, sifat moslashuvi, وَ/لَكِنْ/ثُمَّ. Xato bor, ma'no tushunarli.",
+  "otish":"Test 12 dan ≥9; yozish ≥2 (o'tgan zamon ishlatilgan); gapirish (1–3) ≥3",
+  "bolimlar":[
+   {"id":"grammatika","nom":"Lug'at va grammatika","savollar":[
+    {"s":"أَمْسِ ______ إِلَى السُّوقِ.","v":["أَذْهَبُ","ذَهَبْتُ","سَأَذْهَبُ","اذْهَبْ"],"j":1},
+    {"s":"هَؤُلَاءِ ______ مُجْتَهِدُونَ.","v":["طَالِبٌ","طَالِبَانِ","طُلَّابٌ","طَالِبَةٌ"],"j":2},
+    {"s":"هَذِهِ سَيَّارَةٌ ______ .","v":["جَدِيدٌ","جَدِيدَةٌ","الْجَدِيدُ","جُدُدٌ"],"j":1},
+    {"s":"أَسْتَيْقِظُ فِي السَّاعَةِ ______ صَبَاحًا. (7:00)","v":["الْخَامِسَةِ","السَّادِسَةِ","السَّابِعَةِ","التَّاسِعَةِ"],"j":2},
+    {"s":"أُرِيدُ أَنْ أَشْتَرِيَ الْخُبْزَ ______ لَيْسَ عِنْدِي نُقُودٌ.","v":["لَكِنْ","ثُمَّ","لِأَنَّ","أَوْ"],"j":0},
+    {"s":"______ تَدْرُسُ الْعَرَبِيَّةَ؟ — مُنْذُ سَنَةٍ.","v":["أَيْنَ","مُنْذُ مَتَى","لِمَاذَا","كَيْفَ"],"j":1}
+   ]},
+   {"id":"oqish","nom":"O'qish","matn":"فِي يَوْمِ الْجُمُعَةِ ذَهَبَ سَعِيدٌ مَعَ أُسْرَتِهِ إِلَى الْحَدِيقَةِ. لَعِبَ الْأَوْلَادُ بِالْكُرَةِ، وَجَلَسَ الْأَبُ وَالْأُمُّ تَحْتَ شَجَرَةٍ كَبِيرَةٍ. أَكَلُوا الطَّعَامَ وَشَرِبُوا الْعَصِيرَ. فِي الْمَسَاءِ رَجَعُوا إِلَى الْبَيْتِ بِالْحَافِلَةِ لِأَنَّ السَّيَّارَةَ كَانَتْ عِنْدَ الْمِيكَانِيكِيِّ.","savollar":[
+    {"s":"Ular qachon bog'ga borishdi?","v":["shanba","juma","yakshanba","dushanba"],"j":1},
+    {"s":"Ota-ona nima qilishdi?","v":["to'p o'ynashdi","daraxt tagida o'tirishdi","uxlashdi","do'konga borishdi"],"j":1},
+    {"s":"Nega avtobusda qaytishdi?","v":["mashina ustada edi","avtobus arzon","yo'l uzoq","yomg'ir yog'di"],"j":0}
+   ]},
+   {"id":"tinglash","nom":"Tinglash","audio_matn":"— مَرْحَبًا، أُرِيدُ تَذْكِرَةً إِلَى بُخَارَى، مِنْ فَضْلِكَ. — الْقِطَارُ يَخْرُجُ فِي السَّاعَةِ الثَّامِنَةِ. التَّذْكِرَةُ بِمِئَةِ أَلْفِ سُومٍ. — حَسَنًا، تَذْكِرَتَانِ، مِنْ فَضْلِكَ.","savollar":[
+    {"s":"Yo'lovchi qayerga boradi?","v":["Samarqand","Xiva","Buxoro","Namangan"],"j":2},
+    {"s":"Poyezd soat nechada?","v":["6:00","7:00","8:00","9:00"],"j":2},
+    {"s":"Nechta chipta oldi?","v":["1","2","3","4"],"j":1}
+   ]},
+   {"id":"yozish","nom":"Yozish","s":"صَدِيقُكَ يَسْأَلُكَ: كَيْفَ قَضَيْتَ عُطْلَةَ نِهَايَةِ الْأُسْبُوعِ؟ اكْتُبْ لَهُ رِسَالَةً قَصِيرَةً.","soz":"~50 so'z","shkala":"1.1 (0–5)","talab":2},
+   {"id":"gapirish","nom":"Gapirish","qism":"1–3 va 4–6 (0–5)","talab":3,"savollar":["مَاذَا فَعَلْتَ أَمْسِ؟","صِفْ غُرْفَتَكَ.","مَا هِوَايَتُكَ؟ وَلِمَاذَا؟","صِفِ السُّوقَ فِي مَدِينَتِكَ."]}
+  ]},
+ {"daraja":"B1","mezon":"Tanish mavzularda bog'langan matn, tajriba va rejalar, sabab. Oddiy grammatika to'g'ri (أَنْ + muzore', لَنْ/لَمْ, أَفْعَلُ), murakkabida xato; oddiy bog'lovchilar.",
+  "otish":"Test 12 dan ≥9; yozish ≥3; gapirish 4–6 ≥3 va 7 ≥2",
+  "bolimlar":[
+   {"id":"grammatika","nom":"Lug'at va grammatika","savollar":[
+    {"s":"لَمْ ______ الْوَاجِبَ أَمْسِ.","v":["أَكْتُبُ","أَكْتُبْ","كَتَبْتُ","أَكْتُبَ"],"j":1},
+    {"s":"أُرِيدُ أَنْ ______ طَبِيبًا.","v":["أَكُونُ","أَكُنْ","أَكُونَ","كُنْتُ"],"j":2},
+    {"s":"طَشْقَنْدُ ______ مِنْ سَمَرْقَنْدَ.","v":["كَبِيرَةٌ","أَكْبَرُ","الْكُبْرَى","كِبَارٌ"],"j":1},
+    {"s":"لَنْ ______ إِلَى الْحَفْلَةِ غَدًا.","v":["أَذْهَبَ","أَذْهَبُ","ذَهَبْتُ","أَذْهَبْ"],"j":0},
+    {"s":"______ مُتْعَبًا، ذَهَبْتُ إِلَى الْعَمَلِ.","v":["لِأَنَّنِي","عَلَى الرَّغْمِ مِنْ أَنَّنِي كُنْتُ","لِذَلِكَ","عِنْدَمَا"],"j":1},
+    {"s":"الْكِتَابُ ______ قَرَأْتُهُ مُفِيدٌ.","v":["الَّتِي","الَّذِينَ","الَّذِي","مَا"],"j":2}
+   ]},
+   {"id":"oqish","nom":"O'qish","matn":"يَعْمَلُ كَثِيرٌ مِنَ الشَّبَابِ الْيَوْمَ عَنْ بُعْدٍ. يَقُولُ بَعْضُهُمْ إِنَّ ذَلِكَ يُوَفِّرُ الْوَقْتَ وَالْمَالَ، لِأَنَّهُمْ لَا يَحْتَاجُونَ إِلَى الْمُوَاصَلَاتِ. لَكِنَّ آخَرِينَ يَشْعُرُونَ بِالْوَحْدَةِ، وَيَفْتَقِدُونَ الْحَدِيثَ مَعَ زُمَلَائِهِمْ. لِذَلِكَ تَخْتَارُ بَعْضُ الشَّرِكَاتِ نِظَامًا مُخْتَلَطًا: يَوْمَانِ فِي الْمَكْتَبِ وَثَلَاثَةُ أَيَّامٍ فِي الْبَيْتِ.","savollar":[
+    {"s":"Masofadan ishlashning foydasi nima deyilgan?","v":["maosh ko'p","vaqt va pul tejaladi","do'st ko'payadi","ish kam"],"j":1},
+    {"s":"Ba'zilar qanday muammoga duch keladi?","v":["yolg'izlik","internet yo'q","ish ko'p","charchoq"],"j":0},
+    {"s":"Aralash tizimda ofisda necha kun ishlanadi?","v":["1","2","3","5"],"j":1}
+   ]},
+   {"id":"tinglash","nom":"Tinglash","audio_matn":"كُنْتُ أَخَافُ مِنَ السِّبَاحَةِ عِنْدَمَا كُنْتُ صَغِيرًا. وَفِي الصَّيْفِ الْمَاضِي قَرَّرْتُ أَنْ أَتَعَلَّمَهَا. سَجَّلْتُ فِي نَادٍ قَرِيبٍ مِنْ بَيْتِي، وَتَدَرَّبْتُ ثَلَاثَ مَرَّاتٍ فِي الْأُسْبُوعِ. الْآنَ أَسْبَحُ بِدُونِ خَوْفٍ، وَأُرِيدُ أَنْ أُشَارِكَ فِي مُسَابَقَةٍ السَّنَةَ الْقَادِمَةَ.","savollar":[
+    {"s":"Gapiruvchi bolaligida nimadan qo'rqardi?","v":["itdan","suzishdan","qorong'ulikdan","samolyotdan"],"j":1},
+    {"s":"Haftasiga necha marta mashq qildi?","v":["1","2","3","har kuni"],"j":2},
+    {"s":"Uning keyingi rejasi?","v":["murabbiy bo'lish","musobaqada qatnashish","klubni tashlash","dengizga borish"],"j":1}
+   ]},
+   {"id":"yozish","nom":"Yozish","s":"صَدِيقُكَ يُرِيدُ أَنْ يَتَعَلَّمَ لُغَةً جَدِيدَةً، وَيَسْأَلُكَ: هَلْ أَدْرُسُ فِي مَرْكَزٍ أَمْ عَلَى الْإِنْتَرْنِتِ؟ اكْتُبْ لَهُ رِسَالَةً: أَعْطِهِ نَصِيحَتَكَ وَاشْرَحِ السَّبَبَ.","soz":"~50 so'z","shkala":"1.1 (0–5)","talab":3},
+   {"id":"gapirish","nom":"Gapirish","qism":"4–6 (0–5) va 7 (0–5)","talab":"4–6 ≥3, 7 ≥2","savollar":["مَا الْفَرْقُ بَيْنَ الدِّرَاسَةِ فِي الْبَيْتِ وَالدِّرَاسَةِ فِي الْمَكْتَبَةِ؟","أَيُّهُمَا تُفَضِّلُ: الصَّيْفَ أَمِ الشِّتَاءَ؟ لِمَاذَا؟","صِفْ رِحْلَةً لَا تَنْسَاهَا.","حَدِّثْنَا عَنْ هَدَفٍ حَقَّقْتَهُ: مَا هُوَ؟ كَيْفَ حَقَّقْتَهُ؟ مَاذَا تَعَلَّمْتَ مِنْهُ؟"]}
+  ]},
+ {"daraja":"B2","mezon":"Mavhum va ijtimoiy mavzularda asoslangan fikr, ikki tomonni solishtirish, rasmiy/norasmiy uslub. Murakkab qurilmalar (لَوْ/إِذَا, majhul, masdar, حَال, كَانَ va إِنَّ) ko'p hollarda to'g'ri; xilma-xil bog'lovchilar.",
+  "otish":"Test 12 dan ≥9; yozish (1.2) ≥3; gapirish 7 ≥3 va 8 ≥3",
+  "bolimlar":[
+   {"id":"grammatika","nom":"Lug'at va grammatika","savollar":[
+    {"s":"لَوْ دَرَسْتَ جَيِّدًا ______ فِي الِامْتِحَانِ.","v":["تَنْجَحُ","لَنَجَحْتَ","سَتَنْجَحُ","نَجَحْتَ"],"j":1},
+    {"s":"______ الْمَشْرُوعُ فِي السَّنَةِ الْمَاضِيَةِ. (majhul)","v":["نَفَّذَ","نُفِّذَ","يُنَفِّذُ","تَنْفِيذٌ"],"j":1},
+    {"s":"إِنَّ ______ مُهْتَمُّونَ بِالْبِيئَةِ.","v":["الشَّبَابُ","الشَّبَابِ","الشَّبَابَ","شَبَابٌ"],"j":2},
+    {"s":"دَخَلَ الْمُدِيرُ الْقَاعَةَ ______ . (jilmayib)","v":["مُبْتَسِمًا","مُبْتَسِمٌ","ابْتِسَامَةٌ","يَبْتَسِمُونَ"],"j":0},
+    {"s":"يَجِبُ ______ عَلَى الطَّاقَةِ.","v":["الْمُحَافَظَةُ","يُحَافِظُ","حَافَظَ","مُحَافِظٌ"],"j":0},
+    {"s":"Rasmiy xatga mos boshlanish:","v":["يَا صَاحِبِي","أَهْلًا يَا حَبِيبِي","حَضْرَةَ الْمُدِيرِ الْمُحْتَرَمِ","كَيْفَ حَالُكَ يَا أَخِي"],"j":2}
+   ]},
+   {"id":"oqish","nom":"O'qish","matn":"تُشِيرُ دِرَاسَاتٌ حَدِيثَةٌ إِلَى أَنَّ الِاسْتِخْدَامَ الْمُفْرِطَ لِلْهَوَاتِفِ الذَّكِيَّةِ يُؤَثِّرُ سَلْبًا فِي تَرْكِيزِ الطُّلَّابِ. وَعَلَى الرَّغْمِ مِنْ ذَلِكَ، يَرَى بَعْضُ الْخُبَرَاءِ أَنَّ الْمُشْكِلَةَ لَيْسَتْ فِي الْهَاتِفِ نَفْسِهِ، بَلْ فِي طَرِيقَةِ اسْتِخْدَامِهِ؛ فَالتَّطْبِيقَاتُ التَّعْلِيمِيَّةُ قَدْ تُسَاعِدُ عَلَى التَّعَلُّمِ إِذَا اسْتُخْدِمَتْ بِشَكْلٍ مُنَظَّمٍ. وَلِهَذَا تَدْعُو بَعْضُ الْمَدَارِسِ إِلَى وَضْعِ قَوَاعِدَ وَاضِحَةٍ بَدَلًا مِنَ الْمَنْعِ التَّامِّ.","savollar":[
+    {"s":"Tadqiqotlar nimani ko'rsatadi?","v":["telefon diqqatni oshiradi","ortiqcha ishlatish diqqatga zarar","talabalar telefon ishlatmaydi","ilovalar foydasiz"],"j":1},
+    {"s":"Mutaxassislar fikricha muammo nimada?","v":["telefonning o'zida","ishlatish usulida","maktabda","internetda"],"j":1},
+    {"s":"Ba'zi maktablar nimani taklif qiladi?","v":["to'liq taqiq","aniq qoidalar","yangi telefonlar","darsni qisqartirish"],"j":1}
+   ]},
+   {"id":"tinglash","nom":"Tinglash","audio_matn":"أَعْلَنَتْ وِزَارَةُ النَّقْلِ أَنَّهُ سَيَتِمُّ افْتِتَاحُ خَطٍّ جَدِيدٍ لِلْمِتْرُو فِي بِدَايَةِ الْعَامِ الْقَادِمِ. وَمِنَ الْمُتَوَقَّعِ أَنْ يُخَفِّفَ هَذَا الْخَطُّ الِازْدِحَامَ فِي وَسَطِ الْمَدِينَةِ بِنِسْبَةِ ثَلَاثِينَ فِي الْمِئَةِ. غَيْرَ أَنَّ بَعْضَ السُّكَّانِ يَشْكُونَ مِنَ الضَّوْضَاءِ النَّاتِجَةِ عَنْ أَعْمَالِ الْبِنَاءِ، وَقَدْ وَعَدَتِ الْوِزَارَةُ بِتَقْلِيلِ الْعَمَلِ لَيْلًا.","savollar":[
+    {"s":"Yangi metro liniyasi qachon ochiladi?","v":["shu oy","keyingi yil boshida","yil oxirida","2 yildan keyin"],"j":1},
+    {"s":"Tirbandlik qanchaga kamayishi kutilmoqda?","v":["10%","20%","30%","50%"],"j":2},
+    {"s":"Vazirlik nimani va'da qildi?","v":["chipta arzonlashadi","kechasi ish kamayadi","qurilish to'xtaydi","yangi avtobuslar"],"j":1}
+   ]},
+   {"id":"yozish","nom":"Yozish","s":"قَرَأْتَ إِعْلَانًا عَنْ دَوْرَةٍ لُغَوِيَّةٍ فِي مَرْكَزٍ ثَقَافِيٍّ. اكْتُبْ رِسَالَةً رَسْمِيَّةً إِلَى مُدِيرِ الْمَرْكَزِ: عَرِّفْ نَفْسَكَ، وَاسْأَلْ عَنْ مَوْعِدِ الدَّوْرَةِ وَرُسُومِهَا، وَاشْرَحْ لِمَاذَا تُرِيدُ الْمُشَارَكَةَ.","soz":"120–150 so'z","shkala":"1.2 (0–5)","talab":3},
+   {"id":"gapirish","nom":"Gapirish","qism":"7 (0–5) va 8 (0–6)","talab":"7 ≥3, 8 ≥3","savollar":["حَدِّثْنَا عَنْ تَغْيِيرٍ كَبِيرٍ فِي مَدِينَتِكَ: مَا هُوَ؟ كَيْفَ أَثَّرَ فِي حَيَاةِ النَّاسِ؟ هَلْ تَرَاهُ إِيجَابِيًّا أَمْ سَلْبِيًّا؟","«يَجِبُ مَنْعُ الْهَوَاتِفِ الذَّكِيَّةِ فِي الْمَدَارِسِ» — مَعَ: تَرْكِيزٌ أَفْضَلُ · تَوَاصُلٌ حَقِيقِيٌّ | ضِدَّ: تَطْبِيقَاتٌ تَعْلِيمِيَّةٌ · التَّوَاصُلُ مَعَ الْأَهْلِ. Ikkala tomonni ayting, keyin fikringizni."]}
+  ]}
+]
+}
+;
+const DT_ICON = { lugat: "📖", grammatika: "🧩", oqish: "📄", tinglash: "🎧", yozish: "✍️", gapirish: "🎤" };
 function darajaTest() {
+  if (!DTJ) return darajaTestEski();
+  const box = { set innerHTML(h) { $.innerHTML = kartaHTML(h); window.scrollTo(0, 0); } };
+  const R = store.get("dtest2", {});  // {umumiy: {...}, A1: {grammatika: "5/6", ...}}
+  box.innerHTML = `<button class="back"><span>‹</span> Orqaga</button><h2>📝 Daraja testi</h2>
+    <button class="main" id="dtU" style="margin:8px 0">🌐 ${DTJ.umumiy.nom}${R.umumiy ? ` · ${R.umumiy.d}` : ""}</button>
+    <p><small>Lug'at, grammatika, o'qish, tinglash, yozish va gapirish. Natija 75 ballik shkalada; yozish va gapirishni ustoz baholaydi.</small></p>
+    <h3 style="margin-top:16px">Daraja bo'yicha</h3>
+    ${DTJ.darajalar.map((D, k) => `<button class="o" data-k="${k}" style="width:100%;margin:6px 0;text-align:left"><b>${D.daraja}</b> — <small>${D.mezon}</small></button>`).join("")}`;
+  $.querySelector(".back").onclick = () => render();
+  $.querySelector("#dtU").onclick = () => dtUmumiy();
+  $.querySelectorAll("[data-k]").forEach(b => b.onclick = () => dtDaraja(DTJ.darajalar[+b.dataset.k]));
+}
+// Bitta bo'limni o'tkazish. qadamlar: [{t:"q", s, v, j, matn?, audio?} | {t:"yoz", s, soz, kontekst?} | {t:"gap", s, vaqt?, tayyor?}]
+// tugadi(to'g'ri, jami, matnlar) — javoblar bilan chaqiriladi
+function dtBolim(nom, qadamlar, tugadi) {
+  const box = { set innerHTML(h) { $.innerHTML = kartaHTML(h); window.scrollTo(0, 0); } };
+  let tog = 0, jami = 0; const yozuv = [], eshitildi = {};
+  const ar = s => isAr(s) && !/[a-z]{3}/i.test(s.replace(/<[^>]+>/g, ""));
+  const qadam = k => {
+    if (k >= qadamlar.length) return tugadi(tog, jami, yozuv);
+    const Q = qadamlar[k], tepa = `<button class="back"><span>‹</span> To'xtatish</button>
+      <p class="trip">${nom} · ${k + 1} / ${qadamlar.length}</p><div class="pbar thin"><i style="width:${Math.max(2, k * 100 / qadamlar.length)}%"></i></div>`;
+    if (Q.t === "q") {
+      const n = eshitildi[Q.audio] || 0;
+      box.innerHTML = `${tepa}
+        ${Q.matn ? `<div class="fb ok ar" style="text-align:right;direction:rtl;line-height:2;font-size:20px;margin:10px 0">${Q.matn}</div>` : ""}
+        ${Q.audio ? `<button class="o" id="esh" style="width:100%;margin:10px 0" ${n >= 2 ? "disabled" : ""}>🔊 Tinglash (${2 - n} marta qoldi)</button>` : ""}
+        <h2 class="${ar(Q.s) ? "ar" : ""}" style="${ar(Q.s) ? "direction:rtl;font-size:26px" : ""}">${Q.s}</h2>
+        <div class="opts">${Q.v.map((v, j) => `<button class="o ${isAr(v) ? "ar" : ""}" data-j="${j}">${"abcd"[j]}) ${v}</button>`).join("")}
+        <button class="o" data-j="-1" style="opacity:.75">Bilmayman</button></div>`;
+      const e = $.querySelector("#esh"); if (e) e.onclick = () => { eshitildi[Q.audio] = (eshitildi[Q.audio] || 0) + 1; speak(Q.audio); e.textContent = `🔊 Tinglash (${2 - eshitildi[Q.audio]} marta qoldi)`; if (eshitildi[Q.audio] >= 2) e.disabled = true; };
+      $.querySelectorAll(".opts button").forEach(x => x.onclick = () => { jami++; if (+x.dataset.j === Q.j) tog++; qadam(k + 1); });
+    } else {
+      const gap = Q.t === "gap";
+      box.innerHTML = `${tepa}
+        ${Q.kontekst ? `<div class="fb ok ar" style="text-align:right;direction:rtl;line-height:2;font-size:19px;margin:10px 0">${Q.kontekst}</div>` : ""}
+        <h2 class="${ar(Q.s) ? "ar" : ""}" style="${ar(Q.s) ? "direction:rtl;font-size:24px" : "font-size:19px"}">${Q.s}</h2>
+        ${Q.soz ? `<p><small>Hajmi: ${Q.soz}</small></p>` : ""}
+        ${gap ? `<p><small>${Q.tayyor ? `Tayyorlanish: ${Q.tayyor} soniya. ` : ""}Javob: ${Q.vaqt || 30} soniya. Ovozli javobni ustozga Telegramda yuboring yoki shu yerga yozing.</small></p>
+          <button class="o" id="tgOvoz" style="width:100%;margin:6px 0">🎤 Ustozga ovozli yuborish (@${ADMIN_TG})</button>` : ""}
+        <textarea id="jv" dir="rtl" style="width:100%;min-height:${gap ? 90 : 160}px;font-size:18px;border-radius:12px;padding:10px;box-sizing:border-box" placeholder="${gap ? "Ixtiyoriy: javobni yozing" : "Javobingizni arabcha yozing"}"></textarea>
+        <button class="main" id="nx" style="margin-top:10px">Keyingisi</button>`;
+      const tv = $.querySelector("#tgOvoz"); if (tv) tv.onclick = () => { const u = "https://t.me/" + ADMIN_TG; if (tg && tg.openTelegramLink) tg.openTelegramLink(u); else window.open(u, "_blank"); };
+      $.querySelector("#nx").onclick = () => { yozuv.push([Q.id || k + 1, Q.s, $.querySelector("#jv").value.trim()]); qadam(k + 1); };
+    }
+    $.querySelector(".back").onclick = () => darajaTest();
+  };
+  qadam(0);
+}
+// test bo'limlarini qadamlarga aylantirish (umumiy va daraja tuzilishi har xil)
+const dtQadam = b => {
+  if (b.savollar && !b.matnlar && !b.matn && !b.audio_matn && b.id !== "gapirish") return b.savollar.map(q => ({ t: "q", ...q }));
+  if (b.matnlar) return b.matnlar.flatMap(m => m.savollar.map(q => ({ t: "q", ...q, matn: m.matn, audio: m.audio_matn })));
+  if (b.matn || b.audio_matn) return b.savollar.map(q => ({ t: "q", ...q, matn: b.matn, audio: b.audio_matn }));
+  if (b.topshiriqlar) return b.topshiriqlar.map((q, k) => ({ t: "yoz", ...q, kontekst: k ? "" : b.kontekst }));
+  if (b.qismlar) return b.qismlar.flatMap(p => p.savollar.map(q => ({ t: "gap", s: q.s, vaqt: q.vaqt, tayyor: p.tayyorlanish, id: p.id })));
+  if (b.id === "yozish") return [{ t: "yoz", s: b.s, soz: b.soz }];
+  if (b.id === "gapirish") return b.savollar.map(s => ({ t: "gap", s }));
+  return [];
+};
+const dtYuborMatn = Y => Y.filter(y => y[2]).map(y => `[${y[0]}] ${y[2].slice(0, 1200)}`).join(" | ");
+function dtUmumiy() {
+  const U = DTJ.umumiy, B = U.baholash, natija = {}, yozma = {};
+  const box = { set innerHTML(h) { $.innerHTML = kartaHTML(h); window.scrollTo(0, 0); } };
+  const bosh = () => {
+    box.innerHTML = `<button class="back"><span>‹</span> Orqaga</button><h2>🌐 ${U.nom}</h2>
+      <p>${U.bolimlar.map(b => `${DT_ICON[b.id] || ""} ${b.nom}`).join(" · ")}</p>
+      <p>Bilmasangiz, taxmin qilmang — «Bilmayman» ni bosing. Tinglash matni 2 martagacha eshittiriladi.</p>
+      <p><small>${B.izoh}</small></p><button class="main" id="go">Boshlash</button>`;
+    $.querySelector(".back").onclick = () => darajaTest();
+    $.querySelector("#go").onclick = () => keyingi(0);
+  };
+  const keyingi = k => {
+    if (k >= U.bolimlar.length) return yakun();
+    const b = U.bolimlar[k];
+    dtBolim(b.nom, dtQadam(b), (t, n, Y) => { natija[b.id] = [t, n]; if (Y.length) yozma[b.id] = Y; keyingi(k + 1); });
+  };
+  const yakun = () => {
+    const [o] = natija.oqish || [0], [t] = natija.tinglash || [0];
+    const o75 = B.oqish_75[Math.min(o, B.oqish_75.length - 1)], t75 = B.tinglash_75[Math.min(t, B.tinglash_75.length - 1)];
+    const tax = Math.round((o75 + t75) / 2), D = B.darajalar.find(d => tax >= d.dan && tax <= d.gacha) || B.darajalar[0];
+    const R = store.get("dtest2", {}); R.umumiy = { d: D.daraja, o75, t75, sana: new Date().toISOString().slice(0, 10) }; store.set("dtest2", R);
+    const qator = U.bolimlar.filter(b => natija[b.id] && natija[b.id][1]).map(b => `${b.nom} ${natija[b.id][0]}/${natija[b.id][1]}`).join(" · ");
+    sendResult({ lesson: "DARAJA TESTI (umumiy)", score: `taxminiy ${D.daraja} · o'qish ${o75}/75 · tinglash ${t75}/75 · ${qator}`, xp: "" });
+    ["yozish", "gapirish"].forEach(id => { if (yozma[id]) sendResult({ lesson: `DARAJA TESTI ${id.toUpperCase()} (ustoz baholaydi)`, score: dtYuborMatn(yozma[id]), xp: "" }); });
+    box.innerHTML = `<h2>Natijangiz</h2><div class="tanal"><div class="tn-bosh"><small>Taxminiy daraja (o'qish + tinglash)</small><b>${D.daraja}</b></div>
+      <div class="tn-kon">${[["O'qish", o75], ["Tinglash", t75]].map(([n, a]) => `<div><span>${n}</span><span class="pbar thin"><i style="width:${Math.max(2, a * 100 / 75)}%"></i></span><small>${a} / 75</small></div>`).join("")}
+      ${U.bolimlar.filter(b => b.hisobga === false).map(b => natija[b.id] ? `<div><span>${b.nom}</span><span class="pbar thin"><i style="width:${Math.max(2, natija[b.id][0] * 100 / natija[b.id][1])}%"></i></span><small>${natija[b.id][0]} / ${natija[b.id][1]}</small></div>` : "").join("")}</div>
+      <small class="tn-iz">Yozish va gapirish ustozga yuborildi. Yakuniy daraja = 4 ko'nikma o'rtachasi, ustoz baholagandan keyin aytiladi.</small></div>
+      <p>Tavsiya etilgan guruh: <b>${D.guruh}</b></p>
+      <button class="main" id="ok">Daraja testiga qaytish</button>`;
+    $.querySelector("#ok").onclick = () => darajaTest();
+  };
+  bosh();
+}
+function dtDaraja(D) {
+  const box = { set innerHTML(h) { $.innerHTML = kartaHTML(h); window.scrollTo(0, 0); } };
+  const R = store.get("dtest2", {}), N = R[D.daraja] || {};
+  box.innerHTML = `<button class="back"><span>‹</span> Orqaga</button><h2>${D.daraja} daraja testi</h2>
+    <p><small>${D.mezon}</small></p><p><small>O'tish sharti: ${D.otish}</small></p>
+    ${D.bolimlar.map((b, k) => `<button class="o" data-k="${k}" style="width:100%;margin:6px 0;text-align:left">${DT_ICON[b.id] || ""} ${b.nom}${N[b.id] ? ` · <b>${N[b.id]}</b>` : ""}</button>`).join("")}`;
+  $.querySelector(".back").onclick = () => darajaTest();
+  $.querySelectorAll("[data-k]").forEach(x => x.onclick = () => {
+    const b = D.bolimlar[+x.dataset.k];
+    dtBolim(`${D.daraja} · ${b.nom}`, dtQadam(b), (t, n, Y) => {
+      const R2 = store.get("dtest2", {}); R2[D.daraja] = R2[D.daraja] || {};
+      R2[D.daraja][b.id] = n ? `${t}/${n}` : "ustozda"; store.set("dtest2", R2);
+      sendResult({ lesson: `DARAJA TESTI ${D.daraja} ${b.nom}`, score: n ? `${t}/${n}` : `(ustoz baholaydi${b.shkala ? `, ${b.shkala}` : ""}) ${dtYuborMatn(Y)}`, xp: "" });
+      box.innerHTML = `<h2>${b.nom}</h2>${n ? `<div class="big">${t} / ${n}</div>` : `<p>Javobingiz ustozga yuborildi. Ustoz baholaydi.</p>`}
+        <p><small>O'tish sharti: ${D.otish}</small></p><button class="main" id="ok">Qaytish</button>`;
+      $.querySelector("#ok").onclick = () => dtDaraja(D);
+    });
+  });
+}
+function darajaTestEski() {
   const J = [];  // o'quvchi javoblari (indeks yoki null — "bilmayman")
   const $0 = $, box = { set innerHTML(h) { $0.innerHTML = kartaHTML(h); window.scrollTo(0, 0); } };
   const bosh = () => {
@@ -23874,6 +24294,13 @@ const HX_IMLO = [
     `Qo'shimcha yoziladigan harflar: ko'plikdagi fe'l oxiridagi alif — ${HXA("ذَهَبُوا، كَتَبُوا")}; ${HXA("مِائَة")} so'zidagi alif (yozilsa ham o'qilmaydi).`,
     `Yozilmay qoladigan harflar: ${HXA("هٰذَا، ذٰلِكَ، لٰكِنْ، اللهُ، الرَّحْمٰن")} so'zlaridagi alif; ${HXA("بِسْمِ اللهِ")} da ${HXA("اسم")} ning alifi.`]],
 ];
+// lom-alif qoidasi — husnixatda ل sahifasida (rahbar, 05.11: imlo eslatmalari o'rniga)
+const HX_LAMALIF = ["✏️ Lom-alif (لا) qoidasi", [
+  `Lomdan keyin alif kelsa, ular yonma-yon emas, bitta maxsus shaklda yoziladi: ${HXA("ل + ا = لا")}. O'qilishi: «lā».`,
+  `So'z boshida va alohida: ${HXA("لَا، لَازِمٌ")}. O'rtada va oxirida oldingi harfga ulanadi: ${HXA("ـلا")} — ${HXA("كَلَامٌ، سَلَامٌ، عَلَامَةٌ")}.`,
+  `Hamzali va maddali alif bilan ham shunday: ${HXA("لأ، لإ، لآ")} — ${HXA("لِأَنَّ، لِإِخْوَتِهِ، الْآنَ")}.`,
+  `Yozish tartibi: avval lomning tik chizig'i, keyin alif unga qiya qilib yoziladi — ikki chiziq pastda bir nuqtada birlashadi.`,
+  `Lom-alif alifbodagi alohida harf emas: u doim ikki harf — ${HXA("ل")} va ${HXA("ا")} — deb hisoblanadi.`]];
 const HX_QOIDA = [
   ["✏️ Tinish belgilari (علامات الترقيم)", [
     `${HXA("،")} vergul — gap ichidagi bo'laklar va sanashda: ${HXA("اشتريتُ خبزًا، وحليبًا، وتمرًا")}.`,
@@ -24004,8 +24431,7 @@ function hxHarf(k) {
       <img src="husnixat/${vq}.jpg" alt="" loading="lazy" onclick="betOch(this.src)" style="width:100%;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.15);cursor:zoom-in;display:block">
       <p class="tk-n">Varaqni chop eting yoki daftarga har so'zni 3 qatordan ko'chirib yozing, rasmini ustozga yuboring</p>
       <button class="main" id="hxvq" style="margin:4px 0 12px">⬇️ Varaqni yuklab olish</button>` : ""}
-    ${({ "ا": [HX_IMLO[1]], "ت": [HX_IMLO[0]], "ه": [HX_IMLO[0]], "ي": [HX_IMLO[1]], "و": [HX_IMLO[2]], "ل": [HX_IMLO[2]] }[c] || [])
-      .map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("")}
+    ${c === "ل" ? [HX_LAMALIF].map(([sar, Q]) => `<details class="fb ok" style="text-align:left"><summary><b>${sar}</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">${Q.map(q => `<li>${q}</li>`).join("")}</ol></details>`).join("") : ""}
     <p><b>Barmog'ingiz bilan ustidan yozing:</b></p>
     <div style="position:relative"><canvas id="hxc" style="width:100%;height:260px;background:#fffdf6;border-radius:16px;border:2px dashed #c9b98f;touch-action:none;display:block"></canvas></div>
     <div style="display:flex;gap:8px;margin-top:8px"><button class="o" id="hxtoz" style="flex:1">Tozalash</button>
@@ -24558,7 +24984,7 @@ function dunyoXarita() {
   o.innerHTML = `<div class="dn-kar">
     <div class="dn-bosh"><b>🗺️ Sayohat xaritasi</b><button class="o" id="dn-x">✕</button></div>
     <p class="dn-iz">${j ? `Hozir: ${j.f} <b>${j.n}</b> — ${Math.round(j.foiz * 100)}%. Tugatsangiz, keyingi davlat ochiladi.` : "Butun arab olami bo'ylab sayohat tugadi! 🎉"}</p>
-    <div class="dn-map"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${H.map(d => `${d.x},${d.y}`).join(" ")}" /></svg>
+    <div class="dn-map" style="background:none"><img class="dn-img" src="img/arab-xarita2.jpg" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;display:block"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${H.map(d => `${d.x},${d.y}`).join(" ")}" /></svg>
       ${H.map((d, i) => `<span class="dn-d ${d.holat}" style="left:${d.x}%;top:${d.y}%"><i>${d.holat === "yopiq" ? "🔒" : d.f}</i><small>${i + 1}. ${d.n}</small></span>`).join("")}
       <button id="dn-katta" title="Katta ekranda ochish" style="position:absolute;top:6px;right:6px;z-index:3;width:34px;height:34px;border-radius:10px;border:2px solid #c9a24a;background:rgba(255,251,240,.92);font-size:18px;line-height:1;padding:0">⛶</button></div>
     <div class="dn-uz"><b>🇺🇿 Nahv yo'li — O'zbekiston:</b> ${uz.map(([s, a, n]) => `<span>${s} ${a}/${n}</span>`).join(" · ")}</div>
@@ -24576,7 +25002,7 @@ function dunyoXarita() {
     // Telegram webview'da 100vh va CSS foni noto'g'ri cho'zilardi — o'lcham pikselda, xarita esa alohida <img> (nuqtalar bilan bir xil o'lchamda)
     const H = window.innerHeight, W = Math.round(H * 2150 / 1400);
     m.style.cssText = `position:relative;height:${H}px;width:${W}px;min-width:${W}px;max-width:none;aspect-ratio:auto;border-radius:0;border:0;margin:0;flex:none;background:none`;
-    m.insertAdjacentHTML("afterbegin", `<img src="img/arab-xarita2.jpg" alt="" style="position:absolute;left:0;top:0;width:${W}px;height:${H}px;max-width:none;display:block">`);
+    const mi = m.querySelector(".dn-img"); mi.style.width = W + "px"; mi.style.height = H + "px";  // kartadagi xarita rasmi — piksel o'lchamda
     k.style.setProperty("background", "#10202a", "important");
     k.appendChild(m);
     k.insertAdjacentHTML("beforeend", `<button style="position:fixed;top:12px;right:12px;z-index:121;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:22px">✕</button>`);
