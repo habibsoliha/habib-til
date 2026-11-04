@@ -898,7 +898,7 @@ function loadCloud(cb) {
   let called = false;
   const done = () => { if (!called) { called = true; cb(); } };  // faqat bir marta
   if (!cloud) return done();
-  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", "ustoz", "ustozSarf", ...[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(k => "ustozLv" + k), ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
+  const keys = ["streak", "lastDay", "xp", "pos", "fullname", "meva", "multfilm", "ustoz", "ustozSarf", "pullik", ...[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(k => "ustozLv" + k), ...LESSONS.map(l => "lesson" + l.n)].map(k => "alif_" + k);
   const t = setTimeout(done, 2500);
   try {
     cloud.getItems(keys, (err, vals) => {
@@ -924,7 +924,32 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v196";
+const VERSION = "v197";
+// --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
+// administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
+const BEPUL = 3, ADMIN_TG = "";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
+const tgId = () => String(((tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}).id || "");
+function kirishKodi(id) { let h = 2166136261; for (const c of id + "|habib-til-2026") { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return String(100000 + h % 900000); }
+const pullikOchiq = () => TEST || store.get("pullik", false) === true;
+function tolovOyna() {
+  const o = document.createElement("div"); o.className = "ustozOyna";
+  o.style.cssText = "position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
+  o.innerHTML = `<div style="background:#fff;color:#222;border-radius:18px;padding:20px;max-width:360px;width:100%;text-align:center">
+    <div style="font-size:40px">🔒</div><h2 style="margin:6px 0">To'liq kurs</h2>
+    <p>Birinchi ${BEPUL} ta dars bepul edi. Qolgan darslar, lug'at, tarkib va muhodasa to'lovdan keyin ochiladi. Har hafta ustoz bilan jonli dars ham bor.</p>
+    <p>To'lov uchun administratorga yozing${ADMIN_TG ? `: <b>@${ADMIN_TG}</b>` : ""} va ID raqamingizni ayting:</p>
+    <p style="font-size:22px"><b>${tgId() || "—"}</b></p>
+    <input id="kodIn" inputmode="numeric" maxlength="6" placeholder="Kirish kodi" style="width:100%;font-size:20px;text-align:center;padding:10px;border-radius:12px;border:2px solid #ccc;box-sizing:border-box">
+    <p id="kodXato" style="color:#c33;min-height:1em;margin:6px 0"></p>
+    <button class="main" id="kodOk">Ochish</button><button class="o" id="kodYop" style="margin-top:8px;width:100%">Keyinroq</button></div>`;
+  document.body.appendChild(o);
+  o.querySelector("#kodYop").onclick = () => o.remove();
+  o.querySelector("#kodOk").onclick = () => {
+    const v = o.querySelector("#kodIn").value.trim();
+    if (tgId() && v === kirishKodi(tgId())) { store.set("pullik", true); sendResult({ lesson: "PULLIK OCHILDI", score: "", xp: "" }); o.remove(); render(); }
+    else o.querySelector("#kodXato").textContent = "Kod noto'g'ri";
+  };
+}
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -2639,6 +2664,7 @@ function levelsScreen(streak, total) {
       f.style.cssText = "position:fixed;left:16px;right:16px;bottom:24px;z-index:9;text-align:center";
       document.body.appendChild(f); setTimeout(() => f.remove(), 1800); return;
     }
+    if (+b.dataset.l >= 1 && !pullikOchiq()) return tolovOyna();  // A1 va undan yuqori — pullik
     if (+b.dataset.l === 0) { level = 0; stage = null; render(); }
     else { level = +b.dataset.l; stage = null; bolim = null; render(); }  // A1–C2: 6 ta bo'lim
   });
@@ -23859,6 +23885,7 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
   const pm = $.querySelector(".meva.pish"); if (pm) pm.onclick = mevaUz;
   $.querySelectorAll("button.back").forEach(b => b.onclick = () => { if (b.classList.contains("lvback") && !(level >= 1)) level = null; stage = null; bolim = null; render(); });
   $.querySelectorAll("button.node:not([disabled])").forEach(b => b.onclick = () => {
+    if (+b.dataset.k >= BEPUL && !pullikOchiq()) return tolovOyna();
     b.classList.add("tap"); setTimeout(() => { LESSON = LESSONS[+b.dataset.k]; xp = 0; testScore = 0; i = 0; mode = "motiv"; render(); }, 260);
   });
   $.querySelectorAll("button.place:not([disabled])").forEach(b => b.onclick = () => showPlace(+b.dataset.p));
