@@ -517,7 +517,8 @@ const SIFATLAR = ["jarangli", "jarangsiz", "havo chiquvchi", "portlovchi", "oral
 function sifatlari(c) {
   const hams = "فحثهشخصسكت".includes(c), s = [];
   s.push(hams ? "jarangsiz" : "jarangli"); if (hams) s.push("havo chiquvchi");
-  s.push("ءأجدقطبكت".includes(c) ? "portlovchi"  // shidda: «أَجِدْ قَطٍ بَكَتْ» — hamza ham kiradi : "لنعمر".includes(c) ? "oraliq" : "sirg'aluvchi");
+  // shidda: «أَجِدْ قَطٍ بَكَتْ» — hamza ham kiradi
+  s.push("ءأجدقطبكت".includes(c) ? "portlovchi" : "لنعمر".includes(c) ? "oraliq" : "sirg'aluvchi");
   s.push("خصضغطقظ".includes(c) ? "yo'g'on" : "ingichka");
   if ("قطبجد".includes(c)) s.push("tebranuvchi");
   if ("صزس".includes(c)) s.push("hushtaksimon");
@@ -924,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v209";
+const VERSION = "v210";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -24558,7 +24559,10 @@ function dunyoXarita() {
     const k = document.createElement("div");
     k.style.cssText = "position:fixed;inset:0;z-index:120;background:#10202a;overflow:auto;touch-action:pan-x pan-y pinch-zoom";
     const m = o.querySelector(".dn-map").cloneNode(true); m.querySelector("#dn-katta").remove();
-    m.style.cssText = "height:100vh;width:calc(100vh * 2150 / 1400);max-width:none;aspect-ratio:auto;border-radius:0;border:0;margin:0;flex:none";
+    // Telegram webview'da 100vh va CSS foni noto'g'ri cho'zilardi — o'lcham pikselda, xarita esa alohida <img> (nuqtalar bilan bir xil o'lchamda)
+    const H = window.innerHeight, W = Math.round(H * 2150 / 1400);
+    m.style.cssText = `position:relative;height:${H}px;width:${W}px;min-width:${W}px;max-width:none;aspect-ratio:auto;border-radius:0;border:0;margin:0;flex:none;background:none`;
+    m.insertAdjacentHTML("afterbegin", `<img src="img/arab-xarita2.jpg" alt="" style="position:absolute;left:0;top:0;width:${W}px;height:${H}px;max-width:none;display:block">`);
     k.style.setProperty("background", "#10202a", "important");
     k.appendChild(m);
     k.insertAdjacentHTML("beforeend", `<button style="position:fixed;top:12px;right:12px;z-index:121;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:22px">✕</button>`);
