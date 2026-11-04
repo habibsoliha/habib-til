@@ -924,7 +924,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v195";
+const VERSION = "v196";
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
 window.addEventListener("error", e => sendResult({ lesson: "XATO " + VERSION, score: e.message + " @" + e.lineno, xp: mode + ":" + i }));
 window.addEventListener("unhandledrejection", e => sendResult({ lesson: "XATO " + VERSION, score: String(e.reason), xp: mode + ":" + i }));
@@ -945,7 +945,7 @@ PROGRAMMA.forEach(([, c], k) => ["َ", "ِ", "ُ"].forEach((h, j) => { AUDIO[c +
 ["بَا","نُو","رَبَّ","أُمُّ","بَيْتٌ","جَنَّةٌ","سَأَلَ","أَحَدْ","الْكِتَابُ","كُنْتُمْ","كِتَابٌ","مَسْجِدٌ","قَلَمٌ","صَبْرٌ","عِلْمٌ","طَيْرٌ","ظِلٌّ","حَجَرٌ","أَرْضٌ"].forEach((w, k) => { AUDIO[w] = `q${k + 1}`; });
 function speak(text) {
   if (AUDIO[text]) {
-    const a = new Audio("audio/" + AUDIO[text] + ".m4a");
+    const a = new Audio("audio/" + AUDIO[text] + ".m4a?v=20261104");  // v — audiolar qayta yozilganda o'zgartiriladi (Telegram eski faylni keshdan bermasin)
     a.onerror = () => tts(text);
     a.play().catch(() => tts(text));
     return;
@@ -1575,19 +1575,143 @@ AI[244]="ai2/244.jpg";
 AI[245]="ai2/245.jpg";
 AI[246]="ai2/246.jpg";
 AI[247]="ai2/247.jpg";
+AI[248]="ai2/248.jpg";
+AI[249]="ai2/249.jpg";
 AI[25]="ai0/25.jpg";
+AI[250]="ai2/250.jpg";
+AI[251]="ai2/251.jpg";
+AI[252]="ai2/252.jpg";
+AI[253]="ai2/253.jpg";
+AI[254]="ai2/254.jpg";
+AI[255]="ai2/255.jpg";
+AI[256]="ai2/256.jpg";
+AI[257]="ai2/257.jpg";
+AI[258]="ai2/258.jpg";
+AI[259]="ai2/259.jpg";
 AI[26]="ai0/26.jpg";
+AI[260]="ai2/260.jpg";
+AI[261]="ai2/261.jpg";
+AI[262]="ai2/262.jpg";
+AI[263]="ai2/263.jpg";
+AI[264]="ai2/264.jpg";
+AI[265]="ai2/265.jpg";
+AI[266]="ai2/266.jpg";
+AI[267]="ai2/267.jpg";
+AI[268]="ai2/268.jpg";
+AI[269]="ai2/269.jpg";
 AI[27]="ai0/27.jpg";
+AI[270]="ai3/270.jpg";
+AI[271]="ai3/271.jpg";
+AI[272]="ai3/272.jpg";
+AI[273]="ai3/273.jpg";
+AI[274]="ai3/274.jpg";
+AI[275]="ai3/275.jpg";
+AI[276]="ai3/276.jpg";
+AI[277]="ai3/277.jpg";
+AI[278]="ai3/278.jpg";
+AI[279]="ai3/279.jpg";
 AI[28]="ai0/28.jpg";
+AI[280]="ai3/280.jpg";
+AI[281]="ai3/281.jpg";
+AI[282]="ai3/282.jpg";
+AI[283]="ai3/283.jpg";
+AI[284]="ai3/284.jpg";
+AI[285]="ai3/285.jpg";
+AI[286]="ai3/286.jpg";
+AI[287]="ai3/287.jpg";
+AI[288]="ai3/288.jpg";
+AI[289]="ai3/289.jpg";
 AI[29]="ai0/29.jpg";
+AI[290]="ai3/290.jpg";
+AI[291]="ai3/291.jpg";
+AI[292]="ai3/292.jpg";
+AI[293]="ai3/293.jpg";
+AI[294]="ai3/294.jpg";
+AI[295]="ai3/295.jpg";
+AI[296]="ai3/296.jpg";
+AI[297]="ai3/297.jpg";
+AI[298]="ai3/298.jpg";
+AI[299]="ai3/299.jpg";
 AI[30]="ai0/30.jpg";
+AI[300]="ai3/300.jpg";
+AI[301]="ai3/301.jpg";
+AI[302]="ai3/302.jpg";
+AI[303]="ai3/303.jpg";
+AI[304]="ai3/304.jpg";
+AI[305]="ai3/305.jpg";
+AI[306]="ai3/306.jpg";
+AI[307]="ai3/307.jpg";
+AI[308]="ai3/308.jpg";
+AI[309]="ai3/309.jpg";
 AI[31]="ai0/31.jpg";
+AI[310]="ai3/310.jpg";
+AI[311]="ai3/311.jpg";
+AI[312]="ai3/312.jpg";
+AI[313]="ai3/313.jpg";
+AI[314]="ai3/314.jpg";
+AI[315]="ai3/315.jpg";
+AI[316]="ai3/316.jpg";
+AI[317]="ai3/317.jpg";
+AI[318]="ai3/318.jpg";
+AI[319]="ai3/319.jpg";
 AI[32]="ai0/32.jpg";
+AI[320]="ai3/320.jpg";
+AI[321]="ai3/321.jpg";
+AI[322]="ai3/322.jpg";
+AI[323]="ai3/323.jpg";
+AI[324]="ai3/324.jpg";
+AI[325]="ai3/325.jpg";
+AI[326]="ai3/326.jpg";
+AI[327]="ai3/327.jpg";
+AI[328]="ai3/328.jpg";
+AI[329]="ai3/329.jpg";
 AI[33]="ai0/33.jpg";
+AI[330]="ai3/330.jpg";
+AI[331]="ai3/331.jpg";
+AI[332]="ai3/332.jpg";
+AI[333]="ai3/333.jpg";
+AI[334]="ai3/334.jpg";
+AI[335]="ai3/335.jpg";
+AI[336]="ai3/336.jpg";
+AI[337]="ai3/337.jpg";
+AI[338]="ai3/338.jpg";
+AI[339]="ai3/339.jpg";
 AI[34]="ai0/34.jpg";
+AI[340]="ai3/340.jpg";
+AI[341]="ai3/341.jpg";
+AI[342]="ai3/342.jpg";
+AI[343]="ai3/343.jpg";
+AI[344]="ai3/344.jpg";
+AI[345]="ai3/345.jpg";
+AI[346]="ai3/346.jpg";
+AI[347]="ai3/347.jpg";
+AI[348]="ai3/348.jpg";
+AI[349]="ai3/349.jpg";
 AI[35]="ai0/35.jpg";
+AI[350]="ai3/350.jpg";
+AI[351]="ai3/351.jpg";
+AI[352]="ai3/352.jpg";
+AI[353]="ai3/353.jpg";
+AI[354]="ai3/354.jpg";
+AI[355]="ai3/355.jpg";
+AI[356]="ai3/356.jpg";
+AI[357]="ai3/357.jpg";
+AI[358]="ai3/358.jpg";
+AI[359]="ai3/359.jpg";
 AI[36]="ai0/36.jpg";
+AI[360]="ai4/360.jpg";
+AI[361]="ai4/361.jpg";
+AI[362]="ai4/362.jpg";
+AI[363]="ai4/363.jpg";
+AI[364]="ai4/364.jpg";
+AI[365]="ai4/365.jpg";
+AI[366]="ai4/366.jpg";
+AI[367]="ai4/367.jpg";
+AI[368]="ai4/368.jpg";
+AI[369]="ai4/369.jpg";
 AI[37]="ai0/37.jpg";
+AI[370]="ai4/370.jpg";
+AI[371]="ai4/371.jpg";
 AI[38]="ai0/38.jpg";
 AI[39]="ai0/39.jpg";
 AI[40]="ai0/40.jpg";
@@ -23111,7 +23235,7 @@ const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV, 4: TARKI
 // [ism, jins, kiyim rangi, bosh kiyim rangi, ochiladigan daraja (DARAJALAR indeksi), sprite fayli img/ustoz/<id>s.png]
 const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 1, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 1, "2"],
   ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 1, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 1, "muslima"],
-  ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 2, "sabrina"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 3, "shodiya"],
+  ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 2, "sabrina"], ["Ustoz Abduqodir O'lmasov", "m", "#6b6b6b", "#1a1a1a", 2, "abduqodir"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 3, "shodiya"],
   ["Valid ag'a", "m", "#3a3a3a", "#222", 4, "4"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738", 5, "5"]];
 const NASIHAT = ["Har kuni ozgina — lekin har kuni!", "Xato qilishdan qo'rqmang, xato — eng yaxshi ustoz.", "Yangi so'zni ovoz chiqarib 3 marta ayting.", "Darsdan keyin 5 daqiqa takrorlang — xotira mustahkamlanadi.",
   "Harflarni yozib mashq qiling, qo'l ham eslab qoladi.", "Bugungi so'zlardan bitta gap tuzib ko'ring.", "Shoshilmang: sekin, lekin to'g'ri.", "Arab tili — Qur'on va ilm kaliti.",
@@ -23174,6 +23298,7 @@ const USTOZ_QUDRAT = [  // [boshlang'ich ko'nikmalar 0–100, [maxsus imkoniyat,
   [[60, 80, 65, 65, 80], ["Qoida kaliti", "Grammatik qoidani bir daqiqada ochib beradi"]],
   [[75, 60, 65, 70, 90], ["Talaffuz ustasi", "Har bir so'zni to'g'ri va chiroyli o'qishga o'rgatadi"]],
   [[65, 75, 75, 70, 85], ["Matn ustasi", "Matnni bo'laklab, so'zma-so'z tahlil qiladi"]],
+  [[70, 75, 80, 80, 80], ["Lug'at ustasi", "So'zlarni hikoya va misol bilan yodlatadi"]],
   [[70, 80, 80, 75, 85], ["Tarkib kaliti", "Iboralarni qolip bilan o'rgatib, gapirishga tayyorlaydi"]],
   [[65, 80, 80, 85, 75], ["Suhbat ustasi", "Erkin gaplashishga va fikrni ifodalashga o'rgatadi"]],
   [[75, 90, 90, 85, 80], ["Ilm cho'qqisi", "Murakkab ilmiy va adabiy matnlarni tushuntiradi"]]];
