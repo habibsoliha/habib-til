@@ -925,19 +925,26 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v227";
+const VERSION = "v228";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
 const tgId = () => String(((tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}).id || "");
-function kirishKodi(id) { let h = 2166136261; for (const c of id + "|habib-til-2026") { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return String(100000 + h % 900000); }
-const pullikOchiq = () => TEST || store.get("pullik", false) === true;
+// kod 1 oylik: ID + oy (YYYY-MM) dan hisoblanadi; kiritilgan kundan 30 kun amal qiladi, keyin yangi kod kerak.
+// Joriy yoki o'tgan oy kodi qabul qilinadi (oy oxirida berilgan kod ertasi kuni ham ishlasin), bir kod ikki marta ishlamaydi.
+function kirishKodi(id, oy) { let h = 2166136261; for (const c of id + "|habib-til-2026|" + oy) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return String(100000 + h % 900000); }
+const oyKod = (n = 0) => { const d = new Date(); const t = new Date(d.getFullYear(), d.getMonth() - n, 1); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}`; };
+const OY_MS = 30 * 864e5;
+(() => { if (store.get("pullik", null) === true) store.set("pullik", { gacha: Date.now() + OY_MS, kod: "eski" }); })();  // eski (muddatsiz) to'lovchilarga 30 kun beriladi
+const pullikOchiq = () => { if (TEST) return true; const p = store.get("pullik", null); return !!(p && p.gacha > Date.now()); };
+const pullikQoldi = () => { const p = store.get("pullik", null); return p && p.gacha ? Math.ceil((p.gacha - Date.now()) / 864e5) : 0; };
 const OCHIQ_DARAJA = [2, 3];  // A2 va B1 — tekshiruv uchun hozircha hammaga to'lovsiz ochiq
 function tolovOyna() {
   const o = document.createElement("div"); o.className = "ustozOyna";
   o.style.cssText = "position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
   o.innerHTML = `<div style="background:#fff;color:#222;border-radius:18px;padding:20px;max-width:360px;width:100%;text-align:center">
     <div style="font-size:40px">🔒</div><h2 style="margin:6px 0">To'liq kurs</h2>
+    ${store.get("pullik", null) ? `<p style="color:#c33;font-weight:700">Oylik obuna muddati tugadi. Davom etish uchun yangi oy kodini oling.</p>` : ""}
     <p>Birinchi ${BEPUL} ta dars bepul edi. Qolgan darslar, lug'at, tarkib va muhodasa to'lovdan keyin ochiladi. Har hafta ustoz bilan jonli dars ham bor.</p>
     <p>To'lov uchun administratorga yozing${ADMIN_TG ? `: <a href="https://t.me/${ADMIN_TG}" onclick="if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.openTelegramLink){Telegram.WebApp.openTelegramLink(this.href);return false}"><b>@${ADMIN_TG}</b></a>` : ""} va ID raqamingizni ayting:</p>
     <p style="font-size:22px"><b>${tgId() || "—"}</b></p>
@@ -948,8 +955,10 @@ function tolovOyna() {
   o.querySelector("#kodYop").onclick = () => o.remove();
   o.querySelector("#kodOk").onclick = () => {
     const v = o.querySelector("#kodIn").value.trim();
-    if (tgId() && v === kirishKodi(tgId())) { store.set("pullik", true); sendResult({ lesson: "PULLIK OCHILDI", score: "", xp: "" }); o.remove(); render(); }
-    else o.querySelector("#kodXato").textContent = "Kod noto'g'ri";
+    const eski = store.get("pullik", null), xato = t => o.querySelector("#kodXato").textContent = t;
+    if (!tgId() || ![oyKod(0), oyKod(1)].some(m => v === kirishKodi(tgId(), m))) return xato("Kod noto'g'ri");
+    if (eski && eski.kod === v) return xato("Bu kod avval ishlatilgan — administratordan yangi oy kodini oling");
+    store.set("pullik", { gacha: Date.now() + OY_MS, kod: v }); sendResult({ lesson: "PULLIK OCHILDI (30 kun)", score: "", xp: "" }); o.remove(); render();
   };
 }
 // Telegram ichidagi xatolarni jadvalga yozamiz (sababini topish uchun)
@@ -26497,7 +26506,7 @@ function profilScreen(oy) {
     <div style="display:flex;gap:12px;align-items:center;margin:6px 0"><div style="width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#d4af37,#0f6b45);color:#fff;font:700 28px system-ui;display:flex;align-items:center;justify-content:center">${ism[0]}</div>
       <div style="font-family:system-ui"><b style="font-size:20px">${ism}</b><br><small style="color:#777">ID: ${tgId() || "—"}${u.username ? " · @" + u.username : ""}</small></div></div>
     <p style="font:600 16px system-ui;margin:6px 0">${unvon}</p>
-    <p style="font:14px system-ui;color:#666;margin:4px 0">🎓 O'quvchi &nbsp; · &nbsp; 📅 ${birinchi.slice(0, 4)}-yil qo'shilgan</p>
+    <p style="font:14px system-ui;color:#666;margin:4px 0">🎓 O'quvchi &nbsp; · &nbsp; 📅 ${birinchi.slice(0, 4)}-yil qo'shilgan${pullikQoldi() > 0 ? ` &nbsp; · &nbsp; 💳 obuna: <b style="color:${pullikQoldi() <= 3 ? "#c33" : "#2e9b4f"}">${pullikQoldi()} kun qoldi</b>` : ""}</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0">${KR("XP balansi", "⭐ " + store.get("xp", 0))}${KR("Umumiy o'qish", "⏱️ " + dk(jami))}${KR("O'tilgan darslar", "🏆 " + tugadi)}${KR(`Oxirgi 7 kun${foiz == null ? "" : ` <span style="color:${foiz >= 0 ? "#2e9b4f" : "#d33"}">${foiz >= 0 ? "↗" : "↘"} ${Math.abs(foiz)}%</span>`}`, "🗓️ " + dk(h7))}</div>
     <div id="prTab" style="display:flex;border-bottom:1px solid #ddd;margin:8px 0 12px;font:600 15px system-ui">${["Monitoring", "Xazinalar", "Sertifikatlar", "Faollik"].map((t, k) => `<button data-t="${k}" style="all:unset;cursor:pointer;flex:1;text-align:center;padding:10px 0;${k === tab ? "border-bottom:3px solid #e8761a;color:#111" : "color:#777"}">${t}</button>`).join("")}</div>
     ${tab === 1 ? xazinaHtml() : ""}
