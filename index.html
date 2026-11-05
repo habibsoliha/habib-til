@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v226";
+const VERSION = "v227";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2837,7 +2837,7 @@ function levelsScreen(streak, total) {
               <small class="tn-iz">${kel ? `Keyingi daraja <b>${kel[0]}</b>: ${kel[1]} ball kerak (hozir ${ball}). Umumiy ball — 4 ko'nikma o'rtachasi` : "Eng yuqori daraja — C1!"}</small></div>`;
           })()}`;
       })()}</div>
-    ${jonliTugma()}<button class="main" id="dtest" style="margin:14px 0 4px">📝 Darajani tekshirish${(r => r ? ` · ${r.d}` : "")(store.get("dtest", null))}</button>
+<button class="main" id="dtest" style="margin:14px 0 4px">📝 Darajani tekshirish${(r => r ? ` · ${r.d}` : "")(store.get("dtest", null))}</button>
     <div class="levels">${DARAJALAR.map((L, k) => `
       <button class="lv ${L.cls}" data-l="${k}">
         <span class="lv-code">${L.code}</span>
@@ -26366,16 +26366,29 @@ document.addEventListener("visibilitychange", () => fonMusiqa(document.body.clas
     jim: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/>',
     xarita: '<path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5L9 4z"/><path d="M9 4v13.5M15 6.5V20"/>',
     profil: '<circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.6-3.6 4.6-5.5 8-5.5s6.4 1.9 8 5.5"/>',
-    orqa: '<path d="M9 5l7 7-7 7"/>' };
+    orqa: '<path d="M9 5l7 7-7 7"/>',
+    jonli: '<rect x="2.5" y="6" width="13" height="12" rx="2.5"/><path d="M15.5 10.5 21.5 7v10l-6-3.5z"/>' };
   const ic = k => `<svg viewBox="0 0 24 24">${SV[k]}</svg>`;
   p.innerHTML = `<button data-p="ovoz"><i id="ppOvoz">${ic("ovoz")}</i>Ovoz</button><button data-p="xarita">${ic("xarita")}Xarita</button>
+    <button data-p="jonli" style="display:none">${ic("jonli")}Jonli dars</button>
     <button data-p="profil">${ic("profil")}Profil</button><button data-p="orqa">${ic("orqa")}Orqaga</button>`;
+  // jonli dars tugmasi faqat to'lov qilgan (jonli darsi bor) o'quvchiga ko'rinadi
+  const jb = p.querySelector('[data-p="jonli"]'), jKor = () => { const ok = pullikOchiq(); jb.style.display = ok ? "" : "none"; if (ok) jonliYukla(); };
+  jKor(); setInterval(jKor, 3000);
   const ov = () => { document.getElementById("ppOvoz").innerHTML = ic(store.get("fonmusiqa", 1) ? "ovoz" : "jim"); };
   setInterval(() => p.querySelector('[data-p="profil"]').classList.toggle("on", mode === "profil"), 400);
   p.onclick = e => {
     const x = e.target.closest("button"); if (!x) return; const k = x.dataset.p;
     if (k === "xarita") { document.querySelectorAll(".ustozOyna,#fonMenyu").forEach(o => o.remove()); return dunyoXarita(); }
     if (k === "profil") { document.querySelectorAll(".ustozOyna,#fonMenyu").forEach(o => o.remove()); return profilScreen(); }
+    if (k === "jonli") {
+      if (!pullikOchiq()) return tolovOyna();
+      const r = JONLI && JONLI[0];
+      if (!r) { const f = document.createElement("div"); f.className = "fb ok"; f.textContent = JONLI ? "Yaqin jonli dars hali belgilanmagan — ustoz jadvalga yozgach shu yerda chiqadi" : "Jadval yuklanmoqda…";
+        f.style.cssText = "position:fixed;left:16px;right:16px;bottom:100px;z-index:41;text-align:center"; document.body.appendChild(f); setTimeout(() => f.remove(), 2600); return; }
+      sendResult({ lesson: "JONLI DARS", score: `${r.guruh} ${r.sana} ${r.soat}`, xp: "" });
+      if (tg && tg.openLink) tg.openLink(r.url); else window.open(r.url, "_blank"); return;
+    }
     if (k === "ovoz") { document.getElementById("fonBtn").onclick(e); const t = setInterval(ov, 300); setTimeout(() => clearInterval(t), 8000); return; }
     // orqaga: avval ochiq oyna, keyin sahifadagi "‹" tugmasi, bo'lmasa bir pog'ona yuqoriga
     const oyna = [...document.body.children].reverse().find(o => o.matches && o.matches(".ustozOyna, div[style*='position:fixed'][style*='inset:0']"));
