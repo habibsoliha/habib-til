@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v219";
+const VERSION = "v220";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2545,7 +2545,12 @@ function confetti(n = 40) {
     #xaritaBtn { display:none; position:fixed; top:10px; right:10px; z-index:15; width:46px; height:46px; border-radius:50%; font-size:24px; padding:0;
       border:2px solid #f5c542; background:#14361f; box-shadow:0 3px 10px rgba(0,0,0,.35); animation:pish 2.4s infinite ease-in-out; }
     body.homeMode #xaritaBtn { display:block; }
-    #fonBtn { display:none; position:fixed; top:10px; right:62px; z-index:15; width:46px; height:46px; border-radius:50%; font-size:22px; padding:0; }
+    #fonBtn { display:none; position:fixed; top:10px; right:62px; z-index:15; width:46px; height:46px; border-radius:50%; font-size:22px; padding:0;
+      border:2px solid #f5c542; background:#14361f; box-shadow:0 3px 10px rgba(0,0,0,.35); }
+    body.homeMode #fonBtn { display:block; }
+    #fonMenyu { position:fixed; top:62px; right:10px; z-index:16; background:#fffaf0; border:2px solid #e0b040; border-radius:16px; padding:6px; box-shadow:0 8px 24px rgba(0,0,0,.3); display:grid; gap:4px; min-width:190px; }
+    #fonMenyu button { text-align:left; padding:9px 12px; border-radius:11px; font-size:15px; border:0; background:transparent; color:#2a2418; }
+    #fonMenyu button.on { background:#14361f; color:#f3dc8f; font-weight:700; }
     .dunyo, .film { position:fixed; inset:0; z-index:30; display:grid; place-items:center; background:rgba(5,11,22,.6); }
     .dn-kar { width:min(440px,94vw); max-height:92vh; overflow:auto; background:#fbf3df; border-radius:18px; padding:14px; box-sizing:border-box; }
     .dn-bosh { display:flex; justify-content:space-between; align-items:center; font-size:18px; } .dn-bosh .o { padding:4px 10px; }
@@ -26102,7 +26107,8 @@ function fonMusiqa(ha) {
   const yoq = ha && store.get("fonmusiqa", 1) && !document.hidden && !document.querySelector(".film");
   if (!yoq) { if (FON) { const f = FON; FON = null; f.g.gain.setTargetAtTime(0, ac().currentTime, .4); setTimeout(f.toxta, 1500); } return; }
   if (FON || !FON_MUSIQA) return;
-  const k = store.get("fontur", 0); store.set("fontur", (k + 1) % 4);
+  const tan = store.get("fontanlov", -1), k = tan >= 0 ? tan : store.get("fontur", 0);  // tanlangan ovoz, yoki navbat bilan
+  if (tan < 0) store.set("fontur", (k + 1) % 4);
   FON = tabiatYozuv(k);
 }
 // haqiqiy yozuvlar (sfx/*.mp3, Pixabay); yuklanmasa — WebAudio'da yasalgan o'xshash tovush
@@ -26188,8 +26194,18 @@ function sfx(tur, yasalgan) {
 }
 document.addEventListener("pointerdown", () => setTimeout(() => fonMusiqa(document.body.classList.contains("homeMode")), 0), true);
 document.addEventListener("visibilitychange", () => fonMusiqa(document.body.classList.contains("homeMode")));
+// 🔊 tugmasi — menyu: ovozni tanlash (qushlar, suv, yomg'ir, shamol, navbat bilan) yoki ovozsiz
 (() => { const b = document.createElement("button"); b.id = "fonBtn"; const t = () => b.textContent = store.get("fonmusiqa", 1) ? "🔊" : "🔇"; t();
-  b.onclick = e => { e.stopPropagation(); store.set("fonmusiqa", store.get("fonmusiqa", 1) ? 0 : 1); t(); fonMusiqa(true); }; document.body.appendChild(b); })();
+  b.onclick = e => {
+    e.stopPropagation(); const eski = document.getElementById("fonMenyu"); if (eski) return eski.remove();
+    const m = document.createElement("div"), yoq = store.get("fonmusiqa", 1), tan = store.get("fontanlov", -1); m.id = "fonMenyu";
+    const V = [[0, "🐦 Qushlar"], [1, "💧 Soy suvi"], [2, "🌧️ Yomg'ir"], [3, "🍃 Shamol"], [-1, "🔄 Navbat bilan"]];
+    m.innerHTML = V.map(([k, n]) => `<button data-k="${k}" class="${yoq && tan === k ? "on" : ""}">${n}</button>`).join("") + `<button data-k="off" class="${yoq ? "" : "on"}">🔇 Ovozsiz</button>`;
+    m.onclick = ev => { const x = ev.target.closest("button"); if (!x) return; ev.stopPropagation();
+      if (x.dataset.k === "off") store.set("fonmusiqa", 0); else { store.set("fonmusiqa", 1); store.set("fontanlov", +x.dataset.k); }
+      fonMusiqa(false); setTimeout(() => fonMusiqa(true), 50); t(); m.remove(); };
+    document.body.appendChild(m); setTimeout(() => document.addEventListener("click", () => m.remove(), { once: true }), 0);
+  }; document.body.appendChild(b); })();
 (() => { const b = document.createElement("button"); b.id = "xaritaBtn"; b.textContent = "🗺️"; b.title = "Sayohat xaritasi"; b.onclick = dunyoXarita; document.body.appendChild(b); })();
 // Eski nusxa keshda qolib ketgan bo'lsa: saytdagi versiyani tekshirib, yangisi bo'lsa o'zi qayta yuklaydi
 if (/github\.io$|pages\.dev$/.test(location.hostname)) {
