@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v220";
+const VERSION = "v221";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -25474,6 +25474,30 @@ function hxHarf(k) {
   const o = $.querySelector("#hxold"), n = $.querySelector("#hxkey");
   if (o) o.onclick = () => hxHarf(k - 1); if (n) n.onclick = () => hxHarf(k + 1);
 }
+// Video darslar: montajor tayyorlagan qisqa YouTube darslar (Ahmadov Habibulloh kanali), tartib bilan
+var VIDEO_DARSLAR = [
+  ["cX-p-S8SH28", "Muzakkar va muannas", "طَالِبٌ ← طَالِبَةٌ · ta marbuta bilan muannas yasash", "2:21"],
+  ["aUCfTMbU28I", "Ya an-nisba (-lik qo'shimchasi)", "مِصْرُ ← مِصْرِيٌّ · مِصْرِيَّةٌ", "3:36"],
+];
+function videoDarslarScreen(i) {
+  if (i == null) {
+    $.innerHTML = `<button class="back"><span>‹</span> Boshlang'ich</button><h2>🎬 Video darslar</h2><div class="opts">${VIDEO_DARSLAR.map(([id, nom, izoh, vaqt], k) => `
+      <button class="o st" data-v="${k}"><span class="badge">${k + 1}</span>
+        <span class="st-body"><small>${k + 1}-DARS · ${vaqt}${store.get("video" + id, false) ? " · ✅" : ""}</small><b>${nom}</b><small class="ar">${izoh}</small></span>
+        <span class="arrow">›</span></button>`).join("")}</div>`;
+    $.querySelector(".back").onclick = () => render();
+    $.querySelectorAll("[data-v]").forEach(b => b.onclick = () => videoDarslarScreen(+b.dataset.v));
+    return;
+  }
+  const [id, nom, izoh] = VIDEO_DARSLAR[i];
+  store.set("video" + id, true);
+  $.innerHTML = `<button class="back"><span>‹</span> Video darslar</button><h2>${i + 1}-dars. ${nom}</h2>
+    <div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${id}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <p class="ar" style="text-align:center;font-size:20px">${izoh}</p>
+    ${i + 1 < VIDEO_DARSLAR.length ? `<button class="main" id="vKeyingi">Keyingi dars ›</button>` : ""}`;
+  $.querySelector(".back").onclick = () => videoDarslarScreen();
+  const n = $.querySelector("#vKeyingi"); if (n) n.onclick = () => videoDarslarScreen(i + 1);
+}
 function husnixatScreen() {
   $.innerHTML = `<button class="back"><span>‹</span> Boshlang'ich</button><h2>✍️ Husnixat</h2>
     <details class="fb ok" style="text-align:left"><summary><b>📏 Arab yozuvining asosiy qoidalari</b></summary><ol style="margin:8px 0 0 18px;padding:0;line-height:1.6">
@@ -25577,6 +25601,9 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
     }).join("")}<button class="o st" id="husnixat">
         <span class="badge">✍️</span>
         <span class="st-body"><small>QO'SHIMCHA</small><b>Husnixat</b><small>28 ta harf · yozish tartibi, video va varaq</small></span>
+        <span class="arrow">›</span></button><button class="o st" id="videoDars">
+        <span class="badge">🎬</span>
+        <span class="st-body"><small>QO'SHIMCHA</small><b>Video darslar</b><small>${VIDEO_DARSLAR.length} ta qisqa dars · Habibulloh Ahmadov</small></span>
         <span class="arrow">›</span></button></div>`
     : `${stage >= 2 ? `<button class="back lvback"><span>‹</span> Darajalar</button>
     <h2 class="a1h lvword"><span class="lvc">${DARAJALAR[stage - 1].code}</span><span class="ar lva">${DARAJALAR[stage - 1].ar}</span><span class="lvn">${DARAJALAR[stage - 1].name}${stage === 2 ? " (Miftah)" : ""}</span></h2><p class="trip">${stage === 2 ? SAYOHAT[2] : SAYOHAT_LV[DARAJALAR[stage - 1].id][0]} — <b>!</b> belgisini bosing</p>` : `<button class="back"><span>‹</span> Bosqichlar</button>
@@ -25597,8 +25624,9 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
           <span class="pe">${AI[placeOf(k)] ? `<img class="pcol" src="${AI[placeOf(k)]}" alt="">` : MAP_COLOR && (FOTO[placeOf(k)] || []).length ? `<img class="pcol" src="${FOTO[placeOf(k)][0]}" alt="" loading="lazy">` : sketch(placeOf(k))}</span><b>!</b></button>`}</div>`;
     }).join("")}</div>`}`;
   drawTrail(); setTimeout(ustozYol, 60);
-  $.querySelectorAll("button.st:not(.done):not(#husnixat)").forEach(b => b.onclick = () => { stage = +b.dataset.s; render(); });
+  $.querySelectorAll("button.st:not(.done):not(#husnixat):not(#videoDars)").forEach(b => b.onclick = () => { stage = +b.dataset.s; render(); });
   const hx = $.querySelector("#husnixat"); if (hx) hx.onclick = husnixatScreen;
+  const vd = $.querySelector("#videoDars"); if (vd) vd.onclick = () => videoDarslarScreen();
   const im = $.querySelector("#imt"); if (im) im.onclick = () => yonalishImtihon(stage >= 2 ? stage - 1 : 0, 0);
   const pm = $.querySelector(".meva.pish"); if (pm) pm.onclick = mevaUz;
   $.querySelectorAll("button.back").forEach(b => b.onclick = () => { if (b.classList.contains("lvback") && !(level >= 1)) level = null; stage = null; bolim = null; render(); });
