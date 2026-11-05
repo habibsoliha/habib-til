@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v224";
+const VERSION = "v225";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2549,12 +2549,16 @@ function confetti(n = 40) {
       border:2px solid #f5c542; background:#14361f; box-shadow:0 3px 10px rgba(0,0,0,.35); }
     body.homeMode #fonBtn { display:block; }
     /* pastki qotgan panel — telefon tugmalari kabi, hech qachon qimirlamaydi */
-    #pastPanel { position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; justify-content:space-around; align-items:center;
-      background:#14361f; border-top:2px solid #f5c542; padding:6px 4px calc(6px + env(safe-area-inset-bottom)); box-shadow:0 -4px 14px rgba(0,0,0,.3); }
-    #pastPanel button { all:unset; cursor:pointer; flex:1; display:flex; flex-direction:column; align-items:center; gap:1px; color:#f3dc8f; font:600 11px system-ui, sans-serif; padding:2px 0; }
-    #pastPanel button span { font-size:23px; line-height:1.1; }
-    #pastPanel button:active { opacity:.6; }
-    body { padding-bottom:calc(72px + env(safe-area-inset-bottom)) !important; }
+    #pastPanel { position:fixed; left:12px; right:12px; bottom:calc(10px + env(safe-area-inset-bottom)); z-index:40; display:flex; gap:4px; padding:6px;
+      border-radius:28px; background:rgba(255,252,243,.82); backdrop-filter:blur(16px) saturate(1.4); -webkit-backdrop-filter:blur(16px) saturate(1.4);
+      border:1px solid rgba(201,162,39,.35); box-shadow:0 10px 30px -8px rgba(20,54,31,.45), inset 0 1px 0 rgba(255,255,255,.8); max-width:520px; margin:0 auto; }
+    #pastPanel button { all:unset; cursor:pointer; flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:7px 0 6px; border-radius:22px;
+      color:#5d5440; font:600 11.5px system-ui, sans-serif; transition:background .2s, color .2s, transform .15s; -webkit-tap-highlight-color:transparent; }
+    #pastPanel button svg { width:24px; height:24px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+    #pastPanel button.on { background:linear-gradient(160deg,#1d4a2b,#0f2e1a); color:#f3dc8f; box-shadow:0 4px 12px -4px rgba(15,46,26,.6); }
+    #pastPanel button:active { transform:scale(.92); }
+    body { padding-bottom:calc(92px + env(safe-area-inset-bottom)) !important; }
+    #pastPanel i { font-style:normal; display:flex; }
     body.homeMode #xaritaBtn, body.homeMode #fonBtn, #xaritaBtn, #fonBtn { display:none !important; }
     .pr-kal { display:grid; grid-template-columns:repeat(7,1fr); gap:10px 4px; text-align:center; font:600 14px system-ui, sans-serif; justify-items:center; }
     .pr-kal b { opacity:.7; font-size:13px; font-weight:500; }
@@ -2565,6 +2569,12 @@ function confetti(n = 40) {
     .pr-kal i.muz::after { content:""; position:absolute; left:3px; right:3px; bottom:-5px; height:9px;
       background:radial-gradient(circle at 15% 0, #bfe9ff 3px, transparent 4px), radial-gradient(circle at 40% 0, #bfe9ff 2px, transparent 3px), radial-gradient(circle at 65% 0, #bfe9ff 3px, transparent 4px), radial-gradient(circle at 88% 0, #bfe9ff 2px, transparent 3px); }
     .pr-kal i.bugun { outline:3px solid #c9a227; outline-offset:2px; }
+    .pr-t { width:100%; border-collapse:collapse; margin:6px 0 10px; font:14px system-ui, sans-serif; border-radius:10px; overflow:hidden; }
+    .pr-t th { background:#0f3d24; color:#fff; font-weight:600; padding:8px 6px; text-align:left; }
+    .pr-t td { padding:7px 6px; border-bottom:1px solid #eee3c8; color:#222; } .pr-t tr:nth-child(odd) td { background:#f6f0e0; } .pr-t tr:nth-child(even) td { background:#fffdf7; }
+    .pr-t td:first-child { font-weight:700; color:#0f3d24; width:28px; } .pr-t td:nth-child(3) { color:#666; white-space:nowrap; } .pr-t td:nth-child(4) { color:#999; white-space:nowrap; font-size:12.5px; }
+    .pr-ok { display:inline-flex; width:22px; height:22px; border-radius:6px; background:#2e9b4f; color:#fff; align-items:center; justify-content:center; font-weight:800; font-size:14px; }
+    .pr-no { display:inline-block; width:18px; height:18px; border:2px solid #0f3d24; border-radius:5px; }
     .pr-q { display:flex; justify-content:space-between; gap:8px; font-size:14px; margin:3px 0; } .pr-q small { opacity:.7; }
     /* Xazinalar: metall medallar (bronza, kumush, oltin, platina, olmos) */
     .xz-g { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:8px 0 18px; }
@@ -2581,7 +2591,7 @@ function confetti(n = 40) {
     .xz .dr { font-size:12px; font-weight:600; color:var(--c3); margin:4px 0 2px; } .xz.yop .dr { color:#999; }
     .xz small { color:#888; font-size:11.5px; }
     .xz .bar { height:5px; border-radius:3px; background:#eee; margin:6px 6px 3px; overflow:hidden; } .xz .bar i { display:block; height:100%; background:var(--c2); }
-    #fonMenyu { position:fixed; bottom:78px; right:10px; z-index:16; background:#fffaf0; border:2px solid #e0b040; border-radius:16px; padding:6px; box-shadow:0 8px 24px rgba(0,0,0,.3); display:grid; gap:4px; min-width:190px; }
+    #fonMenyu { position:fixed; bottom:92px; left:14px; z-index:16; background:#fffaf0; border:2px solid #e0b040; border-radius:16px; padding:6px; box-shadow:0 8px 24px rgba(0,0,0,.3); display:grid; gap:4px; min-width:190px; }
     #fonMenyu button { text-align:left; padding:9px 12px; border-radius:11px; font-size:15px; border:0; background:transparent; color:#2a2418; }
     #fonMenyu button.on { background:#14361f; color:#f3dc8f; font-weight:700; }
     .dunyo, .film { position:fixed; inset:0; z-index:30; display:grid; place-items:center; background:rgba(5,11,22,.6); }
@@ -25885,25 +25895,73 @@ function testIntro() {
 }
 
 // Bosqich yakunida: harflar → faxriy yorliq, fonetika va har daraja → sertifikat (canvasda chiziladi, rasm sifatida saqlanadi)
+const SERT_LOGO = new Image(); SERT_LOGO.src = "img/logo.png";
 function sertifikat(bi, qayta, faqatRasm) {
   const u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}, ism = [u.first_name, u.last_name].filter(Boolean).join(" ") || "Habib til o'quvchisi";
   const yorliq = bi === 0, nom = bi === 0 ? "Harflar maxraji" : bi === 1 ? "Fonetika (Pre-A1)" : bi === 2 ? "A1 — Miftah" : BOSQICHLAR[bi].name;
-  const c = document.createElement("canvas"); c.width = 1200; c.height = 850; const x = c.getContext("2d");
-  const g = x.createLinearGradient(0, 0, 1200, 850); g.addColorStop(0, "#fffaf0"); g.addColorStop(1, "#f3e6c4"); x.fillStyle = g; x.fillRect(0, 0, 1200, 850);
-  x.strokeStyle = "#b8902f"; x.lineWidth = 14; x.strokeRect(30, 30, 1140, 790); x.lineWidth = 3; x.strokeRect(58, 58, 1084, 734);
-  x.textAlign = "center"; x.fillStyle = "#1f4d3a";
-  x.font = "bold 34px Georgia, serif"; x.fillText("HABIB ACADEMY · HABIB TIL", 600, 140);
-  x.fillStyle = "#b8902f"; x.font = "bold 78px Georgia, serif"; x.fillText(yorliq ? "FAXRIY YORLIQ" : "SERTIFIKAT", 600, 245);
-  x.fillStyle = "#555"; x.font = "28px Georgia, serif"; x.fillText(yorliq ? "Ushbu faxriy yorliq" : "Ushbu sertifikat", 600, 320);
-  x.fillStyle = "#1f4d3a"; x.font = "bold 58px Georgia, serif"; x.fillText(ism, 600, 400);
-  x.strokeStyle = "#b8902f"; x.lineWidth = 2; x.beginPath(); x.moveTo(300, 425); x.lineTo(900, 425); x.stroke();
-  x.fillStyle = "#333"; x.font = "30px Georgia, serif";
-  x.fillText(yorliq ? "arab alifbosining 28 harfini maxraji bilan to'liq o'rganib," : "arab tili bo'yicha", 600, 485);
-  x.font = "bold 40px Georgia, serif"; x.fillStyle = "#1f4d3a"; x.fillText(`«${nom}»`, 600, 545);
-  x.font = "30px Georgia, serif"; x.fillStyle = "#333"; x.fillText(yorliq ? "bosqichini muvaffaqiyatli yakunlagani uchun beriladi" : "darajasini muvaffaqiyatli o'tib, yakunlagani uchun beriladi", 600, 600);
-  x.font = "24px Georgia, serif"; x.fillStyle = "#666"; x.textAlign = "left"; x.fillText("Sana: " + new Date(store.get("sert" + bi, null) || Date.now()).toLocaleDateString("ru-RU"), 120, 735);
-  x.textAlign = "right"; x.fillText("Habib Academy rahbari", 1080, 735); x.font = "italic 30px Georgia, serif"; x.fillStyle = "#1f4d3a"; x.fillText("Habibulloh Ahmadov", 1080, 700);
-  x.textAlign = "center"; x.font = "64px serif"; x.fillText(yorliq ? "🎖️" : "🏅", 600, 720);
+  const W = 1600, H = 1130, c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
+  const SANS = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif", SERIF = "Georgia, 'Times New Roman', serif";
+  const oltin = (x0, y0, x1, y1) => { const g = x.createLinearGradient(x0, y0, x1, y1); [["#8a6a1f", 0], ["#d9b35a", .25], ["#fff0b8", .5], ["#c99a35", .75], ["#7d5a12", 1]].forEach(([cl, s]) => g.addColorStop(s, cl)); return g; };
+  // fon: iliq qog'oz + juda och islomiy geometrik naqsh
+  let g = x.createRadialGradient(W * .6, H * .4, 100, W * .6, H * .4, W); g.addColorStop(0, "#fffdf6"); g.addColorStop(1, "#f4ecd8"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.save(); x.globalAlpha = .06; x.strokeStyle = "#0f4d32"; x.lineWidth = 1.4;
+  for (let py = 0; py < H + 80; py += 80) for (let px = 340; px < W + 80; px += 80) { x.beginPath();
+    for (let k = 0; k < 16; k++) { const a = k * Math.PI / 8, r = k % 2 ? 16 : 34; x.lineTo(px + r * Math.cos(a), py + r * Math.sin(a)); } x.closePath(); x.stroke(); }
+  x.restore();
+  // ichki nozik oltin hoshiya
+  x.strokeStyle = oltin(0, 0, W, H); x.lineWidth = 3; x.strokeRect(36, 36, W - 72, H - 72); x.lineWidth = 1; x.strokeRect(48, 48, W - 96, H - 96);
+  // chap tomonda tasma: zumrad + oltin chet, pastda ajdar uchi
+  const tx = 80, tw = 290, th = 640;
+  x.save(); x.shadowColor = "rgba(0,0,0,.25)"; x.shadowBlur = 30; x.shadowOffsetY = 10;
+  g = x.createLinearGradient(tx, 0, tx + tw, 0); g.addColorStop(0, "#0b3d26"); g.addColorStop(.5, "#14603c"); g.addColorStop(1, "#0b3d26");
+  x.fillStyle = g; x.beginPath(); x.moveTo(tx, 0); x.lineTo(tx + tw, 0); x.lineTo(tx + tw, th); x.lineTo(tx + tw / 2, th - 70); x.lineTo(tx, th); x.closePath(); x.fill(); x.restore();
+  x.strokeStyle = oltin(tx, 0, tx + tw, th); x.lineWidth = 6; x.beginPath(); x.moveTo(tx + 14, 0); x.lineTo(tx + 14, th - 30); x.lineTo(tx + tw / 2, th - 88); x.lineTo(tx + tw - 14, th - 30); x.lineTo(tx + tw - 14, 0); x.stroke();
+  // tasma ichida: logo, nom, arabcha so'z
+  x.textAlign = "center";
+  if (SERT_LOGO.complete && SERT_LOGO.naturalWidth) { const s = 150 / Math.max(SERT_LOGO.naturalWidth, SERT_LOGO.naturalHeight); x.drawImage(SERT_LOGO, tx + tw / 2 - SERT_LOGO.naturalWidth * s / 2, 80, SERT_LOGO.naturalWidth * s, SERT_LOGO.naturalHeight * s); }
+  x.fillStyle = oltin(tx, 250, tx + tw, 300); x.font = `700 34px ${SANS}`; x.fillText("HABIB ACADEMY", tx + tw / 2, 285);
+  x.fillStyle = "#cfe9d8"; x.font = `500 22px ${SANS}`; x.fillText("arab tili markazi", tx + tw / 2, 318);
+  x.fillStyle = oltin(tx, 360, tx + tw, 460); x.font = `bold 92px 'Amiri', 'Traditional Arabic', 'Arabic Typesetting', serif`; x.fillText(yorliq ? "تَكْرِيم" : "شَهَادَة", tx + tw / 2, 455);
+  x.fillStyle = "#cfe9d8"; x.font = `600 24px ${SANS}`; x.fillText("HABIB TIL ilovasi", tx + tw / 2, 520);
+  // daraja nishoni (tasma ostida, oltin medal)
+  const mx = tx + tw / 2, my = 800;
+  x.save(); x.shadowColor = "rgba(0,0,0,.3)"; x.shadowBlur = 20; x.fillStyle = oltin(mx - 90, my - 90, mx + 90, my + 90); x.beginPath();
+  for (let k = 0; k < 32; k++) { const a = k * Math.PI / 16, r = k % 2 ? 84 : 96; x.lineTo(mx + r * Math.cos(a), my + r * Math.sin(a)); } x.closePath(); x.fill(); x.restore();
+  x.fillStyle = "#0f4d32"; x.beginPath(); x.arc(mx, my, 70, 0, 7); x.fill(); x.strokeStyle = oltin(mx - 70, my - 70, mx + 70, my + 70); x.lineWidth = 4; x.beginPath(); x.arc(mx, my, 62, 0, 7); x.stroke();
+  const kod = bi === 0 ? "ا ب" : bi === 1 ? "PRE" : bi === 2 ? "A1" : BOSQICHLAR[bi].name;
+  x.fillStyle = oltin(mx - 50, my - 30, mx + 50, my + 30); x.font = `800 ${kod.length > 2 ? 34 : 46}px ${SANS}`; x.textBaseline = "middle"; x.fillText(kod, mx, my + 2); x.textBaseline = "alphabetic";
+  // o'ng qism: sarlavha
+  const cx = 1000;
+  x.fillStyle = oltin(560, 100, 1450, 230); x.font = `900 ${yorliq ? 120 : 150}px ${SANS}`; x.fillText(yorliq ? "FAXRIY YORLIQ" : "SERTIFIKAT", cx, 245);
+  x.fillStyle = "#8a7444"; x.font = `600 24px ${SANS}`; x.fillText(yorliq ? "— TAQDIRLASH —" : "— YUTUQ HAQIDA —", cx, 300);
+  x.fillStyle = "#555"; x.font = `italic 30px ${SERIF}`; x.fillText(yorliq ? "Ushbu faxriy yorliq bilan" : "Ushbu sertifikat bilan", cx, 390);
+  // ism
+  let fs = 84; x.font = `700 ${fs}px ${SANS}`; while (x.measureText(ism).width > 900 && fs > 44) { fs -= 4; x.font = `700 ${fs}px ${SANS}`; }
+  x.fillStyle = "#0b3d26"; x.fillText(ism, cx, 490);
+  x.strokeStyle = oltin(560, 0, 1440, 0); x.lineWidth = 3; x.beginPath(); x.moveTo(560, 525); x.lineTo(1440, 525); x.stroke();
+  x.fillStyle = "#c99a35"; x.beginPath(); x.moveTo(cx, 515); x.lineTo(cx + 10, 525); x.lineTo(cx, 535); x.lineTo(cx - 10, 525); x.fill();
+  // matn
+  const satr = yorliq ? ["«Habib til» ilovasida arab alifbosining 28 harfini", `maxraji bilan to'liq o'rganib, «${nom}» bosqichini`, "muvaffaqiyatli yakunlagani uchun taqdirlandi!"]
+    : ["«Habib til» ilovasida arab tili bo'yicha", `«${nom}» darajasini muvaffaqiyatli o'tib,`, "barcha darslarni yakunlagani uchun sertifikat bilan taqdirlandi!"];
+  x.fillStyle = "#3a3a3a"; x.font = `400 32px ${SANS}`; satr.forEach((s, i) => x.fillText(s, cx, 600 + i * 48));
+  // pastki qism: imzo, gulchambar, sana
+  const sana = new Date(store.get("sert" + bi, null) || Date.now()).toLocaleDateString("ru-RU");
+  // imzo (qo'lda chizilgandek egri chiziq)
+  x.strokeStyle = "#1b3fa0"; x.lineWidth = 3.2; x.lineCap = "round"; x.beginPath(); x.moveTo(600, 900);
+  x.bezierCurveTo(640, 830, 660, 930, 700, 870); x.bezierCurveTo(730, 830, 735, 905, 770, 880); x.bezierCurveTo(800, 860, 830, 850, 880, 858); x.stroke();
+  x.beginPath(); x.moveTo(620, 905); x.quadraticCurveTo(740, 885, 860, 890); x.stroke();
+  x.strokeStyle = "#999"; x.lineWidth = 1.5; x.beginPath(); x.moveTo(580, 925); x.lineTo(900, 925); x.stroke();
+  x.fillStyle = "#111"; x.font = `700 28px ${SANS}`; x.fillText("H. Ahmadov", 740, 965);
+  x.fillStyle = "#777"; x.font = `400 21px ${SANS}`; x.fillText("Habib Academy rahbari", 740, 995);
+  // gulchambar (laurel) + yulduzlar
+  const lx = 1270, ly = 880;
+  for (const t of [-1, 1]) for (let k = 0; k < 9; k++) { const a = Math.PI / 2 + t * (0.35 + k * 0.27), px = lx + 105 * Math.cos(a), py = ly - 10 + 105 * Math.sin(a) * -1 * -1;
+    x.save(); x.translate(px, py); x.rotate(a + (t > 0 ? -Math.PI / 2.4 : Math.PI / 2.4)); x.fillStyle = oltin(-14, -6, 14, 6); x.beginPath(); x.ellipse(0, 0, 19, 8, 0, 0, 7); x.fill(); x.restore(); }
+  x.fillStyle = "#c99a35"; [-28, 0, 28].forEach((d, i) => { x.font = `${i === 1 ? 30 : 22}px ${SANS}`; x.fillText("★", lx + d, ly - 42 - (i === 1 ? 6 : 0)); });
+  x.fillStyle = oltin(lx - 80, ly, lx + 80, ly + 40); x.font = `800 28px ${SANS}`; x.fillText(yorliq ? "ALIFBO" : "TIRISHQOQ", lx, ly + 8); x.fillText(yorliq ? "USTASI" : "TOLIBI ILM", lx, ly + 42);
+  // sana va raqam
+  x.textAlign = "left"; x.fillStyle = "#8a7444"; x.font = `600 20px ${SANS}`;
+  x.fillText(`Sana: ${sana}`, 80, H - 70); x.textAlign = "right"; x.fillText(`№ HT-${String(tgId() || "0").slice(-5)}-${bi + 1}`, W - 80, H - 70);
   const src = c.toDataURL(faqatRasm ? "image/jpeg" : "image/png", .8); if (faqatRasm) return src;
   const o = document.createElement("div");
   o.style.cssText = "position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px";
@@ -26294,9 +26352,17 @@ document.addEventListener("visibilitychange", () => fonMusiqa(document.body.clas
 // Pastki panel: Orqaga · Xarita · Profil · Ovoz — doim joyida turadi
 (() => {
   const p = document.createElement("nav"); p.id = "pastPanel";
-  p.innerHTML = `<button data-p="orqa"><span>↩️</span>Orqaga</button><button data-p="xarita"><span>🗺️</span>Xarita</button>
-    <button data-p="profil"><span>👤</span>Profil</button><button data-p="ovoz"><span id="ppOvoz">🔊</span>Ovoz</button>`;
-  const ov = () => { document.getElementById("ppOvoz").textContent = store.get("fonmusiqa", 1) ? "🔊" : "🔇"; };
+  const SV = {
+    ovoz: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/>',
+    jim: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/>',
+    xarita: '<path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5L9 4z"/><path d="M9 4v13.5M15 6.5V20"/>',
+    profil: '<circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.6-3.6 4.6-5.5 8-5.5s6.4 1.9 8 5.5"/>',
+    orqa: '<path d="M9 5l7 7-7 7"/>' };
+  const ic = k => `<svg viewBox="0 0 24 24">${SV[k]}</svg>`;
+  p.innerHTML = `<button data-p="ovoz"><i id="ppOvoz">${ic("ovoz")}</i>Ovoz</button><button data-p="xarita">${ic("xarita")}Xarita</button>
+    <button data-p="profil">${ic("profil")}Profil</button><button data-p="orqa">${ic("orqa")}Orqaga</button>`;
+  const ov = () => { document.getElementById("ppOvoz").innerHTML = ic(store.get("fonmusiqa", 1) ? "ovoz" : "jim"); };
+  setInterval(() => p.querySelector('[data-p="profil"]').classList.toggle("on", mode === "profil"), 400);
   p.onclick = e => {
     const x = e.target.closest("button"); if (!x) return; const k = x.dataset.p;
     if (k === "xarita") { document.querySelectorAll(".ustozOyna,#fonMenyu").forEach(o => o.remove()); return dunyoXarita(); }
@@ -26319,13 +26385,14 @@ setInterval(() => { if (document.hidden) return; const d = new Date().toISOStrin
 // --- Xazinalar (yutuqlar): har guruhda bosqichma-bosqich medallar; olingan sana store "xz_<id>" da
 const XZ_DARAJA = [["Bronza", "#ffd7b0", "#c47a3e", "#8a4f20"], ["Kumush", "#ffffff", "#b9c2cc", "#6d7782"], ["Oltin", "#fff3b0", "#e2b52c", "#a87a0a"], ["Platina", "#eafff8", "#8fc9b8", "#3f7f6d"], ["Olmos", "#f0f4ff", "#8fa6f0", "#4057b8"]];
 const XAZINA = [
-  ["⏳", "O'qish vaqti", "min", [["🌅", "Ilk tilovat", 10, 0], ["☀️", "Bir soat ilm", 60, 0], ["🕰️", "Sokin soatlar", 300, 1], ["⌛", "Ilm shirinligi", 1200, 1], ["🪔", "Bilim chirog'i", 3000, 2], ["💡", "Yuz soat nur", 6000, 3], ["🏛️", "Soatlar hofizi", 15000, 4]]],
-  ["🔥", "Qat'iyat", "kun ketma-ket", [["🔥", "Kunlik vird", 3, 0], ["🗓️", "Bir hafta ilm bilan", 7, 1], ["⚡", "Ikki hafta olovda", 14, 1], ["🛡️", "Po'lat iroda", 30, 2], ["🌙", "Ikki oy sabr", 60, 3], ["✨", "Yil ilm bilan", 365, 4]]],
-  ["📘", "Darslar", "dars", [["📖", "Ilk dars", 1, 0], ["🔟", "O'n dars", 10, 0], ["✍️", "Alifbo egasi", 28, 1], ["🗣️", "Qiroatchi", 51, 2], ["🎓", "Miftah sohibi", 86, 3], ["🏆", "Yuz ellik dars", 150, 4]]],
-  ["🧭", "Yo'nalishlar", "mavzu", [["🌱", "Ilk mavzu", 1, 0], ["📚", "O'n mavzu", 10, 1], ["🧩", "O'ttiz mavzu", 30, 2], ["🗺️", "Yuz mavzu", 100, 3], ["👑", "Ikki yuz mavzu", 200, 4]]],
-  ["📅", "Muntazamlik", "kun", [["🌤️", "Haftalik mehmon", 7, 0], ["🗓️", "Oylik do'st", 30, 1], ["✅", "Yuz kun", 100, 2], ["🌟", "Tolibi ilm", 200, 3], ["💎", "Yil davomida", 365, 4]]],
-  ["⭐", "XP xazinasi", "XP", [["🪙", "Ilk tangalar", 100, 0], ["💰", "Ming XP", 1000, 1], ["🏺", "Xazina ko'zasi", 5000, 2], ["👑", "Boylik", 20000, 3], ["💎", "Ellik ming", 50000, 4]]],
-  ["🏅", "Sertifikatlar", "ta", [["🎖️", "Faxriy yorliq", 1, 0], ["📜", "Ikki sertifikat", 2, 1], ["🏅", "Uch sertifikat", 3, 2], ["🥇", "Besh sertifikat", 5, 3], ["💎", "Barcha darajalar", 8, 4]]],
+  // [ikonka, guruh, izoh, [[ikonka, nom, chegara, daraja], ...]]
+  ["⏳", "O'qish vaqti", "ilovada o'tkazilgan vaqt (daqiqa)", [["🌅", "Ilk daqiqalar", 10, 0], ["☀️", "Bir soat bilim", 60, 0], ["🕰️", "Sokin soatlar", 300, 1], ["⌛", "Bilim shirinligi", 1200, 1], ["🪔", "Bilim chirog'i", 3000, 2], ["💡", "Yuz soat nur", 6000, 3], ["🏛️", "Soatlar hofizi", 15000, 4]]],
+  ["🔥", "Qat'iyat", "kunlik davomat — ketma-ket kirilgan kunlar", [["🔥", "Uch kun ketma-ket", 3, 0], ["🗓️", "Bir hafta bilim bilan", 7, 1], ["⚡", "Ikki hafta olovda", 14, 1], ["🛡️", "Po'lat iroda", 30, 2], ["🌙", "Ikki oy sabr", 60, 3], ["✨", "Yil bilim bilan", 365, 4]]],
+  ["📘", "Darslar", "fonetika va Miftah darslari", [["📖", "Ilk dars", 1, 0], ["🔟", "O'n dars", 10, 0], ["✍️", "Alifbo egasi", 28, 1], ["🗣️", "Talaffuz ustasi", 51, 2], ["🎓", "Miftah sohibi", 86, 3]]],
+  ["🧭", "Yo'nalishlar", "nahv, insho, lug'at, tarkib, muhodasa mavzulari", [["🌱", "Ilk mavzu", 1, 0], ["📚", "O'n mavzu", 10, 1], ["🧩", "O'ttiz mavzu", 30, 2], ["🗺️", "Yuz mavzu", 100, 3], ["🏆", "Yuz ellik mavzu", 150, 3], ["👑", "Ikki yuz mavzu", 200, 4]]],
+  ["📅", "Muntazamlik", "jami kirilgan kunlar", [["🌤️", "Haftalik mehmon", 7, 0], ["🗓️", "Oylik do'st", 30, 1], ["✅", "Yuz kun", 100, 2], ["🌟", "Bilim tolibi", 200, 3], ["💎", "Yil davomida", 365, 4]]],
+  ["⭐", "XP xazinasi", "yig'ilgan XP ballari", [["🪙", "Ilk tangalar", 100, 0], ["💰", "Ming XP", 1000, 1], ["🏺", "Xazina ko'zasi", 5000, 2], ["👑", "Boylik", 20000, 3], ["💎", "Ellik ming", 50000, 4]]],
+  ["🏅", "Sertifikatlar", "bosqich va darajalar yakuni", [["🎖️", "Faxriy yorliq", 1, 0], ["📜", "Ikki sertifikat", 2, 1], ["🏅", "Uch sertifikat", 3, 2], ["🥇", "Besh sertifikat", 5, 3], ["💎", "Barcha darajalar", 8, 4]]],
 ];
 function xazinaQiymat() {
   const V = store.get("vaqt", {}), kun = new Set(store.get("kunlar", [])); LESSONS.forEach(l => { const r = store.get("lesson" + l.n, null); if (r && r.at) kun.add(new Date(r.at).toISOString().slice(0, 10)); });
@@ -26348,7 +26415,7 @@ function xazinaHtml() {
         <b>${n}</b><div class="dr">${dn}</div>${bor ? `<small>${new Date(sana).toLocaleDateString("ru-RU")}</small>`
         : `<div class="bar"><i style="width:${Math.min(100, Q[gi] * 100 / chek)}%"></i></div><small>${Math.min(Q[gi], chek)} / ${chek}</small>`}</div>`;
     }).join("");
-    return `<div style="display:flex;justify-content:space-between;align-items:center;font-family:system-ui"><b style="font-size:17px">${ic} ${nom}</b><small style="color:#888">${gol}/${N.length}</small></div><div class="xz-g">${kartalar}</div>`;
+    return `<div style="display:flex;justify-content:space-between;align-items:flex-end;font-family:system-ui"><div><b style="font-size:17px">${ic} ${nom}</b><br><small style="color:#8a7444">${bir}</small></div><small style="color:#888">${gol}/${N.length}</small></div><div class="xz-g">${kartalar}</div>`;
   }).join("");
   const p = Math.round(ol * 100 / jami);
   return `<div style="background:#fff;border-radius:22px;padding:14px;margin-bottom:14px;font-family:system-ui;display:flex;align-items:center;gap:14px">
@@ -26362,16 +26429,27 @@ function profilScreen(oy) {
   const sana = l => { const r = store.get("lesson" + l.n, null); return r && r.at ? new Date(r.at).toISOString().slice(0, 10) : null; };
   const kunlar = new Set([...store.get("kunlar", []), ...LESSONS.map(sana).filter(Boolean)]);
   const pb = (a, n) => { const p = n ? Math.round(a * 100 / n) : 0; return `<span class="pbar thin" style="flex:1;max-width:45%;align-self:center"><i style="width:${Math.max(p, 2)}%"></i></span>`; };
-  const qator = (nom, a, n) => `<div class="pr-q"><span>${nom}</span>${pb(a, n)}<small>${a}/${n}</small></div>`;
-  const darsQ = bi => { const L = LESSONS.slice(BOSQICHLAR[bi].from, BOSQICHLAR[bi].to); return [L.filter(l => store.get("lesson" + l.n, null)).length, L.length]; };
+  // har mavzu — bitta "chip": o'qilgani yashil ✓, qolgani kulrang
+  const chip = (t, ok) => `<span style="display:inline-flex;align-items:center;gap:4px;margin:3px;padding:5px 10px;border-radius:14px;font:500 12.5px system-ui;${ok ? "background:#8cc800;color:#fff" : "background:#eee;color:#888"}">${ok ? "✓ " : ""}${t}</span>`;
+  const qator = (nom, a, n, M) => `<details class="pr-m" style="margin:4px 0"><summary class="pr-q" style="cursor:pointer"><span>${nom}</span>${pb(a, n)}<small>${a}/${n}</small></summary>
+    <table class="pr-t"><tr><th>№</th><th>Mavzu</th><th>Foiz</th><th>Sana</th><th>O'qildi</th></tr>${M.map(([t, ok, at], j) => `<tr>
+      <td>${j + 1}</td><td>${t}</td><td>${(Math.round((j + 1) * 10000 / M.length) / 100).toFixed(2).replace(".", ",")}%</td>
+      <td>${ok && typeof at === "number" ? new Date(at).toLocaleDateString("ru-RU").slice(0, 5) : ok ? "✓" : "—/—"}</td>
+      <td>${ok ? `<span class="pr-ok">✓</span>` : `<span class="pr-no"></span>`}</td></tr>`).join("")}</table></details>`;
+  const darsM = bi => LESSONS.slice(BOSQICHLAR[bi].from, BOSQICHLAR[bi].to).map(l => { const r = store.get("lesson" + l.n, null); return [l.title.replace(/^\d+-dars\.\s*/, "").replace(/^🎓\s*/, ""), !!r, r && r.at]; });
+  const darsQ = bi => { const M = darsM(bi); return [M.filter(x => x[1]).length, M.length, M]; };
   // 1. monitoring
-  let mon = `<p style="margin:4px 0"><b>Boshlang'ich (fonetika)</b></p>` + qator("Harflar maxraji", ...darsQ(0)) + qator("Fonetika", ...darsQ(1));
-  for (let k = 1; k < DARAJALAR.length; k++) {
+  // faqat o'quvchi hozir o'qiyotgan daraja: ochiq daraja bo'lsa o'sha, bo'lmasa birinchi tugamagan daraja
+  const fonTugadi = darsQ(0)[0] === darsQ(0)[1] && darsQ(1)[0] === darsQ(1)[1];
+  let joriyLv = level != null ? level : fonTugadi ? 1 : 0;
+  if (level == null && fonTugadi) for (let k = 1; k < DARAJALAR.length; k++) { const [a, n] = BOSQICHLAR[k + 1] ? darsQ(k + 1) : [0, 1]; if (a < n) { joriyLv = k; break; } }
+  let mon = joriyLv === 0 ? `<p style="margin:4px 0"><b>Boshlang'ich (fonetika)</b></p>` + qator("Harflar maxraji", ...darsQ(0)) + qator("Fonetika", ...darsQ(1)) : "";
+  for (let k = 1; k < DARAJALAR.length; k++) { if (k !== joriyLv) continue;
     const rows = []; if (BOSQICHLAR[k + 1]) rows.push(["Darslar", ...darsQ(k + 1)]);
-    BOLIMLAR.forEach(([, n], b) => { const T = b && bolimMavzu(b, k); if (T && T.length) rows.push([n, T.filter((_, j) => store.get(`bolim${b}-${k}-${j}`, null)).length, T.length]); });
+    BOLIMLAR.forEach(([, n], b) => { const T = b && bolimMavzu(b, k); if (T && T.length) { const M = T.map(([ar, uz], j) => [uz || ar, !!store.get(`bolim${b}-${k}-${j}`, null)]); rows.push([n, M.filter(x => x[1]).length, M.length, M]); } });
     if (!rows.length) continue;
     const a = rows.reduce((s, r) => s + r[1], 0), n = rows.reduce((s, r) => s + r[2], 0);
-    mon += `<details style="margin:6px 0"><summary><b>${DARAJALAR[k].code}</b> · ${DARAJALAR[k].name} — ${n ? Math.round(a * 100 / n) : 0}%</summary>${rows.map(r => qator(...r)).join("")}</details>`;
+    mon += `<p style="margin:4px 0"><b>${DARAJALAR[k].code} · ${DARAJALAR[k].name}</b> — ${n ? Math.round(a * 100 / n) : 0}%</p>${rows.map(r => qator(...r)).join("")}`;
   }
   // 2. sertifikatlar: olingan yoki bosqichi to'liq tugagan
   const sert = BOSQICHLAR.map((b, bi) => { const [a, n] = darsQ(bi); return (store.get("sert" + bi, null) || (n && a === n)) ? bi : -1; }).filter(bi => bi >= 0);
