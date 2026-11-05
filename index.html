@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v225";
+const VERSION = "v226";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2559,6 +2559,16 @@ function confetti(n = 40) {
     #pastPanel button:active { transform:scale(.92); }
     body { padding-bottom:calc(92px + env(safe-area-inset-bottom)) !important; }
     #pastPanel i { font-style:normal; display:flex; }
+    /* A1–C2: 6 yo'nalish — 3 qator, 2 tadan to'rtburchak */
+    .bolimGrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
+    .bolimGrid button.bk { display:flex !important; flex-direction:column; align-items:flex-start; justify-content:flex-start; text-align:left; gap:3px;
+      min-height:150px; padding:14px 12px !important; margin:0 !important; width:auto !important; border-radius:18px; }
+    .bolimGrid button.bk .badge { margin:0 0 6px !important; }
+    .bolimGrid button.bk small { font-size:11px; opacity:.65; letter-spacing:.5px; }
+    .bolimGrid button.bk b { font-size:17px; line-height:1.2; }
+    .bolimGrid button.bk .bks { font-size:12.5px; opacity:.75; line-height:1.3; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    /* yuqoridagi "‹ Darajalar", "‹ A1 bo'limlari" kabi tugmalar yashiriladi — ularning ishini pastdagi "Orqaga" bajaradi */
+    #app button.back { display:none !important; }
     body.homeMode #xaritaBtn, body.homeMode #fonBtn, #xaritaBtn, #fonBtn { display:none !important; }
     .pr-kal { display:grid; grid-template-columns:repeat(7,1fr); gap:10px 4px; text-align:center; font:600 14px system-ui, sans-serif; justify-items:center; }
     .pr-kal b { opacity:.7; font-size:13px; font-weight:500; }
@@ -25127,10 +25137,9 @@ function bolimScreen() {
     const LV = LESSONS.slice(BOSQICHLAR[level + 1].from, BOSQICHLAR[level + 1].to), d = LV.filter(l => store.get("lesson" + l.n, null)).length;
     $.innerHTML = heroBox(streak, total, d, LV.length, "dars") + `<button class="back lvback"><span>‹</span> Darajalar</button>
       ${lvH(D.name)}
-      <div class="opts">${BOLIMLAR.map(([ic, n, s], i) => `<button class="o st" data-b="${i}">
+      <div class="bolimGrid">${[0, 1, 3, 4, 5, 2].map((i, p) => { const [ic, n, s] = BOLIMLAR[i]; return `<button class="o st bk" data-b="${i}">
         <span class="badge ${ic.length === 1 ? "ar" : ""}">${ic}</span>
-        <span class="st-body"><small>${i + 1}-BO'LIM</small><b>${n}</b><small>${s}</small></span>
-        <span class="arrow">›</span></button>`).join("")}</div>`;
+        <small>${p + 1}-YO'NALISH</small><b>${n}</b><span class="bks">${s}</span></button>`; }).join("")}</div>`;
     $.querySelector(".lvback").onclick = () => { level = null; bolim = null; render(); };
     $.querySelectorAll("button.st").forEach(b => b.onclick = () => {
       bolim = +b.dataset.b; if (bolim === 0) stage = level + 1; render();
@@ -25625,7 +25634,10 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
   $.innerHTML = `
     ${(() => { const LV = level >= 1 ? LESSONS.slice(BOSQICHLAR[level + 1].from, BOSQICHLAR[level + 1].to) : LESSONS.slice(0, PRE_N), d = LV.filter(l => store.get("lesson" + l.n, null)).length;
       return heroBox(streak, total, d, LV.length, "dars"); })()}
-    ${stage === null ? `<button class="back lvback"><span>‹</span> Darajalar</button>${daraxt()}<div class="opts">${BOSQICHLAR.slice(0, 2).map((b, s) => {
+    ${stage === null ? `<button class="back lvback"><span>‹</span> Darajalar</button>${daraxt()}<div class="opts"><button class="o st" id="husnixat">
+        <span class="badge">✍️</span>
+        <span class="st-body"><small>BIRINCHI QADAM</small><b>Husnixat</b><small>28 ta harf · yozish tartibi, video va varaq</small></span>
+        <span class="arrow">›</span></button>${BOSQICHLAR.slice(0, 2).map((b, s) => {
       const ls = LESSONS.slice(b.from, b.to), done = ls.filter(l => store.get("lesson" + l.n, null)).length;
       const open = TEST || s === 0 || store.get("lesson" + LESSONS[b.from - 1].n, null);
       const sp = Math.round(done * 100 / ls.length);
@@ -25635,10 +25647,7 @@ function home() {  const streak = store.get("streak", 0), total = store.get("xp"
           <span class="pbar thin"><i style="width:${Math.max(sp, 2)}%"></i></span>
           <small>${done}/${ls.length} dars · ${sp}%</small></span>
         <span class="arrow">›</span></button>`;
-    }).join("")}<button class="o st" id="husnixat">
-        <span class="badge">✍️</span>
-        <span class="st-body"><small>QO'SHIMCHA</small><b>Husnixat</b><small>28 ta harf · yozish tartibi, video va varaq</small></span>
-        <span class="arrow">›</span></button></div>`
+    }).join("")}</div>`
     : `${stage >= 2 ? `<button class="back lvback"><span>‹</span> Darajalar</button>
     <h2 class="a1h lvword"><span class="lvc">${DARAJALAR[stage - 1].code}</span><span class="ar lva">${DARAJALAR[stage - 1].ar}</span><span class="lvn">${DARAJALAR[stage - 1].name}${stage === 2 ? " (Miftah)" : ""}</span></h2><p class="trip">${stage === 2 ? SAYOHAT[2] : SAYOHAT_LV[DARAJALAR[stage - 1].id][0]} — <b>!</b> belgisini bosing</p>` : `<button class="back"><span>‹</span> Bosqichlar</button>
     <h2>${stage + 1}-bosqich. ${BOSQICHLAR[stage].name}</h2><p class="trip">${SAYOHAT[stage]} — <b>!</b> belgisini bosing</p>`}
