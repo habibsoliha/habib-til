@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v230";
+const VERSION = "v232";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -25059,7 +25059,19 @@ let USTOZ_REYTING = [  // USTOZLAR tartibida: [umumiy, mamnunlik, pedagogika va 
   [3.1, 2.2, 4.2, 2.9, 2.9], [2.5, 1.5, 5, 1.8, 1.8], [4.0, 1.0, 5, 5, 5], [3.0, 2.1, 5, 2.5, 2.5],
   [3.1, 5, 5, 1.2, 1.2], [3.2, 1.8, 4.6, 3.1, 3.1], [2.9, 1.4, 5, 2.5, 2.5], [null, null, null, null, null], [null, null, null, null, null],
   [null, null, null, null, null], [null, null, null, null, null], [null, null, null, null, null]];
-function ustozKarta(k) {
+// 2026-11-06: reyting "Ilova reyting" varag'idan jonli olinadi (otziv boti, kitob boti, nazoratchi). Internet bo'lmasa — oxirgi saqlangani / yuqoridagi zaxira.
+(() => {
+  const qo = R => R.forEach((r, i) => { if (r && r.some(v => v != null)) USTOZ_REYTING[i] = r; });
+  try { qo(store.get("ustozReyting", [])); } catch {}
+  const son = s => { const v = parseFloat(String(s || "").replace("٫", ".").replace(",", ".")); return isNaN(v) ? null : v; };
+  const csv = l => (l.match(/"((?:[^"]|"")*)"/g) || []).map(x => x.slice(1, -1).replace(/""/g, '"'));
+  fetch("https://docs.google.com/spreadsheets/d/1spDHLWxJ_ihQp1zRks9iXr-Vk41xRkSIplIg8JkrHWk/gviz/tq?tqx=out:csv&sheet=" + encodeURIComponent("Ilova reyting") + "&range=A4:J40&t=" + Date.now())
+    .then(r => r.text()).then(tx => {
+      const R = USTOZLAR.map(() => null);
+      tx.split("\n").map(csv).forEach(c => { const i = USTOZLAR.findIndex(u => u[0] === c[0]); if (i >= 0) R[i] = [son(c[9]), son(c[4]), son(c[6]), son(c[7]), son(c[8])]; });
+      qo(R); store.set("ustozReyting", R);
+    }).catch(() => {});
+})();function ustozKarta(k) {
   const [u, ...B] = USTOZ_REYTING[k] || [];
   const qator = (n, c, v) => `<div style="--c:${c}"><small>${n}<b>${v == null ? "—" : v.toFixed(1)}</b></small><span><i style="width:${v == null ? 3 : Math.max(3, Math.round(v * 20))}%"></i></span></div>`;
   const yulduz = u == null ? "" : [1, 2, 3, 4, 5].map(i => `<i style="color:${u >= i - .25 ? "#ffd23f" : "rgba(255,255,255,.25)"}">★</i>`).join("");
@@ -26513,7 +26525,7 @@ function profilScreen(oy) {
   const tab = store.get("profTab", 0), KR = (n, v) => `<div style="background:#f4f4f4;border-radius:16px;padding:12px 14px"><small style="color:#666;font:500 14px system-ui">${n}</small><div style="font:700 19px system-ui;color:#111;margin-top:4px">${v}</div></div>`;
   $.innerHTML = `<button class="back"><span>‹</span> Bosh sahifa</button>
     <div style="display:flex;gap:12px;align-items:center;margin:6px 0"><div style="width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#d4af37,#0f6b45);color:#fff;font:700 28px system-ui;display:flex;align-items:center;justify-content:center">${ism[0]}</div>
-      <div style="font-family:system-ui"><b style="font-size:20px">${ism}</b><br><small style="color:#777">ID: ${tgId() || "—"}${u.username ? " · @" + u.username : ""}</small></div><a href="https://t.me/${ADMIN_TG}" target="_blank" style="margin-left:auto;align-self:flex-start;background:#0f6b45;color:#fff;border-radius:14px;padding:7px 10px;font:600 12px/1.25 system-ui;text-decoration:none;text-align:center;max-width:110px">🎓 Ustozlar davrasiga qo'shilish</a></div>
+      <div style="font-family:system-ui"><b style="font-size:20px">${ism}</b><br><small style="color:#777">ID: ${tgId() || "—"}${u.username ? " · @" + u.username : ""}</small></div><a href="https://t.me/AhmadovHabibulloh" target="_blank" style="margin-left:auto;align-self:flex-start;background:#0f6b45;color:#fff;border-radius:14px;padding:7px 10px;font:600 12px/1.25 system-ui;text-decoration:none;text-align:center;max-width:110px">🎓 Ustozlar davrasiga qo'shilish</a></div>
     <p style="font:600 16px system-ui;margin:6px 0">${unvon}</p>
     <p style="font:14px system-ui;color:#666;margin:4px 0">🎓 O'quvchi &nbsp; · &nbsp; 📅 ${birinchi.slice(0, 4)}-yil qo'shilgan${pullikQoldi() > 0 ? ` &nbsp; · &nbsp; 💳 obuna: <b style="color:${pullikQoldi() <= 3 ? "#c33" : "#2e9b4f"}">${pullikQoldi()} kun qoldi</b>` : ""}</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0">${KR("XP balansi", "⭐ " + store.get("xp", 0))}${KR("Umumiy o'qish", "⏱️ " + dk(jami))}${KR("O'tilgan darslar", "🏆 " + tugadi)}${KR(`Oxirgi 7 kun${foiz == null ? "" : ` <span style="color:${foiz >= 0 ? "#2e9b4f" : "#d33"}">${foiz >= 0 ? "↗" : "↘"} ${Math.abs(foiz)}%</span>`}`, "🗓️ " + dk(h7))}</div>
