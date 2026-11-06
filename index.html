@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v233";
+const VERSION = "v234";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -25572,7 +25572,36 @@ function videoDars(i) {
     <p class="ar" style="text-align:center;font-size:20px">${izoh}</p>
     <button class="main" id="vTayyor">Ko'rdim ✓</button>`;
   $.querySelector(".back").onclick = () => render();
-  $.querySelector("#vTayyor").onclick = () => { store.set(`bolim1-1-${i}`, true); render(); };
+  $.querySelector("#vTayyor").onclick = () => NAHV_TEST[i] ? nahvTest(i) : (store.set(`bolim1-1-${i}`, true), render());
+}
+// 2026-11-06: video darslardan keyingi test — [savol, to'g'ri, [noto'g'rilar]]; 70% dan yuqori — dars o'tildi
+const NAHV_TEST = [
+  [["طَالِبٌ so'zining muannasi qaysi?", "طَالِبَةٌ", ["طُلَّابٌ", "طَالِبَانِ", "طَالِبُونَ"]], ["Qaysi so'z muannas?", "مُدَرِّسَةٌ", ["كِتَابٌ", "قَلَمٌ", "بَابٌ"]], ["Muannasning eng ko'p uchraydigan belgisi?", "ة", ["ي", "و", "ن"]], ["مُهَنْدِسٌ → ayol muhandis?", "مُهَنْدِسَةٌ", ["مُهَنْدِسُونَ", "مُهَنْدِسَانِ", "مُهَنْدِسِي"]], ["بِنْتٌ qaysi jinsda?", "Muannas", ["Muzakkar"]]],
+  [["مِصْرُ → misrlik (erkak)?", "مِصْرِيٌّ", ["مِصْرِيَّةٌ", "مِصْرُونَ", "مِصْرَةٌ"]], ["لُبْنَانُ → livanlik (ayol)?", "لُبْنَانِيَّةٌ", ["لُبْنَانِيٌّ", "لُبْنَانَةٌ", "لُبْنَانُونَ"]], ["Nisba yosi qanday qo'shiladi?", "ـِيٌّ", ["ـَةٌ", "ـُونَ", "ـَانِ"]], ["«Men misrlik ayolman»", "أَنَا مِصْرِيَّةٌ", ["أَنَا مِصْرِيٌّ", "هُوَ مِصْرِيٌّ", "هِيَ مِصْرُ"]], ["أُوزْبَكِسْتَانُ → o'zbekistonlik (erkak)?", "أُوزْبَكِسْتَانِيٌّ", ["أُوزْبَكِسْتَانَةٌ", "أُوزْبَكِسْتَانُونَ", "أُوزْبَكِيَّةٌ"]]],
+  [["«Men»", "أَنَا", ["أَنْتَ", "هُوَ", "نَحْنُ"]], ["«Sen» (ayolga)", "أَنْتِ", ["أَنْتَ", "هِيَ", "أَنَا"]], ["«U» (erkak)", "هُوَ", ["هِيَ", "أَنْتَ", "هُمْ"]], ["«Biz»", "نَحْنُ", ["أَنْتُمْ", "هُمْ", "أَنَا"]], ["___ طَالِبَةٌ (U — ayol)", "هِيَ", ["هُوَ", "أَنْتَ", "أَنَا"]]],
+  [["«Mening kitobim»", "كِتَابِي", ["كِتَابُكَ", "كِتَابُهُ", "كِتَابُهَا"]], ["«Sening kitobing» (ayolga)", "كِتَابُكِ", ["كِتَابُكَ", "كِتَابِي", "كِتَابُهَا"]], ["«Uning kitobi» (erkak)", "كِتَابُهُ", ["كِتَابُهَا", "كِتَابُكَ", "كِتَابِي"]], ["«Uning qalami» (ayol)", "قَلَمُهَا", ["قَلَمُهُ", "قَلَمِي", "قَلَمُكَ"]], ["بَيْتُكَ ma'nosi?", "Sening (erkak) uying", ["Mening uyim", "Uning uyi", "Sening (ayol) uying"]]],
+];
+function nahvTest(i, q = 0, ball = 0) {
+  const T = NAHV_TEST[i];
+  if (q >= T.length) {
+    const ok = ball / T.length >= .7; if (ok) store.set(`bolim1-1-${i}`, true);
+    sendResult({ lesson: `NAHV ${i + 1}: ${VIDEO_DARSLAR[i][1]}`, score: `${ball}/${T.length}`, xp: "" });
+    $.innerHTML = `<h2>${ok ? "🎉 Barakalla!" : "Yana bir urinib ko'ring"}</h2><p style="text-align:center;font-size:20px">${ball} / ${T.length} to'g'ri</p>
+      <button class="main" id="nt">${ok ? "Davom etish ➜" : "Videoni qayta ko'rish"}</button>${ok ? "" : `<button class="o" id="nq" style="display:block;margin:10px auto">Testni qayta topshirish</button>`}`;
+    $.querySelector("#nt").onclick = () => ok ? render() : videoDars(i);
+    const nq = $.querySelector("#nq"); if (nq) nq.onclick = () => nahvTest(i);
+    return;
+  }
+  const [s, to, xa] = T[q], { o, a } = opt(to, xa, q + i);
+  $.innerHTML = `<button class="back"><span>‹</span> ${VIDEO_DARSLAR[i][1]}</button><p style="color:#777;margin:4px 0">Test · ${q + 1} / ${T.length}</p><h2 style="font-size:20px">${s}</h2>
+    <div style="display:grid;gap:10px">${o.map((x, k) => `<button class="o${/[؀-ۿ]/.test(x) ? " ar" : ""}" data-k="${k}" style="font-size:${/[؀-ۿ]/.test(x) ? 24 : 17}px">${x}</button>`).join("")}</div>`;
+  $.querySelector(".back").onclick = () => videoDars(i);
+  $.querySelectorAll("[data-k]").forEach(b => b.onclick = () => {
+    const k = +b.dataset.k, yes = k === a;
+    $.querySelectorAll("[data-k]").forEach(x => { x.disabled = true; if (+x.dataset.k === a) x.style.background = "#c8f0d0"; });
+    if (!yes) b.style.background = "#f6c9c9";
+    setTimeout(() => nahvTest(i, q + 1, ball + (yes ? 1 : 0)), 900);
+  });
 }
 function husnixatScreen() {
   $.innerHTML = `<button class="back"><span>‹</span> Boshlang'ich</button><h2>✍️ Husnixat</h2>
