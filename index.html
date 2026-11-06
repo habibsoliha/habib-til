@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v232";
+const VERSION = "v233";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -24015,9 +24015,9 @@ const bolimMavzu = (b, lv) => (({ 1: NAHV_LV, 2: INSHO_LV, 3: LUGAT_LV, 4: TARKI
 // --- Ustoz-personajlar (Habib Academy ustozlari): o'quvchi ustozni o'zi tanlaydi; ustoz o'z darajasidan boshlab ochiladi.
 // Dars yo'lida tanlangan ustoz o'quvchi darsi yonida turadi, keyingi darsga yurib boradi, nasihat aytadi. Suratlar — Ilova loyihasi\ustozlar\
 // [ism, jins, kiyim rangi, bosh kiyim rangi, ochiladigan daraja (DARAJALAR indeksi), sprite fayli img/ustoz/<id>s.png]
-const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 1, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 1, "2"],
-  ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 1, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 1, "muslima"],
-  ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 1, "sabrina"], ["Ustoz Asadulloh Abdulazizov","m", "#6b6b6b", "#1a1a1a", 1, "abduqodir"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 2, "shodiya"],
+const USTOZLAR = [["Ustoz Abbosbek Mamurov", "m", "#2b2b2b", "#1a1a1a", 0, "1"], ["Ustoza Mahbuba Qutbitdinova", "f", "#6b6b3a", "#55552c", 0, "2"],
+  ["Ustoz Mirilyos Miryunusov", "m", "#2c3e5c", "#1b2738", 0, "mirilyos"], ["Ustoza Muslima Muhiddinova", "f", "#1f5a3a", "#f3ead6", 0, "muslima"],
+  ["Ustoza Sabrina Salimova", "f", "#4a2a2a", "#9db38a", 1, "sabrina"], ["Ustoz Asadulloh Abdulazizov","m", "#6b6b6b", "#1a1a1a", 0, "abduqodir"], ["Ustoza Shodiya Sultonova", "f", "#6b6b6b", "#f2f2f2", 2, "shodiya"],
   ["Valid ag'a", "m", "#3a3a3a", "#222", 4, "4"], ["Ustoz Habibulloh Ahmadov", "m", "#2c3e5c", "#1b2738", 5, "5"],
   // 2026-11-06 qo'shildi (oxiriga — saqlangan "ustoz" indekslari siljimasin)
   ["Ustoza Muslima Nuriddinova", "f", "#1a1a1a", "#efe6d2", 1, "nuriddinova"], ["Ustoza Zebo", "f", "#1a1a1a", "#f7f7f7", 2, "zebo"], ["Ustoza Humora", "f", "#f4f1ea", "#ffffff", 0, "humora"]];
