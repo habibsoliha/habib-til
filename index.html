@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v235";
+const VERSION = "v236";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -25563,6 +25563,11 @@ var VIDEO_DARSLAR = [
   ["aUCfTMbU28I", "Ya an-nisba (-lik qo'shimchasi)", "مِصْرُ ← مِصْرِيٌّ · مِصْرِيَّةٌ", "3:36"],
   ["B4yJOib1U04", "Kishilik olmoshlari", "أَنَا · أَنْتَ / أَنْتِ · هُوَ / هِيَ", "4:08"],
   ["rSS5fqo-x7g", "Egalik qo'shimchalari", "كِتَابِي · كِتَابُكَ / كِتَابُكِ · كِتَابُهُ / كِتَابُهَا", "3:56"],
+  // 2026-11-10 montajor: NAHV_LV tartibida (5 ishora, 6 tuslanish, 7 ko'plik, 8 muannas ko'plik)
+  ["ow3T1tL5Huo", "Ko'rsatish olmoshlari", "هَذَا · هَذِهِ · ذَلِكَ · تِلْكَ", ""],
+  ["DgyJOqc9-sg", "Fe'llarning tuslanishi", "يَسْكُنُ · تَسْكُنُ · تَسْكُنِينَ · أَسْكُنُ · نَسْكُنُ", ""],
+  ["sEHHGwlE3WQ", "Ko'plik (al-jam')", "كِتَابٌ ← كُتُبٌ · طَالِبٌ ← طُلَّابٌ · أُسْتَاذٌ ← أَسَاتِذَةٌ", ""],
+  ["b2rVoyGLa9c", "Muannas solim ko'plik", "طَالِبَةٌ ← طَالِبَاتٌ · مُعَلِّمَةٌ ← مُعَلِّمَاتٌ", ""],
 ];
 // A1 nahv yo'nalishidagi j-mavzu videosi; ko'rilgach mavzu o'tilgan hisoblanadi (keyingisi ochiladi)
 function videoDars(i) {
