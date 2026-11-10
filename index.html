@@ -925,7 +925,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v234";
+const VERSION = "v235";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -25580,6 +25580,11 @@ const NAHV_TEST = [
   [["مِصْرُ → misrlik (erkak)?", "مِصْرِيٌّ", ["مِصْرِيَّةٌ", "مِصْرُونَ", "مِصْرَةٌ"]], ["لُبْنَانُ → livanlik (ayol)?", "لُبْنَانِيَّةٌ", ["لُبْنَانِيٌّ", "لُبْنَانَةٌ", "لُبْنَانُونَ"]], ["Nisba yosi qanday qo'shiladi?", "ـِيٌّ", ["ـَةٌ", "ـُونَ", "ـَانِ"]], ["«Men misrlik ayolman»", "أَنَا مِصْرِيَّةٌ", ["أَنَا مِصْرِيٌّ", "هُوَ مِصْرِيٌّ", "هِيَ مِصْرُ"]], ["أُوزْبَكِسْتَانُ → o'zbekistonlik (erkak)?", "أُوزْبَكِسْتَانِيٌّ", ["أُوزْبَكِسْتَانَةٌ", "أُوزْبَكِسْتَانُونَ", "أُوزْبَكِيَّةٌ"]]],
   [["«Men»", "أَنَا", ["أَنْتَ", "هُوَ", "نَحْنُ"]], ["«Sen» (ayolga)", "أَنْتِ", ["أَنْتَ", "هِيَ", "أَنَا"]], ["«U» (erkak)", "هُوَ", ["هِيَ", "أَنْتَ", "هُمْ"]], ["«Biz»", "نَحْنُ", ["أَنْتُمْ", "هُمْ", "أَنَا"]], ["___ طَالِبَةٌ (U — ayol)", "هِيَ", ["هُوَ", "أَنْتَ", "أَنَا"]]],
   [["«Mening kitobim»", "كِتَابِي", ["كِتَابُكَ", "كِتَابُهُ", "كِتَابُهَا"]], ["«Sening kitobing» (ayolga)", "كِتَابُكِ", ["كِتَابُكَ", "كِتَابِي", "كِتَابُهَا"]], ["«Uning kitobi» (erkak)", "كِتَابُهُ", ["كِتَابُهَا", "كِتَابُكَ", "كِتَابِي"]], ["«Uning qalami» (ayol)", "قَلَمُهَا", ["قَلَمُهُ", "قَلَمِي", "قَلَمُكَ"]], ["بَيْتُكَ ma'nosi?", "Sening (erkak) uying", ["Mening uyim", "Uning uyi", "Sening (ayol) uying"]]],
+  // 5–8-darslar (2026-11-10, montaj transkriptlaridan): ko'rsatish olmoshlari, fe'l tuslanishi, ko'plik, muannas solim ko'plik
+  [["«Bu» (erkakka, yaqin)", "هَذَا", ["هَذِهِ", "ذَلِكَ", "تِلْكَ"]], ["«Bu» (ayolga, yaqin)", "هَذِهِ", ["هَذَا", "تِلْكَ", "ذَلِكَ"]], ["«Anavi» (erkakka, uzoq)", "ذَلِكَ", ["تِلْكَ", "هَذَا", "هَذِهِ"]], ["«Anavi» (ayolga, uzoq)", "تِلْكَ", ["ذَلِكَ", "هَذِهِ", "هَذَا"]], ["___ طَالِبَةٌ (Bu — talaba qiz)", "هَذِهِ", ["هَذَا", "ذَلِكَ", "أَنَا"]]],
+  [["«U (erkak) yashayapti»", "يَسْكُنُ", ["تَسْكُنُ", "أَسْكُنُ", "نَسْكُنُ"]], ["«Sen (ayol) yashayapsan»", "تَسْكُنِينَ", ["تَسْكُنُ", "يَسْكُنُ", "أَسْكُنُ"]], ["«Men gapiryapman»", "أَتَكَلَّمُ", ["نَتَكَلَّمُ", "يَتَكَلَّمُ", "تَتَكَلَّمِينَ"]], ["«Biz yashayapmiz»", "نَعِيشُ", ["أَعِيشُ", "تَعِيشُ", "يَعِيشُ"]], ["Fe'l boshidagi qaysi harf «men»ni bildiradi?", "أ", ["ن", "ي", "ت"]]],
+  [["كِتَابٌ ning ko'pligi?", "كُتُبٌ", ["كِتَابَاتٌ", "أَكْتَابٌ", "كِتَابُونَ"]], ["قَلَمٌ ning ko'pligi?", "أَقْلَامٌ", ["قَلَمَاتٌ", "قُلُومٌ", "قَلَمُونَ"]], ["طَالِبٌ ning ko'pligi?", "طُلَّابٌ", ["طَالِبَةٌ", "طَوَالِبُ", "طَالِبَانِ"]], ["أُسْتَاذٌ ning ko'pligi?", "أَسَاتِذَةٌ", ["أُسْتَاذَةٌ", "أُسْتَاذَاتٌ", "أَسَاتِيذُ"]], ["Birlik va ko'plik haqida to'g'ri gap?", "Asosiy harflari bir xil bo'ladi", ["Harflari butunlay boshqa bo'ladi", "Doim «-lar» qo'shiladi", "Ko'plik faqat fe'lda bo'ladi"]]],
+  [["طَالِبَةٌ → ayollar ko'pligi?", "طَالِبَاتٌ", ["طُلَّابٌ", "طَالِبُونَ", "طَالِبَتَانِ"]], ["مُعَلِّمَةٌ → ko'pligi?", "مُعَلِّمَاتٌ", ["مُعَلِّمُونَ", "مُعَلِّمٌ", "مَعَالِمُ"]], ["سَيَّارَةٌ → ko'pligi?", "سَيَّارَاتٌ", ["سَيَّارُونَ", "سَيَّارٌ", "سَيَّارَتَانِ"]], ["Muannas solim ko'plik qanday yasaladi?", "ة olib tashlanib, ات qo'shiladi", ["ة ga ون qo'shiladi", "Oxiriga ي qo'shiladi", "Boshiga ال qo'shiladi"]], ["Qaysi so'z muannas ko'plik?", "مُدَرِّسَاتٌ", ["مُدَرِّسُونَ", "مُدَرِّسَةٌ", "مُدَرِّسٌ"]]],
 ];
 function nahvTest(i, q = 0, ball = 0) {
   const T = NAHV_TEST[i];
