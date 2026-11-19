@@ -985,7 +985,6 @@ const AUDIO = {
 // 2026-11-06: h4..h25 yozuvlari bir dars siljigan (6-dars Lam faylida 7-dars Jim so'zi "jabal") — n-dars so'zlari h(n-1) da; 4-dars — sintez; 27 — yangi yozuv
 PROGRAMMA.forEach(([n, c]) => { AUDIO[HARF[c][3]] = `h${n}-1`; AUDIO[HARF[c][4]] = `h${n}-2`; });  // 2026-11-06: Whisper bilan tekshirildi — yozuvlar o'z darsida
 // noto'g'ri so'z yozilgan fayllar — kompyuter ovozi: h6-2 (نمل o'rniga جبل), h25 (بعد/عدد emas), h26 (طبق/مطر emas)
-["نَمْلُ","كَذَبَ","فَصْلُ","بَعْدَ","عَدَدْ","طَبَقْ","مَطَرَ"].forEach(w => delete AUDIO[w]);
 // hijolar (4–27-darslar harflari × fatha/kasra/damma): audio/hj<tartib><a|i|u>.m4a; qoida darslari so'zlari: audio/q<1..19>.m4a
 PROGRAMMA.forEach(([, c], k) => ["َ", "ِ", "ُ"].forEach((h, j) => { AUDIO[c + h] = `hj${k + 1}${"aiu"[j]}`; }));
 ["بَا","نُو","رَبَّ","أُمُّ","بَيْتٌ","جَنَّةٌ","سَأَلَ","أَحَدْ","الْكِتَابُ","كُنْتُمْ","كِتَابٌ","مَسْجِدٌ","قَلَمٌ","صَبْرٌ","عِلْمٌ","طَيْرٌ","ظِلٌّ","حَجَرٌ","أَرْضٌ"].forEach((w, k) => { AUDIO[w] = `q${k + 1}`; });
