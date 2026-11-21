@@ -932,7 +932,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v245";
+const VERSION = "v246";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -3468,7 +3468,7 @@ const imtihonTugma = (lv, b) => (r => `<button class="main" id="imt" style="marg
 let bolim = null;
 // Nahv va insho mavzulari — metodistning "Ustozlar o'quv dasturi" (artifact, 2026-10-31 oxirgi nusxa)
 const NAHV_LV = { 1: [["المذكر والمؤنث","Muzakkar va muannas"],["ياء النسبة","Nisba yosi"],["الضمائر المنفصلة","Alohida olmoshlar"],["الضمائر المتصلة","Qo'shimcha olmoshlar"],["أسماء الإشارة","Ko'rsatish olmoshlari"],["تصريف الأفعال","5 ta fe'lning tuslanishi"],["الجمع","Ko'plik"],["جمع المؤنث السالم","Muannas to'g'ri ko'plik"],["جمع المذكر السالم","Muzakkar to'g'ri ko'plik"],["المثنى","Ikkilik"],["النكرة والمعرفة","Noaniq va aniq ot"],["الإضافة","Izofa"],["أنواع الإضافة","Izofa turlari"],["أنواع الجملة","Gap turlari"],["المبتدأ والخبر","Mubtado va xabar"],["ليس في الجملة","Gapda ليس"],["الفعل والفاعل","Fe'l va foil"],["الفاعل","Foil"],["الأعداد الترتيبية","Tartib sonlar"],["حروف الجر","Jor harflari"],["حروف العطف (و، فـ، ثم)","Bog'lovchi harflar"],["الأعداد (٢٠–٩٠)","Sanoq sonlar 20–90"],["أدوات الاستفهام (ما، من، هل)","So'roq so'zlari"],["العدد والمعدود (٣–١٠)","3–10 sonlari va sanalmish"],["الصفة والموصوف","Sifat va sifatlanmish"],["فعل الأمر من المضارع","Muzoredan buyruq fe'li"],["الفعل الماضي","O'tgan zamon fe'li"],["أنْ + المضارع (أريد أن، يجب أن)","«أنْ» + hozirgi zamon fe'li"],["لا النافية والناهية","لا bilan inkor va taqiq"],["المضارع والمستقبل","Hozirgi va kelasi zamon"],["لكنّ","لكنّ bog'lovchisi"],["إسناد المضارع إلى الضمائر","Ko'plikda tuslash (هم)"],["الألوان","Ranglar (muzakkar va muannas)"]], 2: [["التاء المربوطة والمبسوطة",""],["الأداة «لأنّ»",""],["الوصف",""],["إسناد المضارع للضمائر",""],["اسم التفضيل",""],["الماضي المستمر (كان + مضارع)",""],["صيغة التفضيل (مِن + أفعل)",""],["حروف الجر مع «ال»",""],["الجموع",""],["الاسم الموصول",""],["أداة الربط «لِـ»",""],["إسناد الفعل الماضي",""],["النفي بـ«ما» و«لا»",""],["الأعداد الترتيبية",""],["الصفة والموصوف",""],["الظرف «مُنذُ»",""],["النفي بـ«لن»",""],["أسلوب التفضيل «أفعل مِن»",""],["فعل الأمر",""],["«يجب عليك أن»",""],["النفي بـ«لم»",""],["تركيب «مليء بـ»",""],["«قبل، بعد» مع «أن»",""],["تركيب «تختلف باختلاف»",""],["النفي بـ«ليس»",""],["الفعل «أصبح»",""],["الظرف «عندما»",""],["أداة الشرط «إذا»",""],["ليس ... ولكن",""],["الظرفان «منذ، قبل»",""],["«أُفضِّل ... على»",""],["ظروف المكان (فوق، تحت، أمام ...)",""],["«ليس» مع الضمائر",""],["«أ ... أم ...؟»",""],["«مصنوع من»",""],["«مزوّد بـ»",""],["«أليس كذلك؟»",""],["«أمّا ... فـ»",""],["لا الناهية",""],["«مسؤول عن»",""],["«هل هذه أوّل مرّة؟»",""],["«عليك أن / لا تنسَ أن»",""],["«يُفضَّل أن»",""],["«ليس له ... ولا»",""],["«من الآن»",""],["«دعنا» + المضارع",""],["«لكنْ»",""],["«في آنٍ واحد»",""]], 3: [["أنواع الفعل الصحيح",""],["مفهوم الجذر، أوزان الفعل الثلاثي",""],["الهمزة المتطرفة",""],["الفعل المعتل",""],["اسم الفاعل واسم المفعول من الثلاثي",""],["حروف تُلفظ ولا تُكتب",""],["حالات الخبر في الجملة الاسمية",""],["الوزنان فعّل وفاعل",""],["توسيع الجمل",""],["الهمزة المتوسطة",""],["الأحرف المشبهة بالفعل",""],["الوزنان أفعل وتفعّل",""],["روابط التعليل",""],["حالات استثنائية في الهمزة المتوسطة",""],["الأفعال الناقصة (كان وأخواتها)",""],["الوزنان انفعل وتفاعل",""],["أدوات المقارنة",""],["الألف اللينة المتطرفة في الأفعال",""],["الأفعال الخمسة",""],["الوزنان افتعل واستفعل",""],["الألف اللينة المتطرفة في الأسماء",""],["نصب الفعل المضارع",""],["المصدر المؤوّل",""],["الوزن فعلل",""],["روابط التوكيد",""],["الفرق بين النون والتنوين",""],["جزم الفعل المضارع",""],["الوزنان افعلّ ويفعلّ",""],["اسما الزمان والمكان",""],["حذف الألف من أسماء الاستفهام",""],["الفعل الثلاثي المبني للمجهول",""],["أوزان الثلاثي الصحيح والمزيد",""],["همزتا الوصل والقطع",""],["الفعل المعتل الثلاثي المبني للمجهول",""],["اسم الآلة",""],["الهمزة الممدودة في أول الكلمة ووسطها",""]] };
-const INSHO_ALL = [["A1 · Shaxsiy ma'lumotlar anketasi",""],["A1 · Mashhur shaxs haqida",""],["A1 · Bir kishining kasbi haqida",""],["A1 · O'quv rejasini tuzish",""],["A1 · O'qishim haqida",""],["A1 · Uchrashuvlar jadvali",""],["A1 · Yurtingizdagi transport haqida",""],["A1 · Oilam haqida",""],["A1 · Do'stimni tasvirlash",""],["A1 · Uyim haqida",""],["A1 · Bir joyni tasvirlash",""],["A1 · Bir kishining yomon odatlari haqida",""],["A1 · Savol-javob yozish",""],["A1 · Kundalik daftar",""],["A1 · Kundalik ishlarim haqida",""],["A1 · Kiyimlarni tasvirlash",""],["A1 · Bir kishini tasvirlash",""],["A2 · Odamlarning turmush tarzi",""],["A2 · Ertangi ob-havo haqida",""],["A2 · Shahrim (joylashuvi va ob-havosi)",""],["A2 · Yurtimdagi tarixiy joylar",""],["A2 · Sevimli mashg'ulotlarim",""],["A2 · Bozorni tasvirlash",""],["A2 · Seyyor sotuvchilar va do'konlar",""],["A2 · Yashash joyimni tasvirlash",""],["A2 · Qishloq va shahar: solishtirish",""],["A2 · Bo'sh vaqtim",""],["A2 · Ovqatlanish tartibim",""]];
+const INSHO_ALL = [["A1 · Shaxsiy ma'lumotlar anketasi",""],["A1 · Mashhur shaxs haqida",""],["A1 · Bir kishining kasbi haqida",""],["A1 · O'quv rejasini tuzish",""],["A1 · O'qishim haqida",""],["A1 · Uchrashuvlar jadvali",""],["A1 · Yurtingizdagi transport haqida",""],["A1 · Oilam haqida",""],["A1 · Katta oilam (qarindoshlarim)",""],["A1 · Arab oilasi",""],["A1 · Do'stimni tasvirlash",""],["A1 · Uyim haqida",""],["A1 · Xonamni tasvirlash",""],["A1 · An'anaviy o'zbek uyi",""],["A1 · Do'stga maktub: mahallam va atrofim",""],["A1 · Kundalik ishlarim haqida",""],["A1 · Bir kishining yomon odatlari haqida",""],["A1 · Istibona: kundalik odatlarim",""],["A1 · Kundalik daftar: ertaga nima qilaman?",""],["A1 · Ramazon dasturxoni",""],["A1 · O'zbeklarning ovqatlanish odatlari",""],["A1 · Kiyimlarni tasvirlash",""],["A1 · Bir kishini tasvirlash",""],["A2 · Odamlarning turmush tarzi",""],["A2 · Ertangi ob-havo haqida",""],["A2 · Shahrim (joylashuvi va ob-havosi)",""],["A2 · Yurtimdagi tarixiy joylar",""],["A2 · Sevimli mashg'ulotlarim",""],["A2 · Bozorni tasvirlash",""],["A2 · Seyyor sotuvchilar va do'konlar",""],["A2 · Yashash joyimni tasvirlash",""],["A2 · Qishloq va shahar: solishtirish",""],["A2 · Bo'sh vaqtim",""],["A2 · Ovqatlanish tartibim",""]];
 const INSHO_LV = { 1: INSHO_ALL.filter(x => x[0].startsWith('A1')), 2: INSHO_ALL.filter(x => x[0].startsWith('A2')), 3: [["B1 · Tarjimai hol: muvaffaqiyatga erishgan shaxs haqida",""],["B1 · Kundalik: bir haftalik ish hayotim",""],["B1 · Jumlalarni kengaytirish: muqobil tibbiyot",""],["B1 · Sabab va oqibat: urf-odatlar nega saqlanadi",""],["B1 · Solishtirish: shahar kecha va bugun",""],["B1 · Matnni qisqartirish: hayotimizni o'zgartirgan ixtirolar",""],["B1 · Dalilli insho: zamonaviy oilada munosabatlar",""],["B1 · Qayta ifodalash: o'qishdan keyin nima qilish kerak",""],["B1 · Mehmondorchilik odobi haqida",""],["B1 · Xotiralar: o'tmishdagi bir kunim",""]] };
 // Nahv mavzusi o'tilganda ochiladigan "kuch": o'quvchi endi nimani qila oladi (bolimMavzu(1, lv) tartibida)
 const NAHV_KUCH = {
@@ -25420,6 +25420,7 @@ function bolimScreen() {
     if (bolim === 3) return lugatDars(level, +b.dataset.j);
     if (bolim === 5) return DIALOG[level] && DIALOG[level][+b.dataset.j] ? lingDars(level, +b.dataset.j) : muhodasaDars(level, +b.dataset.j);
     if (bolim === 4) return tarkibDars(level, +b.dataset.j);
+    if (bolim === 2 && INSHO_DARS[level] && INSHO_DARS[level][+b.dataset.j]) return inshoDars(level, +b.dataset.j);
     if (bolim === 1 && level === 1 && VIDEO_DARSLAR[+b.dataset.j]) return videoDars(+b.dataset.j);  // A1 nahv: montajor videolari mavzu tartibida
     const f = document.createElement("div"); f.className = "fb ok";
     const kk = bolim === 1 && NAHV_KUCH[level] && NAHV_KUCH[level][+b.dataset.j];
@@ -25644,6 +25645,776 @@ function lingDars(lv, j) {
     $.querySelector("#nx").onclick = yopish; $.querySelector("#yb").onclick = () => lingDars(lv, j);
   };
   tingla();
+}
+// 2026-11-21: Insho darslari (rahbar bilan kelishilgan qolip): 1) so'zlar 2) to'g'ri shaklni tanlash 3) gap yig'ish 4) anketa 5) yakuniy insho
+// soz: [arabcha, o'zbekcha, namuna]; tanla: [savol, to'g'ri, [noto'g'rilar], izoh]; gap: [o'zbekcha, [arabcha so'zlar tartibda], [chalg'ituvchi]];
+// qolip: yakuniy matn uchun yordamchi gaplar; reja: o'quvchi tekshiradigan ro'yxat
+const INSHO_DARS = { 1: { 0: {
+  nom: "اِسْتِمارَةُ البَياناتِ الشَّخْصِيَّةِ",
+  soz: [["الاِسْمُ", "Ism", "أَحْمَدُ"], ["اسْمُ العائِلَةِ", "Familiya", "كَريموف"], ["العُمْرُ", "Yosh", "عِشْرونَ سَنَةً"], ["الجِنْسِيَّةُ", "Millat", "أوزْبَكِيٌّ"],
+    ["البَلَدُ", "Mamlakat", "أوزْبَكِسْتانُ"], ["المَدينَةُ", "Shahar", "طَشْقَنْدُ"], ["العُنْوانُ", "Manzil", "شارِعُ نَوائي"], ["رَقْمُ الهاتِفِ", "Telefon raqami", "٩٠ ١٢٣ ٤٥ ٦٧"],
+    ["المِهْنَةُ", "Kasb", "طالِبٌ"], ["اللُّغاتُ", "Tillar", "العَرَبِيَّةُ"], ["الهِوايَةُ", "Qiziqish (hobbi)", "القِراءَةُ"]],
+  tanla: [["«Men o'zbekistonlik qizman»", "أَنا أوزْبَكِيَّةٌ", ["أَنا أوزْبَكِيٌّ", "هِيَ أوزْبَكِيٌّ", "أَنا أوزْبَكِسْتانُ"], "Qiz o'zi haqida yozsa, nisba ـيَّةٌ bilan: أوزْبَكِيَّةٌ"],
+    ["«Mening ismim Ahmad»", "اِسْمي أَحْمَدُ", ["اسْمُ أَنا أَحْمَدُ", "اِسْمُكَ أَحْمَدُ", "أَنا اسْمٌ أَحْمَدُ"], "«Mening ismim» — اِسْمي (ism + ي)"],
+    ["«Men Toshkentda yashayman»", "أَسْكُنُ في طَشْقَنْدَ", ["أَسْكُنُ طَشْقَنْدَ", "سَكَنْتُ طَشْقَنْدَ", "أَنا طَشْقَنْدُ"], "Joydan oldin في keladi"],
+    ["«Yoshim yigirmada»", "عُمْري عِشْرونَ سَنَةً", ["أَنا عُمْري عِشْرونَ", "عُمْرُكَ عِشْرونَ سَنَةً", "عِشْرونَ عُمْري"], "عُمْري + son + سَنَةً"],
+    ["«Men talaba qizman»", "أَنا طالِبَةٌ", ["أَنا طالِبٌ", "أَنْتِ طالِبَةٌ", "هُوَ طالِبٌ"], "Qiz uchun kasbga ة qo'shiladi: طالِبَةٌ، مُهَنْدِسَةٌ"],
+    ["«Men arabcha gapiraman»", "أَتَكَلَّمُ العَرَبِيَّةَ", ["يَتَكَلَّمُ العَرَبِيَّةَ", "أَتَكَلَّمُ عَرَبِيٌّ", "تَكَلَّمْ العَرَبِيَّةَ"], "Men — أَ bilan: أَتَكَلَّمُ"]],
+  gap: [["Mening ismim Ahmad.", ["اِسْمي", "أَحْمَدُ."], ["اِسْمُكَ", "أَنا"]],
+    ["Yoshim yigirma.", ["عُمْري", "عِشْرونَ", "سَنَةً."], ["سَنَواتٌ", "عُمْرُكَ"]],
+    ["Men O'zbekistondanman.", ["أَنا", "مِنْ", "أوزْبَكِسْتانَ."], ["في", "هُوَ"]],
+    ["Men Toshkentda yashayman.", ["أَسْكُنُ", "في", "طَشْقَنْدَ."], ["مِنْ", "يَسْكُنُ"]],
+    ["Men kitob o'qishni yaxshi ko'raman.", ["أُحِبُّ", "القِراءَةَ."], ["الكِتابُ", "تُحِبُّ"]]],
+  anketa: [["الاِسْمُ", "Ismingiz"], ["العُمْرُ", "Yoshingiz (masalan: عشرون سنة)"], ["الجِنْسِيَّةُ", "أوزبكيّ / أوزبكيّة"], ["المَدينَةُ", "Shahringiz"], ["المِهْنَةُ", "طالب / مهندس / معلّم…"], ["اللُّغاتُ", "Qaysi tillarda gapirasiz"], ["الهِوايَةُ", "Qiziqishingiz"]],
+  qolip: ["اِسْمي …", "عُمْري … سَنَةً.", "أَنا مِنْ …", "أَسْكُنُ في …", "أَنا … (kasb)", "أَتَكَلَّمُ …", "أُحِبُّ …"],
+  namuna: [["اِسْمي أَحْمَدُ كَريموف.", "Mening ismim Ahmad Karimov."], ["عُمْري عِشْرونَ سَنَةً.", "Yoshim yigirmada."], ["أَنا مِنْ أوزْبَكِسْتانَ، أَنا أوزْبَكِيٌّ.", "Men O'zbekistondanman, men o'zbekman."],
+    ["أَسْكُنُ في طَشْقَنْدَ.", "Men Toshkentda yashayman."], ["أَنا طالِبٌ في الجامِعَةِ.", "Men universitetda talabaman."],
+    ["أَتَكَلَّمُ الأوزْبَكِيَّةَ وَالرّوسِيَّةَ وَقَليلًا مِنَ العَرَبِيَّةِ.", "O'zbekcha, ruscha va ozgina arabcha gapiraman."], ["أُحِبُّ القِراءَةَ.", "Kitob o'qishni yaxshi ko'raman."]],
+  reja: ["Ismingizni yozdingizmi? (اِسْمي)", "Yoshingizni yozdingizmi? (عُمْري)", "Qayerdan ekaningizni yozdingizmi? (أَنا مِنْ)", "Qayerda yashashingizni yozdingizmi? (أَسْكُنُ في)", "Kasbingizni yozdingizmi?", "Tillar va qiziqishingizni yozdingizmi?"]
+}, 1: {
+  nom: "شَخْصِيَّةٌ مَشْهورَةٌ",
+  anketaIzoh: "Bitta mashhur odamni tanlang va u haqida faqat arabcha yozing.",
+  soz: [["شَخْصِيَّةٌ مَشْهورَةٌ", "Mashhur shaxs", "ابْنُ سينا"], ["اِسْمُهُ", "Uning (erkak) ismi", "اِسْمُهُ ابْنُ سينا"], ["اِسْمُها", "Uning (ayol) ismi", "اِسْمُها فاطِمَةُ"],
+    ["وُلِدَ في", "…da tug'ilgan", "وُلِدَ في بُخارى"], ["يَسْكُنُ", "Yashaydi", "يَسْكُنُ في طَشْقَنْدَ"], ["يَعْمَلُ", "Ishlaydi", "يَعْمَلُ في المُسْتَشْفى"], ["مَشْهورٌ بِـ", "…bilan mashhur", "مَشْهورٌ بِكِتابِهِ"], ["النّاسُ", "Odamlar", "النّاسُ يَعْرِفونَهُ"], ["العالَمُ", "Dunyo", "في كُلِّ العالَمِ"]],
+  tanla: [["«Uning (erkak) ismi Ibn Sino»", "اِسْمُهُ ابْنُ سينا", ["اِسْمُها ابْنُ سينا", "اِسْمي ابْنُ سينا", "اسْمُ هُوَ ابْنُ سينا"], "Erkak haqida — اِسْمُهُ, ayol haqida — اِسْمُها"],
+    ["«U (ayol) mashhur»", "هِيَ مَشْهورَةٌ", ["هُوَ مَشْهورَةٌ", "هِيَ مَشْهورٌ", "أَنا مَشْهورَةٌ"], "Ayol haqida sifatga ة qo'shiladi"],
+    ["«U (erkak) Buxoroda tug'ilgan»", "وُلِدَ في بُخارى", ["وُلِدَتْ في بُخارى", "وُلِدْتُ في بُخارى", "وُلِدَ بُخارى"], "Erkak — وُلِدَ, ayol — وُلِدَتْ"],
+    ["«U (erkak) Toshkentda yashaydi»", "يَسْكُنُ في طَشْقَنْدَ", ["تَسْكُنُ في طَشْقَنْدَ", "أَسْكُنُ في طَشْقَنْدَ", "يَسْكُنُ طَشْقَنْدَ"], "U (erkak) — يَـ bilan: يَسْكُنُ"],
+    ["«U (ayol) universitetda ishlaydi»", "تَعْمَلُ في الجامِعَةِ", ["يَعْمَلُ في الجامِعَةِ", "أَعْمَلُ في الجامِعَةِ", "تَعْمَلُ الجامِعَةَ"], "U (erkak) — يَعْمَلُ, u (ayol) — تَعْمَلُ"],
+    ["«Men uni (erkak) yaxshi ko'raman»", "أُحِبُّهُ", ["أُحِبُّها", "يُحِبُّهُ", "أُحِبُّكَ"], "Erkak — ـهُ, ayol — ـها"]],
+  gap: [["Uning ismi Ronaldo.", ["اِسْمُهُ", "رونالْدو."], ["اِسْمُها", "هُوَ"]],
+    ["U Saudiyada yashaydi.", ["يَسْكُنُ", "في", "السُّعودِيَّةِ."], ["تَسْكُنُ", "مِنْ"]],
+    ["U Portugaliyada tug'ilgan.", ["وُلِدَ", "في", "البُرْتُغالِ."], ["وُلِدَتْ", "مِنْ"]],
+    ["Men uni juda yaxshi ko'raman.", ["أُحِبُّهُ", "كَثيرًا."], ["أُحِبُّها", "يُحِبُّ"]]],
+  anketa: [["اِسْمُهُ / اِسْمُها", "Shaxsning ismi"], ["مِنْ أَيْنَ؟", "Qaysi mamlakatdan"], ["أَيْنَ وُلِدَ؟", "Qayerda tug'ilgan"], ["ماذا يَعْمَلُ؟", "Nima ish qiladi"], ["مَشْهورٌ بِـ…", "Nima bilan mashhur"]],
+  qolip: ["اِسْمُهُ … / اِسْمُها …", "هُوَ مِنْ … / هِيَ مِنْ …", "وُلِدَ في … / وُلِدَتْ في …", "يَسْكُنُ في … / تَسْكُنُ في …", "يَعْمَلُ … / تَعْمَلُ …", "هُوَ مَشْهورٌ بِـ … / هِيَ مَشْهورَةٌ بِـ …", "النّاسُ يَعْرِفونَهُ / يَعْرِفونَها", "أُحِبُّهُ / أُحِبُّها كَثيرًا."],
+  namuna: [["اِسْمُهُ رونالْدو.", "Uning ismi Ronaldo."], ["هُوَ مِنَ البُرْتُغالِ.", "U Portugaliyadan."], ["وُلِدَ في البُرْتُغالِ.", "U Portugaliyada tug'ilgan."],
+    ["يَسْكُنُ في السُّعودِيَّةِ.", "U Saudiyada yashaydi."], ["يَعْمَلُ في نادي النَّصْرِ.", "U «An-Nasr» klubida ishlaydi."], ["هُوَ مَشْهورٌ في كُلِّ العالَمِ.", "U butun dunyoda mashhur."], ["النّاسُ يُحِبّونَهُ.", "Odamlar uni yaxshi ko'radi."], ["أُحِبُّهُ كَثيرًا.", "Men uni juda yaxshi ko'raman."]],
+  reja: ["Ismini yozdingizmi? (اِسْمُهُ / اِسْمُها)", "Qayerdan ekanini yozdingizmi?", "Qayerda tug'ilganini yozdingizmi? (وُلِدَ في)", "Nima bilan mashhurligini yozdingizmi? (مَشْهورٌ بِـ)", "هُوَ / هِيَ ni to'g'ri ishlatdingizmi?"]
+}, 2: {
+  nom: "مِهْنَةُ شَخْصٍ",
+  anketaIzoh: "Bir tanishingizni (otangiz, onangiz, akangiz, do'stingiz) tanlang va uning ishi haqida faqat arabcha yozing.",
+  gap: [["Otamning ismi Karim.", ["أَبي", "اسْمُهُ", "كَريمٌ."], ["اسْمُها", "أُمّي"]],
+    ["U kasalxonada ishlaydi.", ["يَعْمَلُ", "في", "المُسْتَشْفى."], ["تَعْمَلُ", "مِنْ"]],
+    ["Ishni soat sakkizda boshlaydi.", ["يَبْدَأُ", "العَمَلَ", "في", "السّاعَةِ", "الثّامِنَةِ."], ["يَنْتَهي", "مِنْ"]],
+    ["Haftada besh kun ishlaydi.", ["يَعْمَلُ", "خَمْسَةَ", "أَيّامٍ", "في", "الأُسْبوعِ."], ["خَمْسُ", "يَوْمٌ"]],
+    ["U (ayol) maktabda ishlaydi.", ["تَعْمَلُ", "في", "المَدْرَسَةِ."], ["يَعْمَلُ", "مِنْ"]],
+    ["Dam olish kuni yakshanba.", ["عُطْلَتُهُ", "يَوْمَ", "الأَحَدِ."], ["عَمَلُهُ", "في"]],
+    ["Uning oylik maoshi yaxshi.", ["راتِبُهُ", "الشَّهْرِيُّ", "جَيِّدٌ."], ["راتِبُها", "الشَّهْرِيَّةُ"]]],
+  anketa: [["مَنْ هُوَ؟", "أبي / أمّي / أخي…"], ["اِسْمُهُ / اِسْمُها", "Ismi"], ["المِهْنَةُ", "طبيب / معلّم / مهندس…"], ["أَيْنَ يَعْمَلُ؟", "Ish joyi"], ["مَتى يَبْدَأُ؟ مَتى يَنْتَهي؟", "Masalan: الثامنة – الخامسة"], ["كَمْ يَوْمًا يَعْمَلُ؟", "Masalan: خمسة أيام"], ["مَتى عُطْلَتُهُ؟", "Masalan: السبت والأحد"], ["كَمْ راتِبُهُ الشَّهْرِيُّ؟", "Masalan: خمسة ملايين سوم"]],
+  qolip: ["أَبي / أُمّي / أَخي اسْمُهُ … / اسْمُها …", "هُوَ … / هِيَ … (kasb)", "يَعْمَلُ في … / تَعْمَلُ في …", "يَبْدَأُ العَمَلَ في السّاعَةِ …", "يَنْتَهي في السّاعَةِ …", "يَعْمَلُ … أَيّامٍ في الأُسْبوعِ.", "عُطْلَتُهُ يَوْمَ … / عُطْلَتُها يَوْمَ …", "راتِبُهُ الشَّهْرِيُّ … / راتِبُها الشَّهْرِيُّ …", "يُحِبُّ عَمَلَهُ / تُحِبُّ عَمَلَها."],
+  namuna: [["أَبي اسْمُهُ كَريمٌ.", "Otamning ismi Karim."], ["هُوَ طَبيبٌ.", "U shifokor."], ["يَعْمَلُ في المُسْتَشْفى.", "U kasalxonada ishlaydi."],
+    ["يَبْدَأُ العَمَلَ في السّاعَةِ الثّامِنَةِ.", "Ishni soat sakkizda boshlaydi."], ["يَنْتَهي في السّاعَةِ الخامِسَةِ.", "Soat beshda tugatadi."],
+    ["يَعْمَلُ خَمْسَةَ أَيّامٍ في الأُسْبوعِ.", "Haftada besh kun ishlaydi."], ["عُطْلَتُهُ يَوْمَ السَّبْتِ وَيَوْمَ الأَحَدِ.", "Dam olish kunlari shanba va yakshanba."], ["راتِبُهُ الشَّهْرِيُّ خَمْسَةُ مَلايينَ سومٍ.", "Uning oylik maoshi besh million so'm."], ["يُساعِدُ المَرْضى كُلَّ يَوْمٍ.", "Har kuni bemorlarga yordam beradi."], ["يُحِبُّ عَمَلَهُ كَثيرًا.", "O'z ishini juda yaxshi ko'radi."]],
+  reja: ["Kim ekanini va ismini yozdingizmi?", "Kasbini yozdingizmi?", "Ish joyini yozdingizmi? (يَعْمَلُ في)", "Qachon boshlab, qachon tugatishini yozdingizmi? (يَبْدَأُ / يَنْتَهي)", "Haftada necha kun ishlashini yozdingizmi?", "Dam olish kunlarini yozdingizmi? (عُطْلَتُهُ)", "Oylik maoshini yozdingizmi? (راتِبُهُ الشَّهْرِيُّ)", "هُوَ / هِيَ ni to'g'ri ishlatdingizmi?"]
+}, 3: {
+  // 4-mavzu «O'quv rejasini tuzish»: Miftah A1 1/1, 2-vahda 1-dars, 36-bet 5-mashq «املأ البرنامج الدراسي» (namuna — 30-bet, Said jadvali)
+  nom: "بَرْنامَجي الدِّراسِيُّ",
+  anketaIzoh: "Avval maktab yoki universitetni tanlang. Keyin kitobdagidek dars jadvalingizni to'ldiring: tepaga vaqtlarni, kulrang joyga tanaffus vaqtini, o'ngga kunlarni, ichiga fanlarni — faqat arabcha.",
+  jadval: { kunlar: 5, ustun: ["الأولى", "الثّانِيَةُ", "الثّالِثَةُ"], maktab: { ustun: ["الأولى", "الثّانِيَةُ", "الثّالِثَةُ", "الرّابِعَةُ", "الخامِسَةُ", "السّادِسَةُ"], tanaffus: [3] }, kunPh: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس"] },
+  gap: [["Men haftada besh kun o'qiyman.", ["أَدْرُسُ", "خَمْسَةَ", "أَيّامٍ", "في", "الأُسْبوعِ."], ["يَدْرُسُ", "يَوْمٌ"]],
+    ["O'qish soat sakkizda boshlanadi.", ["تَبْدَأُ", "الدِّراسَةُ", "في", "السّاعَةِ", "الثّامِنَةِ."], ["تَنْتَهي", "مِنْ"]],
+    ["Yakshanba kuni birinchi dars — arab tili.", ["يَوْمَ", "الأَحَدِ", "المُحاضَرَةُ", "الأولى", "لُغَةٌ", "عَرَبِيَّةٌ."], ["الثّانِيَةُ", "في"]],
+    ["Tanaffus soat o'nda.", ["الاِسْتِراحَةُ", "في", "السّاعَةِ", "العاشِرَةِ."], ["المُحاضَرَةُ", "مِنْ"]],
+    ["Dam olish kuni juma.", ["العُطْلَةُ", "يَوْمَ", "الجُمُعَةِ."], ["الدِّراسَةُ", "في"]]],
+  qolip: ["أَدْرُسُ … أَيّامٍ في الأُسْبوعِ.", "تَبْدَأُ الدِّراسَةُ في السّاعَةِ … وَتَنْتَهي في السّاعَةِ …", "يَوْمَ … المُحاضَرَةُ (الحِصَّةُ) الأولى …", "الاِسْتِراحَةُ في السّاعَةِ …", "وَالمُحاضَرَةُ (الحِصَّةُ) الثّانِيَةُ …", "العُطْلَةُ يَوْمَ …", "أُحِبُّ مادَّةَ …"],
+  namuna: [["أَدْرُسُ خَمْسَةَ أَيّامٍ في الأُسْبوعِ.", "Haftada besh kun o'qiyman."], ["تَبْدَأُ الدِّراسَةُ في السّاعَةِ الثّامِنَةِ.", "O'qish soat sakkizda boshlanadi."],
+    ["وَتَنْتَهي في السّاعَةِ الواحِدَةِ.", "Va soat birda tugaydi."], ["يَوْمَ الأَحَدِ المُحاضَرَةُ الأولى لُغَةٌ عَرَبِيَّةٌ.", "Yakshanba kuni birinchi dars — arab tili."],
+    ["الاِسْتِراحَةُ في السّاعَةِ العاشِرَةِ.", "Tanaffus soat o'nda."], ["وَالمُحاضَرَةُ الثّانِيَةُ تاريخٌ.", "Ikkinchi dars — tarix."], ["وَالمُحاضَرَةُ الثّالِثَةُ رِياضَةٌ.", "Uchinchi dars — jismoniy tarbiya."],
+    ["العُطْلَةُ يَوْمَ الجُمُعَةِ وَيَوْمَ السَّبْتِ.", "Dam olish kunlari juma va shanba."], ["أُحِبُّ مادَّةَ اللُّغَةِ العَرَبِيَّةِ.", "Arab tili fanini yaxshi ko'raman."]],
+  reja: ["Haftada necha kun o'qishingizni yozdingizmi?", "O'qish qachon boshlanib, qachon tugashini yozdingizmi?", "Kamida bir kunning darslarini yozdingizmi? (المُحاضَرَةُ / الحِصَّةُ الأولى …)", "Tanaffus vaqtini yozdingizmi? (الاِسْتِراحَةُ)", "Dam olish kunini yozdingizmi?", "Sevimli faningizni yozdingizmi?"]
+}, 5: {
+  // 6-mavzu «Uchrashuvlar jadvali» → rahbar: Yazan matni uslubida (Miftah A1 1/1, 2-vahda 2-dars «المواصلات في المدينة», 40-bet): kunlik yo'l vaqtlari bilan
+  nom: "مَواعيدي: طَريقي إِلى الدِّراسَةِ",
+  anketaIzoh: "Uydan o'qishga (yoki ishga) qanday borasiz? Vaqtlari bilan faqat arabcha yozing.",
+  gap: [["Men uydan soat yetti yarimda chiqaman.", ["أَخْرُجُ", "مِنَ", "البَيْتِ", "السّاعَةَ", "السّابِعَةَ", "وَالنِّصْفَ."], ["يَخْرُجُ", "إِلى"]],
+    ["Bekatda avtobusni kutaman.", ["أَنْتَظِرُ", "الحافِلَةَ", "في", "المَوْقِفِ."], ["يَنْتَظِرُ", "مِنَ"]],
+    ["41-raqamli avtobusga minaman.", ["أَرْكَبُ", "الحافِلَةَ", "رَقْمَ", "٤١."], ["أَنْزِلُ", "مِنَ"]],
+    ["Metrodan tushaman.", ["أَنْزِلُ", "مِنَ", "المِتْرو."], ["أَرْكَبُ", "إِلى"]],
+    ["Universitetga soat sakkizu qirqda yetib boraman.", ["أَصِلُ", "إِلى", "الجامِعَةِ", "السّاعَةَ", "الثّامِنَةَ", "وَأَرْبَعينَ", "دَقيقَةً."], ["يَصِلُ", "مِنَ"]]],
+  anketa: [["أَيْنَ تَدْرُسُ / تَعْمَلُ؟", "Masalan: في الجامعة"], ["أَيْنَ تَسْكُنُ؟", "Masalan: في شقّة في مركز المدينة"], ["مَتى تَخْرُجُ مِنَ البَيْتِ؟", "Masalan: السابعة والنصف"], ["ماذا تَرْكَبُ؟", "الحافلة / المترو / سيارة أجرة"], ["رَقْمُ الحافِلَةِ", "Masalan: ٤١"], ["مَتى تَصِلُ؟", "Masalan: الثامنة وأربعين دقيقة"]],
+  qolip: ["أَنا طالِبٌ / طالِبَةٌ في …", "أَسْكُنُ مَعَ أُسْرَتي في …", "أَدْرُسُ … أَيّامٍ في الأُسْبوعِ.", "أَخْرُجُ مِنَ البَيْتِ السّاعَةَ …", "أَنْتَظِرُ الحافِلَةَ في …", "ثُمَّ أَرْكَبُ الحافِلَةَ رَقْمَ …", "أَصِلُ إِلى … بَعْدَ … دَقيقَةً.", "بَعْدَ … دَقائِقَ أَنْزِلُ مِنْ …", "أَصِلُ إِلى الجامِعَةِ السّاعَةَ …"],
+  namuna: [["أَنا طالِبٌ في الجامِعَةِ.", "Men universitet talabasiman."], ["أَسْكُنُ مَعَ أُسْرَتي في شَقَّةٍ في مَرْكَزِ المَدينَةِ.", "Oilam bilan shahar markazidagi kvartirada yashayman."],
+    ["الجامِعَةُ بَعيدَةٌ عَنْ بَيْتي.", "Universitet uyimdan uzoqda."], ["أَخْرُجُ مِنَ البَيْتِ السّاعَةَ السّابِعَةَ وَالنِّصْفَ صَباحًا.", "Ertalab soat yetti yarimda uydan chiqaman."],
+    ["أَنْتَظِرُ الحافِلَةَ في مَوْقِفٍ قَريبٍ مِنَ البَيْتِ.", "Uyga yaqin bekatda avtobusni kutaman."], ["ثُمَّ أَرْكَبُ الحافِلَةَ رَقْمَ ٤١.", "So'ng 41-raqamli avtobusga minaman."],
+    ["أَصِلُ إِلى مَحَطَّةِ المِتْرو بَعْدَ نِصْفِ ساعَةٍ.", "Yarim soatdan keyin metro bekatiga yetaman."], ["بَعْدَ عَشْرِ دَقائِقَ أَنْزِلُ مِنَ المِتْرو.", "O'n daqiqadan keyin metrodan tushaman."],
+    ["أَصِلُ إِلى الجامِعَةِ السّاعَةَ الثّامِنَةَ وَأَرْبَعينَ دَقيقَةً.", "Universitetga soat sakkizu qirqda yetib boraman."]],
+  reja: ["Qayerda o'qishingizni (ishlashingizni) yozdingizmi?", "Uydan qachon chiqishingizni yozdingizmi? (أَخْرُجُ مِنَ البَيْتِ)", "Nimaga minishingizni yozdingizmi? (أَرْكَبُ)", "Qayerda tushishingizni yozdingizmi? (أَنْزِلُ)", "Qachon yetib borishingizni yozdingizmi? (أَصِلُ)", "ثُمَّ va بَعْدَ … دَقائِقَ ni ishlatdingizmi?"]
+}, 6: {
+  // 7-mavzu «Yurtingizdagi transport»: Miftah A1 1/1, 2-vahda 2-dars, kitoba «كتابة فقرة عن المواصلات في بلدك» (lug'at — 40-bet: وسائل المواصلات، صفات)
+  nom: "المُواصَلاتُ في بَلَدي",
+  anketaIzoh: "Istibonaga javob bering (kitob, 47-bet) — faqat arabcha. Keyin shu javoblardan yurtingizdagi transport haqida yozasiz.",
+  gap: [["Mening yurtimda transport ko'p.", ["في", "بَلَدي", "مُواصَلاتٌ", "كَثيرَةٌ."], ["قَليلٌ", "مِنْ"]],
+    ["Metro tez va arzon.", ["المِتْرو", "سَريعٌ", "وَرَخيصٌ."], ["بَطيءٌ", "غالِيَةٌ"]],
+    ["Taksi qimmat.", ["سَيّارَةُ", "الأُجْرَةِ", "غالِيَةٌ."], ["غالٍ", "رَخيصَةٌ"]],
+    ["Men avtobusga minaman.", ["أَرْكَبُ", "الحافِلَةَ."], ["يَرْكَبُ", "أَنْزِلُ"]]],
+  // anketa = kitobdagi istibona (1/1, 47-bet 7-mashq «أجب عن الاستبانة الآتية»)
+  anketa: [["أَيْنَ تَسْكُنُ؟", "Javob"], ["أَيْنَ تَعْمَلُ / تَدْرُسُ؟", "Javob"], ["كَيْفَ تَذْهَبُ إِلى عَمَلِكَ / دِراسَتِكَ؟", "Javob"], ["مَتى تَخْرُجُ مِنَ البَيْتِ؟", "Javob"], ["كَمْ يَوْمًا تَعْمَلُ / تَدْرُسُ في الأُسْبوعِ؟", "Javob"], ["كَمْ ساعَةً تَدْرُسُ / تَعْمَلُ في اليَوْمِ؟", "Javob"], ["مَتى تَرْجِعُ إِلى بَيْتِكَ؟", "Javob"], ["ما وَسيلَةُ النَّقْلِ المُفَضَّلَةُ لَدَيْكَ؟", "Javob"], ["كَمْ وَسيلَةَ مُواصَلاتٍ تَرْكَبُ؟", "Javob"], ["ما وَسائِلُ المُواصَلاتِ في بَلَدِكَ؟", "Javob"], ["هَلْ أُجْرَةُ المُواصَلاتِ غالِيَةٌ أَوْ رَخيصَةٌ؟", "Javob"]],
+  qolip: ["في بَلَدي وَسائِلُ مُواصَلاتٍ كَثيرَةٌ: …", "… سَريعٌ / سَريعَةٌ.", "… رَخيصٌ / رَخيصَةٌ.", "… غالٍ / غالِيَةٌ.", "أَنا أَرْكَبُ … كُلَّ يَوْمٍ.", "المَوْقِفُ / المَحَطَّةُ قَريبٌ / قَريبَةٌ مِنْ بَيْتي."],
+  namuna: [["في بَلَدي وَسائِلُ مُواصَلاتٍ كَثيرَةٌ.", "Yurtimda transport vositalari ko'p."], ["في طَشْقَنْدَ حافِلاتٌ وَمِتْرو وَسَيّاراتُ أُجْرَةٍ.", "Toshkentda avtobuslar, metro va taksilar bor."],
+    ["المِتْرو سَريعٌ وَرَخيصٌ.", "Metro tez va arzon."], ["الحافِلَةُ رَخيصَةٌ، لَكِنَّها بَطيئَةٌ.", "Avtobus arzon, lekin sekin."], ["سَيّارَةُ الأُجْرَةِ سَريعَةٌ، لَكِنَّها غالِيَةٌ.", "Taksi tez, lekin qimmat."],
+    ["القِطارُ «أَفْراسِياب» يَذْهَبُ مِنْ طَشْقَنْدَ إِلى سَمَرْقَنْدَ.", "«Afrosiyob» poyezdi Toshkentdan Samarqandga boradi."], ["أَنا أَرْكَبُ المِتْرو كُلَّ يَوْمٍ.", "Men har kuni metroga minaman."], ["المَحَطَّةُ قَريبَةٌ مِنْ بَيْتي.", "Bekat uyimga yaqin."]],
+  reja: ["Yurtingizdagi transport turlarini yozdingizmi?", "Qaysi biri tez, qaysi biri sekin ekanini yozdingizmi? (سَريعٌ / بَطيءٌ)", "Qaysi biri arzon, qaysi biri qimmat ekanini yozdingizmi? (رَخيصٌ / غالٍ)", "O'zingiz nimaga minishingizni yozdingizmi? (أَرْكَبُ)", "Sifatni otga moslab yozdingizmi? (الحافِلَةُ رَخيصَةٌ)"]
+}, 7: {
+  // 8-mavzu «Oilam haqida»: Miftah A1 1/2, 3-vahda «أسرتي الصغيرة», 44-bet — namuna (Odam) va «ارسم شجرة» (jadval → oila daraxti); 1/1 «العائلة العربية» inshosi boshqa (dunyo oilalari)
+  nom: "أُسْرَتي",
+  anketaIzoh: "Jadvalni to'ldiring: har bir a'zoning ismi, yoshi, ishi va rasmi (📷 ni bosing) — faqat arabcha. Pastda oila daraxtingiz o'zi chiziladi.",
+  daraxt: true,
+  oddiy: { ustun: ["أَفْرادُ الأُسْرَةِ", "الاِسْمُ", "العُمْرُ", "العَمَلُ"], qator: ["الأَبُ", "الأُمُّ", "الاِبْنُ / البِنْتُ ١", "الاِبْنُ / البِنْتُ ٢", "الاِبْنُ / البِنْتُ ٣"] },
+  gap: [["Mening oilam besh kishidan iborat.", ["تَتَكَوَّنُ", "أُسْرَتي", "مِنْ", "خَمْسَةِ", "أَشْخاصٍ."], ["يَتَكَوَّنُ", "في"]],
+    ["Otamning ismi Ali.", ["أَبي", "اسْمُهُ", "عَلِيٌّ."], ["اسْمُها", "أُمّي"]],
+    ["U qirq yoshda.", ["عُمْرُهُ", "أَرْبَعونَ", "سَنَةً."], ["عُمْرُها", "سَنَواتٌ"]],
+    ["Onam o'qituvchi.", ["أُمّي", "مُعَلِّمَةٌ."], ["مُعَلِّمٌ", "أَبي"]],
+    ["Mening bitta akam va ikkita opam bor.", ["عِنْدي", "أَخٌ", "واحِدٌ", "وَأُخْتانِ."], ["أُخْتٌ", "إِخْوَةٌ"]],
+    ["Lekin mening singlim yo'q.", ["لَكِنْ", "ما", "عِنْدي", "أُخْتٌ."], ["عِنْدَكَ", "لا"]]],
+  qolip: ["مَرْحَبًا، اسْمي … ، لَقَبي …", "تَتَكَوَّنُ أُسْرَتي مِنْ … أَشْخاصٍ.", "أَبي اسْمُهُ … ، عُمْرُهُ … سَنَةً، وَهُوَ …", "أُمّي اسْمُها … ، عُمْرُها … سَنَةً، وَهِيَ …", "أَخي اسْمُهُ … ، عُمْرُهُ … سَنَةً.", "أُخْتي اسْمُها … ، وَهِيَ طالِبَةٌ.", "عِنْدي … ، لَكِنْ ما عِنْدي …", "أُحِبُّ أُسْرَتي كَثيرًا."],
+  // namuna — 1/2 kitob, 44-bet «مثال» (Odam): birinchi shaxsda, لَقَبي، عِنْدي … لَكِنْ ما عِنْدي …
+  namuna: [["مَرْحَبًا، اسْمي آدَمُ، لَقَبي كَريموف.", "Salom, ismim Odam, familiyam Karimov."], ["اسْمُ أَبي سَعيدٌ، عُمْرُهُ خَمْسونَ سَنَةً، وَهُوَ مُهَنْدِسٌ.", "Otamning ismi Said, ellik yoshda, u muhandis."],
+    ["وَاسْمُ أُمّي زَيْنَبُ، وَهِيَ مُعَلِّمَةٌ.", "Onamning ismi Zaynab, u o'qituvchi."], ["عِنْدي ثَلاثَةُ إِخْوَةٍ، لَكِنْ ما عِنْدي أُخْتٌ.", "Uchta aka-ukam bor, lekin opa-singlim yo'q."],
+    ["أَنا الاِبْنُ الأَكْبَرُ، أَنا طالِبٌ في الجامِعَةِ.", "Men to'ng'ich o'g'ilman, universitet talabasiman."], ["وَعِنْدي جَدٌّ واحِدٌ وَجَدَّةٌ واحِدَةٌ.", "Va bitta bobom, bitta buvim bor."], ["أُحِبُّ أُسْرَتي كَثيرًا.", "Oilamni juda yaxshi ko'raman."]],  reja: ["Oilangiz necha kishidan iboratligini yozdingizmi? (تَتَكَوَّنُ أُسْرَتي مِنْ)", "Otangizning ismi, yoshi va ishini yozdingizmi?", "Onangizning ismi, yoshi va ishini yozdingizmi?", "Aka-uka va opa-singillaringiz haqida yozdingizmi?", "اسْمُهُ / اسْمُها va عُمْرُهُ / عُمْرُها ni to'g'ri ishlatdingizmi?"]
+}, 8: {
+  // 9-mavzu «Katta oilam»: rahbar — 8-mavzu daraxti, lekin ko'proq odam va ma'lumot (Miftah A1 1/2, 3-vahda «أقاربي», 45-bet va keyingi)
+  nom: "أُسْرَتي الكَبيرَةُ",
+  anketaIzoh: "Katta oilangiz jadvalini to'ldiring: ismi, yoshi, ishi, qayerda yashashi, oilaviy holati va rasmi (📷) — faqat arabcha. Pastda oila daraxti o'zi chiziladi.",
+  daraxt: true,
+  oddiy: { ustun: ["القَريبُ", "الاِسْمُ", "العُمْرُ", "العَمَلُ", "السَّكَنُ", "الحالَةُ الاِجْتِماعِيَّةُ"],
+    qator: ["الجَدُّ", "الجَدَّةُ", "العَمُّ", "العَمَّةُ", "الأَبُ", "الأُمُّ", "الخالُ", "الخالَةُ", "أَنا", "أَخي / أُخْتي"],
+    qavat: [[0, 1], [2, 3, 4, 5, 6, 7], [8, 9]] },
+  gap: [["Bobomning ismi Yusuf.", ["جَدّي", "اسْمُهُ", "يوسُفُ."], ["جَدَّتي", "اسْمُها"]],
+    ["Amakim Samarqandda yashaydi.", ["عَمّي", "يَسْكُنُ", "في", "سَمَرْقَنْدَ."], ["خالَتي", "تَسْكُنُ"]],
+    ["Xolam uylangan (turmushga chiqqan).", ["خالَتي", "مُتَزَوِّجَةٌ."], ["مُتَزَوِّجٌ", "عَمّي"]],
+    ["Tog'amning ikki o'g'li bor.", ["عِنْدَ", "خالي", "وَلَدانِ."], ["أَوْلادٌ", "عَمَّتي"]]],
+  qolip: ["أُسْرَتي الكَبيرَةُ كَبيرَةٌ / صَغيرَةٌ.", "جَدّي اسْمُهُ … ، عُمْرُهُ … سَنَةً.", "جَدَّتي اسْمُها …", "عَمّي اسْمُهُ … ، هُوَ … ، يَسْكُنُ في …", "عَمَّتي اسْمُها … ، هِيَ مُتَزَوِّجَةٌ.", "خالي … / خالَتي …", "عِنْدَ … وَلَدانِ / بِنْتانِ.", "نَزورُ جَدّي يَوْمَ …"],
+  namuna: [["أُسْرَتي الكَبيرَةُ كَبيرَةٌ.", "Katta oilam katta."], ["جَدّي اسْمُهُ يوسُفُ، عُمْرُهُ سَبْعونَ سَنَةً.", "Bobomning ismi Yusuf, yetmish yoshda."], ["جَدَّتي اسْمُها فاطِمَةُ، هِيَ رَبَّةُ بَيْتٍ.", "Buvimning ismi Fotima, u uy bekasi."],
+    ["عَمّي اسْمُهُ أَحْمَدُ، هُوَ طَبيبٌ، يَسْكُنُ في سَمَرْقَنْدَ.", "Amakimning ismi Ahmad, u shifokor, Samarqandda yashaydi."], ["عَمَّتي اسْمُها مَرْيَمُ، هِيَ مُتَزَوِّجَةٌ، وَعِنْدَها بِنْتانِ.", "Ammamning ismi Maryam, turmushga chiqqan, ikki qizi bor."],
+    ["خالي اسْمُهُ عَلِيٌّ، هُوَ مُهَنْدِسٌ، يَسْكُنُ في طَشْقَنْدَ.", "Tog'amning ismi Ali, u muhandis, Toshkentda yashaydi."], ["خالَتي اسْمُها زَيْنَبُ، هِيَ مُعَلِّمَةٌ.", "Xolamning ismi Zaynab, u o'qituvchi."], ["نَزورُ جَدّي وَجَدَّتي يَوْمَ الجُمُعَةِ.", "Juma kuni bobom va buvimni ziyorat qilamiz."]],
+  reja: ["Bobo va buvingiz haqida yozdingizmi? (جَدّي / جَدَّتي)", "Amaki va ammangiz haqida yozdingizmi? (عَمّي / عَمَّتي)", "Tog'a va xolangiz haqida yozdingizmi? (خالي / خالَتي)", "Kasbi va yashash joyini yozdingizmi?", "Oilaviy holatini yozdingizmi? (مُتَزَوِّجٌ / مُتَزَوِّجَةٌ)"]
+}, 9: {
+  // 10-mavzu «Arab oilasi»: Miftah A1 1/1, 3-vahda 1-dars «العائلة العربية», 50-bet matni — namuna, tahlil (anketa), keyin o'zbek oilasi haqida kitob uslubida yozish
+  nom: "العائِلَةُ الأوزْبَكِيَّةُ (عَلى نَمَطِ: العائِلَةُ العَرَبِيَّةُ)",
+  anketaIzoh: "Kitob matnini tahlil qilgandek o'zbek oilasi haqida javob bering — faqat arabcha. Keyin «العائلة الأوزبكية» haqida kitob uslubida yozasiz.",
+  gap: [["Arab oilasi ko'pincha katta.", ["العائِلَةُ", "العَرَبِيَّةُ", "عائِلَةٌ", "كَبيرَةٌ", "غالِبًا."], ["صَغيرَةٌ", "العَرَبِيُّ"]],
+    ["Ota — oila boshlig'i.", ["الأَبُ", "رَأْسُ", "العائِلَةِ."], ["الأُمُّ", "رَبَّةُ"]],
+    ["Ona — uy bekasi.", ["الأُمُّ", "رَبَّةُ", "البَيْتِ."], ["رَأْسُ", "الأَبُ"]],
+    ["Oilada munosabatlar kuchli.", ["العَلاقَةُ", "قَوِيَّةٌ", "بَيْنَهُمْ."], ["قَوِيٌّ", "ضَعيفَةٌ"]]],
+  anketa: [["هَلِ العائِلَةُ الأوزْبَكِيَّةُ كَبيرَةٌ أَوْ صَغيرَةٌ؟", "Javob"], ["مِمَّ تَتَكَوَّنُ؟", "مِنَ الجَدِّ وَالجَدَّةِ…"], ["كَيْفَ العَلاقَةُ بَيْنَهُمْ؟", "Javob"], ["ماذا يَعْمَلُ الأَبُ؟", "Javob"], ["ماذا تَعْمَلُ الأُمُّ؟", "Javob"], ["كَمْ عَدَدُ الأَوْلادِ عادَةً؟", "Javob"], ["أَيْنَ يَعيشُ الأَبْناءُ بَعْدَ الزَّواجِ؟", "Javob"]],
+  qolip: ["العائِلَةُ الأوزْبَكِيَّةُ عائِلَةٌ … غالِبًا.", "تَتَكَوَّنُ مِنَ …", "وَالعَلاقَةُ … بَيْنَهُمْ.", "الأَبُ رَأْسُ العائِلَةِ، وَهُوَ يَعْمَلُ …", "الأُمُّ رَبَّةُ البَيْتِ، تُرَبّي الأَوْلادَ وَتُحَضِّرُ الطَّعامَ.", "عَدَدُ أَفْرادِ العائِلَةِ …", "يَعيشُ الأَبْناءُ مَعَ الوالِدَيْنِ في …"],
+  namuna: [["العائِلَةُ العَرَبِيَّةُ عائِلَةٌ كَبيرَةٌ غالِبًا.", "Arab oilasi ko'pincha katta oila."], ["تَتَكَوَّنُ مِنَ الجَدِّ وَالجَدَّةِ وَالأَوْلادِ وَالأَحْفادِ.", "U bobo, buvi, farzandlar va nevaralardan iborat."],
+    ["وَالعَلاقَةُ قَوِيَّةٌ بَيْنَهُمْ، وَهِيَ عَلاقَةُ مَحَبَّةٍ وَتَعاوُنٍ وَاحْتِرامٍ.", "Ular orasidagi munosabat kuchli: muhabbat, hamkorlik va hurmat."],
+    ["الأَبُ رَأْسُ العائِلَةِ، وَهُوَ يَعْمَلُ عادَةً.", "Ota — oila boshlig'i, odatda u ishlaydi."], ["وَهُوَ المَسْؤولُ عَنْ احْتِياجاتِ العائِلَةِ.", "U oilaning ehtiyojlari uchun mas'ul."],
+    ["الأُمُّ رَبَّةُ البَيْتِ، تَعْمَلُ غالِبًا في البَيْتِ.", "Ona — uy bekasi, ko'pincha uyda ishlaydi."], ["فَهِيَ تُرَبّي الأَوْلادَ وَتُنَظِّفُ البَيْتَ وَتُحَضِّرُ الطَّعامَ.", "U bolalarni tarbiyalaydi, uyni tozalaydi, ovqat tayyorlaydi."],
+    ["الأُسْرَةُ العَرَبِيَّةُ تُحِبُّ الأَوْلادَ كَثيرًا.", "Arab oilasi bolalarni juda yaxshi ko'radi."], ["يَعيشُ الأَبْناءُ مَعَ الوالِدَيْنِ في بَيْتٍ واحِدٍ.", "Farzandlar ota-onasi bilan bitta uyda yashaydi."]],
+  reja: ["O'zbek oilasi katta yoki kichik ekanini yozdingizmi? (عائِلَةٌ كَبيرَةٌ غالِبًا)", "Kimlardan iboratligini yozdingizmi? (تَتَكَوَّنُ مِنَ)", "Otaning vazifasini yozdingizmi? (رَأْسُ العائِلَةِ)", "Onaning vazifasini yozdingizmi? (رَبَّةُ البَيْتِ)", "Farzandlar soni va qayerda yashashini yozdingizmi?", "Kitob matnining tartibiga amal qildingizmi?"]
+}, 10: {
+  // 11-mavzu «Do'stimni tasvirlash»: Miftah A1 1/1, 3-vahda 2-dars «أصدقاء من حولنا», 65–66-bet: 14-mashq «اكتب فقرة عن صديق تعرفه» (mazmuni — anketa), 15-mashq Rag'd matni (tuzatilgan holi — namuna)
+  nom: "صَديقي",
+  anketaIzoh: "Bir do'stingiz haqida kitobdagi savollarga javob bering — faqat arabcha.",
+  gap: [["Mening dugonam Rag'd ajoyib dugona.", ["صَديقَتي", "رَغَدُ", "صَديقَةٌ", "رائِعَةٌ."], ["صَديقي", "رائِعٌ"]],
+    ["U uzun ham emas, past ham emas.", ["هِيَ", "لَيْسَتْ", "طَويلَةً", "وَلَيْسَتْ", "قَصيرَةً."], ["لَيْسَ", "طَويلٌ"]],
+    ["U sinfida tirishqoq o'quvchi.", ["هِيَ", "طالِبَةٌ", "مُجْتَهِدَةٌ", "في", "صَفِّها."], ["مُجْتَهِدٌ", "صَفِّهِ"]],
+    ["U onasiga doim yordam beradi.", ["تُساعِدُ", "أُمَّها", "دائِمًا."], ["يُساعِدُ", "أُمَّهُ"]]],
+  anketa: [["مَنْ صَديقُكَ؟", "Ismi"], ["ماذا يَعْمَلُ؟", "Javob"], ["كَمْ عُمْرُهُ؟", "Javob"], ["مَتى تَعَرَّفْتَ إِلَيْهِ؟", "Masalan: في المدرسة، قبل سنتين"], ["ما صِفاتُهُ الشَّخْصِيَّةُ؟", "لطيف، مجتهد، مرتّب…"], ["مَتى تَجْتَمِعُ مَعَهُ؟", "Javob"], ["ماذا تَفْعَلُ مَعَهُ؟", "Javob"]],
+  qolip: ["صَديقي … ، هُوَ صَديقٌ رائِعٌ.", "عُمْرُهُ … سَنَةً.", "هُوَ … (ishi)", "تَعَرَّفْتُ إِلَيْهِ في …", "هُوَ لَطيفٌ / مُجْتَهِدٌ / مُرَتَّبٌ …", "نَجْتَمِعُ يَوْمَ …", "نَلْعَبُ / نَدْرُسُ / نَذْهَبُ مَعًا …"],
+  namuna: [["صَديقَتي رَغَدُ، هِيَ صَديقَةٌ رائِعَةٌ.", "Dugonam Rag'd — ajoyib dugona."], ["عُمْرُها خَمْسَ عَشْرَةَ سَنَةً.", "U o'n besh yoshda."], ["هِيَ لَيْسَتْ طَويلَةً وَلَيْسَتْ قَصيرَةً.", "U uzun ham emas, past ham emas."],
+    ["رَغَدُ فَتاةٌ لَطيفَةٌ، وَهِيَ طالِبَةٌ مُجْتَهِدَةٌ في صَفِّها.", "Rag'd yoqimli qiz, sinfida tirishqoq o'quvchi."], ["رَغَدُ تُحِبُّ النَّظافَةَ كَثيرًا، فَهِيَ مُرَتَّبَةٌ وَمُنَظَّمَةٌ.", "Rag'd tozalikni juda yaxshi ko'radi, u saranjom va tartibli."],
+    ["وَتُحِبُّ أَنْ يَكونَ بَيْتُها نَظيفًا دائِمًا.", "Uyi doim toza bo'lishini yaxshi ko'radi."], ["وَهِيَ تُساعِدُ أُمَّها دائِمًا عِنْدَما تَرْجِعُ مِنَ المَدْرَسَةِ.", "Maktabdan qaytganda onasiga doim yordam beradi."],
+    ["وَفي يَوْمِ العُطْلَةِ تَكْوي رَغَدُ مَلابِسَها وَتُرَتِّبُ غُرْفَتَها أَيْضًا.", "Dam olish kuni Rag'd kiyimlarini dazmollaydi va xonasini ham yig'ishtiradi."]],
+  reja: ["Do'stingiz kimligini yozdingizmi?", "Ishi va yoshini yozdingizmi?", "Qachon tanishganingizni yozdingizmi? (تَعَرَّفْتُ إِلَيْهِ)", "Xislatlarini yozdingizmi? (لَطيفٌ، مُجْتَهِدٌ…)", "Qachon uchrashishingiz va birga nima qilishingizni yozdingizmi?", "Sifatni do'stingiz jinsiga moslab yozdingizmi?"]
+}, 11: {
+  // 12-mavzu «Uyim haqida»: Miftah A1 1/1, 4-vahda 1-dars «بيوت تراثية» (74-bet 1–2-mashq: uy rejasi, xonalar va jihozlar). Rahbar: o'quvchi uy chizmasini tuzib, xonalar va jihozlar haqida gapiradi
+  nom: "بَيْتي",
+  anketaIzoh: "Uyingiz chizmasini tuzing: xonalarni bosib qo'shing, har bir xonaga undagi jihozlarni yozing — faqat arabcha. Qo'lda chizgan chizmangizni keyingi sahifada rasm qilib yuklashingiz ham mumkin.",
+  xarita: ["غُرْفَةُ النَّوْمِ", "غُرْفَةُ الجُلوسِ", "غُرْفَةُ الضُّيوفِ", "المَطْبَخُ", "الحَمّامُ", "المِرْحاضُ", "المَدْخَلُ", "الحَديقَةُ", "الشُّرْفَةُ"],
+  gap: [["Men katta uyda yashayman.", ["أَسْكُنُ", "في", "بَيْتٍ", "كَبيرٍ."], ["شَقَّةٍ", "كَبيرَةٍ"]],
+    ["Uyimda to'rtta xona bor.", ["في", "بَيْتي", "أَرْبَعُ", "غُرَفٍ."], ["أَرْبَعَةُ", "غُرْفَةٌ"]],
+    ["Yotoqxonada karavot va shkaf bor.", ["في", "غُرْفَةِ", "النَّوْمِ", "سَريرٌ", "وَخِزانَةٌ."], ["المَطْبَخِ", "ثَلّاجَةٌ"]],
+    ["Oshxona kichik, lekin chiroyli.", ["المَطْبَخُ", "صَغيرٌ،", "لَكِنَّهُ", "جَميلٌ."], ["صَغيرَةٌ", "لَكِنَّها"]]],
+  qolip: ["أَسْكُنُ في بَيْتٍ / شَقَّةٍ …", "يَتَكَوَّنُ بَيْتي مِنْ … غُرَفٍ.", "في غُرْفَةِ النَّوْمِ …", "في غُرْفَةِ الجُلوسِ …", "المَطْبَخُ … ، فيهِ …", "بَيْتي قَريبٌ مِنْ …", "أُحِبُّ … في بَيْتي."],
+  namuna: [["أَسْكُنُ مَعَ أُسْرَتي في بَيْتٍ كَبيرٍ وَجَميلٍ.", "Oilam bilan katta va chiroyli uyda yashayman."], ["يَتَكَوَّنُ بَيْتي مِنْ أَرْبَعِ غُرَفٍ وَمَطْبَخٍ وَحَمّامٍ.", "Uyim to'rt xona, oshxona va hammomdan iborat."],
+    ["في غُرْفَةِ النَّوْمِ سَريرٌ وَخِزانَةُ مَلابِسَ.", "Yotoqxonada karavot va kiyim shkafi bor."], ["في غُرْفَةِ الجُلوسِ أَريكَةٌ وَتِلْفازٌ وَسَجّادَةٌ.", "Mehmonxonada divan, televizor va gilam bor."],
+    ["غُرْفَةُ الضُّيوفِ واسِعَةٌ، نَسْتَقْبِلُ فيها الضُّيوفَ.", "Mehmon xonasi keng, unda mehmonlarni kutib olamiz."], ["المَطْبَخُ صَغيرٌ، فيهِ ثَلّاجَةٌ وَمَوْقِدٌ وَطاوِلَةُ طَعامٍ.", "Oshxona kichik, unda muzlatgich, plita va ovqat stoli bor."],
+    ["في وَسَطِ البَيْتِ حَديقَةٌ صَغيرَةٌ.", "Uy o'rtasida kichik bog' bor."], ["بَيْتي قَريبٌ مِنَ المَسْجِدِ وَالمَدْرَسَةِ.", "Uyim masjid va maktabga yaqin."], ["أُحِبُّ غُرْفَتي كَثيرًا.", "Xonamni juda yaxshi ko'raman."]],
+  reja: ["Uyingiz qanaqa ekanini yozdingizmi? (كَبيرٌ / واسِعٌ / جَميلٌ)", "Necha xonadan iboratligini yozdingizmi? (يَتَكَوَّنُ مِنْ)", "Har bir xonada nima borligini yozdingizmi? (في … )", "Uyingiz nimaga yaqinligini yozdingizmi? (قَريبٌ مِنْ)", "Sifatni otga moslab yozdingizmi? (غُرْفَةٌ واسِعَةٌ)"]
+}, 12: {
+  // 13-mavzu «Xonamni tasvirlash»: Miftah A1 1/2, 4-vahda «أثاث البيت» — «صِفْ غُرْفَةً في بَيْتِكَ لِزَميلِكَ كَما في المِثالِ» (هناك، على، تحت، أمام، خلف، فوق، جانب، بين). Rahbar: avval xonani jihozlari bilan chizadi
+  nom: "غُرْفَتي",
+  anketaIzoh: "Xonangizni chizing: jihozlarni bosib qo'shing va barmog'ingiz bilan o'z joyiga suring.",
+  xona: [["🛏️", "سَريرٌ"], ["🪑", "كُرْسِيٌّ"], ["🗄️", "خِزانَةٌ"], ["🪟", "نافِذَةٌ"], ["🚪", "بابٌ"], ["🛋️", "أَريكَةٌ"], ["📺", "تِلْفازٌ"], ["💻", "حاسوبٌ"], ["📚", "كُتُبٌ"], ["🖼️", "صورَةٌ"], ["💡", "مِصْباحٌ"], ["🪴", "نَبْتَةٌ"], ["⏰", "ساعَةٌ"], ["🧸", "دُمْيَةٌ"], ["🟫", "طاوِلَةٌ"], ["🟥", "سَجّادَةٌ"]],
+  zarf: "هُناكَ · عَلى · تَحْتَ · أَمامَ · خَلْفَ · فَوْقَ · جانِبَ · بَيْنَ",
+  gap: [["Mening xonamda karavot va shkaf bor.", ["في", "غُرْفَتي", "سَريرٌ", "وَخِزانَةٌ."], ["غُرْفَتُكَ", "عَلى"]],
+    ["Stol ustida kompyuter bor.", ["فَوْقَ", "الطّاوِلَةِ", "حاسوبٌ."], ["تَحْتَ", "الطّاوِلَةُ"]],
+    ["Deraza yonida o'simlik bor.", ["جانِبَ", "النّافِذَةِ", "نَبْتَةٌ."], ["خَلْفَ", "النّافِذَةُ"]],
+    ["Karavot ostida gilam bor.", ["تَحْتَ", "السَّريرِ", "سَجّادَةٌ."], ["فَوْقَ", "السَّريرُ"]],
+    ["Shkaf bilan eshik orasida stul bor.", ["بَيْنَ", "الخِزانَةِ", "وَالبابِ", "كُرْسِيٌّ."], ["أَمامَ", "البابُ"]]],
+  qolip: ["في غُرْفَتي … وَ …", "فَوْقَ الطّاوِلَةِ …", "جانِبَ النّافِذَةِ …", "تَحْتَ السَّريرِ …", "أَمامَ … / خَلْفَ …", "بَيْنَ … وَ … هُناكَ …", "غُرْفَتي صَغيرَةٌ / كَبيرَةٌ، لَكِنَّها جَميلَةٌ."],
+  namuna: [["هذِهِ غُرْفَتي، هِيَ لَيْسَتْ كَبيرَةً، لَكِنَّها جَميلَةٌ.", "Bu mening xonam, u katta emas, lekin chiroyli."], ["في غُرْفَتي سَريرٌ وَخِزانَةٌ وَطاوِلَةٌ.", "Xonamda karavot, shkaf va stol bor."],
+    ["فَوْقَ الطّاوِلَةِ حاسوبٌ وَكُتُبٌ.", "Stol ustida kompyuter va kitoblar bor."], ["جانِبَ النّافِذَةِ نَبْتَةٌ خَضْراءُ.", "Deraza yonida yashil o'simlik bor."],
+    ["تَحْتَ السَّريرِ سَجّادَةٌ حَمْراءُ.", "Karavot ostida qizil gilam bor."], ["أَمامَ الطّاوِلَةِ كُرْسِيٌّ.", "Stol oldida stul bor."],
+    ["بَيْنَ الخِزانَةِ وَالبابِ هُناكَ مِصْباحٌ.", "Shkaf bilan eshik orasida chiroq bor."], ["فَوْقَ السَّريرِ صورَةُ أُسْرَتي.", "Karavot tepasida oilamning surati bor."]],
+  reja: ["Xonangizdagi jihozlarni sanab yozdingizmi?", "Kamida to'rtta joy so'zini ishlatdingizmi? (فَوْقَ، تَحْتَ، جانِبَ، أَمامَ، خَلْفَ، بَيْنَ)", "هُناكَ ni ishlatdingizmi?", "Xonangiz qanaqa ekanini yozdingizmi?", "Yozganingiz chizmangizga mos keladimi?"]
+}, 13: {
+  // 14-mavzu «An'anaviy uy»: rahbar — namuna o'zbek an'anaviy uyi haqida (ma'lumot Vikipediyadan: hovli, tashqari/ichkari, ayvon, hovuz, so'ri), kitobdagi Damashq uyi matni (1/1, 68-bet) uslubida
+  nom: "البَيْتُ الأوزْبَكِيُّ القَديمُ",
+  anketaIzoh: "Bobongiz yoki buvingizning uyi (yoki siz ko'rgan eski o'zbek uyi) haqida javob bering — faqat arabcha.",
+  gap: [["Eski o'zbek uyi chiroyli va keng uy.", ["البَيْتُ", "الأوزْبَكِيُّ", "القَديمُ", "بَيْتٌ", "جَميلٌ", "وَواسِعٌ."], ["جَميلَةٌ", "قَديمٌ"]],
+    ["Uy ikki qismdan iborat.", ["يَتَكَوَّنُ", "البَيْتُ", "مِنْ", "قِسْمَيْنِ."], ["تَتَكَوَّنُ", "قِسْمانِ"]],
+    ["Hovli o'rtasida kichik hovuz bor.", ["في", "وَسَطِ", "الحَوْشِ", "حَوْضُ", "ماءٍ", "صَغيرٌ."], ["خَلْفَ", "كَبيرَةٌ"]],
+    ["Oila so'rida o'tiradi.", ["تَجْلِسُ", "الأُسْرَةُ", "عَلى", "السّوري."], ["يَجْلِسُ", "تَحْتَ"]]],
+  anketa: [["كَيْفَ البَيْتُ القَديمُ؟", "جميل، واسع، مريح…"], ["مِمَّ هُوَ مَبْنِيٌّ؟", "Masalan: من الطين والخشب"], ["مِمَّ يَتَكَوَّنُ؟", "Masalan: من قسمين"], ["ماذا في وَسَطِ الحَوْشِ؟", "حوض ماء، سوري…"], ["ما الأَشْجارُ في الحَوْشِ؟", "العنب، التوت، المشمش…"], ["أَيْنَ تَعيشُ الأُسْرَةُ؟ وَأَيْنَ يَسْتَقْبِلونَ الضُّيوفَ؟", "إيچكاري / طاشقاري"]],
+  qolip: ["البَيْتُ الأوزْبَكِيُّ القَديمُ بَيْتٌ … ، وَهُوَ بَيْتٌ واسِعٌ وَمُريحٌ.", "هُوَ مَبْنِيٌّ مِنَ …", "يَتَكَوَّنُ البَيْتُ مِنْ قِسْمَيْنِ:", "«طاشْقاري»: …", "«إيچْكاري»: …", "في وَسَطِ الحَوْشِ …", "وَنُشاهِدُ في الحَوْشِ أَشْجارَ …", "تَجْلِسُ الأُسْرَةُ … عادَةً."],
+  namuna: [["البَيْتُ الأوزْبَكِيُّ القَديمُ بَيْتٌ جَميلٌ جِدًّا، وَهُوَ بَيْتٌ واسِعٌ وَمُريحٌ.", "Eski o'zbek uyi juda chiroyli, keng va qulay uy."], ["هُوَ مَبْنِيٌّ مِنَ الطّينِ وَالخَشَبِ عادَةً، وَسَقْفُهُ مُسْتَوٍ.", "U odatda loy va yog'ochdan qurilgan, tomi tekis."],
+    ["في وَسَطِ البَيْتِ حَوْشٌ كَبيرٌ، اسْمُهُ «الحَوْلي».", "Uy o'rtasida katta hovli bor, uning nomi «hovli»."], ["يَتَكَوَّنُ البَيْتُ مِنْ قِسْمَيْنِ رَئيسَيْنِ:", "Uy ikki asosiy qismdan iborat:"],
+    ["«طاشْقاري»: هذا القِسْمُ لِلرِّجالِ، وَهُوَ مُخَصَّصٌ لِاسْتِقْبالِ الضُّيوفِ.", "«Tashqari»: bu qism erkaklar uchun, mehmon kutishga mo'ljallangan."], ["«إيچْكاري»: تَعيشُ الأُسْرَةُ في هذا القِسْمِ، وَفيهِ المَطْبَخُ وَغُرَفُ النَّوْمِ.", "«Ichkari»: oila shu qismda yashaydi, unda oshxona va yotoqxonalar bor."],
+    ["أَمامَ الغُرَفِ «أَيْوانٌ» لَهُ أَعْمِدَةٌ خَشَبِيَّةٌ جَميلَةٌ.", "Xonalar oldida chiroyli yog'och ustunli «ayvon» bor."], ["في وَسَطِ الحَوْشِ حَوْضُ ماءٍ صَغيرٌ.", "Hovli o'rtasida kichik hovuz bor."],
+    ["وَنُشاهِدُ في الحَوْشِ أَشْجارَ العِنَبِ وَالتّوتِ وَالمِشْمِشِ.", "Hovlida uzum, tut va o'rik daraxtlarini ko'ramiz."], ["في الصَّيْفِ تَجْلِسُ الأُسْرَةُ عَلى «السّوري» تَحْتَ العِنَبِ.", "Yozda oila uzum ostidagi «so'ri»da o'tiradi."]],
+  reja: ["Uy qanaqa ekanini yozdingizmi? (جَميلٌ، واسِعٌ، مُريحٌ)", "Nimadan qurilganini yozdingizmi? (مَبْنِيٌّ مِنَ)", "Ikki qismi (tashqari, ichkari) haqida yozdingizmi?", "Hovli va undagi narsalarni yozdingizmi? (حَوْضٌ، أَيْوانٌ، سوري)", "Daraxtlarni yozdingizmi?", "Kitobdagi Damashq uyi matnining uslubiga amal qildingizmi?"]
+}, 14: {
+  // 15-mavzu «Do'stga maktub»: Miftah A1 1/1, 4-vahda 2-dars «رسالة من صديق»: 78-bet maktub, 85-bet 10-mashq (hududni tasvirlash: أمام، خلف، فوق، تحت، يمين، يسار، بين، تقابل؛ جامع، مستشفى، حديقة، متحف، سوق، بقالة، قلعة؛ «أسكن في»؛ «هي منطقة كبيرة/مزدحمة/هادئة/تاريخية»؛ hududdagi mashhur joylar) va 11-mashq (do'st maktubiga javob)
+  nom: "رِسالَةٌ إِلى صَديقٍ: مِنْطَقَتي",
+  geo: true,
+  anketaIzoh: "Do'stingizga maktub yozishdan oldin mahallangiz (hududingiz) haqida javob bering — faqat arabcha.",
+  gap: [["Aziz do'stim, qalaysan?", ["صَديقي", "العَزيزُ،", "كَيْفَ", "حالُكَ؟"], ["حالي", "أَيْنَ"]],
+    ["Men Chilonzor tumanida yashayman.", ["أَسْكُنُ", "في", "مِنْطَقَةِ", "جيلانْزار."], ["يَسْكُنُ", "مِنْ"]],
+    ["U katta va gavjum hudud.", ["هِيَ", "مِنْطَقَةٌ", "كَبيرَةٌ", "وَمُزْدَحِمَةٌ."], ["كَبيرٌ", "هادِئٌ"]],
+    ["Uyim kasalxonaning ro'parasida.", ["بَيْتي", "يُقابِلُ", "المُسْتَشْفى."], ["تُقابِلُ", "خَلْفَ"]],
+    ["Masjid bilan bog' orasida bozor bor.", ["بَيْنَ", "الجامِعِ", "وَالحَديقَةِ", "سوقٌ."], ["أَمامَ", "الحَديقَةُ"]],
+    ["Tashrifingni kutaman.", ["أَنْتَظِرُ", "زِيارَتَكَ."], ["تَنْتَظِرُ", "زِيارَتي"]]],
+  anketa: [["ما اسْمُ صَديقِكَ؟", "Javob"], ["أَيْنَ تَسْكُنُ؟", "أسكن في منطقة …"], ["كَيْفَ مِنْطَقَتُكَ؟", "كبيرة / مزدحمة / هادئة / تاريخية"], ["ماذا أَمامَ بَيْتِكَ؟ وَماذا خَلْفَهُ؟", "Javob"], ["ماذا يُقابِلُ بَيْتَكَ؟", "Javob"], ["ما الأَماكِنُ في مِنْطَقَتِكَ؟", "جامع، مستشفى، حديقة، متحف، سوق، بقالة، قلعة…"], ["ما الأَماكِنُ المَشْهورَةُ في مِنْطَقَتِكَ؟", "Javob"]],
+  qolip: ["بِسْمِ اللهِ الرَّحْمٰنِ الرَّحيمِ", "صَديقي العَزيزُ … ، السَّلامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكاتُهُ.", "كَيْفَ حالُكَ؟ أَنا بِخَيْرٍ وَالحَمْدُ لِلّهِ.", "أَسْكُنُ في مِنْطَقَةِ … ، هِيَ مِنْطَقَةٌ كَبيرَةٌ / مُزْدَحِمَةٌ / هادِئَةٌ / تاريخِيَّةٌ.", "أَمامَ بَيْتي … ، وَخَلْفَهُ …", "يُقابِلُ بَيْتي …", "عَلى يَمينِ … / عَلى يَسارِ … / بَيْنَ … وَ …", "في مِنْطَقَتي جامِعٌ وَمُسْتَشْفى وَ …", "مِنَ الأَماكِنِ المَشْهورَةِ في مِنْطَقَتي …", "أَنْتَظِرُ زِيارَتَكَ. صَديقُكَ …"],
+  namuna: [["بِسْمِ اللهِ الرَّحْمٰنِ الرَّحيمِ", "Bismillahir rohmanir rohiym"], ["صَديقي العَزيزُ سَعيدٌ، السَّلامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكاتُهُ.", "Aziz do'stim Said, assalomu alaykum va rahmatullohi va barakotuh."],
+    ["كَيْفَ حالُكَ؟ أَنا بِخَيْرٍ وَالحَمْدُ لِلّهِ.", "Qalaysan? Men yaxshiman, Allohga hamd."], ["أَسْكُنُ في مِنْطَقَةِ «جيلانْزار» في طَشْقَنْدَ.", "Men Toshkentdagi «Chilonzor» tumanida yashayman."],
+    ["هِيَ مِنْطَقَةٌ كَبيرَةٌ وَمُزْدَحِمَةٌ، لَكِنَّها جَميلَةٌ.", "U katta va gavjum, lekin chiroyli hudud."], ["أَمامَ بَيْتي حَديقَةٌ كَبيرَةٌ، وَخَلْفَهُ مَدْرَسَةٌ.", "Uyim oldida katta bog', orqasida maktab bor."],
+    ["يُقابِلُ بَيْتي مُسْتَشْفى، وَعَلى يَمينِهِ بَقالَةٌ صَغيرَةٌ.", "Uyimning ro'parasida kasalxona, o'ng tomonida kichik baqqollik bor."], ["بَيْنَ الجامِعِ وَالحَديقَةِ سوقٌ كَبيرٌ.", "Masjid bilan bog' orasida katta bozor bor."],
+    ["مِنَ الأَماكِنِ المَشْهورَةِ في مِنْطَقَتي: سوقُ «جيلانْزار» وَالحَديقَةُ المَرْكَزِيَّةُ.", "Hududimdagi mashhur joylar: «Chilonzor» bozori va markaziy bog'."], ["أَنْتَظِرُ زِيارَتَكَ قَريبًا. صَديقُكَ: عَلِيٌّ.", "Tez orada tashrifingni kutaman. Do'sting: Ali."]],
+  reja: ["Maktubni «بسم الله» va salom bilan boshladingizmi?", "Hol-ahvol so'radingizmi? (كَيْفَ حالُكَ؟)", "Qayerda yashashingizni yozdingizmi? (أَسْكُنُ في مِنْطَقَةِ …)", "Hududingizni tasvirladingizmi? (كَبيرَةٌ / مُزْدَحِمَةٌ / هادِئَةٌ / تاريخِيَّةٌ)", "Joylarni yozdingizmi? (جامِعٌ، مُسْتَشْفى، حَديقَةٌ، مَتْحَفٌ، سوقٌ، بَقالَةٌ، قَلْعَةٌ)", "Joy so'zlarini ishlatdingizmi? (أَمامَ، خَلْفَ، يَمينَ، يَسارَ، بَيْنَ، يُقابِلُ)", "Mashhur joylarni yozdingizmi?", "Xayrlashuv bilan tugatdingizmi? (أَنْتَظِرُ زِيارَتَكَ، صَديقُكَ …)"]
+}, 15: {
+  // 16-mavzu «Kundalik ishlarim»: Miftah A1 1/2, «أنشطة يومية» (25-dars), 84-bet «مهمّة محادثة»: jadval (النشاط، الساعة، دائمًا…نادرًا), ثُمَّ / بَعْدَ ذلِكَ, xuddi shu ishlarni o'tgan zamonda «أَمْسِ» bilan
+  nom: "أَنْشِطَتي اليَوْمِيَّةُ",
+  anketaIzoh: "Kitobdagidek jadvalni to'ldiring: har kuni qiladigan ishlaringiz, soati va qanchalik tez-tez — faqat arabcha.",
+  faol: { qator: 6, tez: ["دائِمًا", "عادَةً", "غالِبًا", "أَحْيانًا", "نادِرًا"], ph: ["أَسْتَيْقِظُ", "أُصَلّي الفَجْرَ", "أَتَناوَلُ الفُطورَ", "أَذْهَبُ إِلى…", "أَرْجِعُ إِلى البَيْتِ", "أَنامُ"] },
+  gap: [["Men har doim soat oltida turaman.", ["أَسْتَيْقِظُ", "دائِمًا", "في", "السّاعَةِ", "السّادِسَةِ."], ["نادِرًا", "يَسْتَيْقِظُ"]],
+    ["So'ng bomdod namozini o'qiyman.", ["ثُمَّ", "أُصَلّي", "الفَجْرَ."], ["يُصَلّي", "أَمْسِ"]],
+    ["Undan keyin nonushta qilaman.", ["بَعْدَ", "ذلِكَ", "أَتَناوَلُ", "الفُطورَ."], ["تَناوَلْتُ", "قَبْلَ"]],
+    ["Kecha soat yettida turdim.", ["أَمْسِ", "اسْتَيْقَظْتُ", "في", "السّاعَةِ", "السّابِعَةِ."], ["أَسْتَيْقِظُ", "غَدًا"]],
+    ["Men ba'zan sport bilan shug'ullanaman.", ["أُمارِسُ", "الرِّياضَةَ", "أَحْيانًا."], ["دائِمًا", "يُمارِسُ"]]],
+  qolip: ["أَسْتَيْقِظُ … في السّاعَةِ …", "ثُمَّ أُصَلّي الفَجْرَ.", "بَعْدَ ذلِكَ أَتَناوَلُ الفُطورَ.", "أَذْهَبُ إِلى … في السّاعَةِ …", "أَرْجِعُ إِلى البَيْتِ … ، ثُمَّ …", "أَنامُ عادَةً في السّاعَةِ …", "أَمْسِ اسْتَيْقَظْتُ … ، ثُمَّ …"],
+  namuna: [["أَسْتَيْقِظُ دائِمًا في السّاعَةِ الخامِسَةِ وَالنِّصْفِ.", "Doim soat besh yarimda turaman."], ["ثُمَّ أَتَوَضَّأُ وَأُصَلّي الفَجْرَ.", "So'ng tahorat olib, bomdod namozini o'qiyman."],
+    ["بَعْدَ ذلِكَ أَتَناوَلُ الفُطورَ مَعَ أُسْرَتي.", "Undan keyin oilam bilan nonushta qilaman."], ["أَذْهَبُ إِلى الجامِعَةِ في السّاعَةِ السّابِعَةِ وَالنِّصْفِ.", "Soat yetti yarimda universitetga boraman."],
+    ["أَرْجِعُ إِلى البَيْتِ عادَةً في السّاعَةِ الثّانِيَةِ.", "Odatda soat ikkida uyga qaytaman."], ["أُمارِسُ الرِّياضَةَ أَحْيانًا، وَأُشاهِدُ التِّلْفازَ نادِرًا.", "Ba'zan sport bilan shug'ullanaman, kamdan-kam televizor ko'raman."],
+    ["أَنامُ غالِبًا في السّاعَةِ العاشِرَةِ.", "Ko'pincha soat o'nda uxlayman."], ["أَمْسِ اسْتَيْقَظْتُ في السّاعَةِ السّادِسَةِ، ثُمَّ صَلَّيْتُ الفَجْرَ، وَبَعْدَ ذلِكَ ذَهَبْتُ إِلى الجامِعَةِ.", "Kecha soat oltida turdim, so'ng bomdodni o'qidim, undan keyin universitetga bordim."]],
+  reja: ["Kamida beshta kundalik ishni yozdingizmi?", "Soatlarini yozdingizmi? (في السّاعَةِ …)", "Takror so'zlarini ishlatdingizmi? (دائِمًا، عادَةً، غالِبًا، أَحْيانًا، نادِرًا)", "ثُمَّ / بَعْدَ ذلِكَ ni ishlatdingizmi?", "Xuddi shu ishlarni «أَمْسِ» bilan o'tgan zamonda yozdingizmi?"]
+}, 16: {
+  // 17-mavzu «Bir kishining yomon odatlari»: Miftah A1 1/1, 5-vahda 1-dars «عادات سيئة عند شباب اليوم», 88-bet (onaning doktorga maktubi: o'g'lining odatlari), kitoba «فقرة عن العادات السيئة عند شخص ما»; nahv: لا + muzore, takror ravishlari (دائمًا، غالِبًا، أَحْيانًا، أَبَدًا)
+  nom: "عاداتٌ سَيِّئَةٌ عِنْدَ شَخْصٍ",
+  anketaIzoh: "Siz biladigan bir kishining (aka-uka, do'st…) yomon odatlari haqida javob bering — faqat arabcha.",
+  gap: [["Ukam nonushta qilmaydi.", ["أَخي", "لا", "يَتَناوَلُ", "الفُطورَ."], ["أَتَناوَلُ", "لَيْسَ"]],
+    ["U har doim fast-fud yeydi.", ["يَأْكُلُ", "الوَجَباتِ", "السَّريعَةَ", "دائِمًا."], ["أَبَدًا", "تَأْكُلُ"]],
+    ["U kechqurun kech uxlaydi.", ["يَنامُ", "مُتَأَخِّرًا", "في", "اللَّيْلِ."], ["مُبَكِّرًا", "تَنامُ"]],
+    ["U telefonda uzoq vaqt o'tkazadi.", ["يَقْضي", "وَقْتًا", "طَويلًا", "عَلى", "الجَوّالِ."], ["قَصيرًا", "تَقْضي"]],
+    ["U do'stlari bilan chiqib, uyga kech qaytadi.", ["يَخْرُجُ", "مَعَ", "أَصْدِقائِهِ", "وَيَرْجِعُ", "مُتَأَخِّرًا."], ["مُبَكِّرًا", "أَخْرُجُ"]]],
+  anketa: [["مَنْ هُوَ؟", "أخي / صديقي…"], ["كَمْ عُمْرُهُ؟", "Javob"], ["ماذا يَفْعَلُ في الصَّباحِ؟", "Masalan: لا يتناول الفطور"], ["ماذا يَأْكُلُ؟", "Masalan: الوجبات السريعة"], ["مَتى يَنامُ؟", "Javob"], ["كَمْ ساعَةً يَقْضي عَلى الجَوّالِ؟", "Javob"], ["ما نَصيحَتُكَ لَهُ؟", "Masalan: يجب أن ينام مبكّرًا"]],
+  qolip: ["… اسْمُهُ … ، عُمْرُهُ … سَنَةً.", "عِنْدَهُ بَعْضُ العاداتِ السَّيِّئَةِ:", "هُوَ لا يَتَناوَلُ … / لا يَأْكُلُ …", "يَأْكُلُ … دائِمًا / غالِبًا / أَحْيانًا.", "يَنامُ مُتَأَخِّرًا وَيَسْتَيْقِظُ …", "يَقْضي وَقْتًا طَويلًا عَلى …", "لا يُمارِسُ الرِّياضَةَ أَبَدًا.", "يَجِبُ أَنْ …"],
+  namuna: [["أَخي اسْمُهُ نَوّافٌ، عُمْرُهُ سِتَّ عَشْرَةَ سَنَةً.", "Ukamning ismi Navvof, o'n olti yoshda."], ["عِنْدَهُ بَعْضُ العاداتِ السَّيِّئَةِ.", "Uning ba'zi yomon odatlari bor."],
+    ["هُوَ لا يَتَناوَلُ الفُطورَ في البَيْتِ أَبَدًا.", "U uyda hech qachon nonushta qilmaydi."], ["وَلا يَأْكُلُ طَعامَ أُمّي، يَأْكُلُ الوَجَباتِ السَّريعَةَ دائِمًا.", "Onamning ovqatini yemaydi, doim fast-fud yeydi."],
+    ["يَشْرَبُ المَشْروباتِ الغازِيَّةَ كَثيرًا.", "Gazli ichimliklarni ko'p ichadi."], ["يَنامُ مُتَأَخِّرًا، وَيَسْتَيْقِظُ مُتَأَخِّرًا أَيْضًا.", "Kech uxlaydi va kech ham turadi."],
+    ["يَقْضي وَقْتًا طَويلًا عَلى الجَوّالِ وَوَسائِلِ التَّواصُلِ الاِجْتِماعِيِّ.", "Telefon va ijtimoiy tarmoqlarda uzoq vaqt o'tkazadi."], ["لا يُمارِسُ الرِّياضَةَ أَبَدًا.", "Hech qachon sport bilan shug'ullanmaydi."],
+    ["يَجِبُ أَنْ يَنامَ مُبَكِّرًا وَيَأْكُلَ طَعامًا صِحِّيًّا.", "U erta uxlashi va sog'lom ovqat yeyishi kerak."]],
+  reja: ["Kim haqida yozayotganingizni yozdingizmi? (اسْمُهُ، عُمْرُهُ)", "Kamida uchta yomon odatni yozdingizmi?", "لا + hozirgi zamon bilan inkor qildingizmi? (لا يَتَناوَلُ)", "Takror so'zlarini ishlatdingizmi? (دائِمًا، غالِبًا، أَحْيانًا، أَبَدًا)", "Oxirida maslahat berdingizmi? (يَجِبُ أَنْ …)"]
+}, 17: {
+  // 18-mavzu: Miftah A1 1/1, 5-vahda 2-dars «عادات يومية صحية», 6-mashq «املأ الاستبانة الآتية بالمعلومات المطلوبة، ثمّ اكتب فقرة عن نفسك» (12 savol × دائمًا / أحيانًا / أبدًا)
+  nom: "اِسْتِبانَةٌ: عاداتي اليَوْمِيَّةُ",
+  anketaIzoh: "Kitobdagi istibonani to'ldiring: har bir savolga «دائمًا», «أحيانًا» yoki «أبدًا» ni belgilang. Keyin o'zingiz haqingizda paragraf yozasiz.",
+  istibona: { tez: ["دائِمًا", "أَحْيانًا", "أَبَدًا"], savol: ["هَلْ تَنامُ مُتَأَخِّرًا؟", "هَلْ تَسْتَيْقِظُ مُبَكِّرًا؟", "هَلْ تَقْرَأُ الكُتُبَ؟", "هَلْ تَشْرَبُ القَهْوَةَ في الصَّباحِ؟", "هَلْ تُمارِسُ الرِّياضَةَ صَباحًا؟", "هَلْ تَتَناوَلُ وَجْبَةَ الفُطورِ؟", "هَلْ تَكْتُبُ بَرْنامَجًا لِأَعْمالِكَ اليَوْمِيَّةِ؟", "هَلْ تَقْرَأُ الأَخْبارَ؟", "هَلْ تَتَناوَلُ وَجْبَةَ العَشاءِ قَبْلَ نَوْمِكَ؟", "هَلْ تُنَظِّفُ أَسْنانَكَ قَبْلَ النَّوْمِ؟", "هَلْ تُمَشِّطُ شَعْرَكَ؟", "هَلْ تَغْسِلُ يَدَيْكَ قَبْلَ الطَّعامِ وَبَعْدَهُ؟"] },
+  gap: [["Men hech qachon kech uxlamayman.", ["لا", "أَنامُ", "مُتَأَخِّرًا", "أَبَدًا."], ["دائِمًا", "يَنامُ"]],
+    ["Men doim erta turaman.", ["أَسْتَيْقِظُ", "مُبَكِّرًا", "دائِمًا."], ["أَبَدًا", "مُتَأَخِّرًا"]],
+    ["Ba'zan ertalab qahva ichaman.", ["أَشْرَبُ", "القَهْوَةَ", "في", "الصَّباحِ", "أَحْيانًا."], ["يَشْرَبُ", "أَبَدًا"]],
+    ["Uxlashdan oldin doim tishimni tozalayman.", ["أُنَظِّفُ", "أَسْناني", "قَبْلَ", "النَّوْمِ", "دائِمًا."], ["بَعْدَ", "أَسْنانَكَ"]]],
+  qolip: ["أَنا أَسْتَيْقِظُ مُبَكِّرًا دائِمًا / أَحْيانًا.", "لا أَنامُ مُتَأَخِّرًا أَبَدًا.", "أَتَناوَلُ وَجْبَةَ الفُطورِ …", "أَقْرَأُ الكُتُبَ / الأَخْبارَ …", "أُمارِسُ الرِّياضَةَ …", "أُنَظِّفُ أَسْناني قَبْلَ النَّوْمِ …", "أَغْسِلُ يَدَيَّ قَبْلَ الطَّعامِ وَبَعْدَهُ …"],
+  namuna: [["أَنا أَسْتَيْقِظُ مُبَكِّرًا دائِمًا، وَلا أَنامُ مُتَأَخِّرًا أَبَدًا.", "Men doim erta turaman va hech qachon kech uxlamayman."], ["أُمارِسُ الرِّياضَةَ صَباحًا أَحْيانًا.", "Ba'zan ertalab sport bilan shug'ullanaman."],
+    ["أَتَناوَلُ وَجْبَةَ الفُطورِ دائِمًا، وَأَشْرَبُ القَهْوَةَ أَحْيانًا.", "Doim nonushta qilaman, ba'zan qahva ichaman."], ["أَقْرَأُ الكُتُبَ كُلَّ يَوْمٍ، وَأَقْرَأُ الأَخْبارَ أَحْيانًا.", "Har kuni kitob o'qiyman, ba'zan yangiliklarni o'qiyman."],
+    ["لا أَكْتُبُ بَرْنامَجًا لِأَعْمالي اليَوْمِيَّةِ أَبَدًا.", "Kundalik ishlarim uchun hech qachon reja yozmayman."], ["لا أَتَناوَلُ وَجْبَةَ العَشاءِ قَبْلَ نَوْمي أَبَدًا.", "Uxlashdan oldin hech qachon kechki ovqat yemayman."],
+    ["أُنَظِّفُ أَسْناني قَبْلَ النَّوْمِ دائِمًا، وَأُمَشِّطُ شَعْري.", "Uxlashdan oldin doim tishimni tozalayman va sochimni tarayman."], ["وَأَغْسِلُ يَدَيَّ قَبْلَ الطَّعامِ وَبَعْدَهُ دائِمًا.", "Va ovqatdan oldin va keyin doim qo'limni yuvaman."]],
+  reja: ["Istibonadagi javoblaringizdan foydalandingizmi?", "دائِمًا / أَحْيانًا / أَبَدًا ni to'g'ri ishlatdingizmi?", "«أَبَدًا» bilan لا + fe'l qo'ydingizmi? (لا أَنامُ … أَبَدًا)", "Fe'llarni «men» shaklida yozdingizmi? (أَسْتَيْقِظُ، أَتَناوَلُ)", "Kamida oltita odatni yozdingizmi?"]
+}, 18: {
+  // 19-mavzu «Kundalik daftar»: Miftah A1 1/1, 5-vahda 2-dars, 7-mashq «اكتب: ماذا ستفعل غدًا؟» — «يَوْمِيّات» varag'i (اليوم، التاريخ), kelasi zamon سَـ / سَوْفَ
+  nom: "يَوْمِيّاتٌ: ماذا سَأَفْعَلُ غَدًا؟",
+  anketaIzoh: "Kundalik varag'i: avval kun va sanani yozing, keyin ertaga nima qilishingizni — faqat arabcha, kelasi zamonda (سَـ).",
+  gap: [["Ertaga soat oltida turaman.", ["غَدًا", "سَأَسْتَيْقِظُ", "في", "السّادِسَةِ."], ["اسْتَيْقَظْتُ", "أَمْسِ"]],
+    ["So'ng do'stimga tashrif buyuraman.", ["ثُمَّ", "سَأَزورُ", "صَديقي."], ["زُرْتُ", "سَيَزورُ"]],
+    ["Kechqurun vazifamni yozaman.", ["في", "المَساءِ", "سَأَكْتُبُ", "واجِبي."], ["كَتَبْتُ", "الصَّباحِ"]],
+    ["Ertangi kun chiroyli bo'ladi, inshaalloh.", ["سَيَكونُ", "يَوْمًا", "جَميلًا", "إِنْ", "شاءَ", "اللهُ."], ["كانَ", "جَميلٌ"]]],
+  anketa: [["اليَوْمُ", "Masalan: الأحد"], ["التّاريخُ", "Masalan: ٢٣ نوفمبر"], ["مَتى سَتَسْتَيْقِظُ غَدًا؟", "Javob"], ["ماذا سَتَفْعَلُ في الصَّباحِ؟", "Javob"], ["أَيْنَ سَتَذْهَبُ؟", "Javob"], ["مَنْ سَتَزورُ / سَتُقابِلُ؟", "Javob"], ["ماذا سَتَفْعَلُ في المَساءِ؟", "Javob"]],
+  qolip: ["اليَوْمُ: … — التّاريخُ: …", "غَدًا سَأَسْتَيْقِظُ في السّاعَةِ …", "ثُمَّ سَأُصَلّي / سَأَتَناوَلُ …", "بَعْدَ ذلِكَ سَأَذْهَبُ إِلى …", "سَأَزورُ / سَأُقابِلُ …", "في المَساءِ سَأَكْتُبُ / سَأَقْرَأُ …", "سَيَكونُ يَوْمًا جَميلًا إِنْ شاءَ اللهُ."],
+  namuna: [["اليَوْمُ: الأَحَدُ — التّاريخُ: ٢٣ نوفمبر.", "Kun: yakshanba — sana: 23-noyabr."], ["غَدًا سَأَسْتَيْقِظُ في السّاعَةِ السّادِسَةِ، ثُمَّ سَأُصَلّي الفَجْرَ.", "Ertaga soat oltida turaman, so'ng bomdodni o'qiyman."],
+    ["بَعْدَ ذلِكَ سَأَتَناوَلُ الفُطورَ مَعَ أُسْرَتي.", "Undan keyin oilam bilan nonushta qilaman."], ["في السّاعَةِ التّاسِعَةِ سَأَذْهَبُ إِلى المَعْهَدِ.", "Soat to'qqizda markazga boraman."],
+    ["سَأَدْرُسُ اللُّغَةَ العَرَبِيَّةَ ساعَتَيْنِ.", "Ikki soat arab tilini o'qiyman."], ["بَعْدَ الظُّهْرِ سَأَزورُ جَدّي وَجَدَّتي.", "Tushdan keyin bobom va buvimni ziyorat qilaman."],
+    ["في المَساءِ سَأَكْتُبُ واجِبي، وَسَأَقْرَأُ كِتابًا.", "Kechqurun vazifamni yozaman va kitob o'qiyman."], ["سَيَكونُ يَوْمًا جَميلًا إِنْ شاءَ اللهُ.", "Chiroyli kun bo'ladi, inshaalloh."]],
+  reja: ["Kun va sanani yozdingizmi? (اليَوْمُ، التّاريخُ)", "Fe'llarni kelasi zamonda yozdingizmi? (سَأَسْتَيْقِظُ، سَأَذْهَبُ)", "Vaqtlarni yozdingizmi? (في الصَّباحِ، بَعْدَ الظُّهْرِ، في المَساءِ)", "ثُمَّ / بَعْدَ ذلِكَ ni ishlatdingizmi?", "«إِنْ شاءَ اللهُ» bilan tugatdingizmi?"]
+}, 19: {
+  // 20-mavzu «Ramazon dasturxoni»: Miftah A1 1/1, 6-vahda 1-dars «المائدة الرمضانية» (109–116): matn, 2-mashq jadval (الطعام / الشراب / الحلويات), kitoba — kundalik faoliyat paragrafi, «قَبْلَ / بَعْدَ»
+  nom: "المائِدَةُ الرَّمَضانِيَّةُ في بَلَدي",
+  anketaIzoh: "Kitobdagidek jadvalni to'ldiring: Ramazonda iftor va saharlikda nima yeysiz va ichasiz — faqat arabcha.",
+  oddiy: { ustun: ["الوَجْبَةُ", "الطَّعامُ", "الشَّرابُ", "الحَلَوِيّاتُ"], qator: ["الإِفْطارُ", "السُّحورُ"] },
+  gap: [["Ramazonda oila iftor dasturxoni atrofida yig'iladi.", ["في", "رَمَضانَ", "تَجْتَمِعُ", "الأُسْرَةُ", "حَوْلَ", "مائِدَةِ", "الإِفْطارِ."], ["يَجْتَمِعُ", "السُّحورِ"]],
+    ["Iftorni xurmo va suv bilan ochamiz.", ["نُفْطِرُ", "عَلى", "التَّمْرِ", "وَالماءِ."], ["أُفْطِرُ", "الحَليبِ"]],
+    ["Iftordan keyin shom namozini o'qiymiz.", ["بَعْدَ", "الإِفْطارِ", "نُصَلّي", "المَغْرِبَ."], ["قَبْلَ", "السُّحورِ"]],
+    ["Bomdoddan oldin saharlik qilamiz.", ["نَتَناوَلُ", "السُّحورَ", "قَبْلَ", "الفَجْرِ."], ["بَعْدَ", "الإِفْطارَ"]]],
+  qolip: ["شَهْرُ رَمَضانَ شَهْرٌ مُبارَكٌ.", "تَجْتَمِعُ الأُسْرَةُ حَوْلَ مائِدَةِ الإِفْطارِ.", "نُفْطِرُ عَلى …", "عَلى المائِدَةِ … وَ … وَ …", "نَشْرَبُ … ، وَنَأْكُلُ مِنَ الحَلَوِيّاتِ …", "بَعْدَ الإِفْطارِ … ، ثُمَّ …", "قَبْلَ الفَجْرِ نَتَناوَلُ السُّحورَ: …"],
+  namuna: [["شَهْرُ رَمَضانَ شَهْرٌ مُبارَكٌ عِنْدَ المُسْلِمينَ.", "Ramazon oyi musulmonlar uchun muborak oy."], ["في رَمَضانَ تَجْتَمِعُ الأُسْرَةُ كُلَّ يَوْمٍ حَوْلَ مائِدَةِ الإِفْطارِ.", "Ramazonda oila har kuni iftor dasturxoni atrofida yig'iladi."],
+    ["نُفْطِرُ عَلى التَّمْرِ وَالماءِ، ثُمَّ نُصَلّي المَغْرِبَ.", "Xurmo va suv bilan iftor qilamiz, so'ng shom namozini o'qiymiz."], ["عَلى المائِدَةِ الشّوربا وَالسَّمْبوسَةُ وَالأَرُزُّ الأوزْبَكِيُّ.", "Dasturxonda sho'rva, somsa va o'zbek oshi bor."],
+    ["نَشْرَبُ الشّايَ الأَخْضَرَ وَعَصيرَ الفَواكِهِ.", "Ko'k choy va meva sharbati ichamiz."], ["وَمِنَ الحَلَوِيّاتِ: الحَلْوى وَالنَّباتُ وَالفَواكِهُ المُجَفَّفَةُ.", "Shirinliklardan: holva, novvot va quritilgan mevalar."],
+    ["بَعْدَ الإِفْطارِ نَذْهَبُ إِلى المَسْجِدِ وَنُصَلّي التَّراويحَ.", "Iftordan keyin masjidga borib, taroveh o'qiymiz."], ["قَبْلَ الفَجْرِ نَتَناوَلُ السُّحورَ: الخُبْزَ وَالحَليبَ وَالبَيْضَ.", "Bomdoddan oldin saharlik qilamiz: non, sut va tuxum."]],
+  reja: ["Ramazon haqida umumiy gap yozdingizmi?", "Iftorda nima yeyishingizni yozdingizmi? (الطَّعامُ)", "Ichimliklar va shirinliklarni yozdingizmi?", "قَبْلَ / بَعْدَ ni ishlatdingizmi? (بَعْدَ الإِفْطارِ، قَبْلَ الفَجْرِ)", "Saharlik haqida yozdingizmi?"]
+}, 20: {
+  // 21-mavzu «Ovqatlanish odatlari»: Miftah A1 1/1, 6-vahda 2-dars «عادات غذائية عند شعوب العالم» (119–126): Saudiya va Yaponiya — 4 sarlavha (صفات الغذاء، مكونات الغذاء، عادات الأكل، الممارسات اليومية); kitoba: تصنيف معلومات، ملء استبانة، أدوات الربط
+  nom: "عاداتٌ غِذائِيَّةٌ في أوزْبَكِسْتانَ",
+  anketaIzoh: "Kitobdagi Saudiya va Yaponiya matnlari kabi ma'lumotni sarlavhalar bo'yicha tasniflang — O'zbekiston haqida, faqat arabcha.",
+  oddiy: { ustun: ["العُنْوانُ", "في أوزْبَكِسْتانَ"], qator: ["صِفاتُ الغِذاءِ", "مُكَوِّناتُ الغِذاءِ", "الطَّبَقُ الرَّئيسُ", "عاداتُ الأَكْلِ", "المُمارَساتُ اليَوْمِيَّةُ"] },
+  gap: [["O'zbek taomi mazali va to'yimli.", ["الغِذاءُ", "الأوزْبَكِيُّ", "لَذيذٌ", "وَمُغَذٍّ."], ["لَذيذَةٌ", "الأوزْبَكِيَّةُ"]],
+    ["Asosiy taom — osh.", ["الطَّبَقُ", "الرَّئيسُ", "هُوَ", "الأَرُزُّ", "الأوزْبَكِيُّ."], ["هِيَ", "الرَّئيسَةُ"]],
+    ["O'zbeklar ko'p choy ichadi.", ["يَشْرَبُ", "الأوزْبَكُ", "الشّايَ", "كَثيرًا."], ["يَشْرَبونَ", "قَليلًا"]],
+    ["Ular ovqatni oila bilan birga yeydi.", ["يَأْكُلونَ", "الطَّعامَ", "مَعَ", "الأُسْرَةِ."], ["يَأْكُلُ", "عَنِ"]]],
+  qolip: ["أوزْبَكِسْتانُ", "١. صِفاتُ الغِذاءِ: الغِذاءُ الأوزْبَكِيُّ …", "٢. مُكَوِّناتُ الغِذاءِ: يَتَكَوَّنُ مِنَ …", "الطَّبَقُ الرَّئيسُ هُوَ …", "٣. عاداتُ الأَكْلِ: يَأْكُلُ الأوزْبَكُ … ، وَيَشْرَبونَ …", "٤. المُمارَساتُ اليَوْمِيَّةُ: …", "أَدَواتُ الرَّبْطِ: وَ ، فَـ ، ثُمَّ ، لكِنْ"],
+  namuna: [["أوزْبَكِسْتانُ", "O'zbekiston"], ["١. صِفاتُ الغِذاءِ: الغِذاءُ الأوزْبَكِيُّ لَذيذٌ وَمُغَذٍّ، فيهِ الدُّهونُ وَاللَّحْمُ.", "1. Taom xususiyati: o'zbek taomi mazali va to'yimli, unda yog' va go'sht bor."],
+    ["٢. مُكَوِّناتُ الغِذاءِ: يَتَكَوَّنُ مِنَ اللَّحْمِ وَالأَرُزِّ وَالخُضْرَواتِ وَالخُبْزِ.", "2. Tarkibi: go'sht, guruch, sabzavot va nondan iborat."], ["الطَّبَقُ الرَّئيسُ هُوَ الأَرُزُّ الأوزْبَكِيُّ (البُلُوف).", "Asosiy taom — o'zbek oshi (palov)."],
+    ["٣. عاداتُ الأَكْلِ: يَأْكُلُ الأوزْبَكُ الطَّعامَ مَعَ الأُسْرَةِ، وَيَبْدَؤونَ بِالخُبْزِ وَالشّايِ.", "3. Ovqatlanish odatlari: o'zbeklar oila bilan birga ovqatlanadi, non va choydan boshlaydi."],
+    ["يَشْرَبُ الأوزْبَكُ الشّايَ الأَخْضَرَ كَثيرًا، فَهُوَ مَشْروبٌ مُهِمٌّ عِنْدَهُمْ.", "O'zbeklar ko'k choyni ko'p ichadi, u ular uchun muhim ichimlik."], ["٤. المُمارَساتُ اليَوْمِيَّةُ: يَمْشي النّاسُ كَثيرًا، لكِنَّهُمْ لا يُمارِسونَ الرِّياضَةَ دائِمًا.", "4. Kundalik amaliyot: odamlar ko'p yuradi, lekin doim sport bilan shug'ullanmaydi."]],
+  reja: ["Ma'lumotni kitobdagidek sarlavhalar bo'yicha tasnifladingizmi?", "Taom xususiyati va tarkibini yozdingizmi?", "Asosiy taomni yozdingizmi? (الطَّبَقُ الرَّئيسُ)", "Ovqatlanish odatlari va kundalik amaliyotni yozdingizmi?", "Bog'lovchilarni ishlatdingizmi? (وَ، فَـ، ثُمَّ، لكِنْ)"]
+}, 21: {
+  // 22-mavzu «Kiyimlarni tasvirlash»: Miftah A1 1/2, «الملابس» (120–127) + 1/1 «شخصيات وملابس» (129–136); ranglar (أفعل/فعلاء), sifat moslashuvi
+  nom: "مَلابِسي",
+  anketaIzoh: "Kiyimlaringiz haqida javob bering: nima kiyasiz, rangi qanaqa, qachon kiyasiz — faqat arabcha.",
+  gap: [["Men oq ko'ylak kiyaman.", ["أَلْبَسُ", "قَميصًا", "أَبْيَضَ."], ["بَيْضاءَ", "يَلْبَسُ"]],
+    ["Ko'ylagim yangi va chiroyli.", ["قَميصي", "جَديدٌ", "وَجَميلٌ."], ["جَديدَةٌ", "قَميصُكَ"]],
+    ["Qishda qalin palto kiyaman.", ["في", "الشِّتاءِ", "أَلْبَسُ", "مِعْطَفًا", "ثَقيلًا."], ["الصَّيْفِ", "خَفيفًا"]],
+    ["Onam qora ro'mol kiyadi.", ["أُمّي", "تَلْبَسُ", "حِجابًا", "أَسْوَدَ."], ["سَوْداءَ", "يَلْبَسُ"]]],
+  anketa: [["ماذا تَلْبَسُ في المَدْرَسَةِ / الجامِعَةِ؟", "Javob"], ["ما لَوْنُهُ؟", "أبيض، أزرق، أسود…"], ["ماذا تَلْبَسُ في البَيْتِ؟", "Javob"], ["ماذا تَلْبَسُ في الشِّتاءِ؟", "Javob"], ["ماذا تَلْبَسُ في الصَّيْفِ؟", "Javob"], ["ما مَلابِسُكَ المُفَضَّلَةُ؟", "Javob"]],
+  qolip: ["في … أَلْبَسُ … (rang)", "قَميصي / بِنْطالي … ، وَهُوَ جَديدٌ / قَديمٌ.", "في الشِّتاءِ أَلْبَسُ … ثَقيلًا.", "في الصَّيْفِ أَلْبَسُ … خَفيفًا.", "أُحِبُّ اللَّوْنَ …", "أَشْتَري مَلابِسي مِنْ …"],
+  namuna: [["في الجامِعَةِ أَلْبَسُ قَميصًا أَبْيَضَ وَبِنْطالًا أَسْوَدَ.", "Universitetda oq ko'ylak va qora shim kiyaman."], ["وَأَلْبَسُ حِذاءً أَسْوَدَ أَيْضًا.", "Qora tufli ham kiyaman."],
+    ["في البَيْتِ أَلْبَسُ مَلابِسَ خَفيفَةً وَمُريحَةً.", "Uyda yengil va qulay kiyim kiyaman."], ["في الشِّتاءِ أَلْبَسُ مِعْطَفًا ثَقيلًا وَقُبَّعَةً.", "Qishda qalin palto va shapka kiyaman."],
+    ["في الصَّيْفِ أَلْبَسُ قَميصًا قَصيرًا.", "Yozda kalta yengli ko'ylak kiyaman."], ["مَلابِسي المُفَضَّلَةُ القَميصُ الأَزْرَقُ.", "Sevimli kiyimim — ko'k ko'ylak."],
+    ["أُحِبُّ اللَّوْنَ الأَزْرَقَ كَثيرًا.", "Ko'k rangni juda yaxshi ko'raman."], ["أَشْتَري مَلابِسي مِنَ السّوقِ مَعَ أُمّي.", "Kiyimlarimni onam bilan bozordan sotib olaman."]],
+  reja: ["Kamida to'rtta kiyim nomini yozdingizmi?", "Ranglarni yozdingizmi va to'g'ri moslashtirdingizmi? (قَميصٌ أَبْيَضُ / حَقيبَةٌ بَيْضاءُ)", "Qish va yoz kiyimlarini yozdingizmi?", "Sevimli kiyimingizni yozdingizmi?", "أَلْبَسُ fe'lini to'g'ri ishlatdingizmi?"]
+}, 22: {
+  // 23-mavzu «Bir kishini tasvirlash»: Miftah A1 1/2, «وصف الأشخاص» (109–118) + 1/1 «شخصيات وملابس» (129–136): tashqi ko'rinish (طويل، قصير، شعر، عيون), xislatlar, kiyim
+  nom: "وَصْفُ شَخْصٍ",
+  anketaIzoh: "Bir kishini tanlang (ustoz, qarindosh, do'st) va uni tasvirlang — faqat arabcha.",
+  gap: [["Ustozim baland bo'yli.", ["أُسْتاذي", "طَويلُ", "القامَةِ."], ["قَصيرَةُ", "أُسْتاذَتي"]],
+    ["Uning sochi qora, ko'zlari jigarrang.", ["شَعْرُهُ", "أَسْوَدُ،", "وَعَيْناهُ", "بُنِّيَّتانِ."], ["سَوْداءُ", "شَعْرُها"]],
+    ["U mehribon va kulib turadigan inson.", ["هُوَ", "رَجُلٌ", "لَطيفٌ", "وَمُبْتَسِمٌ."], ["لَطيفَةٌ", "هِيَ"]],
+    ["U doim chiroyli kostyum kiyadi.", ["يَلْبَسُ", "دائِمًا", "بَدْلَةً", "أَنيقَةً."], ["تَلْبَسُ", "أَنيقٌ"]]],
+  anketa: [["مَنْ هُوَ / هِيَ؟", "Javob"], ["كَمْ عُمْرُهُ؟", "Javob"], ["هَلْ هُوَ طَويلٌ أَوْ قَصيرٌ؟", "Javob"], ["ما لَوْنُ شَعْرِهِ وَعَيْنَيْهِ؟", "Javob"], ["ما صِفاتُهُ؟", "لطيف، ذكي، نشيط…"], ["ماذا يَلْبَسُ عادَةً؟", "Javob"], ["لِماذا تُحِبُّهُ؟", "Javob"]],
+  qolip: ["… اسْمُهُ … ، عُمْرُهُ …", "هُوَ طَويلٌ / قَصيرٌ ، نَحيفٌ / سَمينٌ.", "شَعْرُهُ … ، وَعَيْناهُ …", "هُوَ … وَ … (xislatlar)", "يَلْبَسُ عادَةً …", "أُحِبُّهُ لِأَنَّهُ …"],
+  namuna: [["أُسْتاذي اسْمُهُ حَبيبُ اللهِ، عُمْرُهُ ثَلاثونَ سَنَةً.", "Ustozimning ismi Habibulloh, o'ttiz yoshda."], ["هُوَ طَويلُ القامَةِ وَنَحيفٌ.", "U baland bo'yli va ozg'in."],
+    ["شَعْرُهُ أَسْوَدُ قَصيرٌ، وَعَيْناهُ بُنِّيَّتانِ.", "Sochi qora va kalta, ko'zlari jigarrang."], ["لَهُ لِحْيَةٌ سَوْداءُ صَغيرَةٌ.", "Kichik qora soqoli bor."],
+    ["هُوَ رَجُلٌ لَطيفٌ وَمُبْتَسِمٌ دائِمًا.", "U mehribon, doim kulib turadigan inson."], ["وَهُوَ ذَكِيٌّ وَنَشيطٌ، يُحِبُّ الكُتُبَ كَثيرًا.", "U aqlli va g'ayratli, kitoblarni juda yaxshi ko'radi."],
+    ["يَلْبَسُ عادَةً قَميصًا أَبْيَضَ وَبَدْلَةً أَنيقَةً.", "Odatda oq ko'ylak va chiroyli kostyum kiyadi."], ["أُحِبُّهُ كَثيرًا، لِأَنَّهُ يُساعِدُ الطُّلّابَ دائِمًا.", "Uni juda yaxshi ko'raman, chunki u doim talabalarga yordam beradi."]],
+  reja: ["Kim ekanini, ismi va yoshini yozdingizmi?", "Tashqi ko'rinishini yozdingizmi? (طَويلٌ، قَصيرٌ، شَعْرُهُ، عَيْناهُ)", "Kamida ikkita xislatini yozdingizmi?", "Kiyimini yozdingizmi?", "Sifatlarni jinsga moslab yozdingizmi? (هُوَ لَطيفٌ / هِيَ لَطيفَةٌ)"]
+}, 4: {
+  // 5-mavzu «O'qishim haqida»: Miftah A1 1/2, 35-bet «مهمّة للمحادثة» (do'st haqida jadval) + 1/1, 37-bet 8-mashq (o'qishim haqida)
+  nom: "دِراسَتي وَدِراسَةُ صَديقي",
+  anketaIzoh: "Bir do'stingiz haqida ma'lumot yozing — faqat arabcha (kitobdagi jadval kabi).",
+  gap: [["Uning ismi Tohir, u mening do'stim.", ["اسْمُهُ", "طاهِرٌ،", "هُوَ", "صَديقي."], ["اسْمُها", "صَديقَتي"]],
+    ["U Turkiyadan.", ["هُوَ", "مِنْ", "تُرْكِيا."], ["في", "هِيَ"]],
+    ["U Ammonda yashaydi.", ["يَسْكُنُ", "في", "عَمّانَ."], ["تَسْكُنُ", "مِنْ"]],
+    ["U Yarmuk universitetida tibbiyot o'qiydi.", ["يَدْرُسُ", "الطِّبَّ", "في", "جامِعَةِ", "اليَرْموكِ."], ["أَدْرُسُ", "مِنْ"]],
+    ["U uchinchi kursda.", ["هُوَ", "في", "السَّنَةِ", "الثّالِثَةِ."], ["الثّالِثُ", "مِنْ"]]],
+  anketa: [["الاِسْمُ", "Do'stingizning ismi"], ["الجِنْسِيَّةُ", "تركيّ / أوزبكيّ…"], ["السَّكَنُ", "Qayerda yashaydi"], ["الدِّراسَةُ", "الطب / الهندسة / اللغة العربية…"], ["الجامِعَةُ", "Universitet nomi"], ["السَّنَةُ", "الأولى / الثانية / الثالثة…"]],
+  qolip: ["اسْمُهُ … ، هُوَ صَديقي.", "هُوَ مِنْ …", "يَسْكُنُ في …", "يَدْرُسُ … في جامِعَةِ …", "هُوَ في السَّنَةِ …", "أَنا أَدْرُسُ … في …", "أَدْرُسُ … أَيّامٍ في الأُسْبوعِ.", "العُطْلَةُ يَوْمَ …"],
+  namuna: [["اسْمُهُ طاهِرٌ، هُوَ صَديقي.", "Uning ismi Tohir, u mening do'stim."], ["هُوَ مِنْ تُرْكِيا، هُوَ تُرْكِيٌّ.", "U Turkiyadan, u turk."], ["يَسْكُنُ في عَمّانَ.", "U Ammonda yashaydi."],
+    ["يَدْرُسُ الطِّبَّ في جامِعَةِ اليَرْموكِ.", "U Yarmuk universitetida tibbiyot o'qiydi."], ["هُوَ في السَّنَةِ الثّالِثَةِ.", "U uchinchi kursda."],
+    ["أَنا أَدْرُسُ اللُّغَةَ العَرَبِيَّةَ في طَشْقَنْدَ.", "Men Toshkentda arab tilini o'qiyman."], ["أَدْرُسُ خَمْسَةَ أَيّامٍ في الأُسْبوعِ.", "Haftada besh kun o'qiyman."], ["العُطْلَةُ يَوْمَ الجُمُعَةِ وَيَوْمَ السَّبْتِ.", "Dam olish kunlari juma va shanba."]],
+  reja: ["Do'stingizning ismini yozdingizmi?", "Millati va yashash joyini yozdingizmi?", "Nima o'qishini va qaysi universitetda ekanini yozdingizmi? (يَدْرُسُ … في جامِعَةِ …)", "Nechanchi kursda ekanini yozdingizmi? (في السَّنَةِ …)", "O'zingizning o'qishingiz haqida yozdingizmi? (أَنا أَدْرُسُ)"]
+} } };
+function inshoDars(lv, j) {
+  const D = INSHO_DARS[lv][j], T = INSHO_LV[lv][j], yopish = () => { document.body.classList.remove("lg-on"); $.classList.remove("lg-panel"); mode = "home"; render(); };
+  document.body.classList.add("lg-on"); $.classList.add("lg-panel");
+  const pas = h => `<div class="lg-pas">${h}</div>`;
+  // ekran klaviaturasi (anketa va insho uchun umumiy): oxirgi bosilgan maydonga yozadi
+  const KLAV = `<button class="o" id="kb" style="width:100%;margin-top:8px">⌨️ Arabcha klaviatura</button>
+    <div id="kbd" dir="rtl" style="display:none;margin-top:8px">${["ض ص ث ق ف غ ع ه خ ح ج", "ش س ي ب ل ا ت ن م ك ط", "ئ ء ؤ ر ى ة و ز ظ د ذ", "أ إ آ ـَ ـِ ـُ ـْ ـّ ـً ـٌ ـٍ", "، . ؟ ⌫ ␣"].map(q => `<div style="display:flex;gap:4px;margin:4px 0;justify-content:center">${q.split(" ").map(h => `<button class="o ar kk" data-h="${h}" style="flex:1;min-width:0;padding:10px 0;font-size:20px">${h}</button>`).join("")}</div>`).join("")}</div>`;
+  const klavUlash = (maydonlar, saqla) => {
+    let fok = maydonlar[0];
+    maydonlar.forEach(m => m.addEventListener("focus", () => fok = m));
+    $.querySelector("#kb").onclick = () => { const k = $.querySelector("#kbd"), och = k.style.display === "none"; k.style.display = och ? "" : "none"; maydonlar.forEach(m => m.inputMode = och ? "none" : ""); };
+    $.querySelectorAll(".kk").forEach(b => { b.onmousedown = e => e.preventDefault(); b.onclick = () => {
+      const mt = fok, h = b.dataset.h, s = mt.selectionStart ?? mt.value.length, e = mt.selectionEnd ?? s;
+      if (h === "⌫") { const a = s === e ? Math.max(0, s - 1) : s; mt.value = mt.value.slice(0, a) + mt.value.slice(e); mt.selectionStart = mt.selectionEnd = a; }
+      else { const tx = h === "␣" ? " " : h.replace("ـ", ""); mt.value = mt.value.slice(0, s) + tx + mt.value.slice(e); mt.selectionStart = mt.selectionEnd = s + tx.length; }
+      if (saqla) saqla();
+    }; });
+  };
+  const bosqich = ["Namuna", "Gap tuzing", "Anketani to'ldiring", "Insho yozing"];
+  let ball = 0, jami = 0;
+  const top = b => `<div class="top"><button class="o" id="lx" style="padding:6px 12px;font-size:16px">✕</button>
+    <div class="pbar" style="flex:1;margin:0 10px"><i style="width:${Math.max(b * 25, 2)}%"></i></div><span class="pill">${b + 1}/4</span></div>
+    <div class="lg-h"><b>${bosqich[b]}</b></div>`;
+  const ulash = () => $.querySelector("#lx").onclick = yopish;
+  // 1) so'zlar: arabcha maydon nomi → o'zbekcha ma'nosini tanlash (4 variant)
+  const soz = i => {
+    if (i >= D.soz.length) return tanla(0);
+    const w = D.soz[i], V = shuffle([w[1], ...shuffle(D.soz.filter(x => x !== w).map(x => x[1])).slice(0, 3)]);
+    $.innerHTML = top(0) + `<div class="lg-tr"><div class="ar lg-ar">${w[0]}</div><div style="opacity:.6;margin-top:6px" class="ar">${w[2]}</div></div>
+      <div class="lg-bank" style="flex-direction:column">${V.map(v => `<button class="o lg-so" style="width:100%">${v}</button>`).join("")}</div>
+      ${pas(`<div class="fb" id="fb"></div><button class="main" id="nx" disabled>Davom etish</button>`)}`;
+    ulash(); setTimeout(() => tts(w[0]), 250);
+    $.querySelectorAll(".lg-so").forEach(b => b.onclick = () => {
+      const ok = b.textContent === w[1]; ball += ok; jami++; sfx(ok ? "togri" : "xato");
+      $.querySelectorAll(".lg-so").forEach(x => { x.disabled = true; if (x.textContent === w[1]) x.classList.add("ok"); });
+      if (!ok) b.classList.add("bad");
+      const fb = $.querySelector("#fb"); fb.className = "fb " + (ok ? "ok" : "bad"); fb.textContent = ok ? "To'g'ri!" : `To'g'risi: ${w[1]}`;
+      const nx = $.querySelector("#nx"); nx.disabled = false; nx.onclick = () => soz(i + 1);
+    });
+  };
+  // 2) to'g'ri shakl: o'zbekcha gap → arabcha variantlardan to'g'risi, izoh bilan
+  const tanla = i => {
+    if (i >= D.tanla.length) return namunaK();
+    const [s, t, n, iz] = D.tanla[i], V = shuffle([t, ...n]);
+    $.innerHTML = top(0) + `<div class="lg-tr"><div class="lg-ar" style="font-size:20px">${s}</div></div>
+      <div class="lg-bank" style="flex-direction:column">${V.map(v => `<button class="o ar lg-so" style="width:100%">${v}</button>`).join("")}</div>
+      ${pas(`<div class="fb" id="fb"></div><button class="main" id="nx" disabled>Davom etish</button>`)}`;
+    ulash();
+    $.querySelectorAll(".lg-so").forEach(b => b.onclick = () => {
+      const ok = b.textContent === t; ball += ok; jami++; sfx(ok ? "togri" : "xato");
+      $.querySelectorAll(".lg-so").forEach(x => { x.disabled = true; if (x.textContent === t) x.classList.add("ok"); });
+      if (!ok) b.classList.add("bad"); tts(t);
+      const fb = $.querySelector("#fb"); fb.className = "fb " + (ok ? "ok" : "bad"); fb.textContent = (ok ? "To'g'ri! " : "") + iz;
+      const nx = $.querySelector("#nx"); nx.disabled = false; nx.onclick = () => tanla(i + 1);
+    });
+  };
+  // 2b) namuna: arabcha gap, tagida o'zbekchasi, 🔊 bilan — gapma-gap
+  const namunaK = () => {
+    $.innerHTML = top(0) + `<p class="lg-s">Namuna matnni o'qing va tinglang</p>
+      <div style="margin-bottom:90px">${D.namuna.map(([a, u], k) => `<div class="lg-q"><div class="lg-b" style="width:100%"><button class="lg-pl nm2" data-k="${k}" aria-label="Eshitish">🔊</button><div class="ar lg-ar">${a}</div><div class="lg-uz">${u}</div></div></div>`).join("")}</div>
+      ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+    ulash(); $.querySelectorAll(".nm2").forEach(b => b.onclick = () => tts(D.namuna[+b.dataset.k][0]));
+    $.querySelector("#nx").onclick = () => gap(0);
+  };
+  // 3) gap yig'ish: o'zbekcha gap → arabcha so'zlarni tartib bilan bosish
+  const gap = i => {
+    if (i >= D.gap.length) return anketa();
+    const [uz, Z, C] = D.gap[i], bank = shuffle([...Z, ...C]), yig = [];
+    const yoz = () => {
+      $.innerHTML = top(1) + `<div class="lg-tr"><div class="lg-ar" style="font-size:20px">${uz}</div></div>
+        <div class="lg-javob ar" dir="rtl">${yig.map((s, k) => `<button class="o ar lg-so" data-y="${k}">${bank[s]}</button>`).join("") || "&nbsp;"}</div>
+        <div class="lg-bank" dir="rtl">${bank.map((s, k) => `<button class="o ar lg-so" data-b="${k}" ${yig.includes(k) ? "disabled" : ""}>${s}</button>`).join("")}</div>
+        ${pas(`<div class="fb" id="fb"></div><button class="main" id="nx" ${yig.length ? "" : "disabled"}>Tekshirish</button>`)}`;
+      ulash();
+      $.querySelectorAll("[data-b]").forEach(b => b.onclick = () => { yig.push(+b.dataset.b); yoz(); });
+      $.querySelectorAll("[data-y]").forEach(b => b.onclick = () => { yig.splice(+b.dataset.y, 1); yoz(); });
+      $.querySelector("#nx").onclick = () => {
+        const ok = yig.map(k => bank[k]).join(" ") === Z.join(" "); ball += ok; jami++; sfx(ok ? "togri" : "xato"); tts(Z.join(" "));
+        const fb = $.querySelector("#fb"); fb.className = "fb " + (ok ? "ok" : "bad"); fb.innerHTML = ok ? "To'g'ri!" : `To'g'risi: <span class="ar">${Z.join(" ")}</span>`;
+        $.querySelectorAll(".lg-so").forEach(b => b.disabled = true);
+        const nx = $.querySelector("#nx"); nx.textContent = "Davom etish"; nx.onclick = () => gap(i + 1);
+      };
+    };
+    yoz();
+  };
+  // 4) anketa: o'quvchi o'z ma'lumotini yozadi (saqlanadi, keyingi bosqichda yordam bo'ladi)
+  const A = store.get(`insho-${lv}-${j}-anketa`, {});
+  // jadvalli anketa (kitob 1/1, 36-bet 5-mashq: «املأ البرنامج الدراسي»): tepada vaqtlar, chapda kunlar, ichida fanlar
+  const jadvalHtml = (tahrir) => { const J = D.jadval, kat = (k, ph, w) => tahrir ? `<input data-k="${k}" value="${(A[k] || "").replace(/"/g, "&quot;")}" placeholder="${ph}" dir="rtl" lang="ar" style="width:100%;box-sizing:border-box;padding:8px 4px;border:1px solid #ccc;border-radius:8px;font-size:16px;font-family:inherit;${w || ""}">` : `<span class="ar">${A[k] || ""}</span>`;
+    const td = "border:1px solid #b9cfa0;padding:4px;text-align:center", th = td + ";background:#8cc63f;color:#fff;font-weight:700", kul = td + ";background:#d6d6d6";
+    const dars = A.tur === "maktab" ? "الحِصَّةُ" : "المُحاضَرَةُ";  // maktabda — حِصّة, universitetda — مُحاضَرة
+    // darslar orasida kulrang «اِسْتِراحَةٌ» ustuni (kitobdagidek); tepasiga tanaffus vaqti yoziladi
+    // universitet: 3 ta ma'ruza, har biridan keyin tanaffus; maktab: 6 ta dars, har darsdan keyin 5 daqiqa, katta tanaffus 4-darsdan keyin (11:25)
+    const U = A.tur === "maktab" ? J.maktab.ustun : J.ustun, TN = A.tur === "maktab" ? J.maktab.tanaffus : J.ustun.slice(0, -1).map((_, c) => c);
+    const qat = f => U.map((u, c) => f(u, c) + (TN.includes(c) ? f(null, c) : "")).join("");
+    return `<div style="overflow-x:auto"><table dir="rtl" class="ar" style="width:100%;border-collapse:collapse;background:#fff;font-size:16px">
+      <tr><td style="${th}">الأَوْقاتُ</td>${qat((u, c) => u ? `<td style="${td}">${kat("v" + c, "٨:٠٠")}</td>` : `<td style="${kul}">${kat("t" + c, A.tur === "maktab" ? "١١:٢٥" : "١٠:٠٠", "background:#eee")}</td>`)}</tr>
+      <tr><td style="${th};background:#5a9e2f">اليَوْمُ / ${dars}</td>${qat(u => u ? `<td style="${th}">${u}</td>` : `<td style="${kul};font-size:13px">${A.tur === "maktab" ? "الاِسْتِراحَةُ الكَبيرَةُ" : "اِسْتِراحَةٌ"}</td>`)}</tr>
+      ${Array.from({ length: J.kunlar }, (_, r) => `<tr><td style="${td}">${kat("d" + r, J.kunPh[r] || "اليوم")}</td>${qat((u, c) => u ? `<td style="${td}">${kat(`c${r}-${c}`, "")}</td>` : `<td style="${kul}"></td>`)}</tr>`).join("")}
+    </table></div>${A.tur === "maktab" ? `<p class="lg-s ar" style="margin:6px 0">بَعْدَ كُلِّ حِصَّةٍ خَمْسُ دَقائِقَ راحَةٍ. <small style="font-family:inherit">(Har darsdan keyin 5 daqiqa tanaffus)</small></p>` : ""}`; };
+  const oddiyHtml = (tahrir) => { const J = D.oddiy, td = "border:1px solid #e6a8c8;padding:4px;text-align:center", th = td + ";background:#e91e8c;color:#fff;font-weight:700";
+    const kat = k => tahrir ? `<input data-k="${k}" value="${(A[k] || "").replace(/"/g, "&quot;")}" dir="rtl" lang="ar" style="width:100%;box-sizing:border-box;padding:8px 4px;border:1px solid #ccc;border-radius:8px;font-size:16px;font-family:inherit">` : `<span class="ar">${A[k] || ""}</span>`;
+    return `<div style="overflow-x:auto"><table dir="rtl" class="ar" style="width:100%;border-collapse:collapse;background:#fff;font-size:16px">
+      <tr>${J.ustun.map(u => `<td style="${th}">${u}</td>`).join("")}${D.daraxt ? `<td style="${th}">الصّورَةُ</td>` : ""}</tr>
+      ${J.qator.map((q, r) => `<tr><td style="${td};font-weight:700">${q}</td>${J.ustun.slice(1).map((_, c) => `<td style="${td}">${kat(`o${r}-${c}`)}</td>`).join("")}${D.daraxt ? `<td style="${td}"><label style="display:block;width:44px;height:44px;margin:auto;border-radius:50%;border:2px solid #e91e8c;cursor:pointer;background:#fff ${A["f" + r] ? `url(${A["f" + r]}) center/cover` : ""};line-height:40px;font-size:20px">${A["f" + r] ? "" : "📷"}${tahrir ? `<input type="file" accept="image/*" data-f="${r}" style="display:none">` : ""}</label></td>` : ""}</tr>`).join("")}
+    </table></div>`; };
+  // oila daraxti: tepada ota-ona, pastda farzandlar; har birida rasm (doira) va tagida ism, yosh, ish
+  const daraxtHtml = (tahrir) => { const Q = D.oddiy.qator, U = D.oddiy.ustun.slice(1);
+    const tugun = r => `<div style="flex:1;min-width:0;max-width:150px;text-align:center">
+      <label style="display:block;width:min(72px,13vw);height:min(72px,13vw);margin:0 auto 4px;border-radius:50%;border:3px solid #e91e8c;background:#fff ${A["f" + r] ? `url(${A["f" + r]}) center/cover` : ""};cursor:${tahrir ? "pointer" : "default"};position:relative;overflow:hidden">
+        ${A["f" + r] ? "" : `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:${tahrir ? 26 : 30}px;color:#e91e8c">${tahrir ? "📷" : "👤"}</span>`}
+        ${tahrir ? `<input type="file" accept="image/*" data-f="${r}" style="display:none">` : ""}</label>
+      <div class="ar" style="font-weight:700;color:#e91e8c;font-size:15px;line-height:1.3">${Q[r]}</div>
+      ${U.map((u, c) => tahrir ? `<input data-k="o${r}-${c}" value="${(A[`o${r}-${c}`] || "").replace(/"/g, "&quot;")}" placeholder="${u}" dir="rtl" lang="ar" style="width:100%;box-sizing:border-box;margin-top:3px;padding:6px 4px;border:1px solid #ccc;border-radius:8px;font-size:14px;font-family:inherit;text-align:center">` : `<div class="ar" style="font-size:14px">${A[`o${r}-${c}`] || ""}</div>`).join("")}
+    </div>`;
+    // qavatlar: D.oddiy.qavat = [[qatorlar], ...] (katta avlod birinchi); bo'lmasa — ota-ona va farzandlar.
+    // Kitobdagidek haqiqiy daraxt (1/2, 44-bet): katta avlod — tanada (pastda), yosh avlod — shoxlarda (tepada)
+    const QV = (D.oddiy.qavat || [[0, 1], Q.map((_, r) => r).slice(2)]).slice().reverse();
+    const barg = Array.from({ length: 140 }, (_, i) => { const a = i * 2.39996, rr = 40 * Math.sqrt((i + .5) / 140), x = 50 + rr * Math.cos(a) * 1.2, y = 36 + rr * Math.sin(a) * .85;
+      return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="3.4" ry="1.7" transform="rotate(${(a * 57) % 180} ${x.toFixed(1)} ${y.toFixed(1)})" fill="${["#7cb342", "#9ccc65", "#c0a040", "#689f38", "#d4a017"][i % 5]}" opacity=".85"/>`; }).join("");
+    const svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;z-index:0" aria-hidden="true">
+      <path d="M46 100 C47 85 46 75 44 64 C40 52 30 46 18 40 M44 64 C48 56 54 50 66 44 C74 40 82 36 88 30 M45 72 C38 62 26 60 12 58 M47 70 C56 62 70 62 86 56 M44 60 C42 46 36 32 30 18 M46 58 C50 44 58 30 68 16 M45 56 C46 42 48 28 50 10 M30 44 C24 34 20 26 16 20 M66 44 C72 34 78 26 84 20"
+        stroke="#5d4037" stroke-width="1.6" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke" style="stroke-width:6px"/>
+      <path d="M43 100 L45 66 L49 66 L51 100 Z" fill="#5d4037"/>
+      ${barg}
+    </svg>`;
+    return `<div dir="rtl" style="position:relative;background:radial-gradient(ellipse at 50% 40%,#fdf6e3,#fff 70%);border-radius:16px;padding:10px 4px 60px;overflow:hidden;min-height:${QV.length > 2 ? 520 : 400}px">
+      ${svg}
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:${QV.length > 2 ? 26 : 70}px">
+        ${QV.map((q, k) => `<div style="display:flex;justify-content:${q.length < 3 ? "center" : "space-around"};gap:${q.length < 3 ? 30 : 4}px;${k === QV.length - 1 ? "margin-top:8px" : ""}">${q.map(r => `<div style="flex:1;min-width:0;max-width:${q.length < 3 ? 120 : 100}px;background:rgba(255,253,246,.78);border-radius:14px;padding:3px 2px">${tugun(r)}</div>`).join("")}</div>`).join("")}
+      </div>
+    </div>`; };
+  // uy chizmasi: o'quvchi xonalarni qo'shadi, ular reja (plan) ko'rinishida chiziladi, har xonaga jihozlar yoziladi; yoki qo'lda chizgan rasmini yuklaydi
+  const XONA_RANG = ["#ffe0b2", "#c8e6c9", "#bbdefb", "#f8bbd0", "#d1c4e9", "#fff9c4", "#b2dfdb", "#ffccbc"];
+  const xaritaHtml = (tahrir) => { const X = A.xona || [];
+    if (!X.length) return tahrir ? `<div style="border:2px dashed #b08d57;border-radius:14px;padding:26px 10px;text-align:center;color:#8d6e63">Yuqoridan xonalarni bosing — chizma shu yerda paydo bo'ladi</div>` : "";
+    return `<div dir="rtl" style="display:grid;grid-template-columns:repeat(${X.length > 4 ? 3 : 2},1fr);gap:0;border:6px solid #5d4037;border-radius:6px;background:#5d4037">
+      ${X.map((x, i) => `<div style="background:${XONA_RANG[i % XONA_RANG.length]};border:2px solid #5d4037;padding:8px 6px;min-height:${x.n === "غُرْفَةُ الجُلوسِ" || x.n === "غُرْفَةُ الضُّيوفِ" ? 110 : 84}px;${(() => { const k = X.length > 4 ? 3 : 2, q = X.length % k; return q && i === X.length - 1 ? `grid-column:span ${k - q + 1};` : ""; })()}position:relative">
+        ${tahrir ? `<button data-del="${i}" aria-label="O'chirish" style="position:absolute;top:2px;left:4px;border:0;background:none;font-size:16px;color:#8d6e63;cursor:pointer">✕</button>` : ""}
+        <div class="ar" style="font-weight:700;font-size:16px;color:#4e342e;text-align:center">${x.n}</div>
+        ${tahrir ? `<input data-x="${i}" value="${(x.j || "").replace(/"/g, "&quot;")}" placeholder="سرير، خزانة…" dir="rtl" lang="ar" style="width:100%;box-sizing:border-box;margin-top:6px;padding:6px 4px;border:1px solid #bcaaa4;border-radius:8px;font-size:15px;font-family:inherit;background:rgba(255,255,255,.8)">` : `<div class="ar" style="font-size:14px;text-align:center;margin-top:4px">${x.j || ""}</div>`}
+      </div>`).join("")}
+    </div>`; };
+  // xona chizmasi: o'quvchi jihozlarni bosib xonaga qo'shadi va barmog'i bilan joyiga suradi (keyin ظروف المكان bilan tasvirlaydi)
+  const xonaHtml = (tahrir) => { const B = A.buyum || [];
+    return `<div id="xona" dir="ltr" style="position:relative;width:100%;aspect-ratio:4/3;background:linear-gradient(#f5ecd7 0 62%,#c8a97e 62%);border:6px solid #5d4037;border-radius:8px;overflow:hidden;touch-action:none">
+      ${!B.length && tahrir ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8d6e63;text-align:center;padding:10px">Yuqoridagi jihozlarni bosing, keyin barmog'ingiz bilan joyiga suring</div>` : ""}
+      ${B.map((b, i) => `<div data-b="${i}" style="position:absolute;left:${b.x}%;top:${b.y}%;transform:translate(-50%,-50%);text-align:center;cursor:${tahrir ? "grab" : "default"};user-select:none;touch-action:none">
+        <div style="font-size:clamp(26px,9vw,44px);line-height:1">${b.e}</div><div class="ar" style="font-size:12px;background:rgba(255,255,255,.85);border-radius:6px;padding:0 4px;white-space:nowrap">${b.n}</div>
+        ${tahrir ? `<button data-bdel="${i}" style="position:absolute;top:-8px;right:-10px;border:0;background:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;line-height:18px;padding:0;color:#8d6e63">✕</button>` : ""}</div>`).join("")}
+    </div>`; };
+  // haqiqiy xarita (OpenStreetMap + Leaflet): o'quvchi joylashuvini aniqlaydi yoki xaritani bosadi; atrofdagi maktab, bog'cha, masjid, kasalxona… Overpass orqali chiqadi
+  const GEO_TUR = [["kindergarten", "🧸", "رَوْضَةُ أَطْفالٍ"], ["school", "🏫", "مَدْرَسَةٌ"], ["place_of_worship", "🕌", "جامِعٌ"], ["hospital", "🏥", "مُسْتَشْفى"], ["clinic", "🏥", "مُسْتَوْصَفٌ"], ["pharmacy", "💊", "صَيْدَلِيَّةٌ"], ["marketplace", "🛒", "سوقٌ"], ["park", "🌳", "حَديقَةٌ"], ["supermarket", "🏪", "بَقالَةٌ"], ["museum", "🏛️", "مَتْحَفٌ"]];
+  const leafletYukla = () => window.L ? Promise.resolve() : new Promise((ok, no) => {
+    const c = document.createElement("link"); c.rel = "stylesheet"; c.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"; document.head.appendChild(c);
+    const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+  const geoXarita = async () => {
+    const box = $.querySelector("#geo"); if (!box) return;
+    try { await leafletYukla(); } catch { box.innerHTML = `<p class="lg-s">Xarita yuklanmadi (internetni tekshiring)</p>`; return; }
+    const g = A.geo || { lat: 41.3111, lon: 69.2797 }, map = L.map("geo").setView([g.lat, g.lon], A.geo ? 16 : 12);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(map);
+    const qatlam = L.layerGroup().addTo(map); let uy = null, geoNavbat = 0;
+    const yon = (la, lo) => { const dy = la - g2.lat, dx = (lo - g2.lon) * Math.cos(g2.lat * Math.PI / 180); return Math.abs(dy) > Math.abs(dx) ? (dy > 0 ? "شَمالَ" : "جَنوبَ") : (dx > 0 ? "شَرْقَ" : "غَرْبَ"); };
+    let g2 = g;
+    const joylash = async (lat, lon) => {
+      g2 = { lat, lon }; A.geo = g2; store.set(`insho-${lv}-${j}-anketa`, A); const navbat = ++geoNavbat;
+      if (uy) uy.remove(); uy = L.marker([lat, lon], { icon: L.divIcon({ html: "🏠", className: "", iconSize: [30, 30] }) }).addTo(map).bindTooltip("بَيْتي", { permanent: true, direction: "top" });
+      map.setView([lat, lon], 16); qatlam.clearLayers();
+      const ro = $.querySelector("#georo"); ro.innerHTML = `<p class="lg-s">Atrofdagi joylar qidirilmoqda…</p>`;
+      const q = `[out:json][timeout:25];(nwr(around:800,${lat},${lon})[amenity~"^(school|kindergarten|hospital|clinic|place_of_worship|marketplace|pharmacy)$"];nwr(around:800,${lat},${lon})[leisure=park];nwr(around:800,${lat},${lon})[shop=supermarket];nwr(around:800,${lat},${lon})[tourism=museum];);out center 80;`;
+      try {
+        // bir nechta Overpass serveri: birinchisi ishlamasa keyingisi (2026-11-21 tekshiruvi: maps.mail.ru barqaror)
+        let r = null;
+        for (const u of ["https://maps.mail.ru/osm/tools/overpass/api/interpreter", "https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]) {
+          try { const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 12000);
+            const x = await fetch(u, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "data=" + encodeURIComponent(q), signal: ac.signal }); clearTimeout(tm);
+            if (x.ok) { r = await x.json(); break; } } catch {}
+        }
+        if (navbat !== geoNavbat) return;  // o'quvchi boshqa joyni bosib ulgurdi
+        if (!r) throw new Error("overpass");
+        const J = r.elements.map(el => { const tg = el.tags || {}, k = tg.amenity || (tg.leisure === "park" ? "park" : tg.shop === "supermarket" ? "supermarket" : tg.tourism === "museum" ? "museum" : ""), T = GEO_TUR.find(x => x[0] === k);
+          if (!T || (k === "place_of_worship" && tg.religion && tg.religion !== "muslim")) return null;
+          const la = el.lat || (el.center && el.center.lat), lo = el.lon || (el.center && el.center.lon); if (!la) return null;
+          const m = Math.round(map.distance([lat, lon], [la, lo])); return { T, la, lo, m, nom: tg["name:ar"] || tg.name || "" }; }).filter(Boolean).sort((a, b) => a.m - b.m);
+        J.forEach(x => L.marker([x.la, x.lo], { icon: L.divIcon({ html: x.T[1], className: "", iconSize: [24, 24] }) }).addTo(qatlam).bindTooltip(`${x.T[2]} ${x.nom}`));
+        const top = [...new Map(J.map(x => [x.T[0], x])).values()];  // har turdan eng yaqini
+        A.geoRo = top.map(x => `${x.T[2]} — ${x.m} م، ${yon(x.la, x.lo)} البَيْتِ`); store.set(`insho-${lv}-${j}-anketa`, A);
+        ro.innerHTML = top.length ? `<div class="fb ok" dir="rtl" style="text-align:right"><b>Atrofingizdagi joylar (eng yaqini):</b><br>${top.map(x => `<span style="font-size:18px">${x.T[1]}</span> <span class="ar">${x.T[2]}</span> <small dir="ltr">${x.nom ? "(" + x.nom + ") " : ""}— ${x.m} m, <span class="ar">${yon(x.la, x.lo)} البَيْتِ</span></small>`).join("<br>")}</div>` : `<p class="lg-s">Yaqin atrofda joy topilmadi — xaritani boshqa joyga bosib ko'ring</p>`;
+      } catch { ro.innerHTML = `<p class="lg-s">Joylarni olishda xato — keyinroq urinib ko'ring</p>`; }
+    };
+    map.on("click", e => joylash(e.latlng.lat, e.latlng.lng));
+    $.querySelector("#geobtn").onclick = () => { if (!navigator.geolocation) return; $.querySelector("#georo").innerHTML = `<p class="lg-s">Joylashuv aniqlanmoqda…</p>`;
+      navigator.geolocation.getCurrentPosition(p => joylash(p.coords.latitude, p.coords.longitude), () => { $.querySelector("#georo").innerHTML = `<p class="lg-s">Joylashuvga ruxsat berilmadi — uyingizni xaritada bosib belgilang</p>`; }, { enableHighAccuracy: true, timeout: 15000 }); };
+    if (A.geo) joylash(A.geo.lat, A.geo.lon);
+  };
+  // kundalik faoliyat jadvali (1/2, 84-bet «مهمّة محادثة»): النشاط | الساعة | دائمًا، عادةً، غالبًا، أحيانًا، نادرًا
+  const faolHtml = (tahrir) => { const F = D.faol, td = "border:1px solid #9fb6d9;padding:3px;text-align:center", th = td + ";background:#1f4e8c;color:#fff;font-weight:700;font-size:14px";
+    const kat = (k, ph) => tahrir ? `<input data-k="${k}" value="${(A[k] || "").replace(/"/g, "&quot;")}" placeholder="${ph}" dir="rtl" lang="ar" style="width:100%;box-sizing:border-box;padding:6px 3px;border:1px solid #ccc;border-radius:8px;font-size:14px;font-family:inherit">` : `<span class="ar">${A[k] || ""}</span>`;
+    return `<div style="overflow-x:auto"><table dir="rtl" class="ar" style="width:100%;border-collapse:collapse;background:#fff">
+      <tr><td style="${th}">النَّشاطُ</td><td style="${th}">السّاعَةُ</td>${F.tez.map(x => `<td style="${th}">${x}</td>`).join("")}</tr>
+      ${Array.from({ length: F.qator }, (_, r) => `<tr><td style="${td};min-width:90px">${kat("a" + r, F.ph[r] || "")}</td><td style="${td};min-width:56px">${kat("s" + r, "٧:٠٠")}</td>
+        ${F.tez.map((_, c) => `<td style="${td}">${tahrir ? `<input type="radio" name="t${r}" data-t="${r}" value="${c}" ${String(A["t" + r]) === String(c) ? "checked" : ""} style="width:20px;height:20px">` : (String(A["t" + r]) === String(c) ? "✔" : "")}</td>`).join("")}</tr>`).join("")}
+    </table></div>`; };
+  // istibona: kitobdagi savollar ro'yxati + javob ustunlari (دائمًا / أحيانًا / أبدًا), o'quvchi belgilaydi
+  const istHtml = (tahrir) => { const I = D.istibona, td = "border:1px solid #e0b98a;padding:4px;text-align:center", th = td + ";background:#f5d6a8;font-weight:700";
+    return `<div style="overflow-x:auto"><table dir="rtl" class="ar" style="width:100%;border-collapse:collapse;background:#fff;font-size:15px">
+      <tr><td style="${th}">السُّؤالُ</td>${I.tez.map(x => `<td style="${th};background:#fff3c4">${x}</td>`).join("")}</tr>
+      ${I.savol.map((q, r) => `<tr><td style="${td};text-align:right">${r + 1}. ${q}</td>${I.tez.map((_, c) => `<td style="${td}">${tahrir ? `<input type="radio" name="i${r}" data-i="${r}" value="${c}" ${String(A["i" + r]) === String(c) ? "checked" : ""} style="width:20px;height:20px">` : (String(A["i" + r]) === String(c) ? "✔" : "")}</td>`).join("")}</tr>`).join("")}
+    </table></div>`; };
+  const anketa = () => {
+    if (D.istibona) {
+      $.innerHTML = top(2) + `<p class="lg-s">${D.anketaIzoh}</p><div style="margin-bottom:90px">${istHtml(true)}</div>
+        ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+      ulash();
+      $.querySelector("#nx").onclick = () => { $.querySelectorAll("input[data-i]:checked").forEach(x => A["i" + x.dataset.i] = x.value); store.set(`insho-${lv}-${j}-anketa`, A); insho(); };
+      return;
+    }
+    if (D.faol) {
+      $.innerHTML = top(2) + `<p class="lg-s">${D.anketaIzoh}</p><div style="margin-bottom:90px">${faolHtml(true)}${KLAV}</div>
+        ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+      ulash(); klavUlash([...$.querySelectorAll("input[data-k]")]);
+      $.querySelector("#nx").onclick = () => { $.querySelectorAll("input[data-k]").forEach(x => A[x.dataset.k] = x.value.trim()); $.querySelectorAll("input[data-t]:checked").forEach(x => A["t" + x.dataset.t] = x.value); store.set(`insho-${lv}-${j}-anketa`, A); insho(); };
+      return;
+    }
+    if (D.xona) {
+      $.innerHTML = top(2) + `<p class="lg-s">${D.anketaIzoh}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:10px">${D.xona.map(([e, n]) => `<button class="o" data-ad="${n}" data-e="${e}" style="padding:4px 8px"><span style="font-size:20px">${e}</span> <span class="ar" style="font-size:14px">${n}</span></button>`).join("")}</div>
+        <div style="margin-bottom:90px">${xonaHtml(true)}<p class="lg-s ar" style="margin-top:8px">${D.zarf}</p></div>
+        ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+      ulash();
+      const saqla = () => store.set(`insho-${lv}-${j}-anketa`, A);
+      $.querySelectorAll("[data-ad]").forEach(b => b.onclick = () => { A.buyum = A.buyum || []; A.buyum.push({ e: b.dataset.e, n: b.dataset.ad, x: 20 + Math.random() * 60, y: 25 + Math.random() * 50 }); saqla(); anketa(); });
+      $.querySelectorAll("[data-bdel]").forEach(b => b.onclick = e => { e.stopPropagation(); A.buyum.splice(+b.dataset.bdel, 1); saqla(); anketa(); });
+      const X = $.querySelector("#xona");
+      X.querySelectorAll("[data-b]").forEach(el => el.onpointerdown = e => {
+        if (e.target.dataset.bdel) return; e.preventDefault(); el.setPointerCapture(e.pointerId); const i = +el.dataset.b;
+        el.onpointermove = m => { const r = X.getBoundingClientRect(); A.buyum[i].x = Math.max(5, Math.min(95, (m.clientX - r.left) / r.width * 100)); A.buyum[i].y = Math.max(8, Math.min(92, (m.clientY - r.top) / r.height * 100)); el.style.left = A.buyum[i].x + "%"; el.style.top = A.buyum[i].y + "%"; };
+        el.onpointerup = () => { el.onpointermove = null; saqla(); };
+      });
+      $.querySelector("#nx").onclick = () => insho();
+      return;
+    }
+    if (D.xarita) {
+      $.innerHTML = top(2) + `<p class="lg-s">${D.anketaIzoh}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px">${D.xarita.map(n => `<button class="o ar" data-add="${n}" style="padding:6px 10px;font-size:15px">+ ${n}</button>`).join("")}</div>
+        <div style="margin-bottom:90px">${xaritaHtml(true)}${KLAV}</div>
+        ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+      ulash();
+      const yig = () => { $.querySelectorAll("input[data-x]").forEach(x => A.xona[+x.dataset.x].j = x.value.trim()); store.set(`insho-${lv}-${j}-anketa`, A); };
+      klavUlash([...$.querySelectorAll("input[data-x]")].length ? [...$.querySelectorAll("input[data-x]")] : [document.createElement("input")]);
+      $.querySelectorAll("[data-add]").forEach(b => b.onclick = () => { A.xona = A.xona || []; yig(); A.xona.push({ n: b.dataset.add, j: "" }); store.set(`insho-${lv}-${j}-anketa`, A); anketa(); });
+      $.querySelectorAll("[data-del]").forEach(b => b.onclick = () => { yig(); A.xona.splice(+b.dataset.del, 1); store.set(`insho-${lv}-${j}-anketa`, A); anketa(); });
+      $.querySelector("#nx").onclick = () => { if (A.xona) yig(); insho(); };
+      return;
+    }
+    if (D.daraxt) {
+      $.innerHTML = top(2) + `<p class="lg-s">${D.anketaIzoh}</p><div style="margin-bottom:90px">${oddiyHtml(true)}${KLAV}
+        <p class="lg-s" style="margin:14px 0 6px">🌳 Oila daraxtingiz (jadvaldan o'zi chiziladi):</p><div id="drx">${daraxtHtml(false)}</div></div>
+        ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+      ulash(); klavUlash([...$.querySelectorAll("input[data-k]")]);
+      const yig = () => { $.querySelectorAll("input[data-k]").forEach(x => A[x.dataset.k] = x.value.trim()); store.set(`insho-${lv}-${j}-anketa`, A); };
+      const qayta = () => { yig(); $.querySelector("#drx").innerHTML = daraxtHtml(false); };
+      $.querySelectorAll("input[data-k]").forEach(x => x.addEventListener("input", qayta));
+      $.querySelectorAll(".kk").forEach(x => x.addEventListener("click", () => setTimeout(qayta, 0)));
+      $.querySelectorAll("input[data-f]").forEach(inp => inp.onchange = e => {
+        const fl = e.target.files && e.target.files[0]; if (!fl) return; yig();
+        const rd = new FileReader(); rd.onload = () => { const im = new Image(); im.onload = () => {
+          const s = Math.min(im.width, im.height), c = document.createElement("canvas"); c.width = c.height = 160;
+          c.getContext("2d").drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, 160, 160);
+          A["f" + inp.dataset.f] = c.toDataURL("image/jpeg", .8); try { store.set(`insho-${lv}-${j}-anketa`, A); } catch {} anketa();
+        }; im.src = rd.result; }; rd.readAsDataURL(fl);
+      });
+      $.querySelector("#nx").onclick = () => { yig(); insho(); };
+      return;
+    }
+    if (D.oddiy) {
+      $.innerHTML = top(2) + `<p class="lg-s">${D.anketaIzoh}</p><div style="margin-bottom:90px">${oddiyHtml(true)}${KLAV}</div>
+        ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+      ulash(); klavUlash([...$.querySelectorAll("input[data-k]")]);
+      $.querySelector("#nx").onclick = () => { $.querySelectorAll("input[data-k]").forEach(x => A[x.dataset.k] = x.value.trim()); store.set(`insho-${lv}-${j}-anketa`, A); insho(); };
+      return;
+    }
+    if (D.jadval) {
+      const tb = (v, s) => `<button class="o" data-tur="${v}" style="flex:1;padding:10px;${(A.tur || "universitet") === v ? "background:#8cc63f;color:#fff;border-color:#5a9e2f" : ""}">${s}</button>`;
+      $.innerHTML = top(2) + `<p class="lg-s">${D.anketaIzoh}</p><div style="display:flex;gap:8px;margin-bottom:10px">${tb("maktab", "🏫 Maktab (حِصَّة)")}${tb("universitet", "🎓 Universitet (مُحاضَرَة)")}</div><div style="margin-bottom:90px">${jadvalHtml(true)}${KLAV}</div>
+        ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+      ulash(); klavUlash([...$.querySelectorAll("input[data-k]")]);
+      const yig = () => { $.querySelectorAll("input[data-k]").forEach(x => A[x.dataset.k] = x.value.trim()); store.set(`insho-${lv}-${j}-anketa`, A); };
+      $.querySelectorAll("[data-tur]").forEach(b => b.onclick = () => { yig(); A.tur = b.dataset.tur; store.set(`insho-${lv}-${j}-anketa`, A); anketa(); });
+      $.querySelector("#nx").onclick = () => { yig(); insho(); };
+      return;
+    }
+    $.innerHTML = top(2) + (D.geo ? `<p class="lg-s">🗺️ Uyingizni xaritada belgilang — atrofdagi maktab, bog'cha, masjid, kasalxonalar chiqadi:</p>
+        <button class="o" id="geobtn" style="width:100%;margin-bottom:8px">📍 Joylashuvimni aniqlash</button>
+        <div id="geo" style="height:280px;border-radius:14px;overflow:hidden;border:2px solid #b08d57;margin-bottom:6px;z-index:0"></div><div id="georo" style="margin-bottom:12px"><p class="lg-s" style="font-size:13px">Yoki xaritada uyingiz turgan joyni bosing.</p></div>` : "") + `<p class="lg-s">${D.anketaIzoh || "O'zingiz haqingizda faqat arabcha yozing."}</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:90px">${D.anketa.map(([a, u], k) => `<label style="display:block"><span class="ar" style="font-size:20px">${a}</span>
+        <input data-k="${k}" value="${(A[k] || "").replace(/"/g, "&quot;")}" placeholder="${u}" dir="rtl" lang="ar" style="width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:1px solid #ccc;font-size:18px;margin-top:4px"></label>`).join("")}${KLAV}</div>
+      ${pas(`<button class="main" id="nx">Davom etish</button>`)}`;
+    ulash(); klavUlash([...$.querySelectorAll("input[data-k]")]);
+    if (D.geo) geoXarita();
+    $.querySelector("#nx").onclick = () => { $.querySelectorAll("input[data-k]").forEach(x => A[x.dataset.k] = x.value.trim()); store.set(`insho-${lv}-${j}-anketa`, A); insho(); };
+  };
+  // 5) yakuniy insho: qolip gaplar + namuna (yashirin), o'quvchi 5–6 gap yozadi, o'zi ro'yxat bo'yicha tekshiradi
+  const insho = () => {
+    const eski = store.get(`insho-${lv}-${j}-matn`, "");
+    const rasm = store.get(`insho-${lv}-${j}-rasm`, "");
+    $.innerHTML = top(3) + `<label id="rsm" style="display:block;border:2px dashed #c9b88a;border-radius:16px;padding:${rasm ? "6px" : "22px 12px"};text-align:center;cursor:pointer;margin-bottom:10px;background:#fffaf0">
+        ${rasm ? `<img src="${rasm}" alt="" style="max-width:100%;max-height:220px;border-radius:12px;display:block;margin:0 auto">` : `<span style="font-size:30px">📷</span><br><b>Rasm yuklash</b><br><small style="opacity:.7">Inshoga oid rasm yoki qo'lda yozgan inshongiz surati</small>`}
+        <input type="file" accept="image/*" id="rf" style="display:none"></label>
+      <p class="lg-s">Anketangizdagi ma'lumotlardan 5–6 gaplik matn yozing.</p>
+      <div class="fb ok" style="text-align:right" dir="rtl"><b>Yordamchi gaplar:</b><br>${D.qolip.map(q => `<span class="ar">${q}</span>`).join("<br>")}</div>
+      ${D.geo && (A.geoRo || []).length ? `<div class="fb ok" dir="rtl" style="text-align:right;font-size:15px"><b>🗺️ Atrofingiz (xaritadan):</b><br>${A.geoRo.map(x => `<span class="ar">${x}</span>`).join("<br>")}</div>` : ""}
+      ${D.istibona ? (Object.keys(A).length ? `<div style="margin-bottom:10px"><b style="font-size:14px">Sizning javoblaringiz:</b>${istHtml(false)}</div>` : "") : D.faol ? (Object.values(A).some(Boolean) ? `<div style="margin-bottom:10px"><b style="font-size:14px">Sizning jadvalingiz:</b>${faolHtml(false)}</div>` : "") : D.xona ? ((A.buyum || []).length ? `<div style="margin-bottom:10px"><b style="font-size:14px">Xonangiz chizmasi:</b>${xonaHtml(false)}</div>` : "") : D.xarita ? ((A.xona || []).length ? `<div style="margin-bottom:10px"><b style="font-size:14px">Uyingiz chizmasi:</b>${xaritaHtml(false)}</div>` : "") : D.daraxt ? (Object.values(A).some(Boolean) ? `<div style="margin-bottom:10px"><b style="font-size:14px">Sizning oila daraxtingiz:</b>${daraxtHtml(false)}</div>` : "") : D.oddiy ? (Object.values(A).some(Boolean) ? `<div style="margin-bottom:10px"><b style="font-size:14px">Sizning jadvalingiz:</b>${oddiyHtml(false)}</div>` : "") : D.jadval ? (Object.values(A).some(Boolean) ? `<div style="margin-bottom:10px"><b style="font-size:14px">Sizning jadvalingiz:</b>${jadvalHtml(false)}</div>` : "") : D.anketa.some((_, k) => A[k]) ? `<div class="fb ok" style="text-align:left;font-size:14px"><b>Sizning anketangiz:</b> ${D.anketa.map(([a], k) => A[k] ? `<span class="ar">${a}</span>: ${A[k]}` : "").filter(Boolean).join(" · ")}</div>` : ""}
+      <div class="fb ok" style="text-align:left;background:#fffaf0;color:inherit"><b>Namuna:</b>${D.namuna.map(([a, u], k) => `<div style="margin:8px 0;padding-bottom:6px;border-bottom:1px dashed #ddd"><button class="o nm" data-k="${k}" style="float:left;padding:2px 8px;margin-right:6px">🔊</button><div class="ar" dir="rtl" style="text-align:right;font-size:20px;line-height:1.8">${a}</div><div style="opacity:.75;font-size:15px">${u}</div></div>`).join("")}</div>
+      <textarea id="mt" dir="rtl" rows="7" style="width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:1px solid #ccc;font-size:20px;font-family:inherit;line-height:1.8" placeholder="اِسْمي …">${eski}</textarea>
+      ${KLAV}
+      <div style="margin:10px 0 90px">${D.reja.map((r, k) => `<label style="display:flex;gap:8px;align-items:center;margin:6px 0"><input type="checkbox" data-r="${k}" style="width:22px;height:22px">${r}</label>`).join("")}</div>
+      ${pas(`<button class="main" id="nx">Inshoni tugatish ✓</button>`)}`;
+    ulash();
+    const mt = $.querySelector("#mt"); mt.oninput = () => store.set(`insho-${lv}-${j}-matn`, mt.value);
+    $.querySelectorAll(".nm").forEach(b => b.onclick = () => tts(D.namuna[+b.dataset.k][0]));
+    // rasm: 800px gacha kichraytirib, qurilmada saqlanadi (matn yozilgani yo'qolmasin — avval saqlab, keyin qayta chizamiz)
+    $.querySelector("#rf").onchange = e => {
+      const fl = e.target.files && e.target.files[0]; if (!fl) return;
+      const r = new FileReader(); r.onload = () => { const im = new Image(); im.onload = () => {
+        const k = Math.min(1, 800 / Math.max(im.width, im.height)), c = document.createElement("canvas"); c.width = im.width * k; c.height = im.height * k;
+        c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+        try { store.set(`insho-${lv}-${j}-rasm`, c.toDataURL("image/jpeg", .75)); } catch {}
+        store.set(`insho-${lv}-${j}-matn`, mt.value); insho();
+      }; im.src = r.result; }; r.readAsDataURL(fl);
+    };
+    klavUlash([mt], () => mt.oninput());
+    $.querySelector("#nx").onclick = () => {
+      const matn = mt.value.trim(), gaplar = matn.split(/[.!؟?]+/).filter(s => s.trim().length > 2).length;
+      // 2026-11-21: nuqtasiz yozilsa ham ishlasin — gaplar emas, arabcha so'zlar soni tekshiriladi
+      const sz = matn.split(/[\s،,.!؟?:؛]+/).filter(s => /[؀-ۿ]/.test(s)).length;
+      if (sz < 12) { const fb = document.createElement("div"); fb.className = "fb bad"; fb.textContent = `Kamida 12 ta arabcha so'z yozing (hozir ${sz} ta)`; mt.after(fb); setTimeout(() => fb.remove(), 2500); return; }
+      const r = $.querySelectorAll("input[data-r]:checked").length;
+      ball += Math.min(r, D.reja.length); jami += D.reja.length;
+      tugadi(matn, gaplar);
+    };
+  };
+  const tugadi = (matn, gaplar) => {
+    const st = starsOf(ball, jami), eski = store.get(`bolim2-${lv}-${j}`, null);
+    if (!(eski && eski.n && eski.ball / eski.n > ball / jami)) store.set(`bolim2-${lv}-${j}`, { ball, n: jami });
+    store.set("xp", store.get("xp", 0) + ball);
+    const sozlar = matn.split(/[\s،,.!؟?:؛]+/).filter(s => /[\u0600-\u06FF]/.test(s)).length;  // faqat arabcha so'zlar sanaladi
+    const rasm = store.get(`insho-${lv}-${j}-rasm`, ""), sana = new Date().toLocaleDateString("uz"), ism = ((tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}).first_name || "";
+    sendResult({ lesson: `INSHO ${lv}-${j + 1}: ${T[0].replace(/^A\d · /, "")}`, score: `${ball}/${jami}`, xp: ball, soz: sozlar, matn: matn.slice(0, 1200) });
+    $.innerHTML = `<div class="win"><div class="bigstars">${[0, 1, 2, 3, 4].map(s => `<span class="${s < st ? "on" : ""}" style="animation-delay:${.3 + s * .25}s">★</span>`).join("")}</div>
+      <h1>Inshongiz tayyor!</h1><p><b>${sozlar} ta so'z</b> · ${gaplar} ta gap · ${ball} / ${jami} ball</p></div>
+      <div dir="rtl" style="position:relative;margin:6px 0 16px;padding:22px 22px 18px 18px;background:#fffdf6;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.18);border-right:3px solid #e8a3a3;font-family:'Amiri','Noto Naskh Arabic',serif;color:#1f2a44;overflow:hidden">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:#777;direction:ltr;margin-bottom:6px"><span>${sana}</span><span>${ism}</span></div>
+        <div class="ar" style="text-align:center;font-size:24px;font-weight:700;line-height:42px;margin-bottom:0">${D.nom}</div>
+        <div class="ar" style="font-size:22px;line-height:42px;text-align:justify;white-space:pre-wrap;background:repeating-linear-gradient(transparent 0 41px,#b9cfe3 41px 42px)">${rasm ? `<img src="${rasm}" alt="" style="float:left;width:34%;max-width:150px;margin:6px 20px 10px 0;padding:4px 4px 12px;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.25);transform:rotate(-3deg)">` : ""}${matn.replace(/</g, "&lt;")}</div>
+        <div style="clear:both;direction:ltr;text-align:left;font-size:13px;color:#555;margin-top:10px;border-top:1px dashed #bbb;padding-top:6px">✍️ ${sozlar} ta so'z · ${gaplar} ta gap</div>
+      </div>
+      <button class="o" id="sv" style="width:100%;margin-bottom:10px">📥 Telefonga saqlash</button>
+      <div id="svk"></div>
+      <button class="main" id="nx">Inshoga qaytish</button><button class="o" id="yb" style="width:100%;margin-top:10px">Yana bir bor</button>`;
+    $.querySelector("#nx").onclick = yopish; $.querySelector("#yb").onclick = () => inshoDars(lv, j);
+    // qog'oz nusxasini rasm (PNG) qilib faqat o'quvchi telefoniga saqlash — hech qayerga yuborilmaydi
+    $.querySelector("#sv").onclick = async () => {
+      const W = 1080, P = 70, LH = 84, c = document.createElement("canvas"), g = c.getContext("2d");
+      const shrift = (o, b) => `${b ? "bold " : ""}${o}px Amiri, "Noto Naskh Arabic", serif`;
+      try { await document.fonts.load(shrift(44)); } catch {}
+      g.font = shrift(44); g.direction = "rtl";
+      const qator = [];  // so'zlarni qatorlarga bo'lish (rasm tepada chap burchakni egallaydi)
+      const imgEl = rasm ? await new Promise(r => { const im = new Image(); im.onload = () => r(im); im.onerror = () => r(null); im.src = rasm; }) : null;
+      const RW = imgEl ? 300 : 0, RH = imgEl ? Math.round(RW * imgEl.height / imgEl.width) : 0, top0 = 260;
+      matn.split(/\n/).forEach(abz => { let s = ""; abz.split(/\s+/).filter(Boolean).forEach(w => {
+        const y = top0 + qator.length * LH, en = W - 2 * P - (imgEl && y < top0 - 120 + RH + 40 ? RW + 30 : 0), sn = s ? s + " " + w : w;
+        if (g.measureText(sn).width > en && s) { qator.push(s); s = w; } else s = sn; }); qator.push(s); });
+      c.width = W; c.height = top0 + Math.max(qator.length + 1, 4) * LH + 120;
+      g.fillStyle = "#fffdf6"; g.fillRect(0, 0, W, c.height);
+      g.strokeStyle = "#b9cfe3"; g.lineWidth = 2; for (let y = top0 + 22; y < c.height - 100; y += LH) { g.beginPath(); g.moveTo(P - 20, y); g.lineTo(W - P + 20, y); g.stroke(); }
+      g.strokeStyle = "#e8a3a3"; g.lineWidth = 4; g.beginPath(); g.moveTo(W - 40, 0); g.lineTo(W - 40, c.height); g.stroke();
+      g.fillStyle = "#777"; g.font = "28px sans-serif"; g.direction = "ltr"; g.textAlign = "left"; g.fillText(sana, P, 70); g.textAlign = "right"; g.fillText(ism, W - P, 70);
+      g.direction = "rtl"; g.fillStyle = "#1f2a44"; g.font = shrift(52, 1); g.textAlign = "center"; g.fillText(D.nom, imgEl ? (P + RW + 40 + W - P) / 2 : W / 2, 170);
+      if (imgEl) { g.save(); g.translate(P + RW / 2, 140 + RH / 2); g.rotate(-.05); g.fillStyle = "#fff"; g.shadowColor = "rgba(0,0,0,.3)"; g.shadowBlur = 14; g.fillRect(-RW / 2 - 10, -RH / 2 - 10, RW + 20, RH + 36); g.shadowBlur = 0; g.drawImage(imgEl, -RW / 2, -RH / 2, RW, RH); g.restore(); }
+      g.fillStyle = "#1f2a44"; g.font = shrift(44); g.textAlign = "right"; qator.forEach((q, k) => g.fillText(q, W - P, top0 + k * LH));
+      g.direction = "ltr"; g.textAlign = "left"; g.fillStyle = "#555"; g.font = "28px sans-serif"; g.fillText(`✍️ ${sozlar} ta so'z · ${gaplar} ta gap`, P, c.height - 50);
+      const url = c.toDataURL("image/png"), nom = `insho-${lv}-${j + 1}.png`;
+      try { const a = document.createElement("a"); a.href = url; a.download = nom; document.body.appendChild(a); a.click(); a.remove(); } catch {}
+      // Telegram ichida yuklab olish ishlamasa: rasm ko'rsatiladi — bosib turib saqlanadi
+      $.querySelector("#svk").innerHTML = `<p class="lg-s" style="margin:4px 0">Agar yuklanmasa: rasmni bosib turing va «Saqlash»ni tanlang</p><img src="${url}" alt="Insho" style="width:100%;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,.2);margin-bottom:12px">`;
+    };
+  };
+  namunaK();  // 2026-11-21: rahbar — insho darsida lug'at va shakl tanlash savollari kerak emas (soz, tanla chaqirilmaydi)
 }
 // Muhodasa darsi: savolni eshitadi, o'zi og'zaki javob beradi, kerak bo'lsa javob qolipini ochadi; oxirida rol o'yinlari
 function muhodasaDars(lv, j) {
