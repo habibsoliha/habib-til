@@ -933,7 +933,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v248";
+const VERSION = "v249";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2689,7 +2689,10 @@ function confetti(n = 40) {
     .ut-gap::after { content:""; position:absolute; left:50%; bottom:-8px; margin-left:-7px; border:7px solid transparent; border-top-color:#e0b040; border-bottom:0; }
     .ust { position:absolute; width:60px; z-index:4; transition:left 1.9s ease-in-out, top 1.9s ease-in-out; cursor:pointer; }
     .ust .usvg { width:60px; height:90px; display:block; } 
-    .usp { position:relative; display:block; } .usp > i { position:absolute; inset:0; background-size:600% 100%; background-repeat:no-repeat; }
+    .usp { position:relative; display:block; } .usp > i { position:absolute; inset:0; background-size:600% 100%; background-repeat:no-repeat; transition:opacity .45s ease-in-out; }
+    .usvg.uvid { animation:none !important; transform:none !important; filter:none !important; } .uvid video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 60%; pointer-events:none; transition:opacity .3s; }
+    .uvid .v-jim.tin { transform-origin:50% 100%; animation:uHarakat 9s ease-in-out infinite; } .uvid .v-gap { opacity:0; } .uvid.gapir .v-gap { opacity:1; } .uvid.gapir .v-jim { opacity:0; }
+    .qol-ustoz .usvg.uvid { animation:qolKir .6s ease-out !important; }
     .ut-m .usvg.usp { width:63px; height:126px; animation:uNafas 3s ease-in-out infinite !important; } .ust .usvg.usp { width:52px; height:104px; margin-top:-14px; }
     .ust .uf.spr { animation:uNafas 3s ease-in-out infinite !important; } .ust.yur .uf.spr { animation:uSakra .24s ease-in-out infinite !important; }
     .ufa { position:relative; } .ut-m .usvg.ufa { width:63px; height:126px; } .ust .usvg.ufa { width:52px; height:104px; margin-top:-14px; }
@@ -2701,17 +2704,21 @@ function confetti(n = 40) {
     .ust.yur .uf { animation:uSakra .35s ease-in-out infinite; } .ust.yur .o1 { animation:uQadam .35s ease-in-out infinite; } .ust.yur .o2 { animation:uQadam .35s ease-in-out infinite reverse; }
     .ust .ut-gap { bottom:100%; opacity:0; transition:opacity .4s; pointer-events:none; width:160px; } .ust .ut-gap.on { opacity:1; }
     /* ustoz harakati (12 s sikl): nafas -> o'ngga qarash -> chapga -> imo-ishora (silkinib qo'l siltash) -> bir aylanish */
-    .ust .uf, .ut-m .usvg { transform-origin:50% 100%; animation:uHarakat 12s ease-in-out infinite !important; }
+    .ust .uf, .ut-m .usvg { transform-origin:50% 100%; animation:uHarakat 9s ease-in-out infinite !important; }
     .ust.yur .uf { animation:uSakra .35s ease-in-out infinite !important; }
     /* 3D: perspektiva bilan Y o'qi atrofida burilish, oldinga-orqaga egilish, soya chuqurligi */
     .ust .uf, .ut-m .usvg { filter:drop-shadow(0 8px 6px rgba(0,0,0,.28)); }
+    /* multfilm uslubi: cho'zilish-siqilish (squash & stretch), yumshoq tebranish, tayyorlanib sakrash — hammasi silliq egri chiziqda */
+    /* tabiiy odam turishi: sekin nafas, og'irlikni bir oyoqdan ikkinchisiga o'tkazish — sakrash va aylanishsiz */
     @keyframes uHarakat {
-      0%, 6% { transform:perspective(500px) rotateY(0) rotateX(0); } 3% { transform:perspective(500px) translateY(-3px) rotateX(6deg); }
-      12%, 20% { transform:perspective(500px) rotateY(38deg) rotateZ(-2deg); } 27%, 35% { transform:perspective(500px) rotateY(-38deg) rotateZ(2deg); }
-      40% { transform:perspective(500px) rotateY(0) rotateX(10deg) translateY(-2px); } 44% { transform:perspective(500px) rotateY(18deg) rotateZ(-6deg) translateY(-5px); }
-      48% { transform:perspective(500px) rotateY(-18deg) rotateZ(6deg); } 52% { transform:perspective(500px) rotateY(12deg) rotateZ(-4deg) translateY(-4px); } 56%, 62% { transform:perspective(500px) rotateY(0); }
-      66% { transform:perspective(500px) translateY(-12px) rotateX(-8deg); } 76% { transform:perspective(500px) translateY(-12px) rotateY(360deg) rotateX(-8deg); } 80%, 100% { transform:perspective(500px) rotateY(360deg); } }
-    @keyframes uSakra { 50% { transform:translateY(-4px); } }
+      0%, 100% { transform:translateX(0) rotate(0) scaleY(1); }
+      12% { transform:translateX(0) rotate(0) scaleY(1.012); } 24% { transform:translateX(0) rotate(0) scaleY(1); }
+      38% { transform:translateX(1.5px) rotate(.8deg) scaleY(1.01); } 50% { transform:translateX(1.5px) rotate(.8deg) scaleY(1); }
+      62% { transform:translateX(0) rotate(0) scaleY(1.012); }
+      76% { transform:translateX(-1.5px) rotate(-.8deg) scaleY(1); } 88% { transform:translateX(-1.5px) rotate(-.8deg) scaleY(1.01); } }
+    @keyframes uSakra { 0%, 100% { transform:translateY(0) rotate(-1deg); } 50% { transform:translateY(-2px) rotate(1deg); } }
+    @keyframes qolKir { from { transform:translateX(-24px); opacity:0 } to { transform:none; opacity:1 } }
+    .qol-ustoz .usvg { transform-origin:50% 100%; animation:qolKir .6s ease-out, uHarakat 9s ease-in-out .6s infinite; }
     @keyframes uQadam { 50% { transform:translateY(-4px); } }
     @keyframes uNafas { 50% { transform:translateY(-3px) scale(1.02); } }
     .fl-ovoz { position:absolute; top:16px; left:50%; transform:translateX(-50%); border:0; border-radius:20px; padding:8px 16px; background:rgba(0,0,0,.6); color:#ffe7a8; font-size:14px; }
@@ -24258,18 +24265,41 @@ const USTOZ_YUZ = { 1: { k: [[66, 110], [111, 110]], r: 10, q: [87, 99], x: [52,
   4: { k: [[76, 68], [103, 67]], r: 6, q: [52, 61], x: [66, 115], t: "#f5b98f" }, 5: { k: [[69, 87], [103, 85]], r: 7, q: [69, 78], x: [56, 118], t: "#fcc7a1" } };
 // tirik qahramon: img/ustoz/<k>s.png — 6 kadr (0 old, 1 yarim o'ng, 2 o'ng yon, 3 orqa, 4 qo'l silkitish, 5 qadam)
 const USTOZ_SPRITE = [1, 2, 4, 5];
-const USP_KETMA = [[0, 18], [4, 14], [0, 8], [1, 2], [2, 2], [3, 6], [2, 2, 1], [1, 2, 1], [0, 12], [1, 9], [0, 5], [1, 9, 1], [0, 10]];  // [kadr, 120ms tik, ko'zgu]
+// Kling'da yasalgan tabiiy harakat (5 s, boshi=oxiri, uzluksiz); foni shaffof VP9 webm. iPhone webm-alfa ko'rsatmaydi — u yerda eski kadrlar qoladi
+const USTOZ_VIDEO = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent) && !/Chrome|Android/.test(navigator.userAgent) ? {} : { 1: { jim: "img/ustoz/1-harakat.webm", gap: "img/ustoz/1-gapir.webm" }, 2: { gap: "img/ustoz/2-gapir.webm" } };  // jim yo'q bo'lsa — gapirish videosining 1-kadri nafas harakati bilan turadi
+// gapirish: ustoz yonidagi gap pufagi ko'ringanda — matn uzunligiga qarab (harfiga ~65 ms, 2.2–10 s) gapirish videosi o'ynaydi, keyin jim turishga qaytadi
+function ustozGapir(s, matn) {
+  const g = s.querySelector(".v-gap"), j = s.querySelector(".v-jim"); if (!g || !j) return;
+  const ms = Math.min(10000, Math.max(2200, matn.length * 65));
+  try { g.currentTime = 0; } catch (e) {} g.play().catch(() => {}); s.classList.add("gapir");
+  clearTimeout(s._gt); s._gt = setTimeout(() => { s.classList.remove("gapir"); setTimeout(() => g.pause(), 400); }, ms);
+}
+setInterval(() => document.querySelectorAll(".uvid").forEach(s => {
+  const ov = s.closest(".qol-ov"), uy = s.closest(".ut-m, .ust"), p = ov ? ov.querySelector(".qol-matn") : uy && uy.querySelector(".ut-gap");
+  if (!p || (s.closest(".ust") && !p.classList.contains("on"))) return;
+  const m = p.textContent.trim(); if (m && s._m !== m) { s._m = m; ustozGapir(s, m); }
+}), 300);
+// tabiiy turish: uzoq old tomonga qarab turadi, sekin yonga qaraydi, ba'zan qo'l silkitadi; kadrlar bir-biriga silliq o'tadi (ikki qatlam, opacity)
+const USP_KETMA = [[0, 40], [1, 22], [0, 30], [1, 22, 1], [0, 34], [4, 18], [0, 44], [1, 16, 1], [0, 26]];  // [kadr, 120ms tik, ko'zgu]
 setInterval(() => {
   const t = Math.floor(performance.now() / 120), N = USP_KETMA.reduce((s, x) => s + x[1], 0);
-  document.querySelectorAll(".usp > i").forEach(e => {
-    const yur = e.closest(".ust.yur"); let f = 0, ak = false;
+  document.querySelectorAll(".usp").forEach(sp => {
+    const L = sp.querySelectorAll(":scope > i"); if (!L.length) return;
+    const yur = sp.closest(".ust.yur"); let f = 0, ak = false;
     if (yur) { f = t % 4 < 2 ? 5 : 2; ak = yur.dataset.yon === "-1"; }
     else { let m = t % N; for (const [k, d, a] of USP_KETMA) { if (m < d) { f = k; ak = !!a; break; } m -= d; } }
-    e.style.backgroundPosition = `${f * 20}% 0`; e.style.transform = ak ? "scaleX(-1)" : "";
+    const kal = f + (ak ? "m" : ""); if (sp.dataset.f === kal) return; sp.dataset.f = kal;
+    const qo = (e, o) => { e.style.backgroundPosition = `${f * 20}% 0`; e.style.transform = ak ? "scaleX(-1)" : ""; e.style.opacity = o; };
+    if (yur || L.length < 2) { L.forEach((e, i) => { e.style.transition = "none"; if (i) e.style.opacity = 0; }); return qo(L[0], 1); }
+    const yangi = L[0].style.opacity === "0" ? L[0] : L[1], eski = yangi === L[0] ? L[1] : L[0];
+    L.forEach(e => e.style.transition = "");
+    qo(yangi, 1); eski.style.opacity = 0;
   });
 }, 120);
 function ustozSvg(k) {
-  if (USTOZLAR[k][5]) return `<span class="usvg usp"><i style="background-image:url(img/ustoz/${USTOZLAR[k][5]}s.webp)"></i></span>`;
+  const UV = USTOZ_VIDEO[USTOZLAR[k][5]];
+  if (UV) return `<span class="usvg usp uvid"><video class="v-jim ${UV.jim ? "" : "tin"}" src="${UV.jim || UV.gap + "#t=0.05"}" ${UV.jim ? "autoplay loop" : "preload=auto"} muted playsinline disablepictureinpicture></video>${UV.gap ? `<video class="v-gap" src="${UV.gap}" muted loop playsinline preload="auto" disablepictureinpicture></video>` : ""}</span>`;
+  if (USTOZLAR[k][5]) return `<span class="usvg usp"><i style="background-image:url(img/ustoz/${USTOZLAR[k][5]}s.webp)"></i><i style="background-image:url(img/ustoz/${USTOZLAR[k][5]}s.webp);opacity:0"></i></span>`;
   if (USTOZ_RASM.includes(k)) {  // rasm ustiga: ko'z qovoqlari (pirpiratish) va qosh nusxasi (qosh qoqish); koordinatalar 180×360 rasmda
     const Y = USTOZ_YUZ[k], src = `img/ustoz/${k}.png`, L = Y.x[0] / 1.8, R = 100 - Y.x[1] / 1.8;
     return `<span class="usvg ufa"><img src="${src}" alt=""><i style="left:${L}%;right:${R}%;top:${Y.q[0] / 3.6}%;bottom:${100 - Y.q[1] / 3.6}%;background:${Y.t}"></i>
@@ -27575,7 +27605,20 @@ const QOLLANMA = {
     ["#dtest", "Darajangizni bilmasangiz — shu imtihonni topshiring, biz sizning darajangizni aniqlab beramiz."],
     [".levels .lv-pre", "Arab tilidan hech narsa bilmasangiz — shu «Boshlang'ich» (Pre-A1) ni bosing. Hammasi shu yerdan, harflardan boshlanadi."],
     [".levels", "Qolgan darajalar (A1, A2…) avvalgisini tugatganda ochiladi."],
-    ["#pastPanel", "Pastdagi menyu: 🔊 Ovoz, 🗺️ Xarita, 🎥 Jonli dars, 👤 Profil va ‹ Orqaga. Adashib qolsangiz, «Orqaga» ni bosing."]] },
+    [".utepa .ut-q", "«⚡ Qudrati» — ustozingizning kuchi. Siz dars qilib yulduz (XP) yig'ganingiz sari ustoz darajasi oshadi va formasi o'zgaradi."],
+    ['#pastPanel [data-p="ovoz"]', "🔊 Ovoz — fon musiqasini yoqish yoki o'chirish."],
+    ['#pastPanel [data-p="xarita"]', "🗺️ Xarita — arab davlatlari xaritasi. Darslarni o'tgan sari yangi davlatlar va mashhur joylar ochiladi."],
+    ['#pastPanel [data-p="jonli"]', "🎥 Jonli dars — ustoz bilan onlayn darsga kirish. Dars vaqti kelganda shu tugmani bosasiz."],
+    ['#pastPanel [data-p="profil"]', "👤 Profil — natijalaringiz, sertifikatlaringiz va kirgan kunlaringiz. Bosib ko'ring — ichida ham tushuntirib beraman."],
+    ['#pastPanel [data-p="orqa"]', "‹ Orqaga — oldingi sahifaga qaytish. Adashib qolsangiz, shuni bosing."]] },
+  profil: { q: [
+    [null, "Bu — sizning profilingiz. Keling, ichini ko'rib chiqamiz."],
+    ["#prKart", "Bu yerda: yig'gan XP ⭐, umumiy o'qish vaqti, o'tilgan darslar va oxirgi 7 kundagi o'qishingiz."],
+    ['#prTab [data-t="0"]', "«Monitoring» — har bir darsdagi natijangiz: qaysi dars, necha ball."],
+    ['#prTab [data-t="1"]', "«Xazinalar» — darslarda topgan sovg'alaringiz."],
+    ['#prTab [data-t="2"]', "«Sertifikatlar» — har bosqichni tugatganda beriladigan sertifikatlar."],
+    ['#prTab [data-t="3"]', "«Faollik» — ketma-ket necha kun kirganingiz va kalendar: yashil — kirgan kun."],
+    [".back", "Bosh sahifaga qaytish uchun shuni bosing."]] },
   pre: { q: [
     [".opts button:nth-child(2)", "Darslar shu yerdan boshlanadi: «1-BOSQICH — Harflar maxraji». Shuni bosing — darslar xaritasi ochiladi."],
     [".opts button:nth-child(1)", "«Husnixat» — harflarni chiroyli yozishni o'rganish. Darslar bilan birga, xohlagan vaqtingizda qilasiz."],
@@ -27595,11 +27638,11 @@ const QOLLANMA = {
     [".back", "Yo'nalishlar ro'yxatiga qaytish uchun shuni bosing."]] },
 };
 function qollanmaTekshir(majburiy) {
-  if (mode !== "home") return;
-  const key = level === null && stage === null ? "home" : stage !== null && document.querySelector(".map") ? "dars" : level === 0 && document.querySelector(".opts button") ? "pre" : level !== null && bolim === null && document.querySelector(".bolimGrid") ? "lv" : bolim !== null && document.querySelector(".map") ? "bolim" : null;
+  if (mode !== "home" && mode !== "profil") return;
+  const key = mode === "profil" ? "profil" : level === null && stage === null ? "home" : stage !== null && document.querySelector(".map") ? "dars" : level === 0 && document.querySelector(".opts button") ? "pre" : level !== null && bolim === null && document.querySelector(".bolimGrid") ? "lv" : bolim !== null && document.querySelector(".map") ? "bolim" : null;
   qollanmaTugma(key);
   if (!key || (!majburiy && store.get("qollanma-" + key, false))) return;
-  const Q = QOLLANMA[key].q.filter(([s]) => !s || document.querySelector(s));
+  const Q = QOLLANMA[key].q.filter(([s]) => { if (!s) return true; const e = document.querySelector(s); return e && e.getClientRects().length; });
   let n = 0;
   const yop = () => { document.querySelectorAll(".qol-ov").forEach(e => e.remove()); store.set("qollanma-" + key, true); };
   const chiz = () => {
@@ -27614,7 +27657,7 @@ function qollanmaTekshir(majburiy) {
       <div style="position:fixed;z-index:10000;left:10px;right:10px;${pastda ? "top:14px" : "bottom:14px"};display:flex;align-items:flex-end;gap:6px;max-width:520px;margin:0 auto">
         <div class="qol-ustoz" style="width:92px;height:170px;flex:none;position:relative;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))">${ustozSvg(ustozTanlangan())}</div>
         <div style="background:#fffdf6;border-radius:16px;padding:12px 14px;box-shadow:0 6px 18px rgba(0,0,0,.3);font-size:17px;line-height:1.5;color:#1f2a44;flex:1">
-          <div>${matn}</div>
+          <div class="qol-matn">${matn}</div>
           <div style="display:flex;gap:8px;margin-top:10px;align-items:center">
             <small style="opacity:.6">${n + 1} / ${Q.length}</small><span style="flex:1"></span>
             <button class="o" id="qolSkip" style="padding:8px 12px;font-size:15px">O'tkazib yuborish</button>
@@ -28063,7 +28106,7 @@ function profilScreen(oy) {
       <div style="font-family:system-ui"><b style="font-size:20px">${ism}</b><br><small style="color:#777">ID: ${tgId() || "—"}${u.username ? " · @" + u.username : ""}</small></div><a href="https://t.me/AhmadovHabibulloh" target="_blank" style="margin-left:auto;align-self:flex-start;background:#0f6b45;color:#fff;border-radius:14px;padding:7px 10px;font:600 12px/1.25 system-ui;text-decoration:none;text-align:center;max-width:110px">🎓 Ustozlar davrasiga qo'shilish</a></div>
     <p style="font:600 16px system-ui;margin:6px 0">${unvon}</p>
     <p style="font:14px system-ui;color:#666;margin:4px 0">🎓 O'quvchi &nbsp; · &nbsp; 📅 ${birinchi.slice(0, 4)}-yil qo'shilgan${pullikQoldi() > 0 ? ` &nbsp; · &nbsp; 💳 obuna: <b style="color:${pullikQoldi() <= 3 ? "#c33" : "#2e9b4f"}">${pullikQoldi()} kun qoldi</b>` : ""}</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0">${KR("XP balansi", "⭐ " + store.get("xp", 0))}${KR("Umumiy o'qish", "⏱️ " + dk(jami))}${KR("O'tilgan darslar", "🏆 " + tugadi)}${KR(`Oxirgi 7 kun${foiz == null ? "" : ` <span style="color:${foiz >= 0 ? "#2e9b4f" : "#d33"}">${foiz >= 0 ? "↗" : "↘"} ${Math.abs(foiz)}%</span>`}`, "🗓️ " + dk(h7))}</div>
+    <div id="prKart" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0">${KR("XP balansi", "⭐ " + store.get("xp", 0))}${KR("Umumiy o'qish", "⏱️ " + dk(jami))}${KR("O'tilgan darslar", "🏆 " + tugadi)}${KR(`Oxirgi 7 kun${foiz == null ? "" : ` <span style="color:${foiz >= 0 ? "#2e9b4f" : "#d33"}">${foiz >= 0 ? "↗" : "↘"} ${Math.abs(foiz)}%</span>`}`, "🗓️ " + dk(h7))}</div>
     <div id="prTab" style="display:flex;border-bottom:1px solid #ddd;margin:8px 0 12px;font:600 15px system-ui">${["Monitoring", "Xazinalar", "Sertifikatlar", "Faollik"].map((t, k) => `<button data-t="${k}" style="all:unset;cursor:pointer;flex:1;text-align:center;padding:10px 0;${k === tab ? "border-bottom:3px solid #e8761a;color:#111" : "color:#777"}">${t}</button>`).join("")}</div>
     ${tab === 1 ? xazinaHtml() : ""}
     <div style="${tab === 3 ? "" : "display:none"}">
@@ -28080,6 +28123,7 @@ function profilScreen(oy) {
       <b style="display:block;margin-top:6px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${sNom(bi).replace(/^\S+ /, "")}</b>
       <small style="color:#777">${new Date(store.get("sert" + bi, null) || Date.now()).toLocaleDateString("ru-RU")}</small></button>`).join("") : ""}</div>` : "<p style='margin:0'>Hali yo'q — har bosqich oxirida beriladi.</p>"}</div>`;
   $.querySelectorAll("#prTab button").forEach(b => b.onclick = () => { store.set("profTab", +b.dataset.t); profilScreen(oy); });
+  setTimeout(qollanmaTekshir, 450);
   $.querySelector(".back").onclick = () => { mode = "home"; render(); };
   $.querySelectorAll("[data-s]").forEach(b => b.onclick = () => sertifikat(+b.dataset.s, true));
   $.querySelector("#kOld").onclick = () => profilScreen(new Date(y, m - 1, 1));
