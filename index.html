@@ -170,7 +170,28 @@
   .hx-yol { color:#8b0000; font-weight:bold; animation:hxyol 1.6s ease-in-out infinite; }
   @keyframes hxyol { 0% { transform:translateX(30px); opacity:.3 } 60% { transform:translateX(-30px); opacity:1 } 100% { transform:translateX(-30px); opacity:0 } }
 .qol-ustoz .usvg{position:absolute;inset:0;display:block;width:100%;height:100%}.qol-ustoz .usvg i{position:absolute;inset:0}
-.slogo.hobbi{height:44px;width:44px;border-radius:12px}</style>
+.slogo.hobbi{height:44px;width:44px;border-radius:12px}.noma-btn{all:unset;cursor:pointer;font-size:22px;position:relative;padding:4px}.noma-btn i{position:absolute;top:2px;right:0;width:9px;height:9px;border-radius:50%;background:#ff5a4f}
+.ser-karta{margin:10px 0;background:#fffaf0;border-radius:20px;padding:12px 14px;box-shadow:0 4px 0 #d9c99a;color:#1d3a2c;font-family:system-ui,sans-serif}
+.ser-bosh{display:flex;align-items:center;gap:8px}.ser-bosh b{font-size:17px}.ser-bosh small{display:block;color:#7a7a6a;font-size:12.5px}
+.ser-olov{margin-left:auto;font:800 22px system-ui;color:#f08a24;white-space:nowrap}.muzli .ser-olov{color:#2fa8dc}
+.ser-hafta{display:flex;justify-content:space-between;margin-top:10px;position:relative}
+.ser-hafta:before{content:"";position:absolute;left:16px;right:16px;top:16px;height:5px;background:#e3eadf;border-radius:3px}
+.sk{position:relative;text-align:center;width:34px}.sk span{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;font-weight:800;font-size:14px;background:#eee;color:#aaa;box-sizing:border-box;margin:0 auto}
+.sk em{font-style:normal;font-size:11.5px;color:#888;font-weight:600}
+.sk.on span{background:#4cb050;color:#fff}.sk.on em{color:#4cb050}.sk.bugun span{border:3px solid #4cb050;background:#fff;color:#1d3a2c}.sk.on.bugun span{background:#4cb050;color:#fff}
+.sk.eri span{background:#bfe6c1;color:#fff}.sk.muz span{background:radial-gradient(circle at 35% 30%,#e8fbff,#74cfef 60%,#2fa8dc);color:#fff;box-shadow:inset 0 -4px 0 #fff8}.sk.muz em{color:#2fa8dc}
+.ser-nihol{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:14px}.ser-nihol small{color:#777}.nihol-svg{width:96px;height:86px;flex:none}
+.muz-oyna{position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
+.muz-ich{position:relative;width:100%;max-width:520px;background:linear-gradient(#bfeeff,#fff 60%);border-radius:28px 28px 0 0;padding:14px 0 22px;text-align:center;animation:muzKir .35s ease-out}
+.muz-ich h2{margin:6px 0 2px;font:800 24px system-ui;color:#1d2a35}.muz-ich p{margin:0 22px 12px;font:15px/1.4 system-ui;color:#3a4a55}.muz-ich .main{width:calc(100% - 40px);margin:0 20px}
+.muz-x{position:absolute;right:14px;top:12px;width:34px;height:34px;border:0;border-radius:10px;background:#9fd8ee;color:#fff;font-size:18px}
+.muz-shar .nihol-svg{width:190px;height:168px}
+@keyframes muzKir{from{transform:translateY(100%)}}
+.noma-oyna{position:fixed;inset:0;z-index:9990;background:#fff;overflow:auto}.noma-ich{max-width:560px;margin:0 auto;padding:10px 14px 40px;font-family:system-ui}
+.noma-sar{display:flex;align-items:center;gap:10px;font-size:20px;margin-bottom:6px}.noma-sar button{padding:4px 12px}
+.noma-sana{font-weight:800;color:#333;margin:14px 0 4px}.noma-x{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #f1f1f1}
+.noma-ik{width:40px;height:40px;border-radius:50%;background:#e6f4ec;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+.noma-x b{font-size:15px;color:#1d3a2c}.noma-x p{margin:2px 0 0;font-size:13.5px;color:#555}.noma-x small{margin-left:auto;color:#999}</style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
@@ -933,7 +954,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v250";
+const VERSION = "v251";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2880,6 +2901,66 @@ document.addEventListener("click", e => {
   m.onclick = ev => { if (ev.target === m) m.remove(); };
   m.querySelector("#fnok").onclick = () => { const v = inp.value.trim(); if (v.split(/\s+/).length < 2) { inp.style.borderColor = "#c0392b"; inp.placeholder = "Ism va familiyani yozing"; return; } store.set("fullname", v); m.remove(); render(); };
 });
+// --- Kunlik seriya (nihol) va muzlatish: dars tugatilgan yoki ≥5 daqiqa o'qilgan kun — faol. 3 kungacha o'tkazilsa seriya muzlaydi, dars qilinsa eriydi; undan ko'p — yangidan
+const SER_MUZ = 3, kunISO = n => { const d = new Date(Date.now() - n * 864e5); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+const faolKun = d => { const K = store.get("darsKun", {}), V = store.get("vaqt", {}); return !!K[d] || (V[d] || 0) >= 300; };
+function seriya() {
+  let n = 0, bosh = 0, oxirgi = null;  // oxirgi — oxirgi faol kunga necha kun bo'lgan
+  for (let k = 0; k < 800; k++) { if (faolKun(kunISO(k))) { if (oxirgi === null) oxirgi = k; n++; bosh = 0; } else if (k > 0) { if (++bosh > SER_MUZ) break; } }
+  const bugun = faolKun(kunISO(0)), otkaz = oxirgi === null ? 99 : oxirgi - (bugun ? 0 : 1);  // bugundan oldingi o'tkazilgan kunlar
+  if (oxirgi === null || otkaz > SER_MUZ) return { n: 0, muz: 0, bugun };
+  return { n, muz: bugun ? 0 : Math.max(0, oxirgi - 1), bugun };
+}
+const NIHOL = [[0, "🌰", "Urug'"], [1, "🌱", "Nihol"], [7, "🌿", "Daraxtcha"], [30, "🌳", "Daraxt"], [90, "🍎", "Mevali daraxt"]];
+function niholSvg(n, muz) {
+  const b = n >= 30 ? 3 : n >= 7 ? 2 : n >= 1 ? 1 : 0, c = muz ? ["#8a9aa0", "#a9b8be", "#b9c7cc"] : ["#3f9a45", "#5cc35f", "#7ad86a"];
+  const barg = [``, `<path d="M85 92 C64 90 52 76 55 62 C74 64 84 74 85 92Z" fill="${c[1]}"/><path d="M85 80 C104 78 116 64 114 50 C94 52 86 62 85 80Z" fill="${c[2]}"/>`,
+    `<path d="M85 80 C60 78 45 60 48 42 C70 44 84 58 85 80Z" fill="${c[1]}"/><path d="M85 64 C108 62 124 44 122 26 C98 28 86 42 85 64Z" fill="${c[2]}"/><path d="M85 52 C80 38 84 22 92 12 C98 26 94 42 85 52Z" fill="${c[2]}"/>`,
+    `<circle cx="85" cy="50" r="40" fill="${c[1]}"/><circle cx="62" cy="62" r="24" fill="${c[2]}"/><circle cx="108" cy="62" r="24" fill="${c[2]}"/>${n >= 90 && !muz ? `<circle cx="70" cy="48" r="6" fill="#e74c3c"/><circle cx="100" cy="40" r="6" fill="#e74c3c"/><circle cx="92" cy="68" r="6" fill="#e74c3c"/>` : ""}`][b];
+  const poya = b ? `<path d="M85 120 C84 ${b > 2 ? 90 : 100} 86 ${b > 1 ? 70 : 88} 85 ${b > 2 ? 60 : b > 1 ? 50 : 84}" stroke="${b > 2 ? (muz ? "#7d878b" : "#7a5230") : c[0]}" stroke-width="${b > 2 ? 10 : 7}" fill="none" stroke-linecap="round"/>` : `<ellipse cx="85" cy="114" rx="9" ry="7" fill="${muz ? "#9aa" : "#8a5a33"}"/>`;
+  const shar = muz ? `<defs><radialGradient id="shr" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="#bfeaff" stop-opacity=".5"/><stop offset="1" stop-color="#58b9e8" stop-opacity=".8"/></radialGradient></defs><circle cx="85" cy="78" r="68" fill="url(#shr)" stroke="#e8f8ff" stroke-width="3"/><ellipse cx="60" cy="45" rx="14" ry="8" fill="#fff" opacity=".7" transform="rotate(-30 60 45)"/>` : "";
+  return `<svg viewBox="0 0 170 150" class="nihol-svg"><ellipse cx="85" cy="140" rx="55" ry="9" fill="rgba(0,0,0,.25)"/><path d="M50 140 Q60 118 85 118 Q110 118 120 140Z" fill="${muz ? "#6c7378" : "#6b4a2b"}"/>${poya}${barg}${shar}</svg>`;
+}
+function haftaHtml() {
+  const S = seriya(), wd = (new Date().getDay() + 6) % 7, nom = ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"];
+  let ox = null; for (let k = 0; k <= 8; k++) if (faolKun(kunISO(k))) { ox = k; break; }  // eng so'nggi faol kun
+  return `<div class="ser-hafta">${nom.map((t, i) => { const k = wd - i, d = kunISO(k), f = k >= 0 && faolKun(d);
+    let c = k < 0 ? "" : k === 0 ? (f ? "on bugun" : "bugun") : f ? "on" : (S.n && ox !== null && k > ox && [1, 2, 3].some(j => faolKun(kunISO(k + j)))) ? "eri" : (S.n && S.muz && k < (ox ?? 99)) ? "muz" : "";
+    return `<div class="sk ${c}"><span>${new Date(Date.now() - k * 864e5).getDate()}</span><em>${t}</em></div>`; }).join("")}</div>`;
+}
+function seriyaKarta() {
+  const S = seriya(), N = [...NIHOL].reverse().find(([d]) => S.n >= d), nx = NIHOL.find(([d]) => d > S.n);
+  return `<div class="ser-karta${S.muz ? " muzli" : ""}"><div class="ser-bosh"><div><b>Kunlik seriya</b><small>${S.muz ? "❄ Seriya muzlagan — bugun dars qilsangiz eriydi" : S.bugun ? "Bugun bajarildi ✓ Ertaga ham kutamiz!" : "Har kuni 5 daqiqa — nihol o'sadi"}</small></div><div class="ser-olov">${S.muz ? "❄️" : "🔥"} ${S.n}</div></div>
+    ${haftaHtml()}<div class="ser-nihol">${niholSvg(S.n, S.muz)}<div><b>${N[1]} ${N[2]}</b> · ${S.n} kun<br><small>${nx ? `Keyingi: ${nx[0]} kunda ${nx[2].toLowerCase()} ${nx[1]}` : "Eng yuqori bosqich!"}</small><br><small>⭐ +10 XP har kuni · har 7 kunda +50</small></div></div></div>`;
+}
+// dars tugaganda: bugun faol deb belgilash, bonus XP va Noma'ga yozish
+function seriyaBelgila() {
+  const d = kunISO(0), K = store.get("darsKun", {}); if (K[d]) return 0;
+  const oldin = seriya(); K[d] = 1; store.set("darsKun", K); const S = seriya();
+  let bonus = 10; if (oldin.muz) { bonus += 5; nomaQosh("💧", "Muz eridi", "Siz dars qildingiz va muzlagan kunni qutqardingiz. +5 ⭐"); }
+  if (S.n && S.n % 7 === 0) { bonus += 50; nomaQosh("🔥", S.n + " kunlik seriya!", "Barakalla! Marra uchun +50 ⭐ berildi."); }
+  store.set("xp", store.get("xp", 0) + bonus); store.set("streak", S.n); return bonus;
+}
+// Noma (bildirishnomalar): [{t, ik, b, m}], eng yangisi boshida, 60 tagacha
+function nomaQosh(ik, b, m) { const L = store.get("noma", []); L.unshift({ t: Date.now(), ik, b, m }); store.set("noma", L.slice(0, 60)); store.set("nomaYangi", 1);
+  try { if (window.Notification && Notification.permission === "granted") new Notification(b, { body: m, icon: "img/hobbi.png" }); } catch (e) {} }
+function nomaOyna() {
+  store.set("nomaYangi", 0); const L = store.get("noma", []), o = document.createElement("div"); o.className = "noma-oyna";
+  let kun = ""; o.innerHTML = `<div class="noma-ich"><div class="noma-sar"><button class="o" id="nomaX">‹</button><b>🔔 Noma</b></div>${L.length ? L.map(x => { const d = new Date(x.t), ds = d.toLocaleDateString("ru-RU"), s = ds !== kun ? (kun = ds, `<div class="noma-sana">${ds}</div>`) : "";
+    return s + `<div class="noma-x"><span class="noma-ik">${x.ik}</span><div><b>${x.b}</b><p>${x.m}</p></div><small>${d.toTimeString().slice(0, 5)}</small></div>`; }).join("") : `<p style="text-align:center;color:#888;margin-top:40px">Hozircha xabar yo'q</p>`}</div>`;
+  document.body.appendChild(o); o.querySelector("#nomaX").onclick = () => { o.remove(); render(); };
+}
+function seriyaTekshir() {  // bosh sahifada: muzlagan bo'lsa — kuniga bir marta oyna; 20:00 dan keyin dars qilinmagan bo'lsa — eslatma
+  const S = seriya(), d = kunISO(0); store.set("streak", S.n);
+  if (new Date().getHours() >= 20 && !S.bugun && store.get("eslatma", "") !== d) { store.set("eslatma", d); nomaQosh("🌱", "Nihol sovuq qotmasin!", "Bugun hali dars qilmadingiz. 5 daqiqa dars qiling — seriyangiz saqlanib qoladi."); }
+  if (!S.muz || store.get("muzOyna", "") === d || document.querySelector(".muz-oyna,.qol-ov")) return;
+  store.set("muzOyna", d); if (store.get("muzNoma", "") !== d) { store.set("muzNoma", d); nomaQosh("❄️", "Marra muzlatildi", "Kecha dars qilinmadi. Bugun dars qilsangiz, muz eriydi."); }
+  const o = document.createElement("div"); o.className = "muz-oyna";
+  o.innerHTML = `<div class="muz-ich"><button class="muz-x">✕</button><div class="muz-shar">${niholSvg(S.n, 1)}</div><div class="ser-karta" style="margin:0 14px 10px">${haftaHtml()}</div>
+    <h2>Marra muzlatildi! ❄</h2><p>Kecha dars qilinmadi, nihol muzlab qoldi. G'am chekmang — bugun 5 daqiqa dars qilsangiz, muz eriydi va seriya davom etadi.</p><button class="main" id="muzDars">▶ Dars qilish</button></div>`;
+  document.body.appendChild(o); const yop = () => o.remove(); o.querySelector(".muz-x").onclick = yop;
+  o.querySelector("#muzDars").onclick = () => { yop(); const k = Math.max(0, LESSONS.findIndex(l => !store.get("lesson" + l.n, null))); LESSON = LESSONS[k]; xp = 0; testScore = 0; i = 0; mode = "motiv"; render(); };
+}
 function profileBox(streak, total) {
   const u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}, name = store.get("fullname", "") || [u.first_name, u.last_name].filter(Boolean).join(" ") || "Ism Familiya";
   const av = u.photo_url ? `<img src="${u.photo_url}" alt="">` : `<span>${name[0].toUpperCase()}</span>`;
@@ -2890,7 +2971,8 @@ function levelsScreen(streak, total) {
   const PRE = LESSONS.slice(0, PRE_N), d = PRE.filter(l => store.get("lesson" + l.n, null)).length, p = Math.round(d * 100 / PRE.length);
   const A1L = LESSONS.slice(PRE_N, 86), d1 = A1L.filter(l => store.get("lesson" + l.n, null)).length, p1 = Math.round(d1 * 100 / A1L.length);
   $.innerHTML = `<div class="hero2">
-      <div class="hero-top"><img class="slogo hobbi" src="img/hobbi.png" alt="Hobbi"><b>HOBBI</b><span style="flex:1"></span></div>${profileBox(streak, total)}
+      <div class="hero-top"><img class="slogo hobbi" src="img/hobbi.png" alt="Hobbi"><b>HOBBI</b><span style="flex:1"></span><button class="noma-btn" id="nomaBtn">🔔${store.get("nomaYangi", 0) ? "<i></i>" : ""}</button></div>${profileBox(streak, total)}
+      ${seriyaKarta()}
       ${ustozTepa()}
       ${(() => {  // umumiy dastur bo'yicha o'zlashtirilgan darslar: jami va har daraja
         // har daraja: darslar + barcha bo'limlar mavzulari (nahv, insho, lug'at, tarkib, muhodasa)
@@ -2924,6 +3006,8 @@ function levelsScreen(streak, total) {
         <span class="arrow">${k >= 4 && !TEST ? "🔒" : "›"}</span></button>`).join("")}</div>
     <p style="text-align:center;font:12px system-ui;color:#8a8a8a;margin:18px 0 110px">© ${new Date().getFullYear()} Habib Academy · Hobbi. Barcha huquqlar himoyalangan.<br>Materiallarni ruxsatsiz ko'chirish va tarqatish taqiqlanadi.</p>`;
   $.querySelector("#dtest").onclick = () => darajaTest();
+  const nb = $.querySelector("#nomaBtn"); if (nb) nb.onclick = nomaOyna;
+  setTimeout(seriyaTekshir, 900);
   jonliYukla();
   const jt = $.querySelector("#jonli"); if (jt) jt.onclick = () => {
     const r = JONLI[0]; sendResult({ lesson: "JONLI DARS", score: `${r.guruh} ${r.sana} ${r.soat}`, xp: "" });
@@ -27513,6 +27597,7 @@ function finish() {
     streak = last === y ? streak + 1 : 1;
     store.set("streak", streak); store.set("lastDay", today);
   }
+  seriyaBelgila(); streak = store.get("streak", streak);
   store.set("xp", store.get("xp", 0) + xp);
   const balli = LESSON.test.filter(x => x.t !== "open").length + (birTest() ? LESSON.steps.filter(x => x.t !== "match" && x.t !== "write").length : 0);
   const st = starsOf(testScore, balli), k0 = LESSONS.indexOf(LESSON);
