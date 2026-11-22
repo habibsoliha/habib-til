@@ -5,7 +5,7 @@
 <meta name="color-scheme" content="light only">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Habib til</title>
+<title>Hobbi — Arab tili o'zbekcha</title><link rel="icon" href="img/hobbi.png"><link rel="apple-touch-icon" href="img/hobbi.png">
 <!-- Telegram Mini App: Telegram ichida ochilganda mavzu va tugmalar shu skript orqali ishlaydi -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -170,7 +170,7 @@
   .hx-yol { color:#8b0000; font-weight:bold; animation:hxyol 1.6s ease-in-out infinite; }
   @keyframes hxyol { 0% { transform:translateX(30px); opacity:.3 } 60% { transform:translateX(-30px); opacity:1 } 100% { transform:translateX(-30px); opacity:0 } }
 .qol-ustoz .usvg{position:absolute;inset:0;display:block;width:100%;height:100%}.qol-ustoz .usvg i{position:absolute;inset:0}
-</style>
+.slogo.hobbi{height:44px;width:44px;border-radius:12px}</style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
@@ -933,7 +933,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v249";
+const VERSION = "v250";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -2890,7 +2890,7 @@ function levelsScreen(streak, total) {
   const PRE = LESSONS.slice(0, PRE_N), d = PRE.filter(l => store.get("lesson" + l.n, null)).length, p = Math.round(d * 100 / PRE.length);
   const A1L = LESSONS.slice(PRE_N, 86), d1 = A1L.filter(l => store.get("lesson" + l.n, null)).length, p1 = Math.round(d1 * 100 / A1L.length);
   $.innerHTML = `<div class="hero2">
-      <div class="hero-top"><img class="slogo" src="img/logo.png" alt="Habib Academy"><b>HABIB TIL</b><span style="flex:1"></span></div>${profileBox(streak, total)}
+      <div class="hero-top"><img class="slogo hobbi" src="img/hobbi.png" alt="Hobbi"><b>HOBBI</b><span style="flex:1"></span></div>${profileBox(streak, total)}
       ${ustozTepa()}
       ${(() => {  // umumiy dastur bo'yicha o'zlashtirilgan darslar: jami va har daraja
         // har daraja: darslar + barcha bo'limlar mavzulari (nahv, insho, lug'at, tarkib, muhodasa)
@@ -2921,7 +2921,8 @@ function levelsScreen(streak, total) {
         <span class="lv-code">${L.code}</span>
         <span class="lv-body"><span class="lv-ar ar">${L.ar}</span><b>${L.name}</b><small>${L.sub}</small>
           ${k > 1 ? (() => { const LL = LESSONS.slice(BOSQICHLAR[k + 1].from, BOSQICHLAR[k + 1].to), dd = LL.filter(l => store.get("lesson" + l.n, null)).length, pp = Math.round(dd * 100 / LL.length); return `<span class="pbar thin"><i style="width:${Math.max(pp, 2)}%"></i></span><small>${dd}/${LL.length} dars · ${pp}%</small>`; })() : k ? `<span class="pbar thin"><i style="width:${Math.max(p1, 2)}%"></i></span><small>${d1}/${A1L.length} dars · ${p1}%</small>` : `<span class="pbar thin"><i style="width:${Math.max(p, 2)}%"></i></span><small>${d}/${PRE.length} dars · ${p}%</small>`}</span>
-        <span class="arrow">${k >= 4 && !TEST ? "🔒" : "›"}</span></button>`).join("")}</div>`;
+        <span class="arrow">${k >= 4 && !TEST ? "🔒" : "›"}</span></button>`).join("")}</div>
+    <p style="text-align:center;font:12px system-ui;color:#8a8a8a;margin:18px 0 110px">© ${new Date().getFullYear()} Habib Academy · Hobbi. Barcha huquqlar himoyalangan.<br>Materiallarni ruxsatsiz ko'chirish va tarqatish taqiqlanadi.</p>`;
   $.querySelector("#dtest").onclick = () => darajaTest();
   jonliYukla();
   const jt = $.querySelector("#jonli"); if (jt) jt.onclick = () => {
@@ -25405,7 +25406,7 @@ function ustozYol() {
 function heroBox(streak, total, d, n, birlik) {
   const h = HIKMAT[new Date().getDate() % HIKMAT.length], p = n ? Math.round(d * 100 / n) : 0;
   return `<div class="topband"></div><div class="hero2">
-    <div class="hero-top"><img class="slogo" src="img/logo.png" alt="Habib Academy"><b>HABIB TIL</b><span style="flex:1"></span></div>${profileBox(streak, total)}
+    <div class="hero-top"><img class="slogo hobbi" src="img/hobbi.png" alt="Hobbi"><b>HOBBI</b><span style="flex:1"></span></div>${profileBox(streak, total)}
     ${ustozTepa()}
     <div class="h-title">Arab tili —<br><span>harfma-harf.</span></div>
     <div class="h-uz">${h[1]}</div>
@@ -27222,7 +27223,7 @@ function intro() {
   const streak = store.get("streak", 0);
   $.innerHTML = `
     <div class="top"><button class="o" id="back" style="padding:6px 12px;font-size:16px">←</button>
-      <b style="font-size:20px">HABIB TIL</b><span style="flex:1"></span><span class="pill">🔥 ${streak} kun</span></div>
+      <b style="font-size:20px">HOBBI</b><span style="flex:1"></span><span class="pill">🔥 ${streak} kun</span></div>
     <h1>${LESSON.title}</h1>
     ${LESSON.yt
       ? LESSON.yt.map((id, k) => `${LESSON.yt.length > 1 ? `<p><b>${k + 1}-qism</b></p>` : ""}<div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${id}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`).join("")
@@ -27429,7 +27430,7 @@ function testIntro() {
 // Bosqich yakunida: harflar → faxriy yorliq, fonetika va har daraja → sertifikat (canvasda chiziladi, rasm sifatida saqlanadi)
 const SERT_LOGO = new Image(); SERT_LOGO.src = "img/logo.png";
 function sertifikat(bi, qayta, faqatRasm) {
-  const u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}, ism = [u.first_name, u.last_name].filter(Boolean).join(" ") || "Habib til o'quvchisi";
+  const u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || {}, ism = [u.first_name, u.last_name].filter(Boolean).join(" ") || "Hobbi o'quvchisi";
   const yorliq = bi === 0, nom = bi === 0 ? "Harflar maxraji" : bi === 1 ? "Fonetika (Pre-A1)" : bi === 2 ? "A1 — Miftah" : BOSQICHLAR[bi].name;
   const W = 1600, H = 1130, c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
   const SANS = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif", SERIF = "Georgia, 'Times New Roman', serif";
@@ -27454,7 +27455,7 @@ function sertifikat(bi, qayta, faqatRasm) {
   x.fillStyle = oltin(tx, 250, tx + tw, 300); x.font = `700 34px ${SANS}`; x.fillText("HABIB ACADEMY", tx + tw / 2, 285);
   x.fillStyle = "#cfe9d8"; x.font = `500 22px ${SANS}`; x.fillText("arab tili markazi", tx + tw / 2, 318);
   x.fillStyle = oltin(tx, 360, tx + tw, 460); x.font = `bold 92px 'Amiri', 'Traditional Arabic', 'Arabic Typesetting', serif`; x.fillText(yorliq ? "تَكْرِيم" : "شَهَادَة", tx + tw / 2, 455);
-  x.fillStyle = "#cfe9d8"; x.font = `600 24px ${SANS}`; x.fillText("HABIB TIL ilovasi", tx + tw / 2, 520);
+  x.fillStyle = "#cfe9d8"; x.font = `600 24px ${SANS}`; x.fillText("HOBBI ilovasi", tx + tw / 2, 520);
   // daraja nishoni (tasma ostida, oltin medal)
   const mx = tx + tw / 2, my = 800;
   x.save(); x.shadowColor = "rgba(0,0,0,.3)"; x.shadowBlur = 20; x.fillStyle = oltin(mx - 90, my - 90, mx + 90, my + 90); x.beginPath();
@@ -27473,8 +27474,8 @@ function sertifikat(bi, qayta, faqatRasm) {
   x.strokeStyle = oltin(560, 0, 1440, 0); x.lineWidth = 3; x.beginPath(); x.moveTo(560, 525); x.lineTo(1440, 525); x.stroke();
   x.fillStyle = "#c99a35"; x.beginPath(); x.moveTo(cx, 515); x.lineTo(cx + 10, 525); x.lineTo(cx, 535); x.lineTo(cx - 10, 525); x.fill();
   // matn
-  const satr = yorliq ? ["«Habib til» ilovasida arab alifbosining 28 harfini", `maxraji bilan to'liq o'rganib, «${nom}» bosqichini`, "muvaffaqiyatli yakunlagani uchun taqdirlandi!"]
-    : ["«Habib til» ilovasida arab tili bo'yicha", `«${nom}» darajasini muvaffaqiyatli o'tib,`, "barcha darslarni yakunlagani uchun sertifikat bilan taqdirlandi!"];
+  const satr = yorliq ? ["«Hobbi» ilovasida arab alifbosining 28 harfini", `maxraji bilan to'liq o'rganib, «${nom}» bosqichini`, "muvaffaqiyatli yakunlagani uchun taqdirlandi!"]
+    : ["«Hobbi» ilovasida arab tili bo'yicha", `«${nom}» darajasini muvaffaqiyatli o'tib,`, "barcha darslarni yakunlagani uchun sertifikat bilan taqdirlandi!"];
   x.fillStyle = "#3a3a3a"; x.font = `400 32px ${SANS}`; satr.forEach((s, i) => x.fillText(s, cx, 600 + i * 48));
   // pastki qism: imzo, gulchambar, sana
   const sana = new Date(store.get("sert" + bi, null) || Date.now()).toLocaleDateString("ru-RU");
@@ -27842,7 +27843,7 @@ function ilmNur() {
     @keyframes nTit { from { transform:scale(1) } to { transform:scale(1.08, .94) } }
     @keyframes nHarf { 0% { opacity:0; transform:translate(-50%,-50%) scale(.3) } 30% { opacity:1 } 100% { opacity:.85; transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) } }
     @keyframes nKet { to { opacity:0; visibility:hidden } }
-  </style>
+  .slogo.hobbi{height:44px;width:44px;border-radius:12px}</style>
   <div class="nur"></div><div class="nurlar">${Array.from({ length: 16 }, (_, k) => `<i style="transform:rotate(${k * 22.5}deg)"></i>`).join("")}</div>
   <svg class="chiroq" viewBox="0 0 120 90"><path class="alanga" d="M60 8 Q72 24 60 34 Q48 24 60 8 Z" fill="#ffd36b"/>
     <path d="M18 52 Q60 80 100 52 Q104 46 96 46 L72 46 Q66 38 60 38 Q54 38 48 46 L24 46 Q16 46 18 52 Z" fill="#c99a3b"/>
