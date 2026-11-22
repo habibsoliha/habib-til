@@ -954,7 +954,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v252";
+const VERSION = "v253";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -3575,7 +3575,7 @@ const imtihonTugma = (lv, b) => (r => `<button class="main" id="imt" style="marg
 let bolim = null;
 // Nahv va insho mavzulari — metodistning "Ustozlar o'quv dasturi" (artifact, 2026-10-31 oxirgi nusxa)
 const NAHV_LV = { 1: [["المذكر والمؤنث","Muzakkar va muannas"],["ياء النسبة","Nisba yosi"],["الضمائر المنفصلة","Alohida olmoshlar"],["الضمائر المتصلة","Qo'shimcha olmoshlar"],["أسماء الإشارة","Ko'rsatish olmoshlari"],["تصريف الأفعال","5 ta fe'lning tuslanishi"],["الجمع","Ko'plik"],["جمع المؤنث السالم","Muannas to'g'ri ko'plik"],["جمع المذكر السالم","Muzakkar to'g'ri ko'plik"],["المثنى","Ikkilik"],["النكرة والمعرفة","Noaniq va aniq ot"],["الإضافة","Izofa"],["أنواع الإضافة","Izofa turlari"],["أنواع الجملة","Gap turlari"],["المبتدأ والخبر","Mubtado va xabar"],["ليس في الجملة","Gapda ليس"],["الفعل والفاعل","Fe'l va foil"],["الفاعل","Foil"],["الأعداد الترتيبية","Tartib sonlar"],["حروف الجر","Jor harflari"],["حروف العطف (و، فـ، ثم)","Bog'lovchi harflar"],["الأعداد (٢٠–٩٠)","Sanoq sonlar 20–90"],["أدوات الاستفهام (ما، من، هل)","So'roq so'zlari"],["العدد والمعدود (٣–١٠)","3–10 sonlari va sanalmish"],["الصفة والموصوف","Sifat va sifatlanmish"],["فعل الأمر من المضارع","Muzoredan buyruq fe'li"],["الفعل الماضي","O'tgan zamon fe'li"],["أنْ + المضارع (أريد أن، يجب أن)","«أنْ» + hozirgi zamon fe'li"],["لا النافية والناهية","لا bilan inkor va taqiq"],["المضارع والمستقبل","Hozirgi va kelasi zamon"],["لكنّ","لكنّ bog'lovchisi"],["إسناد المضارع إلى الضمائر","Ko'plikda tuslash (هم)"],["الألوان","Ranglar (muzakkar va muannas)"]], 2: [["التاء المربوطة والمبسوطة",""],["الأداة «لأنّ»",""],["الوصف",""],["إسناد المضارع للضمائر",""],["اسم التفضيل",""],["الماضي المستمر (كان + مضارع)",""],["صيغة التفضيل (مِن + أفعل)",""],["حروف الجر مع «ال»",""],["الجموع",""],["الاسم الموصول",""],["أداة الربط «لِـ»",""],["إسناد الفعل الماضي",""],["النفي بـ«ما» و«لا»",""],["الأعداد الترتيبية",""],["الصفة والموصوف",""],["الظرف «مُنذُ»",""],["النفي بـ«لن»",""],["أسلوب التفضيل «أفعل مِن»",""],["فعل الأمر",""],["«يجب عليك أن»",""],["النفي بـ«لم»",""],["تركيب «مليء بـ»",""],["«قبل، بعد» مع «أن»",""],["تركيب «تختلف باختلاف»",""],["النفي بـ«ليس»",""],["الفعل «أصبح»",""],["الظرف «عندما»",""],["أداة الشرط «إذا»",""],["ليس ... ولكن",""],["الظرفان «منذ، قبل»",""],["«أُفضِّل ... على»",""],["ظروف المكان (فوق، تحت، أمام ...)",""],["«ليس» مع الضمائر",""],["«أ ... أم ...؟»",""],["«مصنوع من»",""],["«مزوّد بـ»",""],["«أليس كذلك؟»",""],["«أمّا ... فـ»",""],["لا الناهية",""],["«مسؤول عن»",""],["«هل هذه أوّل مرّة؟»",""],["«عليك أن / لا تنسَ أن»",""],["«يُفضَّل أن»",""],["«ليس له ... ولا»",""],["«من الآن»",""],["«دعنا» + المضارع",""],["«لكنْ»",""],["«في آنٍ واحد»",""]], 3: [["أنواع الفعل الصحيح",""],["مفهوم الجذر، أوزان الفعل الثلاثي",""],["الهمزة المتطرفة",""],["الفعل المعتل",""],["اسم الفاعل واسم المفعول من الثلاثي",""],["حروف تُلفظ ولا تُكتب",""],["حالات الخبر في الجملة الاسمية",""],["الوزنان فعّل وفاعل",""],["توسيع الجمل",""],["الهمزة المتوسطة",""],["الأحرف المشبهة بالفعل",""],["الوزنان أفعل وتفعّل",""],["روابط التعليل",""],["حالات استثنائية في الهمزة المتوسطة",""],["الأفعال الناقصة (كان وأخواتها)",""],["الوزنان انفعل وتفاعل",""],["أدوات المقارنة",""],["الألف اللينة المتطرفة في الأفعال",""],["الأفعال الخمسة",""],["الوزنان افتعل واستفعل",""],["الألف اللينة المتطرفة في الأسماء",""],["نصب الفعل المضارع",""],["المصدر المؤوّل",""],["الوزن فعلل",""],["روابط التوكيد",""],["الفرق بين النون والتنوين",""],["جزم الفعل المضارع",""],["الوزنان افعلّ ويفعلّ",""],["اسما الزمان والمكان",""],["حذف الألف من أسماء الاستفهام",""],["الفعل الثلاثي المبني للمجهول",""],["أوزان الثلاثي الصحيح والمزيد",""],["همزتا الوصل والقطع",""],["الفعل المعتل الثلاثي المبني للمجهول",""],["اسم الآلة",""],["الهمزة الممدودة في أول الكلمة ووسطها",""]] };
-const INSHO_ALL = [["A1 · Shaxsiy ma'lumotlar anketasi",""],["A1 · Mashhur shaxs haqida",""],["A1 · Bir kishining kasbi haqida",""],["A1 · O'quv rejasini tuzish",""],["A1 · O'qishim haqida",""],["A1 · Uchrashuvlar jadvali",""],["A1 · Yurtingizdagi transport haqida",""],["A1 · Oilam haqida",""],["A1 · Katta oilam (qarindoshlarim)",""],["A1 · Arab oilasi",""],["A1 · Do'stimni tasvirlash",""],["A1 · Uyim haqida",""],["A1 · Xonamni tasvirlash",""],["A1 · An'anaviy o'zbek uyi",""],["A1 · Do'stga maktub: mahallam va atrofim",""],["A1 · Kundalik ishlarim haqida",""],["A1 · Bir kishining yomon odatlari haqida",""],["A1 · Istibona: kundalik odatlarim",""],["A1 · Kundalik daftar: ertaga nima qilaman?",""],["A1 · Dunyo taomlari",""],["A1 · Dunyo nonushtalari",""],["A1 · Ramazondagi bir kunim",""],["A1 · Ovqatlanish odatlarim va do'stimniki",""],["A1 · Dunyo xalq kiyimlari",""],["A1 · Dunyo odamlarining sifatlari",""],["A1 · Bir tanishim: ishi va kiyimi",""],["A1 · Ustozim va ikki tanishim",""],["A2 · Odamlarning turmush tarzi",""],["A2 · Ertangi ob-havo haqida",""],["A2 · Shahrim (joylashuvi va ob-havosi)",""],["A2 · Yurtimdagi tarixiy joylar",""],["A2 · Sevimli mashg'ulotlarim",""],["A2 · Bozorni tasvirlash",""],["A2 · Seyyor sotuvchilar va do'konlar",""],["A2 · Yashash joyimni tasvirlash",""],["A2 · Qishloq va shahar: solishtirish",""],["A2 · Bo'sh vaqtim",""],["A2 · Ovqatlanish tartibim",""]];
+const INSHO_ALL = [["A1 · Shaxsiy ma'lumotlar anketasi",""],["A1 · Mashhur shaxs haqida",""],["A1 · Bir kishining kasbi haqida",""],["A1 · O'quv rejasini tuzish",""],["A1 · O'qishim haqida",""],["A1 · Uchrashuvlar jadvali",""],["A1 · Yurtingizdagi transport haqida",""],["A1 · Oilam haqida",""],["A1 · Katta oilam (qarindoshlarim)",""],["A1 · Arab oilasi",""],["A1 · Do'stimni tasvirlash",""],["A1 · Uyim haqida",""],["A1 · Xonamni tasvirlash",""],["A1 · An'anaviy o'zbek uyi",""],["A1 · Do'stga maktub: mahallam va atrofim",""],["A1 · Kundalik ishlarim haqida",""],["A1 · Bir kishining yomon odatlari haqida",""],["A1 · Istibona: kundalik odatlarim",""],["A1 · Kundalik daftar: ertaga nima qilaman?",""],["A1 · Dunyo taomlari",""],["A1 · Dunyo nonushtalari",""],["A1 · Ramazondagi bir kunim",""],["A1 · Ovqatlanish odatlarim va do'stimniki",""],["A1 · Dunyo xalq kiyimlari",""],["A1 · Dunyo odamlarining sifatlari",""],["A1 · Bir tanishim: ishi va kiyimi",""],["A1 · Ustozim va ikki tanishim",""],["A2 · Eskimoslar hayoti",""],["A2 · Shahrimning ob-havosi",""],["A2 · Bir davlatning fasllari",""],["A2 · Ob-havo ma'lumoti (nashra)",""],["A2 · Sevimli faslim va mashg'ulotlarim",""],["A2 · Yurtimdagi qadimiy obida",""],["A2 · Uyimga yo'l (xarita)",""],["A2 · Men borgan shahar",""],["A2 · Mening yurtim",""],["A2 · Sevimli mashg'ulotim",""],["A2 · Bo'sh vaqtim",""],["A2 · Bozorda bir kun",""],["A2 · Bozordagi chegirmalar",""],["A2 · Seyyor sotuvchi",""],["A2 · Ishlatilgan buyumlar: ha yoki yo'q",""],["A2 · E'lon yozish",""],["A2 · Yashashni istagan joyim",""],["A2 · Uyimdagi ta'mirlash",""],["A2 · Uyimdagi tartib-qoidalar",""],["A2 · Qo'shnilarim",""],["A2 · Ozodaligim va ko'rkamligim",""],["A2 · Kunlik ovqatlanishim",""],["A2 · Bemorni ko'rgani borish",""],["A2 · Bemorga maslahat",""],["A2 · Mashhur sportchi",""],["A2 · Sport va uning foydasi",""],["A2 · Bayramdagi taom",""],["A2 · Bir davlatning taomlari",""],["A2 · Mehmonni qayerga chaqiramiz: uygami, restoranga?",""],["A2 · Do'stlar bilan sayohat",""],["A2 · Kelgusi sayohatim rejasi",""],["A2 · Yurtimdagi transport",""],["A2 · Mehmonxonada",""],["A2 · Safar tajribam",""]];
 const INSHO_LV = { 1: INSHO_ALL.filter(x => x[0].startsWith('A1')), 2: INSHO_ALL.filter(x => x[0].startsWith('A2')), 3: [["B1 · Tarjimai hol: muvaffaqiyatga erishgan shaxs haqida",""],["B1 · Kundalik: bir haftalik ish hayotim",""],["B1 · Jumlalarni kengaytirish: muqobil tibbiyot",""],["B1 · Sabab va oqibat: urf-odatlar nega saqlanadi",""],["B1 · Solishtirish: shahar kecha va bugun",""],["B1 · Matnni qisqartirish: hayotimizni o'zgartirgan ixtirolar",""],["B1 · Dalilli insho: zamonaviy oilada munosabatlar",""],["B1 · Qayta ifodalash: o'qishdan keyin nima qilish kerak",""],["B1 · Mehmondorchilik odobi haqida",""],["B1 · Xotiralar: o'tmishdagi bir kunim",""]] };
 // Nahv mavzusi o'tilganda ochiladigan "kuch": o'quvchi endi nimani qila oladi (bolimMavzu(1, lv) tartibida)
 const NAHV_KUCH = {
@@ -26297,6 +26297,4524 @@ const INSHO_DARS = { 1: { 0: {
     ["أَنا أَدْرُسُ اللُّغَةَ العَرَبِيَّةَ في طَشْقَنْدَ.", "Men Toshkentda arab tilini o'qiyman."], ["أَدْرُسُ خَمْسَةَ أَيّامٍ في الأُسْبوعِ.", "Haftada besh kun o'qiyman."], ["العُطْلَةُ يَوْمَ الجُمُعَةِ وَيَوْمَ السَّبْتِ.", "Dam olish kunlari juma va shanba."]],
   reja: ["Do'stingizning ismini yozdingizmi?", "Millati va yashash joyini yozdingizmi?", "Nima o'qishini va qaysi universitetda ekanini yozdingizmi? (يَدْرُسُ … في جامِعَةِ …)", "Nechanchi kursda ekanini yozdingizmi? (في السَّنَةِ …)", "O'zingizning o'qishingiz haqida yozdingizmi? (أَنا أَدْرُسُ)"]
 } } };
+// --- A2 insho: ikkala kitob mavzu bo'yicha aralash (odamlar, ob-havo, joylar, mashg'ulot, bozor, uy-joy, salomatlik, taom, safar)
+INSHO_DARS[2] = {
+ "0": {
+  "nom": "حَياةُ الإِسْكيمو",
+  "anketaIzoh": "Kitobdagi «Eskimoslar hayoti» matni bo'yicha ular haqida ma'lumot yig'ing: kimlar, qayerda yashaydi, ob-havo, ishi, ko'chishi, taomi, kiyimi va uyi. Faqat arabcha yozing.",
+  "gap": [
+   [
+    "Eskimoslar Shimoliy qutb hududida yashaydi.",
+    [
+     "يَعيشُ",
+     "الإِسْكيمو",
+     "في",
+     "مِنْطَقَةِ",
+     "القُطْبِ",
+     "الشَّمالِيِّ."
+    ],
+    [
+     "الصَّحْراءِ",
+     "الجَنوبِيِّ"
+    ]
+   ],
+   [
+    "Ularning hududlarida havo juda sovuq.",
+    [
+     "الجَوُّ",
+     "في",
+     "مَناطِقِهِمْ",
+     "بارِدٌ",
+     "جِدًّا."
+    ],
+    [
+     "حارٌّ",
+     "قَليلًا"
+    ]
+   ],
+   [
+    "Ularning asosiy kasbi baliq ovlash.",
+    [
+     "عَمَلُهُمُ",
+     "الأَساسِيُّ",
+     "صَيْدُ",
+     "السَّمَكِ."
+    ],
+    [
+     "الزِّراعَةُ",
+     "عَمَلي"
+    ]
+   ],
+   [
+    "Ular itlar tortadigan chanada yuradi.",
+    [
+     "يَتَنَقَّلونَ",
+     "عَلى",
+     "زَلّاجاتٍ",
+     "تَجُرُّها",
+     "الكِلابُ."
+    ],
+    [
+     "الجِمالِ",
+     "يَتَنَقَّلُ"
+    ]
+   ],
+   [
+    "Ular hayvon terisidan kiyim kiyadi.",
+    [
+     "يَلْبَسونَ",
+     "مَلابِسَ",
+     "مِنْ",
+     "جُلودِ",
+     "الحَيَواناتِ."
+    ],
+    [
+     "القُطْنِ",
+     "تَلْبَسُ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "مَنِ الإِسْكيمو؟",
+    "Ular kimlar (masalan: شَعْبٌ يَعيشُ في الشَّمالِ)"
+   ],
+   [
+    "أَيْنَ يَعيشونَ؟",
+    "Qayerda yashaydi"
+   ],
+   [
+    "كَيْفَ الجَوُّ في مَناطِقِهِمْ؟",
+    "Ob-havo qanday"
+   ],
+   [
+    "ما عَمَلُهُمُ الأَساسِيُّ؟",
+    "Asosiy kasbi"
+   ],
+   [
+    "كَيْفَ يَتَنَقَّلونَ؟",
+    "Qanday yuradi"
+   ],
+   [
+    "ما طَعامُهُمُ الأَساسِيُّ؟",
+    "Asosiy taomi"
+   ],
+   [
+    "ما لِباسُهُمْ؟",
+    "Kiyimi"
+   ],
+   [
+    "أَيْنَ يَسْكُنونَ؟",
+    "Uy-joyi (masalan: بُيوتُ الثَّلْجِ)"
+   ]
+  ],
+  "qolip": [
+   "الإِسْكيمو شَعْبٌ …",
+   "يَعيشونَ في …",
+   "الجَوُّ في مَناطِقِهِمْ …",
+   "عَمَلُهُمُ الأَساسِيُّ …",
+   "يَتَنَقَّلونَ عَلى …",
+   "طَعامُهُمُ الأَساسِيُّ …",
+   "يَلْبَسونَ …",
+   "يَسْكُنونَ في …"
+  ],
+  "namuna": [
+   [
+    "الإِسْكيمو شَعْبٌ يَعيشُ في مِنْطَقَةِ القُطْبِ الشَّمالِيِّ.",
+    "Eskimoslar — Shimoliy qutb hududida yashaydigan xalq."
+   ],
+   [
+    "يَعيشونَ في كَنَدا وَأَلاسْكا وَغْرينْلانْد.",
+    "Ular Kanada, Alyaska va Grenlandiyada yashaydi."
+   ],
+   [
+    "الجَوُّ في مَناطِقِهِمْ بارِدٌ جِدًّا، وَالثَّلْجُ يُغَطّي الأَرْضَ مُعْظَمَ السَّنَةِ.",
+    "Ularning hududlarida havo juda sovuq, yilning ko'p qismida yerni qor qoplab yotadi."
+   ],
+   [
+    "عَمَلُهُمُ الأَساسِيُّ صَيْدُ السَّمَكِ وَالحَيَواناتِ.",
+    "Asosiy kasbi — baliq va hayvon ovlash."
+   ],
+   [
+    "يَتَنَقَّلونَ عَلى زَلّاجاتٍ تَجُرُّها الكِلابُ.",
+    "Itlar tortadigan chanalarda yuradi."
+   ],
+   [
+    "كانوا يَسْكُنونَ في بُيوتٍ مِنَ الثَّلْجِ اسْمُها «الإيغلو».",
+    "Ilgari «iglu» deb ataladigan qor uylarda yashashgan."
+   ],
+   [
+    "طَعامُهُمُ الأَساسِيُّ السَّمَكُ وَاللَّحْمُ، لِأَنَّ الزِّراعَةَ صَعْبَةٌ هُناكَ.",
+    "Asosiy taomi baliq va go'sht, chunki u yerda dehqonchilik qilish qiyin."
+   ],
+   [
+    "يَلْبَسونَ مَلابِسَ سَميكَةً مِنْ جُلودِ الحَيَواناتِ وَفِرائِها.",
+    "Hayvon terisi va mo'ynasidan qalin kiyim kiyadi."
+   ],
+   [
+    "حَياتُهُمْ صَعْبَةٌ، لكِنَّهُمْ شَعْبٌ قَوِيٌّ وَصَبورٌ.",
+    "Hayotlari og'ir, lekin ular kuchli va sabrli xalq."
+   ]
+  ],
+  "reja": [
+   "Eskimoslar kimligini yozdingizmi? (الإِسْكيمو شَعْبٌ)",
+   "Qayerda yashashini yozdingizmi? (يَعيشونَ في)",
+   "Ob-havoni yozdingizmi? (الجَوُّ)",
+   "Kasbini yozdingizmi? (عَمَلُهُمْ)",
+   "Qanday yurishini yozdingizmi? (يَتَنَقَّلونَ)",
+   "Taomi, kiyimi va uyini yozdingizmi? (طَعامُهُمْ، يَلْبَسونَ، يَسْكُنونَ)"
+  ]
+ },
+ "1": {
+  "nom": "المُناخُ في مَدينَتي",
+  "anketaIzoh": "Shahringizdagi to'rt faslni jadvalga yozing: havo qanday (حارٌّ، بارِدٌ، مُعْتَدِلٌ، مُمْطِرٌ، مُشْمِسٌ، ثَلْجٌ) va harorat taxminan necha daraja. Keyin shahringiz va ertangi ob-havo haqida insho yozasiz.",
+  "gap": [
+   [
+    "Men Toshkentda yashayman.",
+    [
+     "أَعيشُ",
+     "في",
+     "طَشْقَنْدَ."
+    ],
+    [
+     "يَعيشُ",
+     "مِنْ"
+    ]
+   ],
+   [
+    "Shahrim O'zbekistonning sharqida joylashgan.",
+    [
+     "تَقَعُ",
+     "مَدينَتي",
+     "في",
+     "شَرْقِ",
+     "أوزْبَكِسْتانَ."
+    ],
+    [
+     "غَرْبِ",
+     "يَقَعُ"
+    ]
+   ],
+   [
+    "G'arbdan Qozog'iston bilan chegaradosh.",
+    [
+     "يَحُدُّها",
+     "مِنَ",
+     "الغَرْبِ",
+     "كازاخِسْتانُ."
+    ],
+    [
+     "الشَّرْقِ",
+     "يَحُدُّهُ"
+    ]
+   ],
+   [
+    "Yozda havo issiq va quyoshli bo'ladi.",
+    [
+     "الجَوُّ",
+     "في",
+     "الصَّيْفِ",
+     "حارٌّ",
+     "وَمُشْمِسٌ."
+    ],
+    [
+     "الشِّتاءِ",
+     "بارِدٌ"
+    ]
+   ],
+   [
+    "Qishda harorat noldan pastga tushadi.",
+    [
+     "تَنْخَفِضُ",
+     "دَرَجَةُ",
+     "الحَرارَةِ",
+     "في",
+     "الشِّتاءِ",
+     "تَحْتَ",
+     "الصِّفْرِ."
+    ],
+    [
+     "تَرْتَفِعُ",
+     "الصَّيْفِ"
+    ]
+   ],
+   [
+    "Ertaga havo bulutli bo'ladi.",
+    [
+     "سَيَكونُ",
+     "الجَوُّ",
+     "غائِمًا",
+     "غَدًا."
+    ],
+    [
+     "أَمْسِ",
+     "مُشْمِسًا"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "الفَصْلُ",
+    "صِفاتُ الجَوِّ",
+    "دَرَجَةُ الحَرارَةِ"
+   ],
+   "qator": [
+    "الصَّيْفُ",
+    "الخَريفُ",
+    "الشِّتاءُ",
+    "الرَّبيعُ"
+   ]
+  },
+  "qolip": [
+   "أَعيشُ في مَدينَةِ …",
+   "تَقَعُ مَدينَتي في …",
+   "تُحيطُ بِها …",
+   "يَحُدُّها مِنَ الغَرْبِ … وَمِنَ الجَنوبِ …",
+   "الجَوُّ في الصَّيْفِ …",
+   "وَفي الشِّتاءِ …",
+   "الرَّبيعُ وَالخَريفُ …",
+   "غَدًا سَيَكونُ الجَوُّ …",
+   "دَرَجَةُ الحَرارَةِ العُظْمى … وَالصُّغْرى …"
+  ],
+  "namuna": [
+   [
+    "أَعيشُ في مَدينَةِ طَشْقَنْدَ، عاصِمَةِ أوزْبَكِسْتانَ.",
+    "Men O'zbekiston poytaxti Toshkent shahrida yashayman."
+   ],
+   [
+    "تَقَعُ مَدينَتي في شَرْقِ البِلادِ، وَتُحيطُ بِها الجِبالُ مِنَ الشَّمالِ وَالشَّرْقِ.",
+    "Shahrim mamlakat sharqida joylashgan, shimol va sharqdan tog'lar o'rab turadi."
+   ],
+   [
+    "يَحُدُّها مِنَ الغَرْبِ كازاخِسْتانُ، وَمِنَ الجَنوبِ وِلايَةُ سيرْداريا وَطاجيكِسْتانُ.",
+    "G'arbdan Qozog'iston, janubdan Sirdaryo viloyati va Tojikiston bilan chegaradosh."
+   ],
+   [
+    "في مَدينَتي أَرْبَعَةُ فُصولٍ.",
+    "Shahrimda to'rt fasl bor."
+   ],
+   [
+    "الجَوُّ في الصَّيْفِ حارٌّ وَجافٌّ، وَتَصِلُ دَرَجَةُ الحَرارَةِ إِلى أَرْبَعينَ دَرَجَةً.",
+    "Yozda havo issiq va quruq, harorat qirq darajaga yetadi."
+   ],
+   [
+    "وَفي الشِّتاءِ الجَوُّ بارِدٌ، وَتَنْخَفِضُ الحَرارَةُ تَحْتَ الصِّفْرِ، وَيَتَساقَطُ الثَّلْجُ أَحْيانًا.",
+    "Qishda havo sovuq, harorat noldan pastga tushadi, ba'zan qor yog'adi."
+   ],
+   [
+    "أَمّا الرَّبيعُ فَمُعْتَدِلٌ وَمُمْطِرٌ، وَالخَريفُ جَميلٌ وَتَتَساقَطُ فيهِ أَوْراقُ الأَشْجارِ.",
+    "Bahor mo'tadil va yomg'irli, kuz esa chiroyli, unda daraxt barglari to'kiladi."
+   ],
+   [
+    "أُحِبُّ فَصْلَ الرَّبيعِ أَكْثَرَ، لِأَنَّ الجَوَّ فيهِ مُعْتَدِلٌ.",
+    "Men bahorni ko'proq yaxshi ko'raman, chunki unda havo mo'tadil."
+   ],
+   [
+    "غَدًا سَيَكونُ الجَوُّ غائِمًا جُزْئِيًّا، وَالرِّياحُ خَفيفَةٌ.",
+    "Ertaga havo qisman bulutli, shamol yengil bo'ladi."
+   ],
+   [
+    "دَرَجَةُ الحَرارَةِ العُظْمى ١٢ دَرَجَةً، وَالصُّغْرى ٣ دَرَجاتٍ.",
+    "Eng yuqori harorat 12 daraja, eng pasti 3 daraja."
+   ]
+  ],
+  "reja": [
+   "Qayerda yashashingizni yozdingizmi? (أَعيشُ في)",
+   "Shahringiz qayerda joylashganini yozdingizmi? (تَقَعُ)",
+   "Uni nima o'rab turishini va g'arb, janubdan nima bilan chegaradoshligini yozdingizmi? (تُحيطُ بِها، يَحُدُّها)",
+   "Yoz va qishni yozdingizmi? (الصَّيْفُ، الشِّتاءُ)",
+   "Bahor va kuzni yozdingizmi? (الرَّبيعُ، الخَريفُ)",
+   "Sevimli faslingiz va sababini yozdingizmi? (أُحِبُّ … لِأَنَّ)",
+   "Ertangi ob-havoni yozdingizmi? (غَدًا سَيَكونُ)"
+  ]
+ },
+ "2": {
+  "nom": "الفُصولُ في بَلَدٍ مِنَ البُلْدانِ",
+  "anketaIzoh": "Bitta davlatni tanlang (masalan Misr, Turkiya, Rossiya, Saudiya…) va kitobdagi ma'lumotlarni yig'ing: nechta fasl bor, har bir fasl qachon boshlanib tugaydi, o'rtacha harorat, kunduzgi soatlar. Keyin uni do'stlaringiz oldida so'zlab berayotgandek yozasiz.",
+  "gap": [
+   [
+    "Misrda ikki asosiy fasl bor.",
+    [
+     "في",
+     "مِصْرَ",
+     "فَصْلانِ",
+     "أَساسِيّانِ."
+    ],
+    [
+     "أَرْبَعَةُ",
+     "فُصولٍ"
+    ]
+   ],
+   [
+    "Yoz may oyida boshlanib, oktyabrda tugaydi.",
+    [
+     "يَبْدَأُ",
+     "الصَّيْفُ",
+     "في",
+     "مايو",
+     "وَيَنْتَهي",
+     "في",
+     "أُكْتوبَرَ."
+    ],
+    [
+     "تَبْدَأُ",
+     "يَنْتَهي"
+    ]
+   ],
+   [
+    "Yozda o'rtacha harorat o'ttiz besh daraja.",
+    [
+     "مُعَدَّلُ",
+     "الحَرارَةِ",
+     "في",
+     "الصَّيْفِ",
+     "خَمْسٌ",
+     "وَثَلاثونَ",
+     "دَرَجَةً."
+    ],
+    [
+     "الشِّتاءِ",
+     "دَرَجاتٍ"
+    ]
+   ],
+   [
+    "Bugun sizga Misr haqida so'zlab bermoqchiman.",
+    [
+     "اليَوْمَ",
+     "أُريدُ",
+     "أَنْ",
+     "أُحَدِّثَكُمْ",
+     "عَنْ",
+     "مِصْرَ."
+    ],
+    [
+     "أَمْسِ",
+     "يُريدُ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "الفَصْلُ",
+    "يَبْدَأُ / يَنْتَهي",
+    "مُعَدَّلُ الحَرارَةِ",
+    "ساعاتُ النَّهارِ"
+   ],
+   "qator": [
+    "الصَّيْفُ",
+    "الخَريفُ",
+    "الشِّتاءُ",
+    "الرَّبيعُ"
+   ]
+  },
+  "qolip": [
+   "السَّلامُ عَلَيْكُمْ أَصْدِقائي الأَعِزّاءَ.",
+   "اليَوْمَ أُريدُ أَنْ أُحَدِّثَكُمْ عَنْ …",
+   "عَدَدُ الفُصولِ في … …",
+   "يَبْدَأُ … في … وَيَنْتَهي في …",
+   "مُعَدَّلُ دَرَجَةِ الحَرارَةِ في … …",
+   "عَدَدُ ساعاتِ النَّهارِ …",
+   "وَشُكْرًا لِحُسْنِ اسْتِماعِكُمْ."
+  ],
+  "namuna": [
+   [
+    "السَّلامُ عَلَيْكُمْ أَصْدِقائي الأَعِزّاءَ.",
+    "Assalomu alaykum, aziz do'stlarim."
+   ],
+   [
+    "اليَوْمَ أُريدُ أَنْ أُحَدِّثَكُمْ عَنِ الفُصولِ في تُرْكِيا.",
+    "Bugun sizga Turkiyadagi fasllar haqida so'zlab bermoqchiman."
+   ],
+   [
+    "في تُرْكِيا أَرْبَعَةُ فُصولٍ: الصَّيْفُ وَالخَريفُ وَالشِّتاءُ وَالرَّبيعُ.",
+    "Turkiyada to'rt fasl bor: yoz, kuz, qish va bahor."
+   ],
+   [
+    "يَبْدَأُ الصَّيْفُ في شَهْرِ يونيو وَيَنْتَهي في أَغُسْطُسَ، وَمُعَدَّلُ الحَرارَةِ فيهِ ثَلاثونَ دَرَجَةً.",
+    "Yoz iyunda boshlanib avgustda tugaydi, o'rtacha harorat 30 daraja."
+   ],
+   [
+    "يَبْدَأُ الخَريفُ في سِبْتَمْبِرَ، وَيَكونُ الجَوُّ فيهِ مُعْتَدِلًا وَمُمْطِرًا.",
+    "Kuz sentyabrda boshlanadi, havo mo'tadil va yomg'irli bo'ladi."
+   ],
+   [
+    "أَمّا الشِّتاءُ فَيَبْدَأُ في دِيسَمْبِرَ وَيَنْتَهي في فِبْرايِرَ، وَمُعَدَّلُ الحَرارَةِ فيهِ خَمْسُ دَرَجاتٍ.",
+    "Qish dekabrda boshlanib fevralda tugaydi, o'rtacha harorat 5 daraja."
+   ],
+   [
+    "وَالرَّبيعُ مِنْ مارِسَ إِلى مايو، وَهُوَ أَجْمَلُ الفُصولِ.",
+    "Bahor martdan maygacha, u eng chiroyli fasl."
+   ],
+   [
+    "عَدَدُ ساعاتِ النَّهارِ في الصَّيْفِ خَمْسَ عَشْرَةَ ساعَةً، وَفي الشِّتاءِ تِسْعُ ساعاتٍ.",
+    "Yozda kunduz 15 soat, qishda 9 soat."
+   ],
+   [
+    "وَشُكْرًا لِحُسْنِ اسْتِماعِكُمْ.",
+    "Diqqat bilan tinglaganingiz uchun rahmat."
+   ]
+  ],
+  "reja": [
+   "Salomlashdingizmi? (السَّلامُ عَلَيْكُمْ)",
+   "Qaysi davlat haqida gapirishingizni aytdingizmi? (أُريدُ أَنْ أُحَدِّثَكُمْ عَنْ)",
+   "Fasllar sonini yozdingizmi?",
+   "Har bir fasl qachon boshlanib tugashini yozdingizmi? (يَبْدَأُ، يَنْتَهي)",
+   "O'rtacha harorat va kunduzgi soatlarni yozdingizmi?",
+   "Rahmat aytib tugatdingizmi? (شُكْرًا لِحُسْنِ اسْتِماعِكُمْ)"
+  ]
+ },
+ "3": {
+  "nom": "النَّشْرَةُ الجَوِّيَّةُ",
+  "anketaIzoh": "Internetdan beshta shahar ob-havosini toping va jadvalni to'ldiring: bugungi va ertangi havo holati, eng yuqori va eng past harorat. Keyin jadvaldagi ma'lumotlarni televizordagi ob-havo boshlovchisi kabi matnga aylantirasiz.",
+  "gap": [
+   [
+    "Bugun Toshkentda havo quyoshli.",
+    [
+     "الجَوُّ",
+     "اليَوْمَ",
+     "في",
+     "طَشْقَنْدَ",
+     "مُشْمِسٌ."
+    ],
+    [
+     "غَدًا",
+     "مُمْطِرٌ"
+    ]
+   ],
+   [
+    "Ertaga havo bulutli va yomg'irli bo'ladi.",
+    [
+     "سَيَكونُ",
+     "الجَوُّ",
+     "غَدًا",
+     "غائِمًا",
+     "وَمُمْطِرًا."
+    ],
+    [
+     "اليَوْمَ",
+     "مُشْمِسًا"
+    ]
+   ],
+   [
+    "Eng yuqori harorat yigirma daraja.",
+    [
+     "الحَرارَةُ",
+     "العُظْمى",
+     "عِشْرونَ",
+     "دَرَجَةً."
+    ],
+    [
+     "الصُّغْرى",
+     "دَرَجاتٍ"
+    ]
+   ],
+   [
+    "Eng past harorat besh daraja.",
+    [
+     "الحَرارَةُ",
+     "الصُّغْرى",
+     "خَمْسُ",
+     "دَرَجاتٍ."
+    ],
+    [
+     "العُظْمى",
+     "دَرَجَةً"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "المَدينَةُ",
+    "حالَةُ الجَوِّ اليَوْمَ",
+    "حالَةُ الجَوِّ غَدًا",
+    "الحَرارَةُ العُظْمى",
+    "الحَرارَةُ الصُّغْرى"
+   ],
+   "qator": [
+    "طَشْقَنْدُ",
+    "سَمَرْقَنْدُ",
+    "القاهِرَةُ",
+    "إِسْطَنْبولُ",
+    "مَكَّةُ المُكَرَّمَةُ"
+   ]
+  },
+  "qolip": [
+   "مَساءَ الخَيْرِ، وَهذِهِ النَّشْرَةُ الجَوِّيَّةُ لِيَوْمِ …",
+   "الجَوُّ اليَوْمَ في … …",
+   "وَسَيَكونُ غَدًا …",
+   "الحَرارَةُ العُظْمى … وَالصُّغْرى …",
+   "أَمّا في … فَـ …",
+   "وَإِلى اللِّقاءِ في نَشْرَةٍ قادِمَةٍ."
+  ],
+  "namuna": [
+   [
+    "مَساءَ الخَيْرِ، وَهذِهِ النَّشْرَةُ الجَوِّيَّةُ لِيَوْمِ الاِثْنَيْنِ.",
+    "Xayrli kech, bu dushanba kungi ob-havo ma'lumoti."
+   ],
+   [
+    "الجَوُّ اليَوْمَ في طَشْقَنْدَ مُشْمِسٌ، وَسَيَكونُ غَدًا غائِمًا جُزْئِيًّا.",
+    "Bugun Toshkentda havo quyoshli, ertaga qisman bulutli bo'ladi."
+   ],
+   [
+    "الحَرارَةُ العُظْمى في طَشْقَنْدَ ثَماني عَشْرَةَ دَرَجَةً، وَالصُّغْرى سِتُّ دَرَجاتٍ.",
+    "Toshkentda eng yuqori harorat 18, eng pasti 6 daraja."
+   ],
+   [
+    "وَفي سَمَرْقَنْدَ الجَوُّ غائِمٌ اليَوْمَ، وَغَدًا سَيَكونُ مُمْطِرًا.",
+    "Samarqandda bugun bulutli, ertaga yomg'irli bo'ladi."
+   ],
+   [
+    "أَمّا في القاهِرَةِ فَالجَوُّ حارٌّ وَمُشْمِسٌ، وَالحَرارَةُ العُظْمى ثَلاثونَ دَرَجَةً.",
+    "Qohirada esa havo issiq va quyoshli, eng yuqori harorat 30 daraja."
+   ],
+   [
+    "وَفي إِسْطَنْبولَ الجَوُّ مُمْطِرٌ اليَوْمَ وَغَدًا، وَالرِّياحُ قَوِيَّةٌ.",
+    "Istanbulda bugun ham, ertaga ham yomg'ir, shamol kuchli."
+   ],
+   [
+    "وَفي مَكَّةَ المُكَرَّمَةِ الجَوُّ حارٌّ جِدًّا، وَالحَرارَةُ الصُّغْرى خَمْسٌ وَعِشْرونَ دَرَجَةً.",
+    "Makkai Mukarramada havo juda issiq, eng past harorat 25 daraja."
+   ],
+   [
+    "وَإِلى اللِّقاءِ في نَشْرَةٍ قادِمَةٍ.",
+    "Keyingi ma'lumotda ko'rishguncha."
+   ]
+  ],
+  "reja": [
+   "Nashrani boshladingizmi? (هذِهِ النَّشْرَةُ الجَوِّيَّةُ)",
+   "Har bir shahar uchun bugungi havoni yozdingizmi? (الجَوُّ اليَوْمَ)",
+   "Ertangi havoni yozdingizmi? (سَيَكونُ غَدًا)",
+   "Eng yuqori va eng past haroratni yozdingizmi? (العُظْمى، الصُّغْرى)",
+   "Jadvaldagi hamma shaharlarni matnga aylantirdingizmi?",
+   "Xayrlashib tugatdingizmi?"
+  ]
+ },
+ "4": {
+  "nom": "فَصْلي المُفَضَّلُ وَهِواياتي",
+  "anketaIzoh": "Kitobdagi jadval bo'yicha yozing: sevimli faslingiz va nega, yoqtirmaydigan faslingiz va nega, issiq, sovuq va mo'tadil kunlarda nima qilasiz. «أُفَضِّلُ … عَلى …» ni ishlating.",
+  "gap": [
+   [
+    "Mening sevimli faslim bahor.",
+    [
+     "فَصْلي",
+     "المُفَضَّلُ",
+     "الرَّبيعُ."
+    ],
+    [
+     "الشِّتاءُ",
+     "فَصْلُكَ"
+    ]
+   ],
+   [
+    "Men bahorni qishdan afzal ko'raman.",
+    [
+     "أُفَضِّلُ",
+     "الرَّبيعَ",
+     "عَلى",
+     "الشِّتاءِ."
+    ],
+    [
+     "مِنَ",
+     "يُفَضِّلُ"
+    ]
+   ],
+   [
+    "Issiq kunda dengizda suzaman.",
+    [
+     "في",
+     "اليَوْمِ",
+     "الحارِّ",
+     "أَسْبَحُ",
+     "في",
+     "البَحْرِ."
+    ],
+    [
+     "البارِدِ",
+     "يَسْبَحُ"
+    ]
+   ],
+   [
+    "Qishda o'zimni horg'in his qilaman.",
+    [
+     "أَشْعُرُ",
+     "بِالكَسَلِ",
+     "في",
+     "الشِّتاءِ."
+    ],
+    [
+     "بِالنَّشاطِ",
+     "الصَّيْفِ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "",
+    "الفَصْلُ",
+    "لِماذا؟"
+   ],
+   "qator": [
+    "الفَصْلُ المُفَضَّلُ",
+    "الفَصْلُ غَيْرُ المُفَضَّلِ",
+    "ماذا أَفْعَلُ في يَوْمٍ حارٍّ؟",
+    "ماذا أَفْعَلُ في يَوْمٍ بارِدٍ؟"
+   ]
+  },
+  "qolip": [
+   "فَصْلي المُفَضَّلُ …",
+   "لِأَنَّ …",
+   "أُفَضِّلُ … عَلى …",
+   "لا أُفَضِّلُ فَصْلَ … لِأَنَّ …",
+   "في اليَوْمِ الحارِّ …",
+   "وَفي اليَوْمِ البارِدِ …",
+   "أَشْعُرُ بِـ … في …"
+  ],
+  "namuna": [
+   [
+    "فَصْلي المُفَضَّلُ هُوَ فَصْلُ الرَّبيعِ.",
+    "Mening sevimli faslim — bahor."
+   ],
+   [
+    "أُحِبُّهُ لِأَنَّ الجَوَّ فيهِ مُعْتَدِلٌ، وَالأَشْجارَ خَضْراءُ، وَالأَزْهارَ في كُلِّ مَكانٍ.",
+    "Uni yaxshi ko'raman, chunki havo mo'tadil, daraxtlar yashil, hamma joyda gullar."
+   ],
+   [
+    "أُفَضِّلُ الرَّبيعَ عَلى الشِّتاءِ.",
+    "Bahorni qishdan afzal ko'raman."
+   ],
+   [
+    "لا أُفَضِّلُ فَصْلَ الشِّتاءِ لِأَنَّهُ بارِدٌ جِدًّا، وَالنَّهارَ فيهِ قَصيرٌ.",
+    "Qishni yoqtirmayman, chunki u juda sovuq va kunduzi qisqa."
+   ],
+   [
+    "في الرَّبيعِ أَمْشي في الحَديقَةِ، وَأُصَوِّرُ الأَزْهارَ.",
+    "Bahorda bog'da sayr qilaman, gullarni suratga olaman."
+   ],
+   [
+    "في اليَوْمِ الحارِّ أَذْهَبُ إِلى البَحْرِ أَوِ المَسْبَحِ مَعَ أَصْدِقائي.",
+    "Issiq kunda do'stlarim bilan dengiz yoki basseynga boraman."
+   ],
+   [
+    "وَفي اليَوْمِ البارِدِ أَجْلِسُ في البَيْتِ، وَأَقْرَأُ كِتابًا وَأَشْرَبُ الشّايَ.",
+    "Sovuq kunda uyda o'tirib, kitob o'qiyman va choy ichaman."
+   ],
+   [
+    "أَشْعُرُ بِالنَّشاطِ في الرَّبيعِ، وَبِالكَسَلِ في الشِّتاءِ.",
+    "Bahorda o'zimni tetik, qishda horg'in his qilaman."
+   ]
+  ],
+  "reja": [
+   "Sevimli faslingizni sababi bilan yozdingizmi? (لِأَنَّ)",
+   "«أُفَضِّلُ … عَلى …» ishlatdingizmi?",
+   "Yoqtirmaydigan faslingizni yozdingizmi?",
+   "Issiq va sovuq kunda nima qilishingizni yozdingizmi?",
+   "His-tuyg'uni yozdingizmi? (أَشْعُرُ بِـ)"
+  ]
+ },
+ "5": {
+  "nom": "مَعْلَمٌ أَثَرِيٌّ في بَلَدي",
+  "anketaIzoh": "Yurtingizdagi bitta qadimiy obidani tanlang (Registon, Ark, Ichan qal'a, Shohizinda…) va kitobdagi reja bo'yicha ma'lumot yozing: nomi, joyi, yoshi, eng muhim qismlari, ahamiyati.",
+  "gap": [
+   [
+    "Registon Samarqandning markazida joylashgan.",
+    [
+     "يَقَعُ",
+     "الرّيجِسْتانُ",
+     "في",
+     "وَسَطِ",
+     "سَمَرْقَنْدَ."
+    ],
+    [
+     "تَقَعُ",
+     "شَمالِ"
+    ]
+   ],
+   [
+    "Uning yoshi olti yuz yildan ortiq.",
+    [
+     "عُمْرُهُ",
+     "أَكْثَرُ",
+     "مِنْ",
+     "سِتِّمِئَةِ",
+     "سَنَةٍ."
+    ],
+    [
+     "أَقَلُّ",
+     "عُمْرُها"
+    ]
+   ],
+   [
+    "U uchta madrasadan iborat.",
+    [
+     "يَتَكَوَّنُ",
+     "مِنْ",
+     "ثَلاثِ",
+     "مَدارِسَ."
+    ],
+    [
+     "مَساجِدَ",
+     "تَتَكَوَّنُ"
+    ]
+   ],
+   [
+    "Unga har yili ko'p sayyohlar keladi.",
+    [
+     "يَزورُهُ",
+     "سُيّاحٌ",
+     "كَثيرونَ",
+     "كُلَّ",
+     "سَنَةٍ."
+    ],
+    [
+     "قَليلونَ",
+     "يَوْمٍ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "اسْمُ المَعْلَمِ",
+    "Obida nomi"
+   ],
+   [
+    "مَكانُهُ",
+    "Qayerda joylashgan"
+   ],
+   [
+    "عُمْرُهُ",
+    "Necha yillik"
+   ],
+   [
+    "مَنْ بَناهُ؟",
+    "Kim qurdirgan"
+   ],
+   [
+    "أَهَمُّ آثارِهِ",
+    "Eng muhim qismlari"
+   ],
+   [
+    "أَهَمِّيَّتُهُ",
+    "Nima uchun muhim"
+   ]
+  ],
+  "qolip": [
+   "مِنْ أَشْهَرِ المَعالِمِ في بَلَدي …",
+   "يَقَعُ في …",
+   "عُمْرُهُ …",
+   "بَناهُ …",
+   "يَتَكَوَّنُ مِنْ …",
+   "يَزورُهُ …",
+   "هُوَ مُهِمٌّ لِأَنَّ …"
+  ],
+  "namuna": [
+   [
+    "مِنْ أَشْهَرِ المَعالِمِ الأَثَرِيَّةِ في بَلَدي ساحَةُ الرّيجِسْتانِ.",
+    "Yurtimdagi eng mashhur obidalardan biri — Registon maydoni."
+   ],
+   [
+    "تَقَعُ في وَسَطِ مَدينَةِ سَمَرْقَنْدَ القَديمَةِ.",
+    "U qadimiy Samarqand shahrining markazida joylashgan."
+   ],
+   [
+    "عُمْرُها أَكْثَرُ مِنْ خَمْسِمِئَةِ سَنَةٍ.",
+    "Uning yoshi besh yuz yildan ortiq."
+   ],
+   [
+    "تَتَكَوَّنُ مِنْ ثَلاثِ مَدارِسَ: مَدْرَسَةِ أُلوغْ بَيْك وَشيرْدار وَطِلّا كاري.",
+    "U uchta madrasadan iborat: Ulug'bek, Sherdor va Tillakori."
+   ],
+   [
+    "بَنى أُلوغْ بَيْك المَدْرَسَةَ الأولى، وَكانَ عالِمًا كَبيرًا في عِلْمِ الفَلَكِ.",
+    "Birinchi madrasani Ulug'bek qurdirgan, u buyuk falakiyotshunos olim edi."
+   ],
+   [
+    "جُدْرانُها مُزَيَّنَةٌ بِالبَلاطِ الأَزْرَقِ وَالذَّهَبِيِّ.",
+    "Devorlari ko'k va oltin rang koshinlar bilan bezatilgan."
+   ],
+   [
+    "يَزورُها آلافُ السُّيّاحِ مِنْ كُلِّ العالَمِ.",
+    "Uni butun dunyodan minglab sayyohlar ziyorat qiladi."
+   ],
+   [
+    "هِيَ مُهِمَّةٌ لِأَنَّها تَحْكي تاريخَ بَلَدِنا وَحَضارَتَهُ.",
+    "U muhim, chunki yurtimiz tarixi va madaniyatini so'zlab beradi."
+   ]
+  ],
+  "reja": [
+   "Obida nomini yozdingizmi?",
+   "Qayerda joylashganini yozdingizmi? (يَقَعُ)",
+   "Yoshini yozdingizmi? (عُمْرُهُ)",
+   "Kim qurdirganini yozdingizmi? (بَنى)",
+   "Qanday qismlardan iboratligini yozdingizmi? (يَتَكَوَّنُ)",
+   "Ahamiyatini yozdingizmi? (مُهِمٌّ لِأَنَّ)"
+  ]
+ },
+ "6": {
+  "nom": "الطَّريقُ إِلى بَيْتي",
+  "anketaIzoh": "Mahallangizdagi joylarni yozing: uyingizdan maktab, bozor, masjid, dorixona qayerda (يَمينٌ، يَسارٌ، أَمامَ، بِجانِبِ، مُقابِلَ). Keyin mehmonga uyingizga qanday kelishni tushuntirasiz.",
+  "gap": [
+   [
+    "Bekatdan tushib, to'g'riga yur.",
+    [
+     "اِنْزِلْ",
+     "مِنَ",
+     "المَحَطَّةِ",
+     "وَاتَّجِهْ",
+     "مُباشَرَةً."
+    ],
+    [
+     "اِصْعَدْ",
+     "يَسارًا"
+    ]
+   ],
+   [
+    "Keyin ikkinchi ko'chaga o'ngga buril.",
+    [
+     "ثُمَّ",
+     "انْعَطِفْ",
+     "يَمينًا",
+     "إِلى",
+     "الشّارِعِ",
+     "الثّاني."
+    ],
+    [
+     "الأَوَّلِ",
+     "يَسارًا"
+    ]
+   ],
+   [
+    "Uyim masjid ro'parasida.",
+    [
+     "بَيْتي",
+     "مُقابِلَ",
+     "المَسْجِدِ."
+    ],
+    [
+     "خَلْفَ",
+     "بَيْتُكَ"
+    ]
+   ],
+   [
+    "Yonida kichik do'kon bor.",
+    [
+     "بِجانِبِهِ",
+     "دُكّانٌ",
+     "صَغيرٌ."
+    ],
+    [
+     "كَبيرٌ",
+     "أَمامَهُ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "أَقْرَبُ مَحَطَّةٍ",
+    "Eng yaqin bekat (metro/avtobus)"
+   ],
+   [
+    "الشّارِعُ",
+    "Ko'changiz nomi"
+   ],
+   [
+    "ماذا أَمامَ بَيْتِكَ؟",
+    "Uyingiz oldida nima bor"
+   ],
+   [
+    "ماذا بِجانِبِ بَيْتِكَ؟",
+    "Uyingiz yonida nima bor"
+   ],
+   [
+    "أَيْنَ المَدْرَسَةُ أَوِ السّوقُ؟",
+    "Maktab yoki bozor qayerda"
+   ],
+   [
+    "كَمْ دَقيقَةً مَشْيًا؟",
+    "Bekatdan necha daqiqa piyoda"
+   ]
+  ],
+  "qolip": [
+   "أَسْكُنُ في حَيِّ …",
+   "أَقْرَبُ مَحَطَّةٍ إِلى بَيْتي …",
+   "اِنْزِلْ مِنْ … وَاتَّجِهْ …",
+   "ثُمَّ انْعَطِفْ … إِلى …",
+   "بَيْتي … (أَمامَ / مُقابِلَ / بِجانِبِ)",
+   "يَسْتَغْرِقُ الطَّريقُ …"
+  ],
+  "namuna": [
+   [
+    "أَسْكُنُ في حَيِّ «يونس آباد» في طَشْقَنْدَ.",
+    "Men Toshkentning Yunusobod mahallasida yashayman."
+   ],
+   [
+    "أَقْرَبُ مَحَطَّةِ مِتْرو إِلى بَيْتي مَحَطَّةُ «حَبيب عَبْدُ اللّه».",
+    "Uyimga eng yaqin metro bekati — «Habib Abdulla»."
+   ],
+   [
+    "اِنْزِلْ مِنَ المِتْرو وَاخْرُجْ مِنَ البابِ الأَيْمَنِ.",
+    "Metrodan tushib, o'ng eshikdan chiq."
+   ],
+   [
+    "اِتَّجِهْ مُباشَرَةً حَتّى الإِشارَةِ الضَّوْئِيَّةِ.",
+    "Svetoforgacha to'g'riga yur."
+   ],
+   [
+    "ثُمَّ انْعَطِفْ يَسارًا إِلى الشّارِعِ الثّاني.",
+    "Keyin ikkinchi ko'chaga chapga buril."
+   ],
+   [
+    "بَيْتي في العِمارَةِ الثّالِثَةِ، مُقابِلَ المَسْجِدِ.",
+    "Uyim uchinchi binoda, masjid ro'parasida."
+   ],
+   [
+    "بِجانِبِ العِمارَةِ صَيْدَلِيَّةٌ وَدُكّانٌ صَغيرٌ.",
+    "Bino yonida dorixona va kichik do'kon bor."
+   ],
+   [
+    "يَسْتَغْرِقُ الطَّريقُ مِنَ المَحَطَّةِ إِلى بَيْتي عَشْرَ دَقائِقَ مَشْيًا.",
+    "Bekatdan uyimgacha yo'l piyoda o'n daqiqa oladi."
+   ]
+  ],
+  "reja": [
+   "Mahallangizni yozdingizmi? (أَسْكُنُ في حَيِّ)",
+   "Bekatni yozdingizmi? (أَقْرَبُ مَحَطَّةٍ)",
+   "Yo'lni buyruq fe'li bilan yozdingizmi? (اِتَّجِهْ، انْعَطِفْ)",
+   "Uyingiz yonidagi joylarni yozdingizmi? (مُقابِلَ، بِجانِبِ)",
+   "Yo'l necha daqiqa olishini yozdingizmi? (يَسْتَغْرِقُ)"
+  ]
+ },
+ "7": {
+  "nom": "مَدينَةٌ زُرْتُها",
+  "anketaIzoh": "O'zingiz borgan bitta shaharni tanlang va kitobdagi savollarga javob yozing: qayerda joylashgan, qanday, qachon va nega borgansiz, nimasi bilan mashhur, eng chiroyli joyi.",
+  "gap": [
+   [
+    "O'tgan yili Istanbulga bordim.",
+    [
+     "زُرْتُ",
+     "إِسْطَنْبولَ",
+     "في",
+     "السَّنَةِ",
+     "الماضِيَةِ."
+    ],
+    [
+     "القادِمَةِ",
+     "أَزورُ"
+    ]
+   ],
+   [
+    "U Turkiyaning g'arbida joylashgan.",
+    [
+     "تَقَعُ",
+     "في",
+     "غَرْبِ",
+     "تُرْكِيا."
+    ],
+    [
+     "شَرْقِ",
+     "يَقَعُ"
+    ]
+   ],
+   [
+    "U Ayasofya masjidi bilan mashhur.",
+    [
+     "تَشْتَهِرُ",
+     "بِمَسْجِدِ",
+     "آيا",
+     "صوفْيا."
+    ],
+    [
+     "يَشْتَهِرُ",
+     "بِسوقِ"
+    ]
+   ],
+   [
+    "Eng chiroyli joyi Bosfor bo'g'ozi.",
+    [
+     "أَجْمَلُ",
+     "مَكانٍ",
+     "فيها",
+     "مَضيقُ",
+     "البوسْفورِ."
+    ],
+    [
+     "أَكْبَرُ",
+     "فيهِ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "اسْمُ المَدينَةِ",
+    "Shahar nomi"
+   ],
+   [
+    "أَيْنَ تَقَعُ؟",
+    "Qayerda joylashgan"
+   ],
+   [
+    "مَتى زُرْتَها؟",
+    "Qachon borgansiz"
+   ],
+   [
+    "لِماذا زُرْتَها؟",
+    "Nega borgansiz"
+   ],
+   [
+    "بِماذا تَشْتَهِرُ؟",
+    "Nimasi bilan mashhur"
+   ],
+   [
+    "أَجْمَلُ مَعْلَمٍ فيها",
+    "Eng chiroyli joyi va sababi"
+   ]
+  ],
+  "qolip": [
+   "زُرْتُ مَدينَةَ … في …",
+   "تَقَعُ في …",
+   "زُرْتُها لِـ …",
+   "هِيَ مَدينَةٌ … (sifat)",
+   "تَشْتَهِرُ بِـ …",
+   "أَجْمَلُ مَكانٍ فيها … لِأَنَّ …"
+  ],
+  "namuna": [
+   [
+    "زُرْتُ مَدينَةَ إِسْطَنْبولَ في الصَّيْفِ الماضي مَعَ عائِلَتي.",
+    "O'tgan yozda oilam bilan Istanbulga bordim."
+   ],
+   [
+    "تَقَعُ في شَمالِ غَرْبِ تُرْكِيا عَلى البَحْرِ.",
+    "U Turkiyaning shimoli-g'arbida, dengiz bo'yida joylashgan."
+   ],
+   [
+    "هِيَ مِنْ أَكْبَرِ مُدُنِ العالَمِ وَأَجْمَلِها.",
+    "U dunyodagi eng katta va eng chiroyli shaharlardan biri."
+   ],
+   [
+    "تَشْتَهِرُ بِالمَساجِدِ القَديمَةِ وَالأَسْواقِ الكَبيرَةِ.",
+    "U qadimiy masjidlari va katta bozorlari bilan mashhur."
+   ],
+   [
+    "زُرْنا مَسْجِدَ آيا صوفْيا وَالمَسْجِدَ الأَزْرَقَ.",
+    "Ayasofya va Ko'k masjidni ziyorat qildik."
+   ],
+   [
+    "أَجْمَلُ مَكانٍ فيها مَضيقُ البوسْفورِ، لِأَنَّ مَنْظَرَهُ رائِعٌ.",
+    "Eng chiroyli joyi Bosfor bo'g'ozi, chunki manzarasi ajoyib."
+   ],
+   [
+    "أَكَلْنا هُناكَ طَعامًا تُرْكِيًّا لَذيذًا.",
+    "U yerda mazali turk taomlarini yedik."
+   ],
+   [
+    "أُريدُ أَنْ أَزورَها مَرَّةً أُخْرى.",
+    "Uni yana bir bor ziyorat qilmoqchiman."
+   ]
+  ],
+  "reja": [
+   "Shahar nomi va qachon borganingizni yozdingizmi? (زُرْتُ)",
+   "Qayerda joylashganini yozdingizmi? (تَقَعُ)",
+   "Nimasi bilan mashhurligini yozdingizmi? (تَشْتَهِرُ بِـ)",
+   "U yerda nima qilganingizni yozdingizmi?",
+   "Eng chiroyli joyini sababi bilan yozdingizmi? (أَجْمَلُ … لِأَنَّ)"
+  ]
+ },
+ "8": {
+  "nom": "وَطَني",
+  "anketaIzoh": "Kitobdagi reja bo'yicha yurtingiz haqida ma'lumot yozing: joylashuvi, chegaralari, maydoni, aholisi, rasmiy tili, mashhur shaharlari va iqlimi.",
+  "gap": [
+   [
+    "O'zbekiston Markaziy Osiyoda joylashgan.",
+    [
+     "تَقَعُ",
+     "أوزْبَكِسْتانُ",
+     "في",
+     "آسْيا",
+     "الوُسْطى."
+    ],
+    [
+     "أوروبّا",
+     "يَقَعُ"
+    ]
+   ],
+   [
+    "Uning aholisi o'ttiz olti million kishidan ortiq.",
+    [
+     "عَدَدُ",
+     "سُكّانِها",
+     "أَكْثَرُ",
+     "مِنْ",
+     "سِتَّةٍ",
+     "وَثَلاثينَ",
+     "مِلْيونًا."
+    ],
+    [
+     "أَقَلُّ",
+     "مِساحَتُها"
+    ]
+   ],
+   [
+    "Rasmiy tili o'zbek tili.",
+    [
+     "اللُّغَةُ",
+     "الرَّسْمِيَّةُ",
+     "فيها",
+     "الأوزْبَكِيَّةُ."
+    ],
+    [
+     "العَرَبِيَّةُ",
+     "فيهِ"
+    ]
+   ],
+   [
+    "Eng mashhur shaharlari Samarqand va Buxoro.",
+    [
+     "أَشْهَرُ",
+     "مُدُنِها",
+     "سَمَرْقَنْدُ",
+     "وَبُخارى."
+    ],
+    [
+     "أَكْبَرُ",
+     "مُدُنِهِ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "أَيْنَ يَقَعُ وَطَنُكَ؟",
+    "Qayerda joylashgan"
+   ],
+   [
+    "ما حُدودُهُ؟",
+    "Qaysi davlatlar bilan chegaradosh"
+   ],
+   [
+    "كَمْ عَدَدُ سُكّانِهِ؟",
+    "Aholisi"
+   ],
+   [
+    "ما اللُّغَةُ الرَّسْمِيَّةُ؟",
+    "Rasmiy tili"
+   ],
+   [
+    "ما أَشْهَرُ مُدُنِهِ؟",
+    "Mashhur shaharlari"
+   ],
+   [
+    "كَيْفَ المُناخُ فيهِ؟",
+    "Iqlimi"
+   ]
+  ],
+  "qolip": [
+   "وَطَني …",
+   "يَقَعُ في …",
+   "يَحُدُّهُ مِنَ الشَّمالِ … وَمِنَ الجَنوبِ …",
+   "عَدَدُ سُكّانِهِ …",
+   "اللُّغَةُ الرَّسْمِيَّةُ …",
+   "أَشْهَرُ مُدُنِهِ …",
+   "المُناخُ فيهِ …"
+  ],
+  "namuna": [
+   [
+    "وَطَني أوزْبَكِسْتانُ، وَعاصِمَتُها طَشْقَنْدُ.",
+    "Vatanim — O'zbekiston, poytaxti Toshkent."
+   ],
+   [
+    "تَقَعُ في وَسَطِ آسْيا.",
+    "U Osiyoning markazida joylashgan."
+   ],
+   [
+    "يَحُدُّها مِنَ الشَّمالِ كازاخِسْتانُ، وَمِنَ الجَنوبِ أَفْغانِسْتانُ وَتُرْكْمانِسْتانُ.",
+    "Shimoldan Qozog'iston, janubdan Afg'oniston va Turkmaniston bilan chegaradosh."
+   ],
+   [
+    "مِساحَتُها حَوالَيْ أَرْبَعِمِئَةٍ وَثَمانيةٍ وَأَرْبَعينَ أَلْفَ كيلومِتْرٍ مُرَبَّعٍ.",
+    "Maydoni taxminan 448 ming kvadrat kilometr."
+   ],
+   [
+    "عَدَدُ سُكّانِها أَكْثَرُ مِنْ سِتَّةٍ وَثَلاثينَ مِلْيونَ نَسَمَةٍ.",
+    "Aholisi 36 million kishidan ortiq."
+   ],
+   [
+    "اللُّغَةُ الرَّسْمِيَّةُ فيها اللُّغَةُ الأوزْبَكِيَّةُ.",
+    "Rasmiy tili — o'zbek tili."
+   ],
+   [
+    "أَشْهَرُ مُدُنِها سَمَرْقَنْدُ وَبُخارى وَخيوَةُ، وَفيها آثارٌ قَديمَةٌ كَثيرَةٌ.",
+    "Eng mashhur shaharlari Samarqand, Buxoro va Xiva, ularda ko'p qadimiy obidalar bor."
+   ],
+   [
+    "المُناخُ فيها حارٌّ في الصَّيْفِ وَبارِدٌ في الشِّتاءِ.",
+    "Iqlimi yozda issiq, qishda sovuq."
+   ]
+  ],
+  "reja": [
+   "Vataningiz va poytaxtini yozdingizmi?",
+   "Joylashuvi va chegaralarini yozdingizmi? (يَقَعُ، يَحُدُّهُ)",
+   "Aholisini yozdingizmi? (عَدَدُ سُكّانِهِ)",
+   "Rasmiy tilini yozdingizmi?",
+   "Shaharlari va iqlimini yozdingizmi?"
+  ]
+ },
+ "9": {
+  "nom": "هِوايَتي المُفَضَّلَةُ",
+  "anketaIzoh": "Kitobdagi 8 ta savolga javob yozing, keyin ulardan sevimli mashg'ulotingiz haqida insho tuzasiz.",
+  "gap": [
+   [
+    "Mening sevimli mashg'ulotim kitob o'qish.",
+    [
+     "هِوايَتي",
+     "المُفَضَّلَةُ",
+     "القِراءَةُ."
+    ],
+    [
+     "هِوايَتُكَ",
+     "الكِتابُ"
+    ]
+   ],
+   [
+    "Uni har kuni kechqurun bajaraman.",
+    [
+     "أُمارِسُها",
+     "كُلَّ",
+     "يَوْمٍ",
+     "مَساءً."
+    ],
+    [
+     "صَباحًا",
+     "يُمارِسُها"
+    ]
+   ],
+   [
+    "Unga o'n yoshimda boshlaganman.",
+    [
+     "بَدَأْتُ",
+     "مُمارَسَتَها",
+     "في",
+     "العاشِرَةِ."
+    ],
+    [
+     "أَبْدَأُ",
+     "العِشْرينَ"
+    ]
+   ],
+   [
+    "U meni xursand qiladi.",
+    [
+     "أَشْعُرُ",
+     "بِالسَّعادَةِ",
+     "عِنْدَما",
+     "أُمارِسُها."
+    ],
+    [
+     "بِالتَّعَبِ",
+     "تَشْعُرُ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "ماذا تَفْعَلُ في أَوْقاتِ فَراغِكَ؟",
+    "Bo'sh vaqtda nima qilasiz"
+   ],
+   [
+    "ما هِوايَتُكَ المُفَضَّلَةُ؟",
+    "Sevimli mashg'ulotingiz"
+   ],
+   [
+    "مَتى تُمارِسُها؟",
+    "Qachon"
+   ],
+   [
+    "أَيْنَ تُمارِسُها؟",
+    "Qayerda"
+   ],
+   [
+    "مَتى بَدَأْتَ مُمارَسَتَها؟",
+    "Qachon boshlagansiz"
+   ],
+   [
+    "مَنْ يُشَجِّعُكَ عَلَيْها؟",
+    "Kim qo'llab-quvvatlaydi"
+   ],
+   [
+    "بِماذا تَشْعُرُ عِنْدَما تُمارِسُها؟",
+    "O'zingizni qanday his qilasiz"
+   ],
+   [
+    "ما فَوائِدُها؟ وَهَلْ لَها أَضْرارٌ؟",
+    "Foydasi va zarari"
+   ]
+  ],
+  "qolip": [
+   "في أَوْقاتِ فَراغي …",
+   "هِوايَتي المُفَضَّلَةُ …",
+   "أُمارِسُها … في …",
+   "بَدَأْتُ مُمارَسَتَها …",
+   "يُشَجِّعُني …",
+   "أَشْعُرُ بِـ … عِنْدَما …",
+   "مِنْ فَوائِدِها …"
+  ],
+  "namuna": [
+   [
+    "في أَوْقاتِ فَراغي أَقْرَأُ الكُتُبَ وَأَلْعَبُ كُرَةَ القَدَمِ.",
+    "Bo'sh vaqtimda kitob o'qiyman va futbol o'ynayman."
+   ],
+   [
+    "هِوايَتي المُفَضَّلَةُ القِراءَةُ.",
+    "Sevimli mashg'ulotim — kitob o'qish."
+   ],
+   [
+    "أُمارِسُها كُلَّ يَوْمٍ قَبْلَ النَّوْمِ في غُرْفَتي.",
+    "Har kuni uxlashdan oldin xonamda o'qiyman."
+   ],
+   [
+    "بَدَأْتُ القِراءَةَ عِنْدَما كانَ عُمْري عَشْرَ سَنَواتٍ.",
+    "O'n yoshimda kitob o'qishni boshlaganman."
+   ],
+   [
+    "يُشَجِّعُني أَبي عَلَيْها، وَيَشْتَري لي كُتُبًا جَديدَةً.",
+    "Otam meni rag'batlantiradi va yangi kitoblar olib beradi."
+   ],
+   [
+    "أَشْعُرُ بِالرّاحَةِ وَالسَّعادَةِ عِنْدَما أَقْرَأُ.",
+    "O'qiganimda o'zimni xotirjam va baxtli his qilaman."
+   ],
+   [
+    "مِنْ فَوائِدِ القِراءَةِ أَنَّها تَزيدُ المَعْلوماتِ وَتُعَلِّمُ كَلِماتٍ جَديدَةً.",
+    "O'qishning foydasi — bilimni oshiradi va yangi so'zlarni o'rgatadi."
+   ],
+   [
+    "لكِنَّ القِراءَةَ الطَّويلَةَ تُتْعِبُ العَيْنَيْنِ.",
+    "Lekin uzoq o'qish ko'zni charchatadi."
+   ]
+  ],
+  "reja": [
+   "Bo'sh vaqtingizda nima qilishingizni yozdingizmi?",
+   "Sevimli mashg'ulotingizni yozdingizmi? (هِوايَتي)",
+   "Qachon va qayerda bajarishingizni yozdingizmi? (أُمارِسُها)",
+   "Qachon boshlaganingizni yozdingizmi? (بَدَأْتُ)",
+   "His-tuyg'u, foyda va zararini yozdingizmi?"
+  ]
+ },
+ "10": {
+  "nom": "وَقْتُ الفَراغِ",
+  "anketaIzoh": "Kitobdagi savollarga javob yozing: bo'sh vaqtingiz bormi, qachon, nima qilasiz, jamoaviy mashg'ulotlarda qatnashasizmi. «لَمْ» bilan inkorni ham ishlating.",
+  "gap": [
+   [
+    "Mening bo'sh vaqtim dam olish kunlari bo'ladi.",
+    [
+     "وَقْتُ",
+     "فَراغي",
+     "في",
+     "عُطْلَةِ",
+     "نِهايَةِ",
+     "الأُسْبوعِ."
+    ],
+    [
+     "بِدايَةِ",
+     "فَراغِكَ"
+    ]
+   ],
+   [
+    "Do'stlarim bilan futbol o'ynayman.",
+    [
+     "أَلْعَبُ",
+     "كُرَةَ",
+     "القَدَمِ",
+     "مَعَ",
+     "أَصْدِقائي."
+    ],
+    [
+     "يَلْعَبُ",
+     "وَحْدي"
+    ]
+   ],
+   [
+    "O'tgan hafta televizor ko'rmadim.",
+    [
+     "لَمْ",
+     "أُشاهِدِ",
+     "التِّلْفازَ",
+     "الأُسْبوعَ",
+     "الماضِيَ."
+    ],
+    [
+     "لا",
+     "القادِمَ"
+    ]
+   ],
+   [
+    "Kutubxona kitoblarga to'la.",
+    [
+     "المَكْتَبَةُ",
+     "مَليئَةٌ",
+     "بِالكُتُبِ."
+    ],
+    [
+     "فارِغَةٌ",
+     "مَليءٌ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "هَلْ عِنْدَكَ وَقْتُ فَراغٍ؟",
+    "Bo'sh vaqtingiz bormi"
+   ],
+   [
+    "مَتى وَقْتُ فَراغِكَ؟",
+    "Qachon"
+   ],
+   [
+    "ماذا تَفْعَلُ فيهِ؟",
+    "Nima qilasiz"
+   ],
+   [
+    "هَلْ تُمارِسُ أَنْشِطَةً جَماعِيَّةً؟ ما هِيَ؟",
+    "Jamoaviy mashg'ulotlar"
+   ],
+   [
+    "ماذا لَمْ تَفْعَلْ الأُسْبوعَ الماضِيَ؟",
+    "O'tgan hafta nima qilmadingiz"
+   ]
+  ],
+  "qolip": [
+   "عِنْدي وَقْتُ فَراغٍ …",
+   "في وَقْتِ فَراغي …",
+   "أُمارِسُ مَعَ أَصْدِقائي …",
+   "أَحْيانًا …",
+   "الأُسْبوعَ الماضِيَ لَمْ …",
+   "أَعْتَقِدُ أَنَّ وَقْتَ الفَراغِ مُفيدٌ لِـ …"
+  ],
+  "namuna": [
+   [
+    "عِنْدي وَقْتُ فَراغٍ يَوْمَ الجُمُعَةِ وَيَوْمَ السَّبْتِ.",
+    "Juma va shanba kunlari bo'sh vaqtim bor."
+   ],
+   [
+    "في وَقْتِ فَراغي أَقْرَأُ الكُتُبَ وَأَتَعَلَّمُ اللُّغَةَ العَرَبِيَّةَ.",
+    "Bo'sh vaqtimda kitob o'qiyman va arab tilini o'rganaman."
+   ],
+   [
+    "وَأَلْعَبُ كُرَةَ القَدَمِ مَعَ أَصْدِقائي في المَلْعَبِ.",
+    "Do'stlarim bilan stadionda futbol o'ynayman."
+   ],
+   [
+    "أَحْيانًا أَزورُ أَقارِبي أَوْ أَذْهَبُ إِلى الحَديقَةِ مَعَ عائِلَتي.",
+    "Ba'zan qarindoshlarimni ziyorat qilaman yoki oilam bilan bog'ga boraman."
+   ],
+   [
+    "أُشارِكُ في نادي القِراءَةِ مَرَّةً في الأُسْبوعِ.",
+    "Haftada bir marta kitobxonlar klubida qatnashaman."
+   ],
+   [
+    "الأُسْبوعَ الماضِيَ لَمْ أَخْرُجْ مِنَ البَيْتِ، لِأَنَّني كُنْتُ مَريضًا.",
+    "O'tgan hafta uydan chiqmadim, chunki kasal edim."
+   ],
+   [
+    "أَعْتَقِدُ أَنَّ وَقْتَ الفَراغِ مُهِمٌّ لِلرّاحَةِ وَتَعَلُّمِ أَشْياءَ جَديدَةٍ.",
+    "Menimcha, bo'sh vaqt dam olish va yangi narsalarni o'rganish uchun muhim."
+   ]
+  ],
+  "reja": [
+   "Bo'sh vaqtingiz qachonligini yozdingizmi?",
+   "Nima qilishingizni yozdingizmi?",
+   "Jamoaviy mashg'ulotlarni yozdingizmi?",
+   "«لَمْ» bilan inkor ishlatdingizmi?",
+   "Bo'sh vaqt haqida fikringizni yozdingizmi?"
+  ]
+ },
+ "11": {
+  "nom": "يَوْمٌ في السّوقِ",
+  "anketaIzoh": "Kitobdagi jadvalga o'xshab bozorga borganingizni yozing: kimlar bordi, qaysi bozor, qachon, har kim nima sotib oldi.",
+  "gap": [
+   [
+    "Murodning oilasi Boyazid bozoriga bordi.",
+    [
+     "ذَهَبَتْ",
+     "عائِلَةُ",
+     "مُرادٍ",
+     "إِلى",
+     "سوقِ",
+     "بايَزيدَ."
+    ],
+    [
+     "ذَهَبَ",
+     "مِنْ"
+    ]
+   ],
+   [
+    "Ular shanba kuni soat o'n birda bordi.",
+    [
+     "ذَهَبوا",
+     "يَوْمَ",
+     "السَّبْتِ",
+     "السّاعَةَ",
+     "الحادِيَةَ",
+     "عَشْرَةَ."
+    ],
+    [
+     "الأَحَدِ",
+     "ذَهَبَ"
+    ]
+   ],
+   [
+    "Ona uy jihozlari sotib oldi.",
+    [
+     "اشْتَرَتِ",
+     "الأُمُّ",
+     "أَدَواتٍ",
+     "مَنْزِلِيَّةً."
+    ],
+    [
+     "اشْتَرى",
+     "الأَبُ"
+    ]
+   ],
+   [
+    "Bozor juda gavjum edi.",
+    [
+     "كانَ",
+     "السّوقُ",
+     "مُزْدَحِمًا",
+     "جِدًّا."
+    ],
+    [
+     "هادِئًا",
+     "كانَتْ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "الشَّخْصُ",
+    "ماذا اشْتَرى؟"
+   ],
+   "qator": [
+    "أَنا",
+    "الأَبُ",
+    "الأُمُّ",
+    "الأَخُ / الأُخْتُ"
+   ]
+  },
+  "qolip": [
+   "ذَهَبْتُ مَعَ … إِلى سوقِ …",
+   "ذَهَبْنا يَوْمَ … السّاعَةَ …",
+   "كانَ السّوقُ …",
+   "اشْتَرى أَبي …",
+   "وَاشْتَرَتْ أُمّي …",
+   "وَاشْتَرَيْتُ …",
+   "رَجَعْنا إِلى البَيْتِ …"
+  ],
+  "namuna": [
+   [
+    "ذَهَبَتْ عائِلَةُ مُرادٍ إِلى سوقِ «بايَزيدَ» في إِسْطَنْبولَ.",
+    "Murodning oilasi Istanbuldagi Boyazid bozoriga bordi."
+   ],
+   [
+    "ذَهَبوا يَوْمَ السَّبْتِ السّاعَةَ الحادِيَةَ عَشْرَةَ صَباحًا.",
+    "Ular shanba kuni ertalab soat o'n birda bordi."
+   ],
+   [
+    "كانَ السّوقُ مُزْدَحِمًا جِدًّا لِأَنَّ العيدَ قَريبٌ.",
+    "Bozor juda gavjum edi, chunki hayit yaqin."
+   ],
+   [
+    "اشْتَرَتِ الأُمُّ عَباءَةً وَأَدَواتٍ مَنْزِلِيَّةً.",
+    "Ona abaya va uy jihozlari sotib oldi."
+   ],
+   [
+    "وَاشْتَرى الأَبُ حِذاءً وَحَقيبَةً.",
+    "Ota esa poyabzal va sumka oldi."
+   ],
+   [
+    "أَمّا مُرادٌ فَاشْتَرى دَفاتِرَ وَأَقْلامًا لِلمَدْرَسَةِ.",
+    "Murod esa maktab uchun daftar va ruchkalar oldi."
+   ],
+   [
+    "وَاشْتَرَتْ أُخْتُهُ مِعْطَفًا وَجَوارِبَ.",
+    "Singlisi palto va paypoq oldi."
+   ],
+   [
+    "رَجَعوا إِلى البَيْتِ مَساءً وَهُمْ سُعَداءُ.",
+    "Ular kechqurun xursand holda uyga qaytishdi."
+   ]
+  ],
+  "reja": [
+   "Kimlar va qaysi bozorga borganini yozdingizmi? (ذَهَبْنا إِلى)",
+   "Qachon borganingizni yozdingizmi? (يَوْمَ … السّاعَةَ)",
+   "Bozor qanday bo'lganini yozdingizmi? (كانَ السّوقُ)",
+   "Har kim nima olganini yozdingizmi? (اشْتَرى / اشْتَرَتْ)",
+   "Qachon qaytganingizni yozdingizmi?"
+  ]
+ },
+ "12": {
+  "nom": "عُروضٌ وَتَخْفيضاتٌ في السّوقِ",
+  "anketaIzoh": "Shahringizdagi mashhur bozor yoki savdo markaziga boring (yoki internetdan ko'ring) va beshta chegirma haqida ma'lumot yozing: mahsulot, chegirma foizi, yangi narx. Keyin kitobdagi namuna kabi do'stlaringizga gapirib berasiz.",
+  "gap": [
+   [
+    "Kiyimlarga chegirma 50 foizga yetadi.",
+    [
+     "تَصِلُ",
+     "التَّخْفيضاتُ",
+     "عَلى",
+     "المَلابِسِ",
+     "إِلى",
+     "خَمْسينَ",
+     "بِالمِئَةِ."
+    ],
+    [
+     "الأَحْذِيَةِ",
+     "يَصِلُ"
+    ]
+   ],
+   [
+    "Bu fursatni boy berib bo'lmaydi.",
+    [
+     "هذِهِ",
+     "فُرْصَةٌ",
+     "لا",
+     "تُعَوَّضُ."
+    ],
+    [
+     "هذا",
+     "تُباعُ"
+    ]
+   ],
+   [
+    "Kecha savdo markaziga bordim.",
+    [
+     "ذَهَبْتُ",
+     "أَمْسِ",
+     "إِلى",
+     "المَرْكَزِ",
+     "التِّجارِيِّ."
+    ],
+    [
+     "غَدًا",
+     "ذَهَبَتْ"
+    ]
+   ],
+   [
+    "Ko'ylakning narxi besh dollar bo'ldi.",
+    [
+     "أَصْبَحَ",
+     "سِعْرُ",
+     "القَميصِ",
+     "خَمْسَةَ",
+     "دولاراتٍ."
+    ],
+    [
+     "أَصْبَحَتْ",
+     "الحِذاءِ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "البِضاعَةُ",
+    "نِسْبَةُ التَّخْفيضِ",
+    "السِّعْرُ قَبْلَ",
+    "السِّعْرُ بَعْدَ"
+   ],
+   "qator": [
+    "١",
+    "٢",
+    "٣",
+    "٤",
+    "٥"
+   ]
+  },
+  "qolip": [
+   "أَهْلًا وَسَهْلًا بِكُمْ أَصْدِقائي، سَأُكَلِّمُكُمُ اليَوْمَ عَنِ العُروضِ وَالتَّخْفيضاتِ في سوقِ …",
+   "ذَهَبْتُ … إِلى …",
+   "تَصِلُ التَّخْفيضاتُ عَلى … إِلى …",
+   "كانَ سِعْرُ … وَأَصْبَحَ …",
+   "هذِهِ فُرْصَةٌ لا تُعَوَّضُ!"
+  ],
+  "namuna": [
+   [
+    "أَهْلًا وَسَهْلًا بِكُمْ أَصْدِقائي، سَأُكَلِّمُكُمُ اليَوْمَ عَنِ العُروضِ في مَرْكَزِ «سامْبيتْ» التِّجارِيِّ في طَشْقَنْدَ.",
+    "Xush kelibsiz, do'stlar, bugun sizga Toshkentdagi «Samarqand Darvoza» savdo markazidagi chegirmalar haqida gapiraman."
+   ],
+   [
+    "ذَهَبْتُ يَوْمَ السَّبْتِ مَساءً، وَتَجَوَّلْتُ في المَحَلّاتِ.",
+    "Shanba kuni kechqurun borib, do'konlarni aylandim."
+   ],
+   [
+    "تَصِلُ التَّخْفيضاتُ عَلى المَلابِسِ الشِّتْوِيَّةِ إِلى خَمْسينَ بِالمِئَةِ.",
+    "Qishki kiyimlarga chegirma 50 foizga yetadi."
+   ],
+   [
+    "كانَ سِعْرُ المِعْطَفِ مِئَةَ دولارٍ، وَأَصْبَحَ خَمْسينَ دولارًا فَقَطْ.",
+    "Palto 100 dollar edi, endi atigi 50 dollar."
+   ],
+   [
+    "وَعَلى الأَحْذِيَةِ تَخْفيضٌ بِنِسْبَةِ ثَلاثينَ بِالمِئَةِ.",
+    "Poyabzallarga 30 foiz chegirma."
+   ],
+   [
+    "وَفي قِسْمِ الأَجْهِزَةِ الكَهْرَبائِيَّةِ عَرْضٌ مُغْرٍ: اشْتَرِ هاتِفًا وَخُذْ سَمّاعَةً مَجّانًا.",
+    "Elektronika bo'limida qiziqarli taklif: telefon olsang, quloqchin bepul."
+   ],
+   [
+    "الدَّفْعُ نَقْدًا أَوْ بِالتَّقْسيطِ لِمُدَّةِ سِتَّةِ أَشْهُرٍ.",
+    "To'lov naqd yoki olti oyga bo'lib."
+   ],
+   [
+    "هذِهِ فُرْصَةٌ لا تُعَوَّضُ، فَلا تَتَأَخَّروا!",
+    "Bu qo'ldan boy berib bo'lmaydigan fursat, kechikmanglar!"
+   ]
+  ],
+  "reja": [
+   "Do'stlarga murojaat bilan boshladingizmi?",
+   "Qaysi bozor yoki markazga borganingizni yozdingizmi?",
+   "Kamida 5 ta chegirmani yozdingizmi? (تَصِلُ التَّخْفيضاتُ)",
+   "Eski va yangi narxni yozdingizmi? (كانَ … وَأَصْبَحَ)",
+   "Yakuniy chaqiriq yozdingizmi? (فُرْصَةٌ لا تُعَوَّضُ)"
+  ]
+ },
+ "13": {
+  "nom": "البائِعُ المُتَجَوِّلُ",
+  "anketaIzoh": "Yurtingizdagi seyyor sotuvchini (somsa, non, muzqaymoq, meva sotuvchi…) kuzating va jadvalni to'ldiring. Bog'lovchilardan foydalaning: وَ، فَـ، ثُمَّ، أَوْ.",
+  "gap": [
+   [
+    "U har kuni soat oltida uyg'onadi.",
+    [
+     "يَسْتَيْقِظُ",
+     "كُلَّ",
+     "يَوْمٍ",
+     "في",
+     "السّاعَةِ",
+     "السّادِسَةِ."
+    ],
+    [
+     "الثّامِنَةِ",
+     "أَسْتَيْقِظُ"
+    ]
+   ],
+   [
+    "U aravachada meva sotadi.",
+    [
+     "يَبيعُ",
+     "الفَواكِهَ",
+     "عَلى",
+     "عَرَبَةٍ."
+    ],
+    [
+     "يَشْتَري",
+     "سَيّارَةٍ"
+    ]
+   ],
+   [
+    "Keyin mahallalarni aylanib chiqadi.",
+    [
+     "ثُمَّ",
+     "يَتَجَوَّلُ",
+     "في",
+     "الأَحْياءِ."
+    ],
+    [
+     "الأَسْواقِ",
+     "يَتَجَوَّلونَ"
+    ]
+   ],
+   [
+    "Kechqurun soat sakkizda uyiga qaytadi.",
+    [
+     "يَعودُ",
+     "إِلى",
+     "بَيْتِهِ",
+     "مَساءً."
+    ],
+    [
+     "صَباحًا",
+     "يَعودونَ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "ماذا يَبيعُ؟",
+    "Nima sotadi"
+   ],
+   [
+    "أَيْنَ يَتَجَوَّلُ؟",
+    "Qayerlarni aylanadi"
+   ],
+   [
+    "كَيْفَ يَحْمِلُ بِضاعَتَهُ؟",
+    "Molini nimada tashiydi"
+   ],
+   [
+    "مَتى يَبْدَأُ عَمَلَهُ وَمَتى يَنْتَهي؟",
+    "Ishi qachon boshlanib tugaydi"
+   ],
+   [
+    "كَيْفَ يُنادي عَلى بِضاعَتِهِ؟",
+    "Qanday baqirib chaqiradi"
+   ],
+   [
+    "ما الفَرْقُ بَيْنَهُ وَبَيْنَ البائِعِ في الدُّكّانِ؟",
+    "Do'kondagi sotuvchidan farqi"
+   ]
+  ],
+  "qolip": [
+   "في بَلَدي باعَةٌ مُتَجَوِّلونَ يَبيعونَ …",
+   "يَسْتَيْقِظُ البائِعُ …",
+   "ثُمَّ يَتَجَوَّلُ في …",
+   "يَحْمِلُ بِضاعَتَهُ عَلى …",
+   "يُنادي بِصَوْتٍ عالٍ: «…»",
+   "يَعودُ إِلى بَيْتِهِ …"
+  ],
+  "namuna": [
+   [
+    "في بَلَدي باعَةٌ مُتَجَوِّلونَ كَثيرونَ يَبيعونَ الخُبْزَ وَالسَّمْبوسَةَ وَالفَواكِهَ.",
+    "Yurtimda non, somsa va meva sotadigan seyyor sotuvchilar ko'p."
+   ],
+   [
+    "أَعْرِفُ بائِعًا اسْمُهُ العَمُّ رُسْتَم.",
+    "Men Rustam amaki degan sotuvchini taniyman."
+   ],
+   [
+    "يَسْتَيْقِظُ كُلَّ يَوْمٍ في السّاعَةِ الخامِسَةِ، فَيَذْهَبُ إِلى السّوقِ وَيَشْتَري الفَواكِهَ.",
+    "U har kuni soat beshda uyg'onadi, bozorga borib meva sotib oladi."
+   ],
+   [
+    "ثُمَّ يَضَعُها عَلى عَرَبَتِهِ وَيَتَجَوَّلُ في الأَحْياءِ.",
+    "Keyin ularni aravachasiga qo'yib, mahallalarni aylanadi."
+   ],
+   [
+    "يُنادي بِصَوْتٍ عالٍ: «تُفّاحٌ طازَجٌ! عِنَبٌ حُلْوٌ!»",
+    "Baland ovozda chaqiradi: «Yangi olma! Shirin uzum!»"
+   ],
+   [
+    "يَشْتَري مِنْهُ النّاسُ لِأَنَّ أَسْعارَهُ مُناسِبَةٌ.",
+    "Odamlar undan sotib oladi, chunki narxlari munosib."
+   ],
+   [
+    "عَمَلُهُ صَعْبٌ في الصَّيْفِ وَالشِّتاءِ، لكِنَّهُ لا يَتْرُكُهُ.",
+    "Ishi yozda ham, qishda ham og'ir, lekin u uni tashlamaydi."
+   ],
+   [
+    "يَعودُ إِلى بَيْتِهِ في السّاعَةِ الثّامِنَةِ مَساءً مُتْعَبًا.",
+    "Kechqurun soat sakkizda charchab uyiga qaytadi."
+   ]
+  ],
+  "reja": [
+   "Yurtingizdagi seyyor sotuvchilar nima sotishini yozdingizmi?",
+   "Ishi qachon boshlanishini yozdingizmi? (يَسْتَيْقِظُ)",
+   "Bog'lovchilardan foydalandingizmi? (فَـ، ثُمَّ، وَ)",
+   "Qanday chaqirishini yozdingizmi? (يُنادي)",
+   "Kamida 5 qator yozdingizmi?"
+  ]
+ },
+ "14": {
+  "nom": "الأَشْياءُ المُسْتَعْمَلَةُ: مَعَ أَمْ ضِدَّ؟",
+  "anketaIzoh": "Ishlatilgan buyum sotib olish haqida fikringizni yozing: nimani ishlatilgan holda olish mumkin, nimani yo'q, foydasi va zarari. Oxirida o'z fikringizni sababi bilan bildiring.",
+  "gap": [
+   [
+    "Ishlatilgan buyumlar yangisidan arzonroq.",
+    [
+     "الأَشْياءُ",
+     "المُسْتَعْمَلَةُ",
+     "أَرْخَصُ",
+     "مِنَ",
+     "الجَديدَةِ."
+    ],
+    [
+     "أَغْلى",
+     "القَديمَةِ"
+    ]
+   ],
+   [
+    "Ishlatilgan kitobni sotib olaman, chunki narxi past.",
+    [
+     "أَشْتَري",
+     "الكِتابَ",
+     "المُسْتَعْمَلَ",
+     "لِأَنَّ",
+     "سِعْرَهُ",
+     "رَخيصٌ."
+    ],
+    [
+     "غالٍ",
+     "يَشْتَري"
+    ]
+   ],
+   [
+    "Ishlatilgan kiyimni olmayman, chunki u ozoda bo'lmasligi mumkin.",
+    [
+     "لا",
+     "أَشْتَري",
+     "المَلابِسَ",
+     "المُسْتَعْمَلَةَ",
+     "لِأَنَّها",
+     "قَدْ",
+     "تَكونُ",
+     "غَيْرَ",
+     "نَظيفَةٍ."
+    ],
+    [
+     "نَظيفَةً",
+     "لِأَنَّهُ"
+    ]
+   ],
+   [
+    "Ba'zi ishlatilgan buyumlar kafolatsiz bo'ladi.",
+    [
+     "بَعْضُ",
+     "الأَشْياءِ",
+     "المُسْتَعْمَلَةِ",
+     "غَيْرُ",
+     "مَضْمونَةٍ."
+    ],
+    [
+     "كُلُّ",
+     "مَضْمونٌ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "",
+    "الأَسْبابُ"
+   ],
+   "qator": [
+    "أَشْياءُ يُمْكِنُ أَنْ أَشْتَرِيَها مُسْتَعْمَلَةً",
+    "أَشْياءُ لا أَشْتَريها إِلّا جَديدَةً",
+    "فَوائِدُ الأَشْياءِ المُسْتَعْمَلَةِ",
+    "أَضْرارُها"
+   ]
+  },
+  "qolip": [
+   "يَشْتَري كَثيرٌ مِنَ النّاسِ الأَشْياءَ المُسْتَعْمَلَةَ …",
+   "يُمْكِنُ أَنْ أَشْتَرِيَ … مُسْتَعْمَلًا بِسَبَبِ / لِأَنَّ …",
+   "لا أَشْتَري … مُسْتَعْمَلًا لِأَنَّ …",
+   "مِنْ فَوائِدِها …",
+   "وَمِنْ أَضْرارِها …",
+   "أَنا مَعَ / ضِدَّ … لِأَنَّ …"
+  ],
+  "namuna": [
+   [
+    "يَشْتَري كَثيرٌ مِنَ النّاسِ الأَشْياءَ المُسْتَعْمَلَةَ، وَبَعْضُهُمْ يَرْفُضُها.",
+    "Ko'p odamlar ishlatilgan buyum oladi, ba'zilari esa rad etadi."
+   ],
+   [
+    "يُمْكِنُ أَنْ أَشْتَرِيَ الكُتُبَ وَالأَثاثَ وَالسَّيّارَةَ مُسْتَعْمَلَةً، لِأَنَّ أَسْعارَها رَخيصَةٌ.",
+    "Kitob, mebel va mashinani ishlatilgan holda olishim mumkin, chunki narxi arzon."
+   ],
+   [
+    "لكِنَّني لا أَشْتَري المَلابِسَ وَالأَحْذِيَةَ المُسْتَعْمَلَةَ لِأَنَّها قَدْ تَنْقُلُ الأَمْراضَ.",
+    "Lekin ishlatilgan kiyim va poyabzal olmayman, chunki ular kasallik yuqtirishi mumkin."
+   ],
+   [
+    "وَلا أَشْتَري الأَجْهِزَةَ الكَهْرَبائِيَّةَ المُسْتَعْمَلَةَ، لِأَنَّها غَيْرُ مَضْمونَةٍ.",
+    "Ishlatilgan elektr jihozlarni ham olmayman, chunki ular kafolatsiz."
+   ],
+   [
+    "مِنْ فَوائِدِ الأَشْياءِ المُسْتَعْمَلَةِ أَنَّها أَرْخَصُ، وَبَعْضُها ذو جَوْدَةٍ عالِيَةٍ.",
+    "Ishlatilgan buyumlarning foydasi — arzonroq, ba'zilari sifatli ham."
+   ],
+   [
+    "وَمِنْ أَضْرارِها أَنَّها تَتَعَطَّلُ بِسُرْعَةٍ أَحْيانًا.",
+    "Zarari — ba'zan tez buziladi."
+   ],
+   [
+    "أَنا مَعَ شِراءِ الأَشْياءِ المُسْتَعْمَلَةِ إِذا كانَتْ في حالَةٍ جَيِّدَةٍ.",
+    "Agar yaxshi holatda bo'lsa, ishlatilgan buyum olish tarafdoriman."
+   ]
+  ],
+  "reja": [
+   "Mavzuni kiritdingizmi?",
+   "Nimani ishlatilgan holda olish mumkinligini sababi bilan yozdingizmi? (لِأَنَّ)",
+   "Nimani olmasligingizni yozdingizmi?",
+   "Foyda va zararini yozdingizmi?",
+   "O'z fikringizni bildirdingizmi? (أَنا مَعَ / ضِدَّ)"
+  ]
+ },
+ "15": {
+  "nom": "إِعْلانٌ",
+  "anketaIzoh": "Kitobdagi «أَفْضَلُ عَرْضٍ — رِحْلَةٌ رائِعَةٌ إِلى تُرْكِيا» e'loniga o'xshab o'z e'loningizni yozing: sayohat, ijaraga uy yoki kurs e'loni. Avval jadvalni to'ldiring.",
+  "gap": [
+   [
+    "Kompaniya sizga yozgi taklifni taqdim etadi.",
+    [
+     "تُقَدِّمُ",
+     "لَكُمُ",
+     "الشَّرِكَةُ",
+     "العَرْضَ",
+     "الصَّيْفِيَّ."
+    ],
+    [
+     "الشِّتْوِيَّ",
+     "يُقَدِّمُ"
+    ]
+   ],
+   [
+    "Sayohat muddati: o'n kun.",
+    [
+     "مُدَّةُ",
+     "الرِّحْلَةِ:",
+     "عَشَرَةُ",
+     "أَيّامٍ."
+    ],
+    [
+     "سَنَواتٍ",
+     "سِعْرُ"
+    ]
+   ],
+   [
+    "Narx kishi boshiga 450 dollardan boshlanadi.",
+    [
+     "يَبْدَأُ",
+     "السِّعْرُ",
+     "مِنْ",
+     "٤٥٠",
+     "دولارًا",
+     "لِلفَرْدِ."
+    ],
+    [
+     "يَنْتَهي",
+     "لِلعائِلَةِ"
+    ]
+   ],
+   [
+    "Bron uchun telefon raqami:",
+    [
+     "رَقْمُ",
+     "الهاتِفِ",
+     "لِلحَجْزِ:"
+    ],
+    [
+     "لِلسَّفَرِ",
+     "اسْمُ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "عُنْوانُ الإِعْلانِ",
+    "E'lon sarlavhasi"
+   ],
+   [
+    "الشَّرِكَةُ / المُعْلِنُ",
+    "Kim e'lon beryapti"
+   ],
+   [
+    "المَكانُ",
+    "Joy (shahar, mehmonxona…)"
+   ],
+   [
+    "المُدَّةُ",
+    "Muddati"
+   ],
+   [
+    "السِّعْرُ",
+    "Narxi"
+   ],
+   [
+    "ماذا يَشْمَلُ السِّعْرُ؟",
+    "Narxga nima kiradi"
+   ],
+   [
+    "رَقْمُ الهاتِفِ لِلحَجْزِ",
+    "Bron telefoni"
+   ]
+  ],
+  "qolip": [
+   "… (sarlavha)",
+   "تُقَدِّمُ لَكُمْ شَرِكَةُ …",
+   "أَماكِنُ الرِّحْلَةِ: …",
+   "مُدَّةُ الرِّحْلَةِ: …",
+   "الإِقامَةُ: …",
+   "السِّعْرُ: يَبْدَأُ مِنْ …",
+   "السِّعْرُ شامِلٌ …",
+   "رَقْمُ الهاتِفِ لِلحَجْزِ: …"
+  ],
+  "namuna": [
+   [
+    "أَفْضَلُ عَرْضٍ: رِحْلَةٌ رائِعَةٌ إِلى أوزْبَكِسْتانَ!",
+    "Eng yaxshi taklif: O'zbekistonga ajoyib sayohat!"
+   ],
+   [
+    "تُقَدِّمُ لَكُمْ شَرِكَةُ «طَريقِ الحَريرِ» العَرْضَ الرَّبيعِيَّ لِلرِّحْلاتِ.",
+    "«Ipak yo'li» kompaniyasi bahorgi sayohat taklifini taqdim etadi."
+   ],
+   [
+    "أَماكِنُ الرِّحْلَةِ: طَشْقَنْدُ وَسَمَرْقَنْدُ وَبُخارى.",
+    "Sayohat joylari: Toshkent, Samarqand va Buxoro."
+   ],
+   [
+    "مُدَّةُ الرِّحْلَةِ: سَبْعَةُ أَيّامٍ.",
+    "Sayohat muddati: yetti kun."
+   ],
+   [
+    "دَرَجَةُ الفُنْدُقِ: أَرْبَعُ نُجومٍ.",
+    "Mehmonxona darajasi: to'rt yulduz."
+   ],
+   [
+    "الإِقامَةُ: ثَلاثُ لَيالٍ في سَمَرْقَنْدَ، وَلَيْلَتانِ في بُخارى، وَلَيْلَتانِ في طَشْقَنْدَ.",
+    "Turar joy: Samarqandda uch kecha, Buxoroda ikki kecha, Toshkentda ikki kecha."
+   ],
+   [
+    "السِّعْرُ: يَبْدَأُ مِنْ ٥٠٠ دولارٍ لِلفَرْدِ الواحِدِ.",
+    "Narx: bir kishi uchun 500 dollardan."
+   ],
+   [
+    "السِّعْرُ شامِلٌ الفُطورَ وَالغَداءَ وَالمُواصَلاتِ وَالإِقامَةَ.",
+    "Narxga nonushta, tushlik, transport va turar joy kiradi."
+   ],
+   [
+    "رَقْمُ الهاتِفِ لِلحَجْزِ: ٠٠٩٩٨٧١٢٣٤٥٦٧",
+    "Bron uchun telefon raqami: 00998 71 234 56 7"
+   ]
+  ],
+  "reja": [
+   "E'lon sarlavhasini yozdingizmi?",
+   "Kim taklif qilayotganini yozdingizmi? (تُقَدِّمُ لَكُمْ)",
+   "Joy va muddatni yozdingizmi?",
+   "Narx va unga nima kirishini yozdingizmi? (السِّعْرُ شامِلٌ)",
+   "Bron telefonini yozdingizmi?"
+  ]
+ },
+ "16": {
+  "nom": "مَكانٌ أُريدُ أَنْ أَعيشَ فيهِ",
+  "anketaIzoh": "Yashashni istagan joyingizni tanlang (qishloq yoki shahar, qaysi davlat) va kitobdagi reja bo'yicha yozing: joy nomi, sifatlari va sababi. «أَفْعَلُ مِنْ» bilan solishtiring.",
+  "gap": [
+   [
+    "Men qishloqda yashashni xohlayman.",
+    [
+     "أُريدُ",
+     "أَنْ",
+     "أَعيشَ",
+     "في",
+     "الرّيفِ."
+    ],
+    [
+     "المَدينَةِ",
+     "يُريدُ"
+    ]
+   ],
+   [
+    "Qishloq havosi shahar havosidan tozaroq.",
+    [
+     "هَواءُ",
+     "الرّيفِ",
+     "أَنْظَفُ",
+     "مِنْ",
+     "هَواءِ",
+     "المَدينَةِ."
+    ],
+    [
+     "أَكْبَرُ",
+     "أَقَلُّ"
+    ]
+   ],
+   [
+    "Shahar qishloqdan gavjumroq.",
+    [
+     "المَدينَةُ",
+     "أَكْثَرُ",
+     "ازْدِحامًا",
+     "مِنَ",
+     "الرّيفِ."
+    ],
+    [
+     "أَقَلُّ",
+     "هُدوءًا"
+    ]
+   ],
+   [
+    "Chunki u yerda hayot sokin.",
+    [
+     "لِأَنَّ",
+     "الحَياةَ",
+     "هُناكَ",
+     "هادِئَةٌ."
+    ],
+    [
+     "سَريعَةٌ",
+     "هُنا"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "اسْمُ المَكانِ",
+    "Joy nomi"
+   ],
+   [
+    "أَيْنَ يَقَعُ؟",
+    "Qayerda"
+   ],
+   [
+    "صِفاتُهُ",
+    "Sifatlari (هادِئٌ، جَميلٌ، نَظيفٌ…)"
+   ],
+   [
+    "إيجابِيّاتُهُ",
+    "Yaxshi tomonlari"
+   ],
+   [
+    "سَلْبِيّاتُهُ",
+    "Kamchiliklari"
+   ],
+   [
+    "السَّبَبُ",
+    "Nega u yerda yashamoqchisiz"
+   ]
+  ],
+  "qolip": [
+   "أُريدُ أَنْ أَعيشَ في …",
+   "يَقَعُ هذا المَكانُ في …",
+   "هُوَ مَكانٌ … وَ …",
+   "… أَنْظَفُ / أَهْدَأُ / أَجْمَلُ مِنْ …",
+   "لكِنَّ …",
+   "أُريدُ أَنْ أَعيشَ هُناكَ لِأَنَّ …"
+  ],
+  "namuna": [
+   [
+    "أُريدُ أَنْ أَعيشَ في قَرْيَةٍ صَغيرَةٍ قُرْبَ الجِبالِ.",
+    "Tog'lar yaqinidagi kichik qishloqda yashashni istayman."
+   ],
+   [
+    "تَقَعُ هذِهِ القَرْيَةُ في شَمالِ طَشْقَنْدَ.",
+    "Bu qishloq Toshkentning shimolida joylashgan."
+   ],
+   [
+    "هِيَ قَرْيَةٌ هادِئَةٌ وَجَميلَةٌ، فيها أَشْجارٌ كَثيرَةٌ وَنَهْرٌ صَغيرٌ.",
+    "U sokin va chiroyli qishloq, unda ko'p daraxtlar va kichik daryo bor."
+   ],
+   [
+    "هَواؤُها أَنْظَفُ مِنْ هَواءِ المَدينَةِ.",
+    "Uning havosi shahar havosidan tozaroq."
+   ],
+   [
+    "وَالحَياةُ فيها أَهْدَأُ مِنَ الحَياةِ في المَدينَةِ.",
+    "Undagi hayot shahar hayotidan sokinroq."
+   ],
+   [
+    "لكِنَّ الخِدْماتِ فيها أَقَلُّ، وَالمُسْتَشْفى بَعيدٌ.",
+    "Lekin xizmatlar kamroq, kasalxona uzoq."
+   ],
+   [
+    "أُريدُ أَنْ أَعيشَ هُناكَ لِأَنَّني أُحِبُّ الطَّبيعَةَ وَالهُدوءَ.",
+    "U yerda yashashni istayman, chunki tabiat va sokinlikni yaxshi ko'raman."
+   ],
+   [
+    "وَأُريدُ أَنْ أُرَبِّيَ الحَيَواناتِ وَأَزْرَعَ الخُضْرَواتِ.",
+    "Hayvon boqib, sabzavot ekmoqchiman."
+   ]
+  ],
+  "reja": [
+   "Joy nomini yozdingizmi? (أُريدُ أَنْ أَعيشَ في)",
+   "Qayerda joylashganini yozdingizmi?",
+   "Sifatlarini yozdingizmi?",
+   "«أَفْعَلُ مِنْ» bilan solishtirdingizmi?",
+   "Sababini yozdingizmi? (لِأَنَّ)"
+  ]
+ },
+ "17": {
+  "nom": "إِصْلاحاتٌ في بَيْتي",
+  "anketaIzoh": "Uyingizdagi har bir xonada nima ta'mirlash yoki almashtirish kerakligini jadvalga yozing (kitobdagi «المهندس والزبون» jadvali kabi).",
+  "gap": [
+   [
+    "Mehmonxonaning devori bo'yashga muhtoj.",
+    [
+     "جِدارُ",
+     "غُرْفَةِ",
+     "الجُلوسِ",
+     "يَحْتاجُ",
+     "إِلى",
+     "طِلاءٍ."
+    ],
+    [
+     "تَحْتاجُ",
+     "النَّوْمِ"
+    ]
+   ],
+   [
+    "Oshxonadagi jo'mrak buzilgan.",
+    [
+     "الصُّنْبورُ",
+     "في",
+     "المَطْبَخِ",
+     "مَكْسورٌ."
+    ],
+    [
+     "جَديدٌ",
+     "الحَمّامِ"
+    ]
+   ],
+   [
+    "Ta'mirlash ikki kun davom etadi.",
+    [
+     "يَسْتَغْرِقُ",
+     "الإِصْلاحُ",
+     "يَوْمَيْنِ."
+    ],
+    [
+     "ساعَتَيْنِ",
+     "تَسْتَغْرِقُ"
+    ]
+   ],
+   [
+    "Narxi yuz dollar bo'ladi.",
+    [
+     "تَكْلِفَةُ",
+     "الإِصْلاحِ",
+     "مِئَةُ",
+     "دولارٍ."
+    ],
+    [
+     "أَلْفُ",
+     "سِعْرُ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "الغُرْفَةُ",
+    "ماذا يَحْتاجُ إِلى إِصْلاحٍ؟",
+    "التَّغْييرُ / الشِّراءُ",
+    "التَّكْلِفَةُ",
+    "المُدَّةُ"
+   ],
+   "qator": [
+    "غُرْفَةُ الجُلوسِ",
+    "غُرْفَةُ النَّوْمِ",
+    "المَطْبَخُ",
+    "الحَمّامُ"
+   ]
+  },
+  "qolip": [
+   "بَيْتي قَديمٌ قَليلًا، وَيَحْتاجُ إِلى …",
+   "في غُرْفَةِ الجُلوسِ …",
+   "في المَطْبَخِ …",
+   "نَحْتاجُ إِلى شِراءِ …",
+   "تَكْلِفَةُ الإِصْلاحِ …",
+   "يَسْتَغْرِقُ الإِصْلاحُ …"
+  ],
+  "namuna": [
+   [
+    "بَيْتُنا قَديمٌ قَليلًا، وَيَحْتاجُ إِلى بَعْضِ الإِصْلاحاتِ.",
+    "Uyimiz biroz eski, ba'zi ta'mirlash ishlari kerak."
+   ],
+   [
+    "في غُرْفَةِ الجُلوسِ يَحْتاجُ الجِدارُ إِلى طِلاءٍ جَديدٍ.",
+    "Mehmonxonada devorni yangidan bo'yash kerak."
+   ],
+   [
+    "وَفي غُرْفَةِ النَّوْمِ النّافِذَةُ مَكْسورَةٌ، وَنَحْتاجُ إِلى زُجاجٍ جَديدٍ.",
+    "Yotoqxonada deraza singan, yangi oyna kerak."
+   ],
+   [
+    "في المَطْبَخِ الصُّنْبورُ لا يَعْمَلُ جَيِّدًا، وَالخِزانَةُ قَديمَةٌ.",
+    "Oshxonada jo'mrak yaxshi ishlamaydi, javon ham eski."
+   ],
+   [
+    "في الحَمّامِ نَحْتاجُ إِلى تَغْييرِ المِصْباحِ.",
+    "Hammomda chiroqni almashtirish kerak."
+   ],
+   [
+    "تَكْلِفَةُ كُلِّ الإِصْلاحاتِ حَوالَيْ خَمْسِمِئَةِ دولارٍ.",
+    "Barcha ta'mir taxminan 500 dollar turadi."
+   ],
+   [
+    "يَسْتَغْرِقُ الإِصْلاحُ أُسْبوعًا واحِدًا.",
+    "Ta'mirlash bir hafta davom etadi."
+   ],
+   [
+    "بَعْدَ الإِصْلاحِ سَيَكونُ بَيْتُنا جَميلًا وَمُريحًا.",
+    "Ta'mirdan keyin uyimiz chiroyli va qulay bo'ladi."
+   ]
+  ],
+  "reja": [
+   "Uyingiz holatini yozdingizmi?",
+   "Har bir xonadagi ta'mirni yozdingizmi? (يَحْتاجُ إِلى)",
+   "Nima sotib olish kerakligini yozdingizmi?",
+   "Narxi va muddatini yozdingizmi? (تَكْلِفَةُ، يَسْتَغْرِقُ)"
+  ]
+ },
+ "18": {
+  "nom": "نِظامُ البَيْتِ",
+  "anketaIzoh": "Uyingizdagi tartib-qoidalarni yozing: ovqat, uyqu, uyg'onish vaqti, nima mumkin va nima mumkin emas. Keyin kelajakdagi uyingizda qanday qoidalar bo'lishini yozasiz.",
+  "gap": [
+   [
+    "Bizning uyimizda kechki ovqat soat yettida.",
+    [
+     "العَشاءُ",
+     "في",
+     "بَيْتِنا",
+     "السّاعَةَ",
+     "السّابِعَةَ."
+    ],
+    [
+     "الفُطورُ",
+     "بَيْتِكُمْ"
+    ]
+   ],
+   [
+    "Kechqurun baland ovozda gapirish mumkin emas.",
+    [
+     "مَمْنوعٌ",
+     "الكَلامُ",
+     "بِصَوْتٍ",
+     "عالٍ",
+     "لَيْلًا."
+    ],
+    [
+     "مَسْموحٌ",
+     "نَهارًا"
+    ]
+   ],
+   [
+    "Har kim o'z xonasini tozalaydi.",
+    [
+     "يُنَظِّفُ",
+     "كُلُّ",
+     "واحِدٍ",
+     "غُرْفَتَهُ."
+    ],
+    [
+     "غُرْفَتي",
+     "أُنَظِّفُ"
+    ]
+   ],
+   [
+    "Men erta turishni yaxshi ko'raman, akam esa — kech.",
+    [
+     "أَنا",
+     "أُحِبُّ",
+     "الاِسْتِيقاظَ",
+     "مُبَكِّرًا",
+     "أَمّا",
+     "أَخي",
+     "فَمُتَأَخِّرًا."
+    ],
+    [
+     "لكِنْ",
+     "النَّوْمَ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "في بَيْتي",
+    "مَسْموحٌ",
+    "مَمْنوعٌ"
+   ],
+   "qator": [
+    "الطَّعامُ",
+    "النَّوْمُ وَالاِسْتِيقاظُ",
+    "التِّلْفازُ وَالهاتِفُ",
+    "الضُّيوفُ"
+   ]
+  },
+  "qolip": [
+   "في بَيْتِنا نِظامٌ …",
+   "الفُطورُ … وَالعَشاءُ …",
+   "نَنامُ … وَنَسْتَيْقِظُ …",
+   "مَسْموحٌ أَنْ …",
+   "مَمْنوعٌ أَنْ …",
+   "في بَيْتي المُسْتَقْبَلِيِّ …"
+  ],
+  "namuna": [
+   [
+    "في بَيْتِنا نِظامٌ واضِحٌ يَحْتَرِمُهُ الجَميعُ.",
+    "Uyimizda hamma hurmat qiladigan aniq tartib bor."
+   ],
+   [
+    "نَتَناوَلُ الفُطورَ مَعًا في السّاعَةِ السّابِعَةِ، وَالعَشاءَ في السّاعَةِ الثّامِنَةِ.",
+    "Nonushtani soat yettida, kechki ovqatni sakkizda birga qilamiz."
+   ],
+   [
+    "نَنامُ في السّاعَةِ العاشِرَةِ، وَنَسْتَيْقِظُ لِصَلاةِ الفَجْرِ.",
+    "Soat o'nda yotamiz, bomdod namoziga turamiz."
+   ],
+   [
+    "مَسْموحٌ أَنْ نُشاهِدَ التِّلْفازَ ساعَةً واحِدَةً بَعْدَ الدُّروسِ.",
+    "Darslardan keyin bir soat televizor ko'rish mumkin."
+   ],
+   [
+    "مَمْنوعٌ أَنْ نَسْتَعْمِلَ الهاتِفَ عَلى المائِدَةِ.",
+    "Dasturxon ustida telefon ishlatish mumkin emas."
+   ],
+   [
+    "يُنَظِّفُ كُلُّ واحِدٍ مِنّا غُرْفَتَهُ يَوْمَ السَّبْتِ.",
+    "Har birimiz shanba kuni xonamizni tozalaymiz."
+   ],
+   [
+    "أَنا أُحِبُّ الهُدوءَ، أَمّا أَخي الصَّغيرُ فَيُحِبُّ اللَّعِبَ بِصَوْتٍ عالٍ.",
+    "Men sokinlikni yaxshi ko'raman, ukam esa baland ovozda o'ynashni yoqtiradi."
+   ],
+   [
+    "في بَيْتي المُسْتَقْبَلِيِّ سَأَجْعَلُ وَقْتًا لِلقِراءَةِ كُلَّ مَساءٍ.",
+    "Kelajakdagi uyimda har kech kitob o'qish uchun vaqt ajrataman."
+   ]
+  ],
+  "reja": [
+   "Ovqat vaqtlarini yozdingizmi?",
+   "Uyqu va uyg'onish vaqtini yozdingizmi?",
+   "Nima mumkinligini yozdingizmi? (مَسْموحٌ أَنْ)",
+   "Nima mumkin emasligini yozdingizmi? (مَمْنوعٌ أَنْ)",
+   "«أَمّا … فَـ» bilan solishtirdingizmi?",
+   "Kelajakdagi uyingizni yozdingizmi?"
+  ]
+ },
+ "19": {
+  "nom": "جيراني",
+  "anketaIzoh": "Qo'shnilaringiz haqida yozing: kim yashaydi, qanday odamlar (jahldor, vazmin, kulgichi, tirishqoq…), biror muammo bormi. Keyin kim bilan birga yashashni afzal ko'rishingizni yozasiz.",
+  "gap": [
+   [
+    "Ro'paramda turmush qurgan qo'shni yashaydi.",
+    [
+     "يَسْكُنُ",
+     "مُقابِلَ",
+     "بَيْتي",
+     "جارٌ",
+     "مُتَزَوِّجٌ."
+    ],
+    [
+     "خَلْفَ",
+     "تَسْكُنُ"
+    ]
+   ],
+   [
+    "U yaxshi qo'shni, chunki vazmin.",
+    [
+     "هُوَ",
+     "جارٌ",
+     "جَيِّدٌ",
+     "لِأَنَّهُ",
+     "هادِئٌ."
+    ],
+    [
+     "مُزْعِجٌ",
+     "لِأَنَّها"
+    ]
+   ],
+   [
+    "Pastdagi qo'shnining bolalari baqiradi.",
+    [
+     "أَوْلادُ",
+     "الجارِ",
+     "في",
+     "الأَسْفَلِ",
+     "يَصْرُخونَ."
+    ],
+    [
+     "الأَعْلى",
+     "يَصْرُخُ"
+    ]
+   ],
+   [
+    "Men tirishqoq odam bilan yashashni afzal ko'raman.",
+    [
+     "أُفَضِّلُ",
+     "أَنْ",
+     "أَسْكُنَ",
+     "مَعَ",
+     "شَخْصٍ",
+     "مُجْتَهِدٍ."
+    ],
+    [
+     "كَسولٍ",
+     "يُفَضِّلُ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "مَنْ يَسْكُنُ بِجانِبِكَ؟",
+    "Yoningizda kim yashaydi"
+   ],
+   [
+    "مَنْ يَسْكُنُ فَوْقَكَ أَوْ تَحْتَكَ؟",
+    "Yuqori/pastki qavatda kim"
+   ],
+   [
+    "صِفاتُ جيرانِكَ",
+    "Qo'shnilaringiz qanday odamlar"
+   ],
+   [
+    "هَلْ هُناكَ مُشْكِلَةٌ؟",
+    "Biror muammo bormi"
+   ],
+   [
+    "مَعَ مَنْ تُفَضِّلُ أَنْ تَسْكُنَ؟ لِماذا؟",
+    "Kim bilan yashashni afzal ko'rasiz"
+   ]
+  ],
+  "qolip": [
+   "أَسْكُنُ في … وَعِنْدي جيرانٌ …",
+   "يَسْكُنُ مُقابِلَ بَيْتي … مُنْذُ …",
+   "هُوَ جارٌ … لِأَنَّهُ …",
+   "أَمّا الجارُ في الأَسْفَلِ فَـ …",
+   "أُفَضِّلُ أَنْ أَسْكُنَ مَعَ … لِأَنَّ …",
+   "وَلا أَسْتَطيعُ أَنْ أَسْكُنَ مَعَ …"
+  ],
+  "namuna": [
+   [
+    "أَسْكُنُ في عِمارَةٍ كَبيرَةٍ، وَعِنْدي جيرانٌ كَثيرونَ.",
+    "Katta binoda yashayman, qo'shnilarim ko'p."
+   ],
+   [
+    "يَسْكُنُ مُقابِلَ بَيْتي جارٌ مُتَزَوِّجٌ مُنْذُ خَمْسِ سَنَواتٍ.",
+    "Ro'paramda besh yildan beri turmush qurgan qo'shni yashaydi."
+   ],
+   [
+    "هُوَ جارٌ جَيِّدٌ لِأَنَّهُ هادِئٌ وَيُساعِدُ الجَميعَ.",
+    "U yaxshi qo'shni, chunki vazmin va hammaga yordam beradi."
+   ],
+   [
+    "أَمّا الجارُ في الطّابِقِ الأَعْلى فَمُزْعِجٌ قَليلًا.",
+    "Yuqori qavatdagi qo'shni esa biroz bezovta qiladi."
+   ],
+   [
+    "عِنْدَهُ أَوْلادٌ صِغارٌ يَلْعَبونَ وَيَقْفِزونَ حَتّى مُنْتَصَفِ اللَّيْلِ.",
+    "Uning yarim tungacha o'ynab sakraydigan kichik bolalari bor."
+   ],
+   [
+    "تَكَلَّمْتُ مَعَهُ بِلُطْفٍ، فَاعْتَذَرَ وَوَعَدَ أَنْ يَكونوا أَهْدَأَ.",
+    "U bilan muloyimlik bilan gaplashdim, u uzr so'radi va tinchroq bo'lishga va'da berdi."
+   ],
+   [
+    "أُفَضِّلُ أَنْ أَسْكُنَ مَعَ شَخْصٍ هادِئٍ وَمُجْتَهِدٍ، لِأَنَّني أَدْرُسُ كَثيرًا.",
+    "Vazmin va tirishqoq odam bilan yashashni afzal ko'raman, chunki ko'p o'qiyman."
+   ],
+   [
+    "«الجارُ قَبْلَ الدّارِ».",
+    "«Hovli olma, qo'shni ol»."
+   ]
+  ],
+  "reja": [
+   "Qo'shnilaringiz kimligini yozdingizmi?",
+   "Ularning sifatlarini yozdingizmi?",
+   "«أَمّا … فَـ» bilan solishtirdingizmi?",
+   "Muammo va uning yechimini yozdingizmi?",
+   "Kim bilan yashashni afzal ko'rishingizni sababi bilan yozdingizmi? (أُفَضِّلُ أَنْ)"
+  ]
+ },
+ "20": {
+  "nom": "النَّظافَةُ وَالأَناقَةُ",
+  "anketaIzoh": "Har kuni ozoda va ko'rkam ko'rinish uchun nima qilishingizni yozing. Buyruq fe'li va «يَجِبُ عَلَيْكَ أَنْ» bilan maslahat ham bering.",
+  "gap": [
+   [
+    "Men har kuni ertalab tishimni yuvaman.",
+    [
+     "أَغْسِلُ",
+     "أَسْناني",
+     "كُلَّ",
+     "يَوْمٍ",
+     "صَباحًا."
+    ],
+    [
+     "أَسْنانَكَ",
+     "مَساءً"
+    ]
+   ],
+   [
+    "Haftada ikki marta cho'milaman.",
+    [
+     "أَسْتَحِمُّ",
+     "مَرَّتَيْنِ",
+     "في",
+     "الأُسْبوعِ."
+    ],
+    [
+     "الشَّهْرِ",
+     "يَسْتَحِمُّ"
+    ]
+   ],
+   [
+    "Ovqatdan oldin qo'lingni sovun bilan yuv.",
+    [
+     "اِغْسِلْ",
+     "يَدَيْكَ",
+     "بِالصّابونِ",
+     "قَبْلَ",
+     "الطَّعامِ."
+    ],
+    [
+     "بَعْدَ",
+     "اِغْسِلي"
+    ]
+   ],
+   [
+    "Tirnoqlaringni har hafta olishing kerak.",
+    [
+     "يَجِبُ",
+     "عَلَيْكَ",
+     "أَنْ",
+     "تَقُصَّ",
+     "أَظافِرَكَ",
+     "كُلَّ",
+     "أُسْبوعٍ."
+    ],
+    [
+     "شَهْرٍ",
+     "عَلَيَّ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "في الصَّباحِ",
+    "Ertalab nima qilasiz"
+   ],
+   [
+    "الاِسْتِحْمامُ",
+    "Qanchada bir cho'milasiz"
+   ],
+   [
+    "المَلابِسُ",
+    "Kiyimingizni qanday tanlaysiz"
+   ],
+   [
+    "الشَّعْرُ وَالأَظافِرُ",
+    "Soch va tirnoq"
+   ],
+   [
+    "الأَسْنانُ",
+    "Tish"
+   ],
+   [
+    "نَصيحَةٌ لِصَديقِكَ",
+    "Do'stingizga maslahat"
+   ]
+  ],
+  "qolip": [
+   "أَهْتَمُّ بِنَظافَتي وَأَناقَتي كَثيرًا.",
+   "في الصَّباحِ …",
+   "أَسْتَحِمُّ …",
+   "أَلْبَسُ …",
+   "أَقُصُّ …",
+   "يَجِبُ عَلَيْكَ أَنْ …",
+   "لا تَنْسَ أَنْ …"
+  ],
+  "namuna": [
+   [
+    "أَهْتَمُّ بِنَظافَتي وَأَناقَتي كُلَّ يَوْمٍ.",
+    "Har kuni ozodaligim va ko'rkamligimga e'tibor beraman."
+   ],
+   [
+    "في الصَّباحِ أَغْسِلُ وَجْهي وَأُنَظِّفُ أَسْناني بِالفُرْشاةِ.",
+    "Ertalab yuzimni yuvaman va tishimni cho'tka bilan tozalayman."
+   ],
+   [
+    "أَسْتَحِمُّ كُلَّ يَوْمَيْنِ، وَأُمَشِّطُ شَعْري جَيِّدًا.",
+    "Ikki kunda bir cho'milaman, sochimni yaxshilab tarayman."
+   ],
+   [
+    "أَلْبَسُ مَلابِسَ نَظيفَةً وَمَكْوِيَّةً، وَأَخْتارُ أَلْوانًا مُناسِبَةً.",
+    "Toza va dazmollangan kiyim kiyaman, mos ranglarni tanlayman."
+   ],
+   [
+    "أَقُصُّ أَظافِري كُلَّ أُسْبوعٍ، وَأَقُصُّ شَعْري كُلَّ شَهْرٍ.",
+    "Tirnoqlarimni har hafta, sochimni har oy oldiraman."
+   ],
+   [
+    "أَسْتَعْمِلُ العِطْرَ قَبْلَ الخُروجِ مِنَ البَيْتِ.",
+    "Uydan chiqishdan oldin atir sepaman."
+   ],
+   [
+    "يَجِبُ عَلَيْكَ أَنْ تَغْسِلَ يَدَيْكَ قَبْلَ الطَّعامِ وَبَعْدَهُ.",
+    "Ovqatdan oldin va keyin qo'lingni yuvishing kerak."
+   ],
+   [
+    "لا تَنْسَ أَنَّ النَّظافَةَ مِنَ الإيمانِ.",
+    "Unutma, ozodalik imondandir."
+   ]
+  ],
+  "reja": [
+   "Ertalabki ishlaringizni yozdingizmi?",
+   "Cho'milish va soch-tirnoqni yozdingizmi?",
+   "Kiyimingiz haqida yozdingizmi?",
+   "Buyruq fe'li bilan maslahat berdingizmi? (اِغْسِلْ، لا تَنْسَ)",
+   "«يَجِبُ عَلَيْكَ أَنْ» ishlatdingizmi?"
+  ]
+ },
+ "21": {
+  "nom": "بَرْنامَجي الغِذائِيُّ اليَوْمِيُّ",
+  "anketaIzoh": "Kunlik ovqatlanishingizni jadvalga yozing: nonushta, tushlik va kechki ovqatda nima yeysiz va soat nechada. Taomlardagi oziq moddalarni ham yozing (بُروتيناتٌ، فيتاميناتٌ، سُكَّرِيّاتٌ…).",
+  "gap": [
+   [
+    "Nonushtani soat yettida qilaman.",
+    [
+     "أَتَناوَلُ",
+     "الفُطورَ",
+     "في",
+     "السّاعَةِ",
+     "السّابِعَةِ."
+    ],
+    [
+     "العَشاءَ",
+     "يَتَناوَلُ"
+    ]
+   ],
+   [
+    "Tuxumda oqsil ko'p.",
+    [
+     "البَيْضُ",
+     "غَنِيٌّ",
+     "بِالبُروتيناتِ."
+    ],
+    [
+     "فَقيرٌ",
+     "بِالسُّكَّرِيّاتِ"
+    ]
+   ],
+   [
+    "Men tez tayyorlanadigan ovqatlardan uzoqlashaman.",
+    [
+     "أَبْتَعِدُ",
+     "عَنِ",
+     "الوَجَباتِ",
+     "السَّريعَةِ."
+    ],
+    [
+     "يَبْتَعِدُ",
+     "الصِّحِّيَّةِ"
+    ]
+   ],
+   [
+    "Meva va sabzavotlar sog'liq uchun foydali.",
+    [
+     "الفَواكِهُ",
+     "وَالخُضْرَواتُ",
+     "مُفيدَةٌ",
+     "لِلصِّحَّةِ."
+    ],
+    [
+     "مُضِرَّةٌ",
+     "لِلجِسْمِ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "الوَجْبَةُ",
+    "الوَقْتُ",
+    "ماذا آكُلُ؟",
+    "العَناصِرُ الغِذائِيَّةُ"
+   ],
+   "qator": [
+    "الفُطورُ",
+    "الغَداءُ",
+    "العَشاءُ"
+   ]
+  },
+  "qolip": [
+   "أَهْتَمُّ بِطَعامي لِأَنَّ …",
+   "أَتَناوَلُ الفُطورَ في … وَآكُلُ …",
+   "في الغَداءِ …",
+   "في العَشاءِ …",
+   "… غَنِيٌّ بِـ …",
+   "أَبْتَعِدُ عَنْ …",
+   "أَشْرَبُ … كُلَّ يَوْمٍ"
+  ],
+  "namuna": [
+   [
+    "أَهْتَمُّ بِطَعامي لِأَنَّ الغِذاءَ الصِّحِّيَّ مُهِمٌّ لِلجِسْمِ.",
+    "Ovqatlanishimga e'tibor beraman, chunki sog'lom ovqat tana uchun muhim."
+   ],
+   [
+    "أَتَناوَلُ الفُطورَ في السّاعَةِ السّابِعَةِ: بَيْضًا وَجُبْنًا وَخُبْزًا وَشايًا.",
+    "Nonushtani soat yettida qilaman: tuxum, pishloq, non va choy."
+   ],
+   [
+    "البَيْضُ وَالجُبْنُ غَنِيّانِ بِالبُروتيناتِ.",
+    "Tuxum va pishloq oqsilga boy."
+   ],
+   [
+    "في الغَداءِ آكُلُ الأَرُزَّ أَوِ الشّوْرَبَةَ مَعَ اللَّحْمِ وَالسَّلَطَةِ.",
+    "Tushlikda guruch yoki sho'rva, go'sht va salat yeyman."
+   ],
+   [
+    "في العَشاءِ آكُلُ طَعامًا خَفيفًا، مِثْلَ الزَّبادي وَالفَواكِهِ.",
+    "Kechki ovqatda yengil taom — qatiq va meva yeyman."
+   ],
+   [
+    "الفَواكِهُ وَالخُضْرَواتُ غَنِيَّةٌ بِالفيتاميناتِ.",
+    "Meva va sabzavotlar vitaminga boy."
+   ],
+   [
+    "أَبْتَعِدُ عَنِ الوَجَباتِ السَّريعَةِ وَالحَلَوِيّاتِ الكَثيرَةِ.",
+    "Fast-fud va ko'p shirinlikdan uzoqlashaman."
+   ],
+   [
+    "وَأَشْرَبُ ثَمانِيَةَ أَكْوابٍ مِنَ الماءِ كُلَّ يَوْمٍ.",
+    "Har kuni sakkiz stakan suv ichaman."
+   ]
+  ],
+  "reja": [
+   "Nima uchun ovqatlanishga e'tibor berishingizni yozdingizmi?",
+   "Nonushta, tushlik va kechki ovqatni vaqti bilan yozdingizmi?",
+   "Oziq moddalarni yozdingizmi? (غَنِيٌّ بِـ)",
+   "Nimadan uzoqlashishingizni yozdingizmi? (أَبْتَعِدُ عَنْ)",
+   "Suv haqida yozdingizmi?"
+  ]
+ },
+ "22": {
+  "nom": "زِيارَةُ مَريضٍ",
+  "anketaIzoh": "Kasal do'stingiz yoki qarindoshingizni ko'rgani borganingizni yozing: kim kasal bo'ldi, qayerda, nima sovg'a olib bordingiz, qancha o'tirdingiz, nima dedingiz. Yurtingizdagi odatlarni ham yozing.",
+  "gap": [
+   [
+    "Do'stim kasal bo'lib kasalxonaga yotdi.",
+    [
+     "مَرِضَ",
+     "صَديقي",
+     "وَدَخَلَ",
+     "المُسْتَشْفى."
+    ],
+    [
+     "خَرَجَ",
+     "صَديقُكَ"
+    ]
+   ],
+   [
+    "Unga gul va meva olib bordim.",
+    [
+     "أَخَذْتُ",
+     "لَهُ",
+     "وُرودًا",
+     "وَفَواكِهَ."
+    ],
+    [
+     "كُتُبًا",
+     "أَخَذَ"
+    ]
+   ],
+   [
+    "Ziyorat yarim soat davom etdi.",
+    [
+     "اسْتَغْرَقَتِ",
+     "الزِّيارَةُ",
+     "نِصْفَ",
+     "ساعَةٍ."
+    ],
+    [
+     "ساعَتَيْنِ",
+     "اسْتَغْرَقَ"
+    ]
+   ],
+   [
+    "Unga «Alloh shifo bersin» dedim.",
+    [
+     "قُلْتُ",
+     "لَهُ:",
+     "شَفاكَ",
+     "اللّهُ."
+    ],
+    [
+     "لَها",
+     "قالَ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "مَنِ المَريضُ؟",
+    "Kim kasal bo'ldi"
+   ],
+   [
+    "ما مَرَضُهُ؟",
+    "Nima kasallik"
+   ],
+   [
+    "أَيْنَ هُوَ؟",
+    "Uyda yoki kasalxonada"
+   ],
+   [
+    "ماذا أَخَذْتَ لَهُ؟",
+    "Nima olib bordingiz"
+   ],
+   [
+    "كَمْ مُدَّةُ الزِّيارَةِ؟",
+    "Ziyorat qancha davom etdi"
+   ],
+   [
+    "ماذا قُلْتَ لَهُ؟",
+    "Nima dedingiz"
+   ],
+   [
+    "عاداتُ زِيارَةِ المَريضِ في بَلَدِكَ",
+    "Yurtingizdagi odatlar"
+   ]
+  ],
+  "qolip": [
+   "مَرِضَ … الأُسْبوعَ الماضِيَ.",
+   "كانَ في …",
+   "ذَهَبْتُ لِزِيارَتِهِ مَعَ …",
+   "أَخَذْتُ لَهُ …",
+   "اسْتَغْرَقَتِ الزِّيارَةُ …",
+   "قُلْتُ لَهُ: …",
+   "في بَلَدي مِنْ عاداتِ زِيارَةِ المَريضِ …"
+  ],
+  "namuna": [
+   [
+    "مَرِضَ صَديقي عَلِيٌّ الأُسْبوعَ الماضِيَ.",
+    "O'tgan hafta do'stim Ali kasal bo'ldi."
+   ],
+   [
+    "كانَ عِنْدَهُ ألَمٌ شَديدٌ في بَطْنِهِ، فَدَخَلَ المُسْتَشْفى.",
+    "Qornida qattiq og'riq bor edi, kasalxonaga yotdi."
+   ],
+   [
+    "ذَهَبْتُ لِزِيارَتِهِ مَعَ زُمَلائي في الصَّفِّ.",
+    "Sinfdoshlarim bilan uni ko'rgani bordim."
+   ],
+   [
+    "أَخَذْنا لَهُ وُرودًا وَعَصيرًا وَفَواكِهَ.",
+    "Unga gul, sharbat va meva olib bordik."
+   ],
+   [
+    "جَلَسْنا مَعَهُ نِصْفَ ساعَةٍ فَقَطْ، لِأَنَّ المَريضَ يَحْتاجُ إِلى الرّاحَةِ.",
+    "U bilan atigi yarim soat o'tirdik, chunki bemorga dam kerak."
+   ],
+   [
+    "قُلْنا لَهُ: «شَفاكَ اللّهُ وَعافاكَ، طَهورٌ إِنْ شاءَ اللّهُ».",
+    "Unga: «Alloh shifo va salomatlik bersin, inshaalloh poklanish bo'ladi», dedik."
+   ],
+   [
+    "في بَلَدي مِنَ العاداتِ أَنْ نَأْخُذَ لِلمَريضِ طَعامًا أَوْ فَواكِهَ.",
+    "Yurtimda bemorga ovqat yoki meva olib borish odati bor."
+   ],
+   [
+    "وَمَمْنوعٌ أَنْ نَتَكَلَّمَ بِصَوْتٍ عالٍ في المُسْتَشْفى.",
+    "Kasalxonada baland ovozda gapirish mumkin emas."
+   ]
+  ],
+  "reja": [
+   "Kim va nima kasal bo'lganini yozdingizmi? (مَرِضَ)",
+   "Kim bilan borganingizni yozdingizmi?",
+   "Sovg'ani yozdingizmi? (أَخَذْتُ لَهُ)",
+   "Ziyorat muddatini yozdingizmi?",
+   "Bemorga aytiladigan duoni yozdingizmi? (شَفاكَ اللّهُ)",
+   "Yurtingizdagi odatlarni yozdingizmi?"
+  ]
+ },
+ "23": {
+  "nom": "نَصائِحُ لِمَريضٍ",
+  "anketaIzoh": "Kasal do'stingizga (bosh og'rig'i, shamollash, tish og'rig'i…) maslahat yozing: qaysi shifokorga borish, nima qilish va nimani unutmaslik kerak. «عَلَيْكَ أَنْ» va «لا تَنْسَ أَنْ» ni ishlating.",
+  "gap": [
+   [
+    "Shifokorga borishing kerak.",
+    [
+     "عَلَيْكَ",
+     "أَنْ",
+     "تَذْهَبَ",
+     "إِلى",
+     "الطَّبيبِ."
+    ],
+    [
+     "عَلَيَّ",
+     "الصَّيْدَلِيَّةِ"
+    ]
+   ],
+   [
+    "Dorini o'z vaqtida ichishni unutma.",
+    [
+     "لا",
+     "تَنْسَ",
+     "أَنْ",
+     "تَشْرَبَ",
+     "الدَّواءَ",
+     "بِانْتِظامٍ."
+    ],
+    [
+     "تَنْسى",
+     "الماءَ"
+    ]
+   ],
+   [
+    "Sovuq ichimlik ichma.",
+    [
+     "لا",
+     "تَشْرَبِ",
+     "المَشْروباتِ",
+     "البارِدَةَ."
+    ],
+    [
+     "الحارَّةَ",
+     "تَشْرَبُ"
+    ]
+   ],
+   [
+    "Ikki kun uyda dam ol.",
+    [
+     "اِسْتَرِحْ",
+     "في",
+     "البَيْتِ",
+     "يَوْمَيْنِ."
+    ],
+    [
+     "المَدْرَسَةِ",
+     "اِسْتَرِيحي"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "ما مَرَضُ صَديقِكَ؟",
+    "Do'stingizning kasali"
+   ],
+   [
+    "بِماذا يَشْعُرُ؟",
+    "Nimani his qilyapti"
+   ],
+   [
+    "إِلى أَيِّ طَبيبٍ يَذْهَبُ؟",
+    "Qaysi shifokorga borishi kerak"
+   ],
+   [
+    "ماذا عَلَيْهِ أَنْ يَفْعَلَ؟",
+    "Nima qilishi kerak"
+   ],
+   [
+    "ماذا لا يَنْسى؟",
+    "Nimani unutmasligi kerak"
+   ],
+   [
+    "ماذا لا يَفْعَلُ؟",
+    "Nima qilmasligi kerak"
+   ]
+  ],
+  "qolip": [
+   "صَديقي العَزيزُ …، سَمِعْتُ أَنَّكَ مَريضٌ.",
+   "عَلَيْكَ أَنْ تَذْهَبَ إِلى طَبيبِ …",
+   "عَلَيْكَ أَنْ …",
+   "لا تَنْسَ أَنْ …",
+   "لا تَـ … (taqiq)",
+   "شَفاكَ اللّهُ وَعافاكَ."
+  ],
+  "namuna": [
+   [
+    "صَديقي العَزيزُ سَعيدٌ، سَمِعْتُ أَنَّكَ مَريضٌ وَعِنْدَكَ زُكامٌ وَأَلَمٌ في الحَلْقِ.",
+    "Aziz do'stim Saʼid, kasal ekansan, tumov va tomoq og'rig'ing bor deb eshitdim."
+   ],
+   [
+    "عَلَيْكَ أَنْ تَذْهَبَ إِلى الطَّبيبِ اليَوْمَ، فَهُوَ سَيَفْحَصُكَ وَيَكْتُبُ لَكَ الوَصْفَةَ.",
+    "Bugun shifokorga borishing kerak, u seni tekshirib retsept yozadi."
+   ],
+   [
+    "عَلَيْكَ أَنْ تَأْخُذَ اسْتِراحَةً مِنَ العَمَلِ يَوْمَيْنِ أَوْ ثَلاثَةً.",
+    "Ishdan ikki-uch kun dam olishing kerak."
+   ],
+   [
+    "لا تَنْسَ أَنْ تَشْرَبَ الدَّواءَ في وَقْتِهِ.",
+    "Dorini vaqtida ichishni unutma."
+   ],
+   [
+    "وَلا تَنْسَ أَنْ تَشْرَبَ الشّايَ مَعَ العَسَلِ وَالليمونِ.",
+    "Asal va limonli choy ichishni ham unutma."
+   ],
+   [
+    "لا تَخْرُجْ مِنَ البَيْتِ في الجَوِّ البارِدِ، وَلا تَشْرَبِ المَشْروباتِ البارِدَةَ.",
+    "Sovuq havoda uydan chiqma va sovuq ichimlik ichma."
+   ],
+   [
+    "نَمْ مُبَكِّرًا، وَكُلْ طَعامًا خَفيفًا وَصِحِّيًّا.",
+    "Erta uxla, yengil va sog'lom ovqat ye."
+   ],
+   [
+    "شَفاكَ اللّهُ وَعافاكَ، طَهورٌ إِنْ شاءَ اللّهُ.",
+    "Alloh shifo va salomatlik bersin, inshaalloh poklanish bo'lsin."
+   ]
+  ],
+  "reja": [
+   "Do'stingizga murojaat qilib, kasalini yozdingizmi?",
+   "«عَلَيْكَ أَنْ» bilan maslahat berdingizmi?",
+   "«لا تَنْسَ أَنْ» ishlatdingizmi?",
+   "«لا» bilan taqiq (لا تَخْرُجْ…) yozdingizmi?",
+   "Duo bilan tugatdingizmi? (شَفاكَ اللّهُ)"
+  ]
+ },
+ "24": {
+  "nom": "رِياضِيٌّ مَشْهورٌ",
+  "anketaIzoh": "Bitta mashhur sportchini tanlang va kitobdagi savollarga javob yozing: kim, qaysi sport turi, qanday yutuqlari bor, musobaqalarda g'olib bo'lganmi.",
+  "gap": [
+   [
+    "U mashhur o'zbek bokschisi.",
+    [
+     "هُوَ",
+     "مُلاكِمٌ",
+     "أوزْبَكِيٌّ",
+     "مَشْهورٌ."
+    ],
+    [
+     "لاعِبُ",
+     "هِيَ"
+    ]
+   ],
+   [
+    "U Olimpiada o'yinlarida oltin medal oldi.",
+    [
+     "فازَ",
+     "بِالميدالِيَّةِ",
+     "الذَّهَبِيَّةِ",
+     "في",
+     "الأَلْعابِ",
+     "الأولِمْبِيَّةِ."
+    ],
+    [
+     "الفِضِّيَّةِ",
+     "فازَتْ"
+    ]
+   ],
+   [
+    "U har kuni ko'p soat mashq qiladi.",
+    [
+     "يَتَدَرَّبُ",
+     "ساعاتٍ",
+     "طَويلَةً",
+     "كُلَّ",
+     "يَوْمٍ."
+    ],
+    [
+     "قَصيرَةً",
+     "أَتَدَرَّبُ"
+    ]
+   ],
+   [
+    "Uni yoshlar yaxshi ko'radi.",
+    [
+     "يُحِبُّهُ",
+     "الشَّبابُ",
+     "كَثيرًا."
+    ],
+    [
+     "قَليلًا",
+     "تُحِبُّهُ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "مَنْ هُوَ؟",
+    "Kim (ismi, yurti)"
+   ],
+   [
+    "ما رِياضَتُهُ؟",
+    "Qaysi sport turi"
+   ],
+   [
+    "مَتى بَدَأَ؟",
+    "Qachon boshlagan"
+   ],
+   [
+    "ما إِنْجازاتُهُ؟",
+    "Yutuqlari"
+   ],
+   [
+    "هَلْ فازَ في مُسابَقاتٍ؟",
+    "Qaysi musobaqalarda g'olib"
+   ],
+   [
+    "لِماذا تُحِبُّهُ؟",
+    "Nega yoqadi"
+   ]
+  ],
+  "qolip": [
+   "مِنْ أَشْهَرِ الرِّياضِيّينَ …",
+   "هُوَ … (sport) مِنْ …",
+   "بَدَأَ مُمارَسَةَ الرِّياضَةِ …",
+   "فازَ بِـ … في …",
+   "يَتَدَرَّبُ …",
+   "أُحِبُّهُ لِأَنَّ …"
+  ],
+  "namuna": [
+   [
+    "مِنْ أَشْهَرِ الرِّياضِيّينَ في بَلَدي المُلاكِمُ بَهودير جَلولوف.",
+    "Yurtimdagi eng mashhur sportchilardan biri — bokschi Bahodir Jalolov."
+   ],
+   [
+    "هُوَ مُلاكِمٌ أوزْبَكِيٌّ مِنْ مَدينَةِ سُرْخانْدَرْيا.",
+    "U Surxondaryolik o'zbek bokschisi."
+   ],
+   [
+    "بَدَأَ المُلاكَمَةَ عِنْدَما كانَ صَغيرًا.",
+    "Boks bilan yoshligida shug'ullana boshlagan."
+   ],
+   [
+    "فازَ بِالميدالِيَّةِ الذَّهَبِيَّةِ في الأَلْعابِ الأولِمْبِيَّةِ مَرَّتَيْنِ.",
+    "Olimpiada o'yinlarida ikki marta oltin medal olgan."
+   ],
+   [
+    "يَتَدَرَّبُ ساعاتٍ طَويلَةً كُلَّ يَوْمٍ، وَيَأْكُلُ طَعامًا صِحِّيًّا.",
+    "Har kuni ko'p soat mashq qiladi va sog'lom ovqatlanadi."
+   ],
+   [
+    "هُوَ طَويلٌ وَقَوِيٌّ وَهادِئٌ.",
+    "U baland bo'yli, kuchli va vazmin."
+   ],
+   [
+    "يُحِبُّهُ النّاسُ في أوزْبَكِسْتانَ كَثيرًا.",
+    "O'zbekistonda odamlar uni juda yaxshi ko'radi."
+   ],
+   [
+    "أُحِبُّهُ لِأَنَّهُ مُجْتَهِدٌ وَمُتَواضِعٌ.",
+    "Uni yaxshi ko'raman, chunki u tirishqoq va kamtar."
+   ]
+  ],
+  "reja": [
+   "Sportchi kimligini yozdingizmi?",
+   "Sport turini yozdingizmi?",
+   "Qachon boshlaganini yozdingizmi? (بَدَأَ)",
+   "Yutuqlarini yozdingizmi? (فازَ بِـ)",
+   "Nega yoqishini yozdingizmi? (لِأَنَّ)"
+  ]
+ },
+ "25": {
+  "nom": "الرِّياضَةُ وَفَوائِدُها",
+  "anketaIzoh": "Kitobdagi matn bo'yicha sport turlarini jadvalga yozing (jismoniy, jamoaviy, aqliy) va foydalarini ayting. Keyin o'zingiz shug'ullanadigan sport haqida yozasiz: qaysi, qachon, nega, qayerda.",
+  "gap": [
+   [
+    "Sport inson tanasi uchun foydali.",
+    [
+     "الرِّياضَةُ",
+     "مُفيدَةٌ",
+     "لِجِسْمِ",
+     "الإِنْسانِ."
+    ],
+    [
+     "مُضِرَّةٌ",
+     "مُفيدٌ"
+    ]
+   ],
+   [
+    "Futbol jamoaviy sport.",
+    [
+     "كُرَةُ",
+     "القَدَمِ",
+     "رِياضَةٌ",
+     "جَماعِيَّةٌ."
+    ],
+    [
+     "فَرْدِيَّةٌ",
+     "عَقْلِيَّةٌ"
+    ]
+   ],
+   [
+    "Shaxmat aqlni charxlaydi.",
+    [
+     "الشِّطْرَنْجُ",
+     "يُنَشِّطُ",
+     "العَقْلَ."
+    ],
+    [
+     "الجِسْمَ",
+     "تُنَشِّطُ"
+    ]
+   ],
+   [
+    "Men haftada uch marta suzaman.",
+    [
+     "أَسْبَحُ",
+     "ثَلاثَ",
+     "مَرّاتٍ",
+     "في",
+     "الأُسْبوعِ."
+    ],
+    [
+     "الشَّهْرِ",
+     "يَسْبَحُ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "القِسْمُ",
+    "الأَنْواعُ",
+    "الفَوائِدُ"
+   ],
+   "qator": [
+    "الرِّياضَةُ البَدَنِيَّةُ",
+    "الأَلْعابُ الجَماعِيَّةُ",
+    "الرِّياضَةُ العَقْلِيَّةُ"
+   ]
+  },
+  "qolip": [
+   "لِلرِّياضَةِ أَنْواعٌ كَثيرَةٌ، مِنْها …",
+   "الرِّياضَةُ البَدَنِيَّةُ مِثْلُ …",
+   "وَالأَلْعابُ الجَماعِيَّةُ مِثْلُ …",
+   "وَالرِّياضَةُ العَقْلِيَّةُ مِثْلُ …",
+   "مِنْ فَوائِدِ الرِّياضَةِ …",
+   "أَنا أُمارِسُ … لِأَنَّها …"
+  ],
+  "namuna": [
+   [
+    "لِلرِّياضَةِ فَوائِدُ كَثيرَةٌ لِجِسْمِ الإِنْسانِ وَعَقْلِهِ.",
+    "Sportning inson tanasi va aqli uchun foydasi ko'p."
+   ],
+   [
+    "هُناكَ رِياضاتٌ بَدَنِيَّةٌ، مِثْلُ الجَرْيِ وَالسِّباحَةِ وَرَفْعِ الأَثْقالِ.",
+    "Jismoniy sport turlari bor: yugurish, suzish, og'ir atletika."
+   ],
+   [
+    "وَهُناكَ أَلْعابٌ جَماعِيَّةٌ، مِثْلُ كُرَةِ القَدَمِ وَكُرَةِ السَّلَّةِ.",
+    "Jamoaviy o'yinlar ham bor: futbol, basketbol."
+   ],
+   [
+    "وَهُناكَ رِياضاتٌ عَقْلِيَّةٌ، مِثْلُ الشِّطْرَنْجِ، تُنَشِّطُ عَمَلَ العَقْلِ وَالذّاكِرَةِ.",
+    "Aqliy sport turlari ham bor, masalan shaxmat, u aql va xotirani charxlaydi."
+   ],
+   [
+    "الرِّياضَةُ تُقَوّي العَضَلاتِ وَالقَلْبَ، وَتُخَفِّفُ الضَّغْطَ النَّفْسِيَّ.",
+    "Sport mushak va yurakni mustahkamlaydi, ruhiy zo'riqishni kamaytiradi."
+   ],
+   [
+    "أَنا أُمارِسُ السِّباحَةَ مَرَّتَيْنِ في الأُسْبوعِ في المَسْبَحِ.",
+    "Men haftada ikki marta basseynda suzaman."
+   ],
+   [
+    "أُحِبُّها لِأَنَّها تُنَشِّطُ عَضَلاتِ الجِسْمِ كُلِّها، وَتَمْنَحُني الرّاحَةَ.",
+    "Uni yaxshi ko'raman, chunki butun tana mushaklarini chiniqtiradi va menga xotirjamlik beradi."
+   ],
+   [
+    "أَنْصَحُكُمْ بِمُمارَسَةِ الرِّياضَةِ لِتَسْتَفيدَ أَجْسامُكُمْ بَدَنِيًّا وَعَقْلِيًّا.",
+    "Sizga sport bilan shug'ullanishni maslahat beraman, toki tanangiz ham, aqlingiz ham foyda ko'rsin."
+   ]
+  ],
+  "reja": [
+   "Sport turlarini bo'limlarga ajratib yozdingizmi?",
+   "Har biriga misol keltirdingizmi? (مِثْلُ)",
+   "Sportning foydalarini yozdingizmi?",
+   "O'zingiz qaysi sport bilan, qachon shug'ullanishingizni yozdingizmi?",
+   "Sababini yozdingizmi? (لِأَنَّ)"
+  ]
+ },
+ "26": {
+  "nom": "طَعامٌ في مُناسَبَةٍ",
+  "anketaIzoh": "Bayram yoki to'yda tayyorlanadigan bitta taomni tanlang (osh, sumalak, chak-chak…) va kitobdagi reja bo'yicha yozing: qaysi yurtniki, qachon tayyorlanadi, nimadan, qanday tortiladi.",
+  "gap": [
+   [
+    "Osh — o'zbeklarning eng mashhur taomi.",
+    [
+     "البِلوُ",
+     "أَشْهَرُ",
+     "طَعامٍ",
+     "عِنْدَ",
+     "الأوزْبَكِ."
+    ],
+    [
+     "أَقَلُّ",
+     "العَرَبِ"
+    ]
+   ],
+   [
+    "U guruch, go'sht va sabzidan tayyorlanadi.",
+    [
+     "يَتَكَوَّنُ",
+     "مِنَ",
+     "الأَرُزِّ",
+     "وَاللَّحْمِ",
+     "وَالجَزَرِ."
+    ],
+    [
+     "الخُبْزِ",
+     "تَتَكَوَّنُ"
+    ]
+   ],
+   [
+    "Uni to'y va bayramlarda tayyorlaymiz.",
+    [
+     "نُقَدِّمُهُ",
+     "في",
+     "الأَعْراسِ",
+     "وَالأَعْيادِ."
+    ],
+    [
+     "يُقَدِّمونَهُ",
+     "المَدارِسِ"
+    ]
+   ],
+   [
+    "Avval go'shtni yog'da qovuramiz.",
+    [
+     "أَوَّلًا",
+     "نَقْلي",
+     "اللَّحْمَ",
+     "في",
+     "الزَّيْتِ."
+    ],
+    [
+     "الماءِ",
+     "ثانِيًا"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "ما الطَّعامُ؟",
+    "Taom nomi"
+   ],
+   [
+    "أَيُّ بَلَدٍ يَصْنَعُهُ؟",
+    "Qaysi yurt taomi"
+   ],
+   [
+    "في أَيِّ مُناسَبَةٍ تُقَدِّمونَهُ؟",
+    "Qaysi marosimda"
+   ],
+   [
+    "مِمَّ يَتَكَوَّنُ؟",
+    "Masalliqlari"
+   ],
+   [
+    "كَيْفَ تَصْنَعونَهُ؟",
+    "Tayyorlanishi (أَوَّلًا… ثُمَّ…)"
+   ],
+   [
+    "كَيْفَ تُقَدِّمونَهُ؟",
+    "Qanday tortiladi"
+   ]
+  ],
+  "qolip": [
+   "مِنْ أَشْهَرِ أَطْعِمَتِنا في المُناسَباتِ …",
+   "نُقَدِّمُهُ في …",
+   "يَتَكَوَّنُ مِنْ …",
+   "أَوَّلًا … ثُمَّ … وَبَعْدَ ذلِكَ …",
+   "نُقَدِّمُهُ في … كَبيرٍ",
+   "يُحِبُّهُ …"
+  ],
+  "namuna": [
+   [
+    "مِنْ أَشْهَرِ الأَطْعِمَةِ في بَلَدي «البِلوُ» أَوِ «الأَرُزُّ الأوزْبَكِيُّ».",
+    "Yurtimdagi eng mashhur taomlardan biri — osh, ya'ni o'zbek palovi."
+   ],
+   [
+    "نُقَدِّمُهُ في الأَعْراسِ وَالأَعْيادِ، وَعِنْدَما يَأْتينا ضُيوفٌ.",
+    "Uni to'y, bayramlarda va mehmon kelganda tortamiz."
+   ],
+   [
+    "يَتَكَوَّنُ مِنَ الأَرُزِّ وَاللَّحْمِ وَالجَزَرِ وَالبَصَلِ وَالزَّيْتِ.",
+    "U guruch, go'sht, sabzi, piyoz va yog'dan tayyorlanadi."
+   ],
+   [
+    "أَوَّلًا نَقْلي اللَّحْمَ وَالبَصَلَ في قِدْرٍ كَبيرٍ.",
+    "Avval go'sht va piyozni katta qozonda qovuramiz."
+   ],
+   [
+    "ثُمَّ نَضَعُ الجَزَرَ، وَبَعْدَ ذلِكَ نَضَعُ الأَرُزَّ وَالماءَ.",
+    "Keyin sabzi solamiz, so'ng guruch va suv qo'shamiz."
+   ],
+   [
+    "يَطْبُخُهُ الرِّجالُ في الأَعْراسِ في قُدورٍ كَبيرَةٍ جِدًّا.",
+    "To'ylarda uni erkaklar juda katta qozonlarda pishiradi."
+   ],
+   [
+    "نُقَدِّمُهُ في طَبَقٍ كَبيرٍ، وَيَأْكُلُ مِنْهُ الجَميعُ مَعًا.",
+    "Uni katta laganda tortamiz va hamma birga yeydi."
+   ],
+   [
+    "البِلوُ لَذيذٌ جِدًّا، وَيُحِبُّهُ الكِبارُ وَالصِّغارُ.",
+    "Osh juda mazali, uni kattayu kichik yaxshi ko'radi."
+   ]
+  ],
+  "reja": [
+   "Taom nomini yozdingizmi?",
+   "Qaysi marosimda tortilishini yozdingizmi? (نُقَدِّمُهُ في)",
+   "Masalliqlarini yozdingizmi? (يَتَكَوَّنُ مِنْ)",
+   "Tayyorlanishini tartib bilan yozdingizmi? (أَوَّلًا، ثُمَّ)",
+   "Qanday tortilishini yozdingizmi?"
+  ]
+ },
+ "27": {
+  "nom": "طَعامُ بَلَدٍ مِنَ البُلْدانِ",
+  "anketaIzoh": "Bitta davlat oshxonasini tanlang (hind, arab, turk, italyan, yapon…) va uning taomlari haqida yozing: nimasi ko'p, nimasi kam, mashhur taomlari, sizga yoqadimi.",
+  "gap": [
+   [
+    "Hind taomida ziravor ko'p.",
+    [
+     "الطَّعامُ",
+     "الهِنْدِيُّ",
+     "فيهِ",
+     "كَثيرٌ",
+     "مِنَ",
+     "البَهاراتِ."
+    ],
+    [
+     "قَليلٌ",
+     "الياباني"
+    ]
+   ],
+   [
+    "Yapon taomida baliq ko'p ishlatiladi.",
+    [
+     "يَسْتَخْدِمُ",
+     "اليابانِيّونَ",
+     "السَّمَكَ",
+     "كَثيرًا."
+    ],
+    [
+     "اللَّحْمَ",
+     "يَسْتَخْدِمونَ"
+    ]
+   ],
+   [
+    "Pitsa — eng mashhur italyan taomi.",
+    [
+     "البيتْزا",
+     "أَشْهَرُ",
+     "طَعامٍ",
+     "إيطالِيٍّ."
+    ],
+    [
+     "أَقَلُّ",
+     "تُرْكِيٍّ"
+    ]
+   ],
+   [
+    "Unda ziravor kam, chunki ular uni yoqtirmaydi.",
+    [
+     "فيهِ",
+     "قَليلٌ",
+     "مِنَ",
+     "البَهاراتِ",
+     "لِأَنَّهُمْ",
+     "لا",
+     "يُحِبّونَها."
+    ],
+    [
+     "كَثيرٌ",
+     "يُحِبّونَها"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "أَيُّ بَلَدٍ؟",
+    "Qaysi davlat oshxonasi"
+   ],
+   [
+    "ماذا فيهِ كَثيرٌ؟",
+    "Nima ko'p ishlatiladi"
+   ],
+   [
+    "ماذا فيهِ قَليلٌ؟",
+    "Nima kam"
+   ],
+   [
+    "أَشْهَرُ أَطْعِمَتِهِ",
+    "Mashhur taomlari"
+   ],
+   [
+    "هَلْ تُحِبُّهُ؟ لِماذا؟",
+    "Sizga yoqadimi, nega"
+   ]
+  ],
+  "qolip": [
+   "أُريدُ أَنْ أَتَحَدَّثَ عَنِ الطَّعامِ …",
+   "فيهِ كَثيرٌ مِنْ …",
+   "وَقَليلٌ مِنْ …",
+   "لِأَنَّهُمْ …",
+   "مِنْ أَشْهَرِ أَطْعِمَتِهِمْ …",
+   "أَنا أُحِبُّهُ / لا أُحِبُّهُ لِأَنَّ …"
+  ],
+  "namuna": [
+   [
+    "أُريدُ أَنْ أَتَحَدَّثَ عَنِ الطَّعامِ التُّرْكِيِّ.",
+    "Turk taomlari haqida gapirmoqchiman."
+   ],
+   [
+    "الطَّعامُ التُّرْكِيُّ مَشْهورٌ في كُلِّ العالَمِ.",
+    "Turk taomlari butun dunyoda mashhur."
+   ],
+   [
+    "فيهِ كَثيرٌ مِنَ اللَّحْمِ وَالخُضْرَواتِ وَالخُبْزِ.",
+    "Unda go'sht, sabzavot va non ko'p."
+   ],
+   [
+    "وَفيهِ قَليلٌ مِنَ البَهاراتِ الحارَّةِ، لِأَنَّ الأَتْراكَ لا يُحِبّونَ الطَّعامَ الحارَّ جِدًّا.",
+    "Achchiq ziravor kam, chunki turklar juda achchiq taomni yoqtirmaydi."
+   ],
+   [
+    "مِنْ أَشْهَرِ أَطْعِمَتِهِمْ الكَبابُ وَالدّونَرُ وَالبَقْلاوَةُ.",
+    "Eng mashhur taomlari — kabob, do'ner va paxlava."
+   ],
+   [
+    "وَيَشْرَبونَ الشّايَ التُّرْكِيَّ في كُؤوسٍ صَغيرَةٍ.",
+    "Turk choyini kichik stakanlarda ichishadi."
+   ],
+   [
+    "أَنا أُحِبُّ الطَّعامَ التُّرْكِيَّ لِأَنَّهُ لَذيذٌ وَقَريبٌ مِنْ طَعامِنا.",
+    "Turk taomlarini yaxshi ko'raman, chunki mazali va bizning taomlarimizga yaqin."
+   ]
+  ],
+  "reja": [
+   "Qaysi davlat oshxonasi ekanini yozdingizmi?",
+   "Nima ko'p ishlatilishini yozdingizmi? (كَثيرٌ مِنْ)",
+   "Nima kam ekanini yozdingizmi? (قَليلٌ مِنْ)",
+   "Mashhur taomlarini yozdingizmi?",
+   "Fikringizni sababi bilan yozdingizmi?"
+  ]
+ },
+ "28": {
+  "nom": "دَعْوَةُ الضُّيوفِ: البَيْتُ أَمِ المَطْعَمُ؟",
+  "anketaIzoh": "Mehmonlarni tushlikka taklif qilyapsiz. Uyga chaqirish va restoranga chaqirishning yaxshi va yomon tomonlarini jadvalga yozing, keyin o'zingiz qaysi birini afzal ko'rishingizni sababi bilan yozasiz.",
+  "gap": [
+   [
+    "Men mehmonlarni uyga chaqirishni afzal ko'raman.",
+    [
+     "أُفَضِّلُ",
+     "أَنْ",
+     "أَدْعُوَ",
+     "الضُّيوفَ",
+     "إِلى",
+     "البَيْتِ."
+    ],
+    [
+     "المَطْعَمِ",
+     "يُفَضِّلُ"
+    ]
+   ],
+   [
+    "Chunki uy taomi mazaliroq.",
+    [
+     "لِأَنَّ",
+     "طَعامَ",
+     "البَيْتِ",
+     "أَلَذُّ."
+    ],
+    [
+     "المَطْعَمِ",
+     "أَغْلى"
+    ]
+   ],
+   [
+    "Restoranda tayyorlash charchog'i yo'q.",
+    [
+     "في",
+     "المَطْعَمِ",
+     "لا",
+     "يوجَدُ",
+     "تَعَبُ",
+     "التَّحْضيرِ."
+    ],
+    [
+     "البَيْتِ",
+     "توجَدُ"
+    ]
+   ],
+   [
+    "Restoran qimmatroq.",
+    [
+     "المَطْعَمُ",
+     "أَغْلى",
+     "مِنَ",
+     "البَيْتِ."
+    ],
+    [
+     "أَرْخَصُ",
+     "المَدْرَسَةِ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "",
+    "الإيجابِيّاتُ",
+    "السَّلْبِيّاتُ"
+   ],
+   "qator": [
+    "الدَّعْوَةُ إِلى البَيْتِ",
+    "الدَّعْوَةُ إِلى المَطْعَمِ"
+   ]
+  },
+  "qolip": [
+   "عِنْدَما أَدْعو ضُيوفًا إِلى الغَداءِ …",
+   "أُفَضِّلُ أَنْ أَدْعُوَ الضُّيوفَ إِلى … لِأَنَّ …",
+   "وَطَعامُ … …، وَكَذلِكَ …",
+   "لكِنَّ …",
+   "وَلا أُفَضِّلُ الدَّعْوَةَ إِلى … بِسَبَبِ …"
+  ],
+  "namuna": [
+   [
+    "عِنْدَما يَأْتينا ضُيوفٌ، نَدْعوهُمْ عادَةً إِلى الغَداءِ.",
+    "Mehmon kelganda, odatda ularni tushlikka chaqiramiz."
+   ],
+   [
+    "أُفَضِّلُ أَنْ أَدْعُوَ الضُّيوفَ إِلى البَيْتِ، لِأَنَّ الدَّعْوَةَ إِلى البَيْتِ أَكْثَرُ احْتِرامًا عِنْدَنا.",
+    "Mehmonni uyga chaqirishni afzal ko'raman, chunki bizda uyga chaqirish ko'proq hurmat hisoblanadi."
+   ],
+   [
+    "وَطَعامُ البَيْتِ أَلَذُّ وَأَنْظَفُ، وَكَذلِكَ أَرْخَصُ.",
+    "Uy taomi mazaliroq va tozaroq, arzonroq ham."
+   ],
+   [
+    "وَفي البَيْتِ نَجْلِسُ وَنَتَكَلَّمُ وَقْتًا طَويلًا بِراحَةٍ.",
+    "Uyda uzoq vaqt bemalol o'tirib gaplashamiz."
+   ],
+   [
+    "لكِنَّ تَحْضيرَ الطَّعامِ في البَيْتِ يَحْتاجُ إِلى وَقْتٍ وَتَعَبٍ كَثيرٍ.",
+    "Lekin uyda ovqat tayyorlash ko'p vaqt va mehnat talab qiladi."
+   ],
+   [
+    "أَمّا في المَطْعَمِ فَلا يوجَدُ تَعَبٌ، وَالخِدْمَةُ سَريعَةٌ، وَأَنْواعُ الطَّعامِ كَثيرَةٌ.",
+    "Restoranda esa charchoq yo'q, xizmat tez, taom turlari ko'p."
+   ],
+   [
+    "وَلا أُفَضِّلُ الدَّعْوَةَ إِلى المَطْعَمِ بِسَبَبِ الأَسْعارِ الغالِيَةِ وَالضَّجيجِ.",
+    "Restoranga chaqirishni qimmat narx va shovqin sababli afzal ko'rmayman."
+   ]
+  ],
+  "reja": [
+   "Mavzuni kiritdingizmi?",
+   "Afzal ko'rganingizni sababi bilan yozdingizmi? (أُفَضِّلُ أَنْ … لِأَنَّ)",
+   "Uyga chaqirishning yaxshi va yomon tomonini yozdingizmi?",
+   "Restoranning yaxshi va yomon tomonini yozdingizmi? (أَمّا … فَـ)",
+   "«لكِنَّ» va «بِسَبَبِ» ishlatdingizmi?"
+  ]
+ },
+ "29": {
+  "nom": "رِحْلَةٌ مَعَ الأَصْدِقاءِ",
+  "anketaIzoh": "Do'stlaringiz bilan qilgan sayohatingizni kitobdagi savollar bo'yicha yozing: qachon, qayerga, kim bilan, nima olib bordingiz, u yerda nima qildingiz. «أَصْبَحَ» va «عِنْدَما»ni ishlating.",
+  "gap": [
+   [
+    "Bahorda do'stlarim bilan tog'ga bordik.",
+    [
+     "ذَهَبْتُ",
+     "مَعَ",
+     "أَصْدِقائي",
+     "إِلى",
+     "الجَبَلِ",
+     "في",
+     "الرَّبيعِ."
+    ],
+    [
+     "البَحْرِ",
+     "ذَهَبْنا"
+    ]
+   ],
+   [
+    "Yo'l ikki soat davom etdi.",
+    [
+     "اسْتَغْرَقَ",
+     "الطَّريقُ",
+     "ساعَتَيْنِ."
+    ],
+    [
+     "يَوْمَيْنِ",
+     "اسْتَغْرَقَتْ"
+    ]
+   ],
+   [
+    "Yetib kelganimizda havo ochiq edi.",
+    [
+     "عِنْدَما",
+     "وَصَلْنا",
+     "كانَ",
+     "الجَوُّ",
+     "صافِيًا."
+    ],
+    [
+     "غائِمًا",
+     "وَصَلْتُ"
+    ]
+   ],
+   [
+    "Kechqurun havo sovuq bo'lib qoldi.",
+    [
+     "أَصْبَحَ",
+     "الجَوُّ",
+     "بارِدًا",
+     "في",
+     "المَساءِ."
+    ],
+    [
+     "حارًّا",
+     "أَصْبَحَتْ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "مَتى كانَتِ الرِّحْلَةُ؟",
+    "Qachon"
+   ],
+   [
+    "إِلى أَيْنَ؟",
+    "Qayerga"
+   ],
+   [
+    "مَعَ مَنْ؟",
+    "Kim bilan"
+   ],
+   [
+    "ماذا أَخَذْتُمْ مَعَكُمْ؟",
+    "Nima olib bordingiz"
+   ],
+   [
+    "ماذا فَعَلْتُمْ هُناكَ؟",
+    "U yerda nima qildingiz"
+   ],
+   [
+    "مَتى رَجَعْتُمْ؟",
+    "Qachon qaytdingiz"
+   ]
+  ],
+  "qolip": [
+   "في … ذَهَبْتُ مَعَ أَصْدِقائي إِلى …",
+   "ذَهَبْنا بِـ … وَاسْتَغْرَقَ الطَّريقُ …",
+   "أَخَذْنا مَعَنا …",
+   "عِنْدَما وَصَلْنا …",
+   "لَعِبْنا / مَشَيْنا / أَكَلْنا …",
+   "أَصْبَحَ الجَوُّ …",
+   "رَجَعْنا …"
+  ],
+  "namuna": [
+   [
+    "في فَصْلِ الرَّبيعِ ذَهَبْتُ مَعَ أَصْدِقائي إِلى جِبالِ «تْشيمْغان».",
+    "Bahor faslida do'stlarim bilan Chimyon tog'lariga bordim."
+   ],
+   [
+    "ذَهَبْنا بِالسَّيّارَةِ، وَاسْتَغْرَقَ الطَّريقُ ساعَتَيْنِ.",
+    "Mashinada bordik, yo'l ikki soat davom etdi."
+   ],
+   [
+    "أَخَذْنا مَعَنا طَعامًا وَماءً وَكُرَةً وَكاميرا.",
+    "O'zimiz bilan ovqat, suv, to'p va kamera oldik."
+   ],
+   [
+    "عِنْدَما وَصَلْنا كانَ الجَوُّ جَميلًا وَالأَزْهارُ في كُلِّ مَكانٍ.",
+    "Yetib kelganimizda havo go'zal, hamma joyda gullar bor edi."
+   ],
+   [
+    "مَشَيْنا في الجَبَلِ، وَالْتَقَطْنا صُوَرًا كَثيرَةً.",
+    "Tog'da sayr qildik va ko'p suratga tushdik."
+   ],
+   [
+    "ثُمَّ جَلَسْنا قُرْبَ النَّهْرِ وَأَكَلْنا الغَداءَ مَعًا.",
+    "Keyin daryo bo'yida o'tirib, birga tushlik qildik."
+   ],
+   [
+    "في المَساءِ أَصْبَحَ الجَوُّ بارِدًا، فَرَجَعْنا إِلى المَدينَةِ.",
+    "Kechqurun havo sovuq bo'lib qoldi, shaharga qaytdik."
+   ],
+   [
+    "كانَتْ رِحْلَةً مُمْتِعَةً لا أَنْساها.",
+    "Bu unutilmas, maroqli sayohat bo'ldi."
+   ]
+  ],
+  "reja": [
+   "Qachon va qayerga borganingizni yozdingizmi?",
+   "Qanday borganingiz va yo'l muddatini yozdingizmi?",
+   "Nima olib borganingizni yozdingizmi?",
+   "U yerda nima qilganingizni o'tgan zamonda yozdingizmi?",
+   "«عِنْدَما» va «أَصْبَحَ» ishlatdingizmi?"
+  ]
+ },
+ "30": {
+  "nom": "خُطَّةُ رِحْلَتي القادِمَةِ",
+  "anketaIzoh": "Kelgusi sayohatingizni rejalashtiring va kitobdagi jadvalni to'ldiring: shahar, sayohat sanasi, transport, muddat, o'zingiz bilan oladigan narsalar, turar joy va mashg'ulotlar. Insho kelasi zamonda («سَـ / سَوْفَ») yoziladi.",
+  "gap": [
+   [
+    "Kelasi oy Samarqandga boraman.",
+    [
+     "سَأُسافِرُ",
+     "إِلى",
+     "سَمَرْقَنْدَ",
+     "الشَّهْرَ",
+     "القادِمَ."
+    ],
+    [
+     "الماضِيَ",
+     "سافَرْتُ"
+    ]
+   ],
+   [
+    "Tezyurar poyezdda boraman, chunki u qulay.",
+    [
+     "سَأُسافِرُ",
+     "بِالقِطارِ",
+     "السَّريعِ",
+     "لِأَنَّهُ",
+     "مُريحٌ."
+    ],
+    [
+     "بِالطّائِرَةِ",
+     "لِأَنَّها"
+    ]
+   ],
+   [
+    "U yerda uch kun qolaman.",
+    [
+     "سَأَبْقى",
+     "هُناكَ",
+     "ثَلاثَةَ",
+     "أَيّامٍ."
+    ],
+    [
+     "أَسابيعَ",
+     "بَقيتُ"
+    ]
+   ],
+   [
+    "O'zim bilan kamera va issiq kiyim olaman.",
+    [
+     "سَآخُذُ",
+     "مَعي",
+     "كاميرا",
+     "وَمَلابِسَ",
+     "دافِئَةً."
+    ],
+    [
+     "أَخَذْتُ",
+     "خَفيفَةً"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "اسْمُ المَدينَةِ",
+    "مَوْعِدُ السَّفَرِ",
+    "وَسيلَةُ السَّفَرِ",
+    "مُدَّةُ السَّفَرِ",
+    "أَشْياءُ سَآخُذُها مَعي",
+    "مَكانُ الإِقامَةِ"
+   ],
+   "qator": [
+    "رِحْلَتي"
+   ]
+  },
+  "qolip": [
+   "سَأُسافِرُ إِلى … في …",
+   "سَأُسافِرُ مَعَ … بِـ … لِأَنَّ …",
+   "يَسْتَغْرِقُ الطَّريقُ مِنْ … إِلى … …",
+   "سَأَبْقى هُناكَ …",
+   "سَأُقيمُ في …",
+   "سَآخُذُ مَعي …",
+   "هُناكَ سَـ …"
+  ],
+  "namuna": [
+   [
+    "سَأُسافِرُ إِلى مَدينَةِ سَمَرْقَنْدَ في العُطْلَةِ الرَّبيعِيَّةِ إِنْ شاءَ اللّهُ.",
+    "Inshaalloh bahorgi ta'tilda Samarqandga boraman."
+   ],
+   [
+    "سَأُسافِرُ مَعَ أُسْرَتي بِالقِطارِ السَّريعِ «أَفْراسِياب»، لِأَنَّهُ سَريعٌ وَمُريحٌ.",
+    "Oilam bilan «Afrosiyob» tezyurar poyezdida boraman, chunki u tez va qulay."
+   ],
+   [
+    "يَسْتَغْرِقُ الطَّريقُ مِنْ طَشْقَنْدَ إِلى سَمَرْقَنْدَ ساعَتَيْنِ تَقْريبًا.",
+    "Toshkentdan Samarqandgacha yo'l taxminan ikki soat."
+   ],
+   [
+    "سَنَبْقى هُناكَ ثَلاثَةَ أَيّامٍ، وَسَنُقيمُ في فُنْدُقٍ قَريبٍ مِنْ ساحَةِ الرّيجِسْتانِ.",
+    "U yerda uch kun qolamiz, Registon maydoniga yaqin mehmonxonada turamiz."
+   ],
+   [
+    "سَآخُذُ مَعي الكاميرا وَمَلابِسَ مُريحَةً وَحِذاءً لِلمَشْيِ.",
+    "O'zim bilan kamera, qulay kiyim va yurish uchun poyabzal olaman."
+   ],
+   [
+    "هُناكَ سَنَزورُ الرّيجِسْتانَ وَشاهِ زِنْدَه وَمَرْصَدَ أُلوغْ بَيْك.",
+    "U yerda Registon, Shohizinda va Ulug'bek rasadxonasini ziyorat qilamiz."
+   ],
+   [
+    "وَسَنَأْكُلُ البِلوَ السَّمَرْقَنْدِيَّ وَنَشْتَري الخُبْزَ المَشْهورَ.",
+    "Samarqand oshini yeymiz va mashhur nonidan olamiz."
+   ],
+   [
+    "أَتَمَنّى أَنْ تَكونَ رِحْلَةً سَعيدَةً وَمُمْتِعَةً.",
+    "Baxtli va maroqli sayohat bo'lishini tilayman."
+   ]
+  ],
+  "reja": [
+   "Qayerga va qachon borishingizni kelasi zamonda yozdingizmi? (سَأُسافِرُ)",
+   "Transport va sababini yozdingizmi? (بِـ … لِأَنَّ)",
+   "Yo'l va qolish muddatini yozdingizmi? (يَسْتَغْرِقُ، سَأَبْقى)",
+   "Turar joy va oladigan narsalarni yozdingizmi?",
+   "U yerdagi mashg'ulotlarni yozdingizmi?"
+  ]
+ },
+ "31": {
+  "nom": "المُواصَلاتُ في بَلَدي",
+  "anketaIzoh": "Yurtingizda qaysi transportdan foydalanishingizni yozing: maktab/ishga, do'stlar bilan, ta'tilda. Kitobdagi qolip: «أَذْهَبُ إِلى … غالِبًا بِـ … لِأَنَّ …، وَلا أُحِبُّ أَنْ أَرْكَبَ … لِأَنَّ …».",
+  "gap": [
+   [
+    "Ishga ko'pincha metroda boraman.",
+    [
+     "أَذْهَبُ",
+     "إِلى",
+     "العَمَلِ",
+     "غالِبًا",
+     "بِالمِتْرو."
+    ],
+    [
+     "نادِرًا",
+     "يَذْهَبُ"
+    ]
+   ],
+   [
+    "Chunki u tez va arzon.",
+    [
+     "لِأَنَّهُ",
+     "سَريعٌ",
+     "وَرَخيصٌ."
+    ],
+    [
+     "بَطيءٌ",
+     "غالٍ"
+    ]
+   ],
+   [
+    "Avtobusda yurishni yoqtirmayman, chunki u gavjum.",
+    [
+     "لا",
+     "أُحِبُّ",
+     "أَنْ",
+     "أَرْكَبَ",
+     "الحافِلَةَ",
+     "لِأَنَّها",
+     "مُزْدَحِمَةٌ."
+    ],
+    [
+     "فارِغَةٌ",
+     "لِأَنَّهُ"
+    ]
+   ],
+   [
+    "Ta'tilda samolyotda uchaman.",
+    [
+     "في",
+     "أَيّامِ",
+     "العُطْلَةِ",
+     "أُسافِرُ",
+     "بِالطّائِرَةِ."
+    ],
+    [
+     "القِطارِ",
+     "يُسافِرُ"
+    ]
+   ]
+  ],
+  "oddiy": {
+   "ustun": [
+    "إِلى أَيْنَ؟",
+    "الوَسيلَةُ",
+    "لِماذا؟"
+   ],
+   "qator": [
+    "المَدْرَسَةُ / العَمَلُ",
+    "مَعَ الأَصْدِقاءِ",
+    "في العُطْلَةِ"
+   ]
+  },
+  "qolip": [
+   "في بَلَدي وَسائِلُ مُواصَلاتٍ كَثيرَةٌ مِثْلُ …",
+   "أَذْهَبُ إِلى … غالِبًا بِـ … لِأَنَّ …",
+   "وَلا أُحِبُّ أَنْ أَرْكَبَ … لِأَنَّ …",
+   "في أَيّامِ العُطْلَةِ …",
+   "… أَسْرَعُ مِنْ … لكِنَّ …"
+  ],
+  "namuna": [
+   [
+    "في بَلَدي وَسائِلُ مُواصَلاتٍ كَثيرَةٌ، مِثْلُ المِتْرو وَالحافِلَةِ وَسَيّارَةِ الأُجْرَةِ وَالقِطارِ.",
+    "Yurtimda metro, avtobus, taksi va poyezd kabi ko'p transport turlari bor."
+   ],
+   [
+    "أَذْهَبُ إِلى العَمَلِ غالِبًا بِالمِتْرو، لِأَنَّهُ سَريعٌ وَرَخيصٌ.",
+    "Ishga ko'pincha metroda boraman, chunki u tez va arzon."
+   ],
+   [
+    "مِتْرو طَشْقَنْدَ جَميلٌ جِدًّا، وَكُلُّ مَحَطَّةٍ فيهِ مِثْلُ المُتْحَفِ.",
+    "Toshkent metrosi juda chiroyli, har bir bekati muzeyga o'xshaydi."
+   ],
+   [
+    "وَلا أُحِبُّ أَنْ أَرْكَبَ الحافِلَةَ في الصَّباحِ، لِأَنَّها مُزْدَحِمَةٌ.",
+    "Ertalab avtobusda yurishni yoqtirmayman, chunki u gavjum."
+   ],
+   [
+    "عِنْدَما أَخْرُجُ مَعَ أَصْدِقائي نَرْكَبُ سَيّارَةَ أُجْرَةٍ.",
+    "Do'stlarim bilan chiqqanda taksiga o'tiramiz."
+   ],
+   [
+    "في أَيّامِ العُطْلَةِ أُسافِرُ إِلى سَمَرْقَنْدَ بِالقِطارِ السَّريعِ «أَفْراسِياب».",
+    "Ta'tilda Samarqandga «Afrosiyob» tezyurar poyezdida boraman."
+   ],
+   [
+    "القِطارُ أَسْرَعُ مِنَ الحافِلَةِ، لكِنَّ تَذْكِرَتَهُ أَغْلى.",
+    "Poyezd avtobusdan tezroq, lekin chiptasi qimmatroq."
+   ]
+  ],
+  "reja": [
+   "Yurtingizdagi transport turlarini yozdingizmi?",
+   "Ishga/maktabga nimada borishingizni sababi bilan yozdingizmi? (غالِبًا بِـ … لِأَنَّ)",
+   "Nimani yoqtirmasligingizni yozdingizmi? (لا أُحِبُّ أَنْ أَرْكَبَ)",
+   "Ta'tildagi safarni yozdingizmi?",
+   "«أَفْعَلُ مِنْ … لكِنَّ» bilan solishtirdingizmi?"
+  ]
+ },
+ "32": {
+  "nom": "الإِقامَةُ في الفُنْدُقِ",
+  "anketaIzoh": "Kitobdagi savollar bo'yicha mehmonxona haqida fikringizni yozing: mehmonxonani qayerdan izlaysiz, siz uchun nima muhim, eng yomoni nima, necha yulduzli bo'lishi kerak. Mehmonxona yoki ijara kvartira — qaysi biri yaxshiroq?",
+  "gap": [
+   [
+    "Mehmonxonani internetdan bron qilaman.",
+    [
+     "أَحْجِزُ",
+     "الفُنْدُقَ",
+     "عَبْرَ",
+     "الإِنْتَرْنِت."
+    ],
+    [
+     "بِالهاتِفِ",
+     "يَحْجِزُ"
+    ]
+   ],
+   [
+    "Men uchun tozalik eng muhim.",
+    [
+     "النَّظافَةُ",
+     "أَهَمُّ",
+     "شَيْءٍ",
+     "بِالنِّسْبَةِ",
+     "لي."
+    ],
+    [
+     "أَقَلُّ",
+     "لَكَ"
+    ]
+   ],
+   [
+    "Ikki kishilik xona kerak.",
+    [
+     "أُريدُ",
+     "غُرْفَةً",
+     "لِشَخْصَيْنِ."
+    ],
+    [
+     "لِشَخْصٍ",
+     "يُريدُ"
+    ]
+   ],
+   [
+    "Narxga nonushta kiradimi?",
+    [
+     "هَلِ",
+     "الفُطورُ",
+     "مَشْمولٌ",
+     "في",
+     "السِّعْرِ؟"
+    ],
+    [
+     "العَشاءُ",
+     "مَتى"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "أَيْنَ تَبْحَثُ عَنْ فُنْدُقٍ؟",
+    "Mehmonxonani qayerdan izlaysiz"
+   ],
+   [
+    "ما الأَشْياءُ المُهِمَّةُ لَكَ؟",
+    "Siz uchun nima muhim"
+   ],
+   [
+    "ما أَسْوَأُ شَيْءٍ في الإِقامَةِ؟",
+    "Eng yomon narsa"
+   ],
+   [
+    "كَمْ نَجْمَةً تُفَضِّلُ؟ لِماذا؟",
+    "Necha yulduz va nega"
+   ],
+   [
+    "الفُنْدُقُ أَمِ الشَّقَّةُ؟",
+    "Mehmonxonami yoki ijara kvartirami"
+   ]
+  ],
+  "qolip": [
+   "عِنْدَما أُريدُ أَنْ أَحْجِزَ فُنْدُقًا …",
+   "أَهَمُّ شَيْءٍ بِالنِّسْبَةِ لي …",
+   "أَسْوَأُ شَيْءٍ في الإِقامَةِ …",
+   "أُفَضِّلُ فُنْدُقًا … نُجومٍ لِأَنَّ …",
+   "أُفَضِّلُ الإِقامَةَ في … لِأَنَّ …"
+  ],
+  "namuna": [
+   [
+    "عِنْدَما أُريدُ أَنْ أُسافِرَ، أَبْحَثُ عَنْ فُنْدُقٍ في الإِنْتَرْنِت.",
+    "Safarga chiqmoqchi bo'lsam, mehmonxonani internetdan izlayman."
+   ],
+   [
+    "أَقْرَأُ آراءَ النّاسِ عَنِ الفُنْدُقِ قَبْلَ الحَجْزِ.",
+    "Bron qilishdan oldin odamlarning mehmonxona haqidagi fikrlarini o'qiyman."
+   ],
+   [
+    "أَهَمُّ شَيْءٍ بِالنِّسْبَةِ لي النَّظافَةُ وَالهُدوءُ.",
+    "Men uchun eng muhimi — tozalik va sokinlik."
+   ],
+   [
+    "وَمُهِمٌّ أَيْضًا أَنْ يَكونَ الفُنْدُقُ قَريبًا مِنْ وَسَطِ المَدينَةِ.",
+    "Mehmonxona shahar markaziga yaqin bo'lishi ham muhim."
+   ],
+   [
+    "أَسْوَأُ شَيْءٍ في الإِقامَةِ الغُرْفَةُ الوَسِخَةُ وَالضَّجيجُ.",
+    "Turar joydagi eng yomon narsa — iflos xona va shovqin."
+   ],
+   [
+    "أُفَضِّلُ فُنْدُقًا مِنْ أَرْبَعِ نُجومٍ، لِأَنَّ خِدْماتِهِ جَيِّدَةٌ وَسِعْرَهُ مُناسِبٌ.",
+    "To'rt yulduzli mehmonxonani afzal ko'raman, chunki xizmati yaxshi va narxi munosib."
+   ],
+   [
+    "أَمّا مَعَ عائِلَتي فَأُفَضِّلُ شَقَّةً مَفْروشَةً، لِأَنَّها أَوْسَعُ وَفيها مَطْبَخٌ.",
+    "Oilam bilan esa jihozlangan kvartirani afzal ko'raman, chunki u kengroq va oshxonasi bor."
+   ]
+  ],
+  "reja": [
+   "Mehmonxonani qanday izlashingizni yozdingizmi?",
+   "Siz uchun muhim narsalarni yozdingizmi? (أَهَمُّ شَيْءٍ)",
+   "Eng yomon narsani yozdingizmi? (أَسْوَأُ شَيْءٍ)",
+   "Necha yulduzli va nega ekanini yozdingizmi?",
+   "Mehmonxona va kvartirani solishtirdingizmi?"
+  ]
+ },
+ "33": {
+  "nom": "تَجْرِبَةُ السَّفَرِ",
+  "anketaIzoh": "Bir safaringizni kitobdagi reja bo'yicha yozing: qayerga, qanday bordingiz, safardan oldin nima qildingiz, aeroportda nima qildingiz. «إِذا» bilan maslahat ham bering.",
+  "gap": [
+   [
+    "O'tgan yili Madinaga safar qildim.",
+    [
+     "سافَرْتُ",
+     "إِلى",
+     "المَدينَةِ",
+     "المُنَوَّرَةِ",
+     "في",
+     "العامِ",
+     "الماضي."
+    ],
+    [
+     "القادِمِ",
+     "سافَرَ"
+    ]
+   ],
+   [
+    "Safardan oldin chipta va mehmonxonani bron qildim.",
+    [
+     "قَبْلَ",
+     "السَّفَرِ",
+     "حَجَزْتُ",
+     "التَّذْكِرَةَ",
+     "وَالفُنْدُقَ."
+    ],
+    [
+     "بَعْدَ",
+     "حَجَزَ"
+    ]
+   ],
+   [
+    "Aeroportda yuklarimni tekshirishdi.",
+    [
+     "فَتَّشوا",
+     "حَقائِبي",
+     "في",
+     "المَطارِ."
+    ],
+    [
+     "المَحَطَّةِ",
+     "فَتَّشَ"
+    ]
+   ],
+   [
+    "Agar safar qilsang, pasportingni unutma.",
+    [
+     "إِذا",
+     "سافَرْتَ",
+     "فَلا",
+     "تَنْسَ",
+     "جَوازَ",
+     "سَفَرِكَ."
+    ],
+    [
+     "تَذَكَّرْ",
+     "سافَرْتُ"
+    ]
+   ]
+  ],
+  "anketa": [
+   [
+    "أَيْنَ سافَرْتَ؟",
+    "Qayerga"
+   ],
+   [
+    "كَيْفَ سافَرْتَ؟",
+    "Qanday (samolyot, poyezd…)"
+   ],
+   [
+    "ماذا فَعَلْتَ قَبْلَ السَّفَرِ؟",
+    "Safardan oldin (viza, bron, yuk)"
+   ],
+   [
+    "ماذا فَعَلْتَ في المَطارِ؟",
+    "Aeroportda nima qildingiz"
+   ],
+   [
+    "ماذا فَعَلْتَ هُناكَ؟",
+    "U yerda nima qildingiz"
+   ],
+   [
+    "نَصيحَتُكَ لِلمُسافِرِ (إِذا …)",
+    "Safarga chiquvchiga maslahat"
+   ]
+  ],
+  "qolip": [
+   "سافَرْتُ إِلى … في …",
+   "قَبْلَ السَّفَرِ …",
+   "سافَرْتُ بِـ … وَاسْتَغْرَقَتِ الرِّحْلَةُ …",
+   "في المَطارِ …",
+   "عِنْدَما وَصَلْتُ …",
+   "إِذا سافَرْتَ فَـ …"
+  ],
+  "namuna": [
+   [
+    "سافَرْتُ إِلى المَدينَةِ المُنَوَّرَةِ في العامِ الماضي مَعَ والِدي.",
+    "O'tgan yili otam bilan Madinai Munavvaraga safar qildim."
+   ],
+   [
+    "قَبْلَ السَّفَرِ حَصَلْتُ عَلى التَّأْشيرَةِ، وَحَجَزْتُ التَّذاكِرَ وَالفُنْدُقَ.",
+    "Safardan oldin viza oldim, chipta va mehmonxonani bron qildim."
+   ],
+   [
+    "جَهَّزْتُ حَقيبَتي وَوَضَعْتُ فيها المَلابِسَ وَالأَدْوِيَةَ.",
+    "Sumkamni tayyorlab, unga kiyim va dorilarni soldim."
+   ],
+   [
+    "سافَرْنا بِالطّائِرَةِ، وَاسْتَغْرَقَتِ الرِّحْلَةُ خَمْسَ ساعاتٍ.",
+    "Samolyotda uchdik, parvoz besh soat davom etdi."
+   ],
+   [
+    "في المَطارِ وَزَنّا الحَقائِبَ، ثُمَّ فَتَّشوها وَخَتَموا جَوازاتِ السَّفَرِ.",
+    "Aeroportda yuklarni tortdik, keyin ularni tekshirib, pasportlarga muhr bosishdi."
+   ],
+   [
+    "عِنْدَما وَصَلْنا زُرْنا المَسْجِدَ النَّبَوِيَّ، وَشَعَرْتُ بِسَعادَةٍ كَبيرَةٍ.",
+    "Yetib kelgach, Masjidi Nabaviyni ziyorat qildik, men katta baxt his qildim."
+   ],
+   [
+    "كانَ الجَوُّ حارًّا جِدًّا، لكِنَّ الرِّحْلَةَ كانَتْ رائِعَةً.",
+    "Havo juda issiq edi, lekin safar ajoyib o'tdi."
+   ],
+   [
+    "إِذا سافَرْتَ فَاحْجِزْ مُبَكِّرًا، وَلا تَنْسَ جَوازَ سَفَرِكَ.",
+    "Agar safar qilsang, erta bron qil va pasportingni unutma."
+   ]
+  ],
+  "reja": [
+   "Qayerga va kim bilan borganingizni yozdingizmi?",
+   "Safarga tayyorgarlikni yozdingizmi? (قَبْلَ السَّفَرِ)",
+   "Qanday borganingiz va aeroportni yozdingizmi?",
+   "U yerda nima qilganingizni yozdingizmi?",
+   "«إِذا … فَـ» bilan maslahat berdingizmi?"
+  ]
+ }
+};
 function inshoDars(lv, j) {
   const D = INSHO_DARS[lv][j], T = INSHO_LV[lv][j], yopish = () => { document.body.classList.remove("lg-on"); $.classList.remove("lg-panel"); mode = "home"; render(); };
   document.body.classList.add("lg-on"); $.classList.add("lg-panel");
