@@ -35,9 +35,13 @@ jobs:
             "android": { "allowMixedContent": false }, "server": { "androidScheme": "https" } }
           EOF
           npx cap add android
-          mkdir -p assets && cp www/img/hobbi.png assets/icon-only.png && cp www/img/hobbi.png assets/icon-foreground.png
-          printf '#0f6b48' > /dev/null
-          npx capacitor-assets generate --android --iconBackgroundColor '#0f6b48' --splashBackgroundColor '#0f6b48' || true
+          mkdir -p assets
+          convert www/img/hobbi.png -resize 1024x1024 assets/icon-only.png
+          convert www/img/hobbi.png -resize 700x700 -gravity center -background none -extent 1024x1024 assets/icon-foreground.png
+          convert -size 1024x1024 xc:'#0f6b48' assets/icon-background.png
+          convert -size 2732x2732 xc:'#0f6b48' \( www/img/hobbi.png -resize 900x900 \) -gravity center -composite assets/splash.png
+          cp assets/splash.png assets/splash-dark.png
+          npx capacitor-assets generate --android
           npx cap sync android
       - name: Versiya va imzo
         working-directory: app/android
