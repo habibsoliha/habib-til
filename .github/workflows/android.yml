@@ -36,6 +36,7 @@ jobs:
           EOF
           npx cap add android
           mkdir -p assets
+          sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick >/dev/null
           convert www/img/hobbi.png -resize 1024x1024 assets/icon-only.png
           convert www/img/hobbi.png -resize 700x700 -gravity center -background none -extent 1024x1024 assets/icon-foreground.png
           convert -size 1024x1024 xc:'#0f6b48' assets/icon-background.png
