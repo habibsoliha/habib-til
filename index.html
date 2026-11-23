@@ -954,7 +954,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v255";
+const VERSION = "v256";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -3481,8 +3481,8 @@ function imtihonSavollar(lv, b) {
   // 2026-11-22 (rahbar): har bo'limning o'z imtihoni. 9 — darajaning umumiy imtihoni (bo'limlardan oldingi sahifa): hamma bo'limdan aralash
   if (b === 9) return sh([0, 1, 2, 3, 4, 5].flatMap(k => imtihonSavollar(lv, k).slice(0, k === 0 ? 4 : 5))).slice(0, 30);
   // nahv: shu darajadagi barcha nahv mavzulari testlaridan (A1 — video darslardan keyingi NAHV_TEST)
-  if (b === 1 && lv === 1 && NAHV_TEST.some(Boolean))
-    return sh(NAHV_TEST.filter(Boolean).flat()).slice(0, 25).map(([q, t, n]) => { const o = sh([t, ...n].slice(0, 4)); return { q, o, a: o.indexOf(t) }; });
+  if (b === 1 && (lv === 1 || lv === 2) && tL(lv).some(Boolean))
+    return sh(tL(lv).filter(Boolean).flat()).slice(0, 25).map(([q, t, n]) => { const o = sh([t, ...n].slice(0, 4)); return { q, o, a: o.indexOf(t) }; });
   // insho: shu darajadagi insho darslaridan — o'zbekcha gapning to'g'ri arabcha yozilishini tanlash (gap tuzish mashqlaridan)
   if (b === 2 && INSHO_DARS[lv]) {
     const G = Object.values(INSHO_DARS[lv]).flatMap(d => d.gap || []).map(([uz, Z, C]) => ({ uz, ar: Z.join(" "), C }));
@@ -25559,7 +25559,7 @@ function bolimScreen() {
     if (bolim === 5) return DIALOG[level] && DIALOG[level][+b.dataset.j] ? lingDars(level, +b.dataset.j) : muhodasaDars(level, +b.dataset.j);
     if (bolim === 4) return tarkibDars(level, +b.dataset.j);
     if (bolim === 2 && INSHO_DARS[level] && INSHO_DARS[level][+b.dataset.j]) return inshoDars(level, +b.dataset.j);
-    if (bolim === 1 && level === 1 && VIDEO_DARSLAR[+b.dataset.j]) return videoDars(+b.dataset.j);  // A1 nahv: montajor videolari mavzu tartibida
+    if (bolim === 1 && (level === 1 || level === 2) && vL(level)[+b.dataset.j]) return videoDars(+b.dataset.j, level);  // A1 nahv: montajor videolari mavzu tartibida
     const f = document.createElement("div"); f.className = "fb ok";
     const kk = bolim === 1 && NAHV_KUCH[level] && NAHV_KUCH[level][+b.dataset.j];
     f.innerHTML = (kk ? `⚡ Bu mavzu kuchi: <b>${kk}</b><br>` : "") + "Bu mavzu darsi tez orada qo'shiladi";
@@ -31563,6 +31563,15 @@ function hxHarf(k) {
   if (o) o.onclick = () => hxHarf(k - 1); if (n) n.onclick = () => hxHarf(k + 1);
 }
 // Video darslar: montajor tayyorlagan qisqa YouTube darslar (Ahmadov Habibulloh kanali), tartib bilan
+// A2 nahv videolari (A2-nahv-reja.md, 28 dars tartibida)
+var VIDEO_A2 = [
+  ["WrfcWBxZLGQ", "Kalom va uning qismlari", "الكَلامُ وَأَقْسامُهُ", ""],
+];
+var NAHV_TEST_A2 = [
+  [["Kalom nima?","To'liq ma'noli (foydali) gap",["Har qanday bitta harf","Faqat ismlar to'plami","Chala gap"]],["Qaysi biri kalom (to'liq gap)?","جاءَ مُحَمَّدٌ",["جاءَ","البَيْتُ…","العُصْفُورُ فَوْقَ…"]],["«العُصْفُورُ فَوْقَ…» nega kalom emas?","Ma'no to'liq emas: nimaning tepasida?",["Unda fe'l yo'q","Unda ism yo'q","Juda uzun"]],["Kalomning eng kami necha so'z bo'lishi mumkin?","Bitta so'z",["Ikki so'z","Uch so'z","To'rt so'z"]],["اُكْتُبْ nega to'liq kalom hisoblanadi?","Buyruq, foili «sen» — ma'no to'liq",["Unda tanvin bor","U ism","U harf"]],["Bitta harfli fe'lga misol qaysi?","عِ («angla!»)",["فِي","بِـ","يا"]],["Kalom nechta qismga bo'linadi?","3 ta: ism, fe'l, harf",["2 ta: ism va fe'l","4 ta","5 ta"]],["Ism qanday so'z?","Ma'nosi bor, zamoni yo'q",["Ma'nosi va zamoni bor","O'z ma'nosi yo'q","Faqat buyruq bildiradi"]],["Fe'l qanday so'z?","Ma'nosi va zamoni bor",["Ma'nosi bor, zamoni yo'q","O'z ma'nosi yo'q","Faqat tanvin oladi"]],["Harf qanday so'z?","O'zining ma'nosi yo'q, keyingi so'z bilan ma'no beradi",["Zamoni bor so'z","Tanvin oladigan so'z","ال oladigan so'z"]],["Harf o'zbekchadagi qaysi so'z turkumiga yaqin?","Ko'makchilar",["Fe'llar","Otlar","Sifatlar"]],["So'zning ism ekanini bilish uchun 5 ta belgidan nechtasi bo'lishi kerak?","Bittasi bo'lsa yetarli",["Hammasi shart","Kamida uchtasi","Kamida ikkitasi"]],["Qaysi so'z turi hech qachon tanvin olmaydi?","Fe'l",["Ism","Sifat","Masdar"]],["فِي البَيْتِ da البَيْتِ ning ism ekanini qaysi belgi ko'rsatadi?","الـ va harfi jardan keyin kelishi",["سَـ","Sokin ت","قَدْ"]],["بَعْلَبَكّ ال olmaydi. Uning ism ekanini nima ko'rsatadi?","فِي بَعْلَبَكَّ — harfi jardan keyin keladi",["Tanvin oladi","قَدْ qabul qiladi","سَوْفَ qabul qiladi"]],["«Isnod» belgisi nimani bildiradi?","Unga boshqa so'z bog'lanadi (مُسْنَدٌ إِلَيْهِ)",["Oxiriga tanvin qo'shiladi","Oldiga سَـ qo'shiladi","Oxiriga ت qo'shiladi"]],["Qaysi biri fe'l belgisi?","قَدْ",["الـ","Tanvin","يا (nido)"]],["Sokin ت (كَتَبَتْ) qaysi fe'lga qo'shiladi?","O'tgan zamon fe'liga",["Muzore fe'liga","Buyruq fe'liga","Ismga"]],["اُكْتُبَنَّ da fe'lning qaysi belgisi bor?","Ta'kid nuni",["Tanvin","الـ","Sokin ت"]],["سَيَقْرَأُ أَحْمَدُ كِتابًا gapida كِتابًا ning ism ekanini nima ko'rsatadi?","Tanvin",["سَـ","قَدْ","Sokin ت"]]],  // A2 1-dars
+];
+function vL(lv) { return lv === 2 ? VIDEO_A2 : VIDEO_DARSLAR; }
+function tL(lv) { return lv === 2 ? NAHV_TEST_A2 : NAHV_TEST; }
 var VIDEO_DARSLAR = [
   ["cX-p-S8SH28", "Muzakkar va muannas", "طَالِبٌ ← طَالِبَةٌ · ta marbuta bilan muannas yasash", "2:21"],
   ["aUCfTMbU28I", "Ya an-nisba (-lik qo'shimchasi)", "مِصْرُ ← مِصْرِيٌّ · مِصْرِيَّةٌ", "3:36"],
@@ -31600,14 +31609,14 @@ var VIDEO_DARSLAR = [
   ["wpmkoVSq2ok", "Ranglar", "الأَلْوانُ", ""],
 ];
 // A1 nahv yo'nalishidagi j-mavzu videosi; ko'rilgach mavzu o'tilgan hisoblanadi (keyingisi ochiladi)
-function videoDars(i) {
-  const [id, nom, izoh] = VIDEO_DARSLAR[i];
+function videoDars(i, lv = 1) {
+  const [id, nom, izoh] = vL(lv)[i];
   $.innerHTML = `<button class="back"><span>‹</span> Nahv va sarf</button><h2>${i + 1}-dars. ${nom}</h2>
     <div class="video" style="padding:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${id}?rel=0&playsinline=1" style="width:100%;height:100%;border:0" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
     <p class="ar" style="text-align:center;font-size:20px">${izoh}</p>
     <button class="main" id="vTayyor">Ko'rdim ✓</button>`;
   $.querySelector(".back").onclick = () => render();
-  $.querySelector("#vTayyor").onclick = () => NAHV_TEST[i] ? nahvTest(i) : (store.set(`bolim1-1-${i}`, true), render());
+  $.querySelector("#vTayyor").onclick = () => tL(lv)[i] ? nahvTest(i, 0, 0, lv) : (store.set(`bolim1-${lv}-${i}`, true), render());
 }
 // 2026-11-06: video darslardan keyingi test — [savol, to'g'ri, [noto'g'rilar]]; 70% dan yuqori — dars o'tildi
 const NAHV_TEST = [
@@ -31646,27 +31655,27 @@ const NAHV_TEST = [
   [["«Ular» (erkaklar) arabcha?","هُمْ",["هُنَّ","هُوَ","هِيَ"]],["«Ular» (ayollar) arabcha?","هُنَّ",["هُمْ","هِيَ","نَحْنُ"]],["Muzoreni «ular» (erkaklar)ga tuslashda oxiriga nima qo'shiladi?","ـُونَ",["نَ (shaddasiz)","ـُوا","ـَتْ"]],["Muzoreni «ular» (ayollar)ga tuslashda oxiriga nima qo'shiladi?","نَ (shaddasiz)",["ـُونَ","ـُوا","ـِينَ"]],["يَكْتُبُ → «ular (erkaklar) yozadilar»?","يَكْتُبُونَ",["يَكْتُبْنَ","كَتَبُوا","تَكْتُبُونَ"]],["«Ular (ayollar) boradilar» arabcha?","يَذْهَبْنَ",["يَذْهَبُونَ","ذَهَبْنَ","ذَهَبُوا"]],["يَجْلِسُونَ tarjimasi?","Ular (erkaklar) o'tiradilar",["Ular o'tirdilar","U o'tiradi","Ular (ayollar) o'tirdilar"]],["يَقْرَأْنَ tarjimasi?","Ular (ayollar) o'qiydilar",["Ular (erkaklar) o'qiydilar","Ular o'qidilar","U o'qiydi"]],["O'tgan zamonda «ular» (erkaklar) uchun nima qo'shiladi?","و (ـُوا)",["ـُونَ","نَ","ـَتْ"]],["O'tgan zamonda «ular» (ayollar) uchun nima qo'shiladi?","نَ",["و","ـُونَ","ـَتْ"]],["«Ular (erkaklar) bordilar» arabcha?","ذَهَبُوا",["يَذْهَبُونَ","ذَهَبْنَ","ذَهَبَتْ"]],["«Ular (ayollar) yozdilar» arabcha?","كَتَبْنَ",["يَكْتُبْنَ","كَتَبُوا","كَتَبَتْ"]],["سَكَنَ → «ular (ayollar) yashadilar»?","سَكَنَّ",["سَكَنُوا","يَسْكُنَّ","سَكَنْتُ"]],["يَسْكُنُونَ va سَكَنُوا farqi?","Birinchisi hozirgi zamon (boshida ي), ikkinchisi o'tgan zamon",["Farqi yo'q","Birinchisi o'tgan zamon","Ikkalasi ham ayollar uchun"]],["Hozirgi zamonni o'tgan zamondan qanday ajratamiz?","Hozirgi zamon boshida ي bor",["O'tgan zamon boshida ي bor","Oxiridagi و bilan","Ajratib bo'lmaydi"]],["يَغْسِلُ → «ular (erkaklar) yuvyaptilar»?","يَغْسِلُونَ",["يَغْسِلْنَ","غَسَلُوا","تَغْسِلُونَ"]],["يَغْسِلْنَ tarjimasi?","Ular (ayollar) yuvyaptilar",["Ular (erkaklar) yuvyaptilar","Ular yuvdilar","U yuvdi"]],["كَتَبُوا tarjimasi?","Ular (erkaklar) yozdilar",["Ular yozadilar","Biz yozdik","U yozdi"]],["هُمْ ... (o'qiydilar) — bo'sh joyga?","يَقْرَؤُونَ",["يَقْرَأْنَ","قَرَأَتْ","أَقْرَأُ"]],["هُنَّ ... (bordilar) — bo'sh joyga?","ذَهَبْنَ",["ذَهَبُوا","يَذْهَبُونَ","ذَهَبَ"]]],  // 32-dars
   [["Ranglarning lug'atdagi shakli qaysi?","Muzakkar (erkak) shakli",["Muannas shakli","Ko'plik shakli","Ikkilik shakli"]], ["أَحْمَر ma'nosi?","Qizil",["Yashil","Sariq","Ko'k"]], ["أَخْضَر ma'nosi?","Yashil",["Qizil","Qora","Oq"]], ["أَصْفَر ma'nosi?","Sariq",["Ko'k","Yashil","Qora"]], ["أَزْرَق ma'nosi?","Ko'k",["Sariq","Qizil","Oq"]], ["أَسْوَد ma'nosi?","Qora",["Oq","Qizil","Yashil"]], ["أَبْيَض ma'nosi?","Oq",["Qora","Sariq","Ko'k"]], ["Rangning muannas shakli qanday yasaladi?","Boshidagi hamza olinadi, oxiriga madd va hamza (ـاء) qo'shiladi",["Oxiriga ة qo'shiladi","Boshiga ال qo'shiladi","O'zgarmaydi"]], ["أَبْيَض ning muannasi?","بَيْضاء",["أَبْيَضَة","بَيْضَة","أَبْيَضاء"]], ["أَسْوَد ning muannasi?","سَوْداء",["أَسْوَدَة","سُود","أَسْوَداء"]], ["أَحْمَر ning muannasi?","حَمْراء",["أَحْمَرَة","حُمْر","أَحْمَراء"]], ["أَزْرَق ning muannasi?","زَرْقاء",["أَزْرَقَة","زُرْق","أَزْرَقاء"]], ["أَخْضَر ning muannasi?","خَضْراء",["أَخْضَرَة","خُضْر","أَخْضَراء"]], ["«Oq ko'ylak» arabcha?","قَمِيصٌ أَبْيَضُ",["قَمِيصٌ بَيْضاءُ","أَبْيَضُ قَمِيصٌ","قَمِيصٌ أَبْيَضَةٌ"]], ["«Oq mashina» arabcha?","سَيّارَةٌ بَيْضاءُ",["سَيّارَةٌ أَبْيَضُ","بَيْضاءُ سَيّارَةٌ","سَيّارَةٌ أَبْيَضَةٌ"]], ["حَقِيبَةٌ ... (qora) — bo'sh joyga?","سَوْداءُ",["أَسْوَدُ","سُودٌ","أَسْوَدَةٌ"]], ["قَلَمٌ ... (qora) — bo'sh joyga?","أَسْوَدُ",["سَوْداءُ","سَوْدَةٌ","سُودٌ"]], ["وَرْدَةٌ حَمْراءُ tarjimasi?","Qizil gul",["Sariq gul","Oq gul","Qizil eshik"]], ["بابٌ أَخْضَرُ tarjimasi?","Yashil eshik",["Ko'k eshik","Yashil mashina","Sariq uy"]], ["Qaysi birikmada xato bor?","بَيْتٌ صَفْراءُ",["بَيْتٌ أَصْفَرُ","سَيّارَةٌ بَيْضاءُ","قَمِيصٌ أَبْيَضُ"]]],  // 33-dars (metodist, 2026-11-22)
 ];
-function nahvTest(i, q = 0, ball = 0) {
-  const T = NAHV_TEST[i];
+function nahvTest(i, q = 0, ball = 0, lv = 1) {
+  const T = tL(lv)[i], V = vL(lv);
   if (q >= T.length) {
-    const ok = ball / T.length >= .7, eski = store.get(`bolim1-1-${i}`, null);
-    if (ok && !(eski && eski.ball / eski.n > ball / T.length)) store.set(`bolim1-1-${i}`, { ball, n: T.length });
-    sendResult({ lesson: `NAHV ${i + 1}: ${VIDEO_DARSLAR[i][1]}`, score: `${ball}/${T.length}`, xp: "" });
+    const ok = ball / T.length >= .7, eski = store.get(`bolim1-${lv}-${i}`, null);
+    if (ok && !(eski && eski.ball / eski.n > ball / T.length)) store.set(`bolim1-${lv}-${i}`, { ball, n: T.length });
+    sendResult({ lesson: `${lv === 2 ? "A2 " : ""}NAHV ${i + 1}: ${V[i][1]}`, score: `${ball}/${T.length}`, xp: "" });
     $.innerHTML = `<h2>${ok ? "🎉 Barakalla!" : "Yana bir urinib ko'ring"}</h2><p style="text-align:center;font-size:20px">${ball} / ${T.length} to'g'ri</p>
       <button class="main" id="nt">${ok ? "Davom etish ➜" : "Videoni qayta ko'rish"}</button>${ok ? "" : `<button class="o" id="nq" style="display:block;margin:10px auto">Testni qayta topshirish</button>`}`;
-    $.querySelector("#nt").onclick = () => ok ? render() : videoDars(i);
-    const nq = $.querySelector("#nq"); if (nq) nq.onclick = () => nahvTest(i);
+    $.querySelector("#nt").onclick = () => ok ? render() : videoDars(i, lv);
+    const nq = $.querySelector("#nq"); if (nq) nq.onclick = () => nahvTest(i, 0, 0, lv);
     return;
   }
   const [s, to, xa] = T[q], { o, a } = opt(to, xa, s.length * 7 + q * 3 + i);  // javob o'rni aralash (A,B,C,D ketma-ket emas)
-  $.innerHTML = `<button class="back"><span>‹</span> ${VIDEO_DARSLAR[i][1]}</button><p style="color:#777;margin:4px 0">Test · ${q + 1} / ${T.length}</p><h2 style="font-size:20px">${s}</h2>
+  $.innerHTML = `<button class="back"><span>‹</span> ${V[i][1]}</button><p style="color:#777;margin:4px 0">Test · ${q + 1} / ${T.length}</p><h2 style="font-size:20px">${s}</h2>
     <div style="display:grid;gap:10px">${o.map((x, k) => `<button class="o${/[؀-ۿ]/.test(x) ? " ar" : ""}" data-k="${k}" style="font-size:${/[؀-ۿ]/.test(x) ? 24 : 17}px">${x}</button>`).join("")}</div>`;
-  $.querySelector(".back").onclick = () => videoDars(i);
+  $.querySelector(".back").onclick = () => videoDars(i, lv);
   $.querySelectorAll("[data-k]").forEach(b => b.onclick = () => {
     const k = +b.dataset.k, yes = k === a;
     $.querySelectorAll("[data-k]").forEach(x => { x.disabled = true; if (+x.dataset.k === a) x.style.background = "#c8f0d0"; });
     if (!yes) b.style.background = "#f6c9c9";
-    setTimeout(() => nahvTest(i, q + 1, ball + (yes ? 1 : 0)), 900);
+    setTimeout(() => nahvTest(i, q + 1, ball + (yes ? 1 : 0), lv), 900);
   });
 }
 function husnixatScreen() {
