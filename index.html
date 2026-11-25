@@ -954,7 +954,7 @@ function sendResult(r) {
   // GET (rasm orqali) — Telegram ichida eng ishonchli usul
   try { new Image().src = SHEET_URL + "?d=" + encodeURIComponent(body) + "&t=" + Date.now(); return true; } catch { return false; }
 }
-const VERSION = "v264";
+const VERSION = "v266";
 // --- pullik kirish (MVP): birinchi BEPUL ta dars bepul, qolgani to'lovdan keyin. To'lov qo'lda olinadi,
 // administrator o'quvchining Telegram ID'si bo'yicha 6 xonali kod beradi (admin-kod.html), o'quvchi kodni kiritadi.
 const BEPUL = 3, ADMIN_TG = "habibacademy_1";  // ADMIN_TG — to'lov uchun yoziladigan Telegram username (rahbar beradi)
@@ -964,6 +964,7 @@ const tgId = () => String(((tg && tg.initDataUnsafe && tg.initDataUnsafe.user) |
 function kirishKodi(id, oy) { let h = 2166136261; for (const c of id + "|habib-til-2026|" + oy) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return String(100000 + h % 900000); }
 const oyKod = (n = 0) => { const d = new Date(); const t = new Date(d.getFullYear(), d.getMonth() - n, 1); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}`; };
 const OY_MS = 30 * 864e5;
+const SINOV_KOD = "731904";  // do'kon tekshiruvchilari (Google Play) uchun, muddatsiz, Telegram ID shart emas
 (() => { if (store.get("pullik", null) === true) store.set("pullik", { gacha: Date.now() + OY_MS, kod: "eski" }); })();  // eski (muddatsiz) to'lovchilarga 30 kun beriladi
 const pullikOchiq = () => { if (TEST || Date.now() < Date.parse("2026-12-06")) return true; /* 2026-11-06: 1 oy hammaga ochiq */ const p = store.get("pullik", null); return !!(p && p.gacha > Date.now()); };
 const pullikQoldi = () => { const p = store.get("pullik", null); return p && p.gacha ? Math.ceil((p.gacha - Date.now()) / 864e5) : 0; };
@@ -985,6 +986,7 @@ function tolovOyna() {
   o.querySelector("#kodOk").onclick = () => {
     const v = o.querySelector("#kodIn").value.trim();
     const eski = store.get("pullik", null), xato = t => o.querySelector("#kodXato").textContent = t;
+    if (v === SINOV_KOD) { store.set("pullik", { gacha: Date.parse("2099-01-01"), kod: v }); o.remove(); render(); return; }  // Google Play tekshiruvchilari uchun muddatsiz kod
     if (!tgId() || ![oyKod(0), oyKod(1)].some(m => v === kirishKodi(tgId(), m))) return xato("Kod noto'g'ri");
     if (eski && eski.kod === v) return xato("Bu kod avval ishlatilgan — administratordan yangi oy kodini oling");
     store.set("pullik", { gacha: Date.now() + OY_MS, kod: v }); sendResult({ lesson: "PULLIK OCHILDI (30 kun)", score: "", xp: "" }); o.remove(); render();
@@ -29942,6 +29944,48 @@ function sfx(tur, yasalgan) {
 }
 document.addEventListener("pointerdown", () => setTimeout(() => fonMusiqa(fonJoy()), 0), true);
 document.addEventListener("visibilitychange", () => fonMusiqa(fonJoy()));
+// Yozuv: lotin / kirill. Kirillda ekrandagi o'zbekcha matn avtomatik o'giriladi (arabcha matnga tegmaydi).
+const KIR_2 = { "o'": "ў", "g'": "ғ", "oʻ": "ў", "gʻ": "ғ", "sh": "ш", "ch": "ч", "ng": "нг", "yo": "ё", "yu": "ю", "ya": "я", "ye": "е" };
+const KIR_1 = { a:"а",b:"б",d:"д",e:"е",f:"ф",g:"г",h:"ҳ",i:"и",j:"ж",k:"к",l:"л",m:"м",n:"н",o:"о",p:"п",q:"қ",r:"р",s:"с",t:"т",u:"у",v:"в",x:"х",y:"й",z:"з",c:"ц","'":"ъ","ʼ":"ъ","’":"ъ" };
+function kirillga(s) {
+  if (!/[A-Za-z]/.test(s)) return s;
+  return s.replace(/\b(XP|ID|A1|A2|B1|B2|C1|C2|PDF|TV|Hobbi|HOBBI|CEFR|Multilevel|Pre|Habib Academy|Miftah|YouTube|Telegram|Google|https?:\/\/\S+)\b|[A-Za-z][A-Za-z'ʻʼ’]*/g, (w, keep) => {
+    if (keep) return w;
+    let r = "", i = 0;
+    while (i < w.length) {
+      const two = w.slice(i, i + 2), lo2 = two.toLowerCase(), c = w[i], lo = c.toLowerCase();
+      const big = c !== lo;
+      if (KIR_2[lo2] && !(lo2 === "ye" && i > 0)) { let k = KIR_2[lo2]; if (big) k = k[0].toUpperCase() + k.slice(1); r += k; i += 2; continue; }
+      if (lo === "e" && i === 0) { r += big ? "Э" : "э"; i++; continue; }
+      const k = KIR_1[lo]; r += k ? (big ? k.toUpperCase() : k) : c; i++;
+    }
+    return r;
+  });
+}
+const yozuvKir = () => store.get("yozuv", "lotin") === "kiril";
+const KIR_ASL = new WeakMap();
+function kirillQoll(root) {
+  if (!yozuvKir() || !root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => {
+    const p = n.parentElement; if (!p || /^(SCRIPT|STYLE|TEXTAREA|INPUT)$/.test(p.tagName) || p.closest("[data-lotin]")) return NodeFilter.FILTER_REJECT;
+    return /[A-Za-z]/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+  const L = []; while (w.nextNode()) L.push(w.currentNode);
+  L.forEach(n => { const k = kirillga(n.nodeValue); if (k !== n.nodeValue) { KIR_ASL.set(n, n.nodeValue); n.nodeValue = k; } });
+  root.querySelectorAll && root.querySelectorAll("[placeholder]").forEach(e => { if (/[A-Za-z]/.test(e.placeholder)) e.placeholder = kirillga(e.placeholder); });
+}
+let kirKut = 0;
+new MutationObserver(() => { if (!yozuvKir() || kirKut) return; kirKut = requestAnimationFrame(() => { kirKut = 0; kirillQoll(document.body); }); })
+  .observe(document.body, { childList: true, subtree: true, characterData: true });
+function yozuvTugma() {
+  let b = document.getElementById("yozuvBtn");
+  if (!b) { b = document.createElement("button"); b.id = "yozuvBtn"; b.setAttribute("data-lotin", "1");
+    b.style.cssText = "position:fixed;top:10px;left:10px;z-index:60;border:0;border-radius:14px;padding:5px 10px;font:700 13px system-ui;background:rgba(255,255,255,.92);color:#1f5a3a;box-shadow:0 2px 6px rgba(0,0,0,.2)";
+    b.onclick = () => { store.set("yozuv", yozuvKir() ? "lotin" : "kiril"); location.reload(); };
+    document.body.appendChild(b); }
+  b.textContent = yozuvKir() ? "Ўзб | Lotin" : "O'zb | Кирилл";
+  b.style.display = (mode === "home" || mode === "profil" || mode === "daftar") ? "" : "none";
+}
+setInterval(yozuvTugma, 700); yozuvTugma(); kirillQoll(document.body);
 // 🔊 tugmasi — menyu: ovozni tanlash (qushlar, suv, yomg'ir, shamol, navbat bilan) yoki ovozsiz
 (() => { const b = document.createElement("button"); b.id = "fonBtn"; const t = () => b.textContent = store.get("fonmusiqa", 1) ? "🔊" : "🔇"; t();
   b.onclick = e => {
