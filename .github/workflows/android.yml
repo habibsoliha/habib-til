@@ -52,6 +52,7 @@ jobs:
           KS_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
           printf '%s' "$KS_B64" | tr -d '\r\n ' | base64 -d > app/upload.p12
+          sed -i "s/minSdkVersion = [0-9]*/minSdkVersion = 24/" variables.gradle  # Google Play avtomatik himoya 24+ talab qiladi
           sed -i "s/versionCode [0-9]*/versionCode ${{ inputs.versionCode }}/; s/versionName \"[^\"]*\"/versionName \"${{ inputs.versionName }}\"/" app/build.gradle
           cat >> app/build.gradle <<EOF
           android {
